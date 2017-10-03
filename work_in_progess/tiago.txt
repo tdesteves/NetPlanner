@@ -1,0 +1,7 @@
+2017-10-02
+TO BE DONE
+- duas redes (rede de referência & rede realista diferente da do Vasco)
+- dimensionamento opaco e transparente (ILP (Matlab + LPSolve), Heuristica (NetPlan)) (pouco tráfego & muito trafego)
+- dimensionamento translucido (novidade) (ler artigos)
+
+
