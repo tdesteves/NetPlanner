@@ -1,0 +1,382 @@
+\documentclass[5pt]{article}
+\usepackage{mathptmx,amsmath}
+\usepackage{pdfslide2,pause}
+\usepackage{eurosym}
+\usepackage[portuguese,english]{babel}
+\usepackage{kerkis}
+\usepackage{colortbl} % used to highlight row or columns of tables. http://www.tug.org/pracjourn/2007-1/mori/mori.pdf
+\usepackage[small]{caption} % more option on http://www.dd.chalmers.se/latex/Docs/PDF/caption.pdf
+\usepackage[tight,scriptsize]{subfigure}
+\usepackage{lastpage}
+\usepackage{chngcntr}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{tabto}
+\usepackage{animate}
+%\usepackage{listings}
+\captionsetup{labelformat=empty,skip=-0.8cm}
+
+%\lstset{
+%    language=Matlab,                % choose the language of the code
+%    basicstyle=\ttfamily\tiny,       % the size of the fonts that are used for the code
+%    numbers=none,                   % where to put the line-numbers
+%    numberstyle=\tiny,              % the size of the fonts that are used for the line-numbers
+%    stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+%    numbersep=5pt,                  % how far the line-numbers are from the code
+%    backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+%    showspaces=false,               % show spaces adding particular underscores
+%    showstringspaces=false,         % underline spaces within strings
+%    showtabs=false,                 % show tabs within strings adding particular underscores
+%    tab=\rightarrowfill,
+%    frame=none,	                    % adds a frame around the code
+%    tabsize=2,	                    % sets default tabsize to 2 spaces
+%    captionpos=b,                   % sets the caption-position to bottom
+%    breaklines=true,                % sets automatic line breaking
+%    breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+%    title=\lstname,                 % show the filename of files included with \lstinputlisting; also try caption instead of title
+%    escapeinside={\%*}{*)},          % if you want to add a comment within your code
+%    morekeywords={ifftshift,fftshift},
+%    keywordstyle=\bfseries\color[rgb]{0,0,0.3},
+%    commentstyle=\color[rgb]{0.133,0.5,0.133}
+%}
+%\lstset{
+%    emph={function,end,for,if,while},
+%    emphstyle=\bfseries\color[rgb]{0.6,0,0},
+%}
+
+\definecolor{itblue}{rgb}{0.0,0.0,0.5}
+\definecolor{itred}{rgb}{0.82,0.18,0.24}
+\newcommand{\pageNum}{
+    \begin{picture}(0,0)(0,0)
+        \put(-15,-390){
+            \begin{minipage}{1.8cm}
+            \end{minipage}
+        }
+    \end{picture}
+}
+\newcommand{\cb}[1]{{\color{itblue} #1}}%
+\newcommand{\cred}[1]{{\color{itred} #1}}%
+\newcommand{\bb}[1]{{\textbf{\color{itblue} #1}}}%
+\newcommand{\br}[1]{{\textbf{\color{itred} #1}}}%
+\renewcommand{\labelitemi}{\textcolor{itred}{\normalsize $\bullet$}}
+\renewcommand{\labelitemii}{\textcolor{itblue}{$\bullet$}}
+\newcommand{\mysection}[1]{\section*{\pageNum\color{itred}\sffamily #1}\vspace*{0.5cm}\overlay{it_1.png}\sffamily}%
+\newcommand{\ITfootnote}[1]{\hspace{1.8cm}\begin{minipage}{13cm}\tiny{#1}\end{minipage}}
+\newcommand{\edfaGain}{$G=\exp\left(\frac{\alpha}{2}L_{span}\right)$}
+\newenvironment{reference}{
+    \begin{textblock*}{0.7\textwidth}(32mm,137mm)\tiny\noindent\bgroup\color{black}
+}
+{
+    \egroup\end{textblock*}
+}
+
+
+\graphicspath{{./Figures/}}
+\pagestyle{title}
+
+\hyphenpenalty=50000
+\tolerance=10000
+
+\setlength{\textheight}{1.5\textheight}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%************************************************************************************************
+%                                          SLIDE
+%************************************************************************************************
+\pagenumbering{roman}
+\begin{titlepage}  \overlay{it_0.png}
+
+\color{itblue} \sffamily \noindent \small
+\hspace*{1cm}  Universidade de Aveiro\\ %Instituto\\ Superior T�cnico, Instituto de Telecomunica��es\\
+\hspace*{1cm}  2016-2017\\ %Lisboa, 14th of February, 2013\\
+
+\vspace*{1cm}
+\begin{center}
+    \color{black} \sffamily \noindent \Large
+    \br{Oblivious Transfer Protocol\\}
+\end{center}
+\vspace{6mm}
+\begin{center}
+    \color{black}
+    \textbf{Mariana Ferreira Ramos\\}
+    {(marianaferreiraramos@ua.pt)}
+\end{center}
+
+\vspace{0.0mm}
+\scriptsize
+\begin{center}
+Department of Electronics, Telecommunications and Informatics,\\
+University of Aveiro, Aveiro, Portugal\\
+Instituto de Telecomunica\c{c}\~{o}es, Aveiro, Portugal\\
+\end{center}
+
+\vspace{1.0cm}
+\hspace*{13.2cm}\tiny \copyright 2005, it - instituto de telecomunica\c{c}\~{o}es\hfill
+
+\end{titlepage}
+
+
+\renewcommand{\headsep}{-25pt}
+\pagenumbering{arabic}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: starting conditions}\large
+\vspace*{0mm}
+\begin{itemize}
+    \item {Alice has two messages $m_1$ and $m_2$ and Bob wants to know one of them, $m_b$, without Alice knowing which one, i.e. without Alice knowing $b$, and Alice wants to keep the other message private, i.e. without Bob knowing $m_{\bar{b}}$.}\\[-5mm]
+    \item {First of all, Alice and Bob must know two parameters: message length $s$ and the expansion factor $k$.}
+    \item {Two basis are required: $'+'$ rectilinear basis and $'\times'$ diagonal basis.}
+    \item {For rectilinear basis we defined as a binary 0 the polarization of $0^{\circ}$ and a binary 1 the polarization of $90^{\circ}$.}
+    \item {For diagonal basis we defined as a binary 0 the polarization of $-45^{\circ}$ and a binary 1 the polarization of $45^{\circ}$. }
+\end{itemize}
+
+
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: starting conditions}\large
+\vspace{5mm}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+  \textbf{Bit} & \textbf{Basis} & \textbf{Degrees} & \textbf{Polarization} \\
+  0 & $+$ & $0^{\circ}$ & $\longrightarrow$ \\
+  0 & $\times$ & $-45^{\circ}$ & $\searrow$ \\
+  1 & $+$ & $90^{\circ}$ & $\uparrow$ \\
+  1 & $\times$ & $45^{\circ}$ & $\nearrow$ \\
+  \hline
+\end{tabular}
+
+\end{center}
+\vspace{5mm}
+\begin{itemize}
+  \item Alice has two messages to send to Bob: $m_{0} = \{0 0 1 1\}$ and $m_{1} = \{0 0 0 1\}$.
+  \item Lets assume that in this example Alice and Bob knows two start parameters: the message's size $s=4$ and a expansion factor $k=2$.
+\end{itemize}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: Description}\large
+\vspace*{0mm}
+\begin{description}
+  \item[Step 1] Alice randomly generates two bit sequences, with $ks$ length:
+  \begin{center}
+    \begin{tabular}{c|ccccccccc}
+      $S_{A1}$ & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 & \textbf{Basis}\\
+      & $+$ & $\times$ & $\times$ & $+$ & $+$ & $\times$ & $+$ & $\times$ &\\ \hline
+    \end{tabular}
+    
+    \vspace{5mm}
+    
+    \begin{tabular}{c|ccccccccc}
+      $S_{A2}$ & 1 & 1 & 0 & 0 & 0 & 1 & 0 & 0 & \textbf{Keys}\\
+      & $\uparrow$ & $\nearrow$ & $\searrow$ & $\longrightarrow$ & $\longrightarrow$ & $\nearrow$ & $\longrightarrow$ & $\searrow$ &\\ \hline
+    \end{tabular}
+  \end{center}
+  
+  \vspace{3mm}
+  
+  \item[Step 2] Alice sends to Bob throughout a quantum channel $ks$ photons encrypted using the basis defined in $S_{A1}$ and according to the keys defined in $S_{A2}$.
+      \begin{center}
+        $S_{AB} = \{\uparrow, \nearrow, \searrow, \to, \to, \nearrow, \to, \searrow \}$
+      \end{center}
+  
+\end{description}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: Description}\large
+\vspace*{0mm}
+
+\begin{description}
+  \item[Step 3] Bob also randomly generates $ks$ bits. Lets assume:
+    \begin{center}
+        $S_{B1} = \{0,1,0,1,0,1,1,1 \}$.
+    \end{center}
+    
+     When Bob receives photons from Alice, he measures them using the basis defined in $S_{B1}$:
+     
+     \begin{center}
+       $\{ +,\times,+,\times,+,\times, \times, \times \}$
+     \end{center}
+     
+      Bob will get $ks$ results:
+      
+      \begin{center}
+        $S_{B1'} = \{1,1,0,1,0,1,1,0 \}$
+      \end{center}
+  
+  \item[Step 4] Bob sends to Alice an Hash Function value HASH1, which will do Bob's commitment with the measurements done.
+\end{description}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: Description}\large
+\vspace*{0mm}
+
+\begin{description}
+  \item[Step 5] When Alice receives HASH1, she sends throughout a classical channel the basis she used to encode the photons. In this case, we have assumed:
+      
+      \begin{center}
+        $S_{A1} = \{0,1,1,0,0,1,0,1\}$
+      \end{center}
+      
+  \item[Step 6] In order to know if he measured the photons correctly, Bob does the operation $S_{B2}=S_{B1} \oplus S_{A1}$. 
+      
+      \begin{center}
+        \begin{tabular}{c|c c c c c c c c}
+         $S_{B1}$ & 0 & 1 & 0 & 1 & 0 & 1 & 1 & 1 \\
+         $S_{A1}$ & 0 & 1 & 1 & 0 & 0 & 1 & 0 & 1 \\ \hline
+         $\oplus$ & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 1
+        \end{tabular}
+      \end{center}
+      
+      The values $'1'$ correspond to the values he measured correctly and $'0'$ to the values he just guessed. Thus, $S_{B2} = \{1,1,0,0,1,1,0,1 \}$.
+
+\end{description}
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: Description}\large
+\vspace*{0mm}
+ 
+ \begin{description}
+   \item[Step 6 (cont)] Bob sends to Alice, through a classical channel, $n=min(\#0,\#1)=3$, where $\#0$ represents the number of zeros in $S_{B2}$ and $\#1$ the number of ones in $S_{B2}$.
+   \item[Step 7] If $n<s$, Alice and Bob will repeat the steps from $1$ to $7$. In this case, $n=3$ which is smaller than $s=4$. Therefore, Alice and Bob repeat the steps from 1 to 7 in order to enlarge Bob's sets $S_{B1}$ and $S_{B2}$ as well as Alice's sets $S_{A1}$ and $S_{A2}$.
+   \item[Step 8] Lets assume :
+        \begin{center}
+          $S_{B1}= \{1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,1 \},$
+          $S_{A1}=\{0,1,1,0,0,1,0,1,1,1,0,0,1,1,1,0 \},$
+          $S_{A2}=\{1,1,0,0,0,1,0,0,1,0,1,0,0,0,1,1 \}.$
+        \end{center}
+        
+       
+ \end{description}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE -------------------------------------------------------------------------------
+
+\mysection{ \\[-5mm]1-out-of-2 OT Protocol: Description}\large
+\vspace*{0mm}
+
+\begin{description}
+  \item[Step 8 (cont)]  Finally, for $S_{B2}=S_{B1} \oplus S_{A1}$:
+        \begin{center}
+          $S_{B2}= \{1,1,0,0,1,1,0,1,0,1,0,0,1,1,0,1 \}.$
+        \end{center}
+
+        Note that the sets were enlarge in the second iteration.
+  \vspace{5mm}
+  \item[Step 9] At this time, Bob sends again to Alice, through a classical channel, $n=min(\#0,\#1)=7$.
+  \vspace{5mm}
+  \item[Step 10] Alice checks if $n>s$ and acknowledge to Bob that she already knows that $n>s$. In this case, $n=7$ and $s=4$ being $n>s$ a valid condition.
+\end{description}
+
+
+
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE-------
+\mysection{1-out-of-2 OT Protocol: Description}\large
+\vspace{0.4cm}
+\begin{description}
+  \item[Step 11] Bob defines two new sub-sets, $I_{0}$ and $I_{1}$.In this example, Bob defines two sub-sets with size $s=4$:
+      \begin{center}
+        $I_{0}=\{3,4,7,11 \},$
+        $I_{1}= \{2,5,6,13 \}.$
+      \end{center}
+      Bob sends to Alice the set $S_{b}$.
+      If Bob wants to know $m_{0}$ he must send to Alice throughout a classical channel the set $S_{0}=\{I_{1},I_{0} \}$, otherwise if he wants to know $m_{1}$ he must send to Alice throughout a classical channel the set $S_{1}=\{I_{0},I_{1} \}$.
+  \item[Step 12]  With both the received set $S_{b}$ and the hash function value HASH1, Alice must be able to prove that Bob has being honest. \textbf{HOW???}
+\end{description}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE-------
+\mysection{1-out-of-2 OT Protocol: Description}\large
+\vspace{0cm}
+
+\begin{description}
+  \item[Step 13] Lets assume Bob sent $S_{0}=\{I_{1},I_{0} \}$. Alice defines two encryption keys $K_{0}$ and $K_{1}$ using the values in positions defined by Bob in the set sent by him. In this example, lets assume: 
+      \begin{center}
+        $K_{0}=\{1,0,1,0\}$ and $K_{1}=\{0,0,0,1\}.$
+      \end{center}
+  
+       Alice does the operation  $m = \{m_{0}\oplus K_{0}, m_{1} \oplus K_{1} \}.$
+       \vspace{5mm}
+       \begin{center}
+         \begin{tabular}{c|c c c c c c c c}
+             $m_{0}$ & 0 & 0 & 1 & 1 \\
+             $K_{0}$ & 1 & 0 & 1 & 0 \\ \hline
+             $\oplus$ & 1 & 0 & 0 & 1
+         \end{tabular}
+         \quad
+         \begin{tabular}{c|c c c c c c c c}
+             $m_{1}$ & 0 & 0 & 0 & 1 \\
+             $K_{1}$ & 0 & 0 & 0 & 1 \\ \hline
+             $\oplus$ & 0 & 0 & 0 & 0
+         \end{tabular}
+       \end{center}
+       \vspace{5mm}  
+       
+    Adding the two results, Alice will send to Bob the encoded message $m=\{1,0,0,1,0,0,0,0\}.$
+\end{description}
+
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE--------------------------------------------------------------------------------
+\mysection{1-out-of-2 OT Protocol: Description}\large
+\vspace{0cm}
+
+\begin{description}
+  \item[Step 14] When Bob receives the message $m$, in the same way as Alice, Bob uses $S_{B1'}$ values of positions given by $I_{1}$ and $I_{0}$ and does the decrypted operation:
+      
+      \begin{center}
+        \begin{tabular}{c|c c c c c c c c}
+         $m$ & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+             & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 \\ \hline
+         $\oplus$ & 0 & 0 & 1 & 1 & 0 & 1 & 1 & 0 \\
+        \end{tabular}
+      \end{center}
+      
+      \vspace{6mm}
+      The first four bits corresponds to message 1 and he received $\{0,0,1,1\}$, which is the right message $m_{0}$ and $\{0,1,1,0\}$ which is a wrong message for $m_{1}$.
+      
+
+\end{description}
+
+%--------------------------------------------------------------------------------------------------
+%------------ SLIDE--------------------------------------------------------------------------------
+\mysection{1-out-of-2 OT Protocol: Open Issues}\large
+\vspace{0.4cm}
+\textbf{Steps $4$ and $12$ are not fully defined.}
+\begin{enumerate}
+  \item In step $4$ Bob may says to Alice that he has already measured the photon and it could be a lie. In order to prevent this an Hash Function must be used.
+
+  \item In step $12$ Bob may uses some values in a dishonest way, i.e Bob can pick values from $I_{1}$ which he knows they are correct and send them in $I_{0}$ in order to know correct information about message $m_{\bar{b}}$.
+\end{enumerate}
+
+This problems can hopefully be solved using \textit{Bit Commitment} through \textit{Hash Functions}.
+
+
+
+
+
+
+%-------------------------------------------------------------------
+%------------ SLIDE ------------------------------------------------
+\mysection{} \sffamily
+\vspace{-10mm}
+\large\centerline{E-mail: marianaferreiraramos@ua.pt}
+
+
+\end{document}
