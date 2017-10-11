@@ -1,3 +1,20 @@
+2017-10-11
+TO BE DONE
+- duas redes (rede de referência & rede realista diferente da do Vasco)
+	http://www.av.it.pt/anp/on/refnet2.html
+
+- dimensionamento opaco e transparente (ILP (Matlab + LPSolve), Heuristica (NetPlan)) (pouco tráfego & muito trafego)
+	Para a rede de referência & para a rede realista
+	Pouco tráfego: 0.1 Tbps por nó
+	Muito tráfego: 1 Tbps por nó
+
+- instalar o latex, e um edito TEX
+	colocar o objetivo e a metodologia
+		Objetivo: desenvolver ilp e heuristicas para redes translucidas e integralos no net2plan
+		metodologia: definir duas redes (uma de referência e uma realistas) e valida as heuristicas com ILPs na rede de referência
+
+
+
 2017-10-02
 TO BE DONE
 - duas redes (rede de referência & rede realista diferente da do Vasco)
