@@ -1,3 +1,13 @@
+2017-10-18
+TO BE DONE
+	- trabalhar documento
+		- acabar a parte da metodologia
+		- inserir a rede de referência e a rede realista
+		- ILPs para a rede referência no modo opaco com proteção 1+1
+
+	- resultaods dos ILPs para a rede referência no modo opaco com proteção 1+1
+
+
 2017-10-11
 TO BE DONE
 - duas redes (rede de referência & rede realista diferente da do Vasco) ----- este ponto está feito -----
