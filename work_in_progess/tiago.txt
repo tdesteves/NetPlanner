@@ -1,9 +1,9 @@
 2017-10-18
 TO BE DONE
 	- trabalhar documento
-		- acabar a parte da metodologia
-		- inserir a rede de referência e a rede realista
-		- ILPs para a rede referência no modo opaco com proteção 1+1
+		- acabar a parte da metodologia ----- este ponto está feito -----
+		- inserir a rede de referência e a rede realista ----- este ponto está feito -----
+		- ILPs para a rede referência no modo opaco com proteção 1+1 ----- este ponto está feito -----
 
 	- resultaods dos ILPs para a rede referência no modo opaco com proteção 1+1
 

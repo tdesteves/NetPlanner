@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.5.9)  18 OCT 2017 14:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  2 NOV 2017 15:44
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
 LaTeX2e <2017-04-15>
-Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
+Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
 (style/phdthesis.cls
 
 LaTeX Warning: You have requested document class `./style/phdthesis',
@@ -141,7 +141,7 @@ Package: inputenc 2015/03/17 v1.2c Input encoding file
 File: ansinew.def 2015/03/17 v1.2c Input encoding file
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
-Package: babel 2016/04/23 3.9r The Babel package
+Package: babel 2017/05/19 3.10 The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
@@ -154,7 +154,7 @@ File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
-File: babel.def 2016/04/23 3.9r Babel common definitions
+File: babel.def 2017/05/19 3.10 Babel common definitions
 \babel@savecnt=\count101
 \U@D=\dimen116
 )
@@ -186,16 +186,17 @@ Package: a4 2004/04/15 v1.2g A4 based page layout
 Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
-Package: fancyhdr 2016/09/06 3.8 Extensive control of page headers and footers
-\fancy@headwidth=\skip49
-\f@ncyO@elh=\skip50
-\f@ncyO@erh=\skip51
-\f@ncyO@olh=\skip52
-\f@ncyO@orh=\skip53
-\f@ncyO@elf=\skip54
-\f@ncyO@erf=\skip55
-\f@ncyO@olf=\skip56
-\f@ncyO@orf=\skip57
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip49
+\f@nch@O@elh=\skip50
+\f@nch@O@erh=\skip51
+\f@nch@O@olh=\skip52
+\f@nch@O@orh=\skip53
+\f@nch@O@elf=\skip54
+\f@nch@O@erf=\skip55
+\f@nch@O@olf=\skip56
+\f@nch@O@orf=\skip57
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fancybox\fancybox.sty"
 Package: fancybox 2010/05/15 1.4
@@ -540,7 +541,7 @@ Package: fp-eval 1995/04/03
 \dtl@omitlines=\count154
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries.sty"
-Package: glossaries 2017/01/19 v4.29 (NLCT)
+Package: glossaries 2017/09/20 v4.33 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\mfirstuc\mfirstuc.sty"
 Package: mfirstuc 2016/07/31 v2.04 (NLCT)
@@ -552,7 +553,7 @@ Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries-compatible-3
 07.sty"
-Package: glossaries-compatible-307 2017/01/19 v4.29 (NLCT)
+Package: glossaries-compatible-307 2017/09/20 v4.33 (NLCT)
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\tracklang\tracklang.sty"
 Package: tracklang 2017/03/25 v1.3.4 (NLCT) Track Languages
 
@@ -578,12 +579,12 @@ File: glossaries-portuges.ldf 2014/11/23 v1.0
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-hypernav.sty
 "
-Package: glossary-hypernav 2017/01/19 v4.29 (NLCT)
+Package: glossary-hypernav 2017/09/20 v4.33 (NLCT)
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-list.sty"
-Package: glossary-list 2017/01/19 v4.29 (NLCT)
+Package: glossary-list 2017/09/20 v4.33 (NLCT)
 \glslistdottedwidth=\skip69
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-long.sty"
-Package: glossary-long 2017/01/19 v4.29 (NLCT)
+Package: glossary-long 2017/09/20 v4.33 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\longtable.sty"
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
@@ -607,7 +608,7 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \glspagelistwidth=\skip75
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-super.sty"
-Package: glossary-super 2017/01/19 v4.29 (NLCT)
+Package: glossary-super 2017/09/20 v4.33 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\supertabular\supertabular.sty"
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
@@ -629,7 +630,7 @@ Package: supertabular 2004/02/20 v4.1e the supertabular environment
 \ST@pbox=\box38
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-tree.sty"
-Package: glossary-tree 2017/01/19 v4.29 (NLCT)
+Package: glossary-tree 2017/09/20 v4.33 (NLCT)
 \glstreeindent=\skip79
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
@@ -739,7 +740,7 @@ Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
 \mc@col@check@num=\count174
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tcolorbox\tcolorbox.sty"
-Package: tcolorbox 2017/07/05 version 4.10 text color boxes
+Package: tcolorbox 2017/09/14 version 4.11 text color boxes
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\basiclayer\pgf.sty"
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\utilities\pgfrcs.sty"
@@ -1201,28 +1202,157 @@ Package babel Info: Redefining portuges shorthand "|
 
 
 ]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 2.
+Underfull \hbox (badness 2073) in paragraph at lines 7--8
+[]|\T1/ppl/m/n/10.95 Implement the di-men-si-o-ning of op-ti-cal networks in th
+e
+ []
 
-Overfull \hbox (7.33366pt too wide) in paragraph at lines 5--10
+
+Overfull \hbox (7.33366pt too wide) in paragraph at lines 4--9
 [][] 
  []
 
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 11.
+LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 13.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 13.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 22.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 34.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 36.
+<./figures/RedeTeste.jpg, id=144, 572.1375pt x 195.73125pt>
+File: ./figures/RedeTeste.jpg Graphic file (type jpg)
+
+<use ./figures/RedeTeste.jpg>
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 42.
+(pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 68.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 68.
+[6
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 76.
+ <./figures/EON_Rede_Realista.jpg, id=155, 605.26125pt x 414.04688pt>
+File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
+
+<use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 83.
+
+(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 85.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 85.
+ [7 <./figures/RedeTeste.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 115.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 117.
+
+<./figures/ILP_Opaque.jpg, id=164, 438.13687pt x 242.40562pt>
+File: ./figures/ILP_Opaque.jpg Graphic file (type jpg)
+
+<use ./figures/ILP_Opaque.jpg>
+Package pdftex.def Info: ./figures/ILP_Opaque.jpg used on input line 121.
+(pdftex.def)             Requested size: 438.13579pt x 242.40501pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 123.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 123.
+ [8 <./figures/EON_Rede_Realista.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 126.
+
+<./figures/ILP_Transp.jpg, id=171, 449.42906pt x 228.855pt>
+File: ./figures/ILP_Transp.jpg Graphic file (type jpg)
+
+<use ./figures/ILP_Transp.jpg>
+Package pdftex.def Info: ./figures/ILP_Transp.jpg used on input line 132.
+(pdftex.def)             Requested size: 449.42795pt x 228.85443pt.
+
+Overfull \hbox (6.7742pt too wide) in paragraph at lines 132--133
+ [][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 133.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 133.
+[9 <./figures/ILP_Opaque.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 137.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 139.
+
+<./figures/CAPEX.jpg, id=177, 618.05907pt x 59.47218pt>
+File: ./figures/CAPEX.jpg Graphic file (type jpg)
+
+<use ./figures/CAPEX.jpg>
+Package pdftex.def Info: ./figures/CAPEX.jpg used on input line 145.
+(pdftex.def)             Requested size: 442.65375pt x 42.59488pt.
+
+<./figures/CAPEX2.jpg, id=178, 188.95593pt x 47.42719pt>
+File: ./figures/CAPEX2.jpg Graphic file (type jpg)
+
+<use ./figures/CAPEX2.jpg>
+Package pdftex.def Info: ./figures/CAPEX2.jpg used on input line 151.
+(pdftex.def)             Requested size: 188.95546pt x 47.42706pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<./figures/TabValor.jpg, id=179, 258.9675pt x 155.83218pt>
+File: ./figures/TabValor.jpg Graphic file (type jpg)
+
+<use ./figures/TabValor.jpg>
+Package pdftex.def Info: ./figures/TabValor.jpg used on input line 159.
+(pdftex.def)             Requested size: 258.96684pt x 155.8318pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 165.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 168.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 168.
+[10 <./figures/ILP_Transp.jpg> <./figures/CAPEX.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 191.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 197.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 197.
+ [11 <./figures/CAPEX2.jpg> <./figures/TabValor.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 217.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 219.
 ))
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 27.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 27.
- [6
-
-]
+ [12]
 No file main_netplanner.gls.
 No file main_netplanner.acr.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 60.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 60.
-[7
+[13
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 60.
@@ -1233,25 +1363,26 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 60.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
 Package rerunfilecheck Info: File `main_netplanner.out' has not changed.
-(rerunfilecheck)             Checksum: BEDC595E6A6966A2D7F70B5D07E824DD;464.
+(rerunfilecheck)             Checksum: B94A72052AA7545639FD1DE2A255A117;1503.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
  ) 
 Here is how much of TeX's memory you used:
- 24852 strings out of 493328
- 449224 string characters out of 3139131
- 586353 words of memory out of 3000000
- 27807 multiletter control sequences out of 15000+200000
- 22375 words of font info for 54 fonts, out of 3000000 for 9000
+ 25034 strings out of 493323
+ 452374 string characters out of 3139065
+ 594395 words of memory out of 3000000
+ 27951 multiletter control sequences out of 15000+200000
+ 23824 words of font info for 56 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,10n,94p,1982b,418s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 58i,10n,94p,2034b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/u
-rw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/up
-lr8a.pfb>
-Output written on main_netplanner.pdf (8 pages, 73194 bytes).
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palat
+ino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb
+>
+Output written on main_netplanner.pdf (14 pages, 425306 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
- 77 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 233 PDF objects out of 1000 (max. 8388607)
+ 49 named destinations out of 1000 (max. 500000)
+ 224 words of extra memory for PDF output out of 10000 (max. 10000000)
 
