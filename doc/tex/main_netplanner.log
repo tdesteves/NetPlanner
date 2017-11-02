@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.5.9)  18 OCT 2017 14:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  2 NOV 2017 12:10
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
 LaTeX2e <2017-04-15>
-Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
+Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
 (style/phdthesis.cls
 
 LaTeX Warning: You have requested document class `./style/phdthesis',
@@ -141,7 +141,7 @@ Package: inputenc 2015/03/17 v1.2c Input encoding file
 File: ansinew.def 2015/03/17 v1.2c Input encoding file
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
-Package: babel 2016/04/23 3.9r The Babel package
+Package: babel 2017/05/19 3.10 The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
@@ -154,7 +154,7 @@ File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
-File: babel.def 2016/04/23 3.9r Babel common definitions
+File: babel.def 2017/05/19 3.10 Babel common definitions
 \babel@savecnt=\count101
 \U@D=\dimen116
 )
@@ -186,16 +186,17 @@ Package: a4 2004/04/15 v1.2g A4 based page layout
 Package: palatino 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
-Package: fancyhdr 2016/09/06 3.8 Extensive control of page headers and footers
-\fancy@headwidth=\skip49
-\f@ncyO@elh=\skip50
-\f@ncyO@erh=\skip51
-\f@ncyO@olh=\skip52
-\f@ncyO@orh=\skip53
-\f@ncyO@elf=\skip54
-\f@ncyO@erf=\skip55
-\f@ncyO@olf=\skip56
-\f@ncyO@orf=\skip57
+Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
+s
+\f@nch@headwidth=\skip49
+\f@nch@O@elh=\skip50
+\f@nch@O@erh=\skip51
+\f@nch@O@olh=\skip52
+\f@nch@O@orh=\skip53
+\f@nch@O@elf=\skip54
+\f@nch@O@erf=\skip55
+\f@nch@O@olf=\skip56
+\f@nch@O@orf=\skip57
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fancybox\fancybox.sty"
 Package: fancybox 2010/05/15 1.4
@@ -540,7 +541,7 @@ Package: fp-eval 1995/04/03
 \dtl@omitlines=\count154
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries.sty"
-Package: glossaries 2017/01/19 v4.29 (NLCT)
+Package: glossaries 2017/09/20 v4.33 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\mfirstuc\mfirstuc.sty"
 Package: mfirstuc 2016/07/31 v2.04 (NLCT)
@@ -552,7 +553,7 @@ Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries-compatible-3
 07.sty"
-Package: glossaries-compatible-307 2017/01/19 v4.29 (NLCT)
+Package: glossaries-compatible-307 2017/09/20 v4.33 (NLCT)
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\tracklang\tracklang.sty"
 Package: tracklang 2017/03/25 v1.3.4 (NLCT) Track Languages
 
@@ -578,12 +579,12 @@ File: glossaries-portuges.ldf 2014/11/23 v1.0
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-hypernav.sty
 "
-Package: glossary-hypernav 2017/01/19 v4.29 (NLCT)
+Package: glossary-hypernav 2017/09/20 v4.33 (NLCT)
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-list.sty"
-Package: glossary-list 2017/01/19 v4.29 (NLCT)
+Package: glossary-list 2017/09/20 v4.33 (NLCT)
 \glslistdottedwidth=\skip69
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-long.sty"
-Package: glossary-long 2017/01/19 v4.29 (NLCT)
+Package: glossary-long 2017/09/20 v4.33 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\longtable.sty"
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
@@ -607,7 +608,7 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \glspagelistwidth=\skip75
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-super.sty"
-Package: glossary-super 2017/01/19 v4.29 (NLCT)
+Package: glossary-super 2017/09/20 v4.33 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\supertabular\supertabular.sty"
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
@@ -629,7 +630,7 @@ Package: supertabular 2004/02/20 v4.1e the supertabular environment
 \ST@pbox=\box38
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\styles\glossary-tree.sty"
-Package: glossary-tree 2017/01/19 v4.29 (NLCT)
+Package: glossary-tree 2017/09/20 v4.33 (NLCT)
 \glstreeindent=\skip79
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
@@ -739,7 +740,7 @@ Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
 \mc@col@check@num=\count174
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tcolorbox\tcolorbox.sty"
-Package: tcolorbox 2017/07/05 version 4.10 text color boxes
+Package: tcolorbox 2017/09/14 version 4.11 text color boxes
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\basiclayer\pgf.sty"
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\utilities\pgfrcs.sty"
@@ -955,303 +956,4 @@ File: pgfcorepatterns.code.tex 2013/11/07  (rcs-revision 1.5)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\modules\pgfmoduleshapes.code.tex"
 File: pgfmoduleshapes.code.tex 2014/03/21  (rcs-revision 1.35)
 \pgfnodeparttextbox=\box71
-) ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\modules\pgfmoduleplot.code.tex"
-File: pgfmoduleplot.code.tex 2015/08/03  (rcs-revision 1.13)
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\compatibility\pgfcomp-version-0-65.
-sty"
-Package: pgfcomp-version-0-65 2007/07/03 v3.0.1a (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen261
-\pgf@nodesepend=\dimen262
-)
-("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\compatibility\pgfcomp-version-1-18.
-sty"
-Package: pgfcomp-version-1-18 2007/07/23 v3.0.1a (rcs-revision 1.1)
-)) ("C:\Program Files\MiKTeX 2.9\tex\latex\environ\environ.sty"
-Package: environ 2014/05/04 v0.3 A new way to define environments
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\trimspaces\trimspaces.sty"
-Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
-))
-\tcb@titlebox=\box72
-\tcb@upperbox=\box73
-\tcb@lowerbox=\box74
-\tcb@phantombox=\box75
-\c@tcbbreakpart=\count185
-\c@tcblayer=\count186
-\tcolorbox@number=\count187
-\tcb@temp=\box76
-\tcb@temp=\box77
-\tcb@temp=\box78
-\tcb@temp=\box79
-\tcb@out=\write7
-\tcb@record@out=\write8
-))
-\@input{./style/my_commands.aux}
-\openout2 = `./style/my_commands.aux'.
-
-(style/my_commands.tex)
-\@indexfile=\write9
-\openout9 = `main_netplanner.idx'.
-
-
-Writing index file main_netplanner.idx
-(main_netplanner.aux (chapter/introduction.aux)
-(chapter/simulator_structure.aux) (chapter/development_cycle.aux)
-(chapter/case_studies.aux))
-\openout1 = `main_netplanner.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Try loading font information for T1+ppl on input line 9.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ppl.fd"
-File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
-)
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count188
-\scratchdimen=\dimen263
-\scratchbox=\box80
-\nofMPsegments=\count189
-\nofMParguments=\count190
-\everyMPshowfont=\toks75
-\MPscratchCnt=\count191
-\MPscratchDim=\dimen264
-\MPnumerator=\count192
-\makeMPintoPDFobject=\count193
-\everyMPtoPDFconversion=\toks76
-) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty"
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-)
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
-)
-\AtBeginShipoutBox=\box81
-Package hyperref Info: Link coloring ON on input line 9.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
-Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
-
-("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
-Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
-)
-\c@section@level=\count194
-)
-LaTeX Info: Redefining \ref on input line 9.
-LaTeX Info: Redefining \pageref on input line 9.
-LaTeX Info: Redefining \nameref on input line 9.
-
-(main_netplanner.out) (main_netplanner.out)
-\@outlinefile=\write10
-\openout10 = `main_netplanner.out'.
-
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: End \AtBeginDocument code.
-
-ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 18.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 18.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 18.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 18.
- [1
-
-
-
-\providecommand\@newglossary[4]{}
-\@newglossary{main}{glg}{gls}{glo}
-\@newglossary{acronym}{alg}{acr}{acn}
-\providecommand\tcolorbox@label[2]{}
-
-
-
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 20.
-LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 20.
- (main_netplanner.toc
-LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 2.
-)
-\tf@toc=\write11
-\openout11 = `main_netplanner.toc'.
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 24.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 24.
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.24 \include{chapter/introduction}
-                                    [1
-
-]
-\openout2 = `chapter/introduction.aux'.
-
- (chapter/introduction.tex
-Cap\'{\i }tulo 1.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 3.
-)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 24.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 24.
- [2
-
-
-]
-\openout2 = `chapter/simulator_structure.aux'.
-
- (chapter/simulator_structure.tex
-Cap\'{\i }tulo 2.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 3.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 13.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 15.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 17.
-LaTeX Font Info:    Try loading font information for OMS+ppl on input line 22.
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsppl.fd"
-File: omsppl.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ppl/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 22.
-)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 25.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 25.
- [3
-
-
-
-]
-\openout2 = `chapter/development_cycle.aux'.
-
-
-(chapter/development_cycle.tex
-Cap\'{\i }tulo 3.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 3.
-
-Underfull \hbox (badness 1132) in paragraph at lines 5--12
-\T1/ppl/m/n/10.95 con-trol sys-tem. The NetXPTO-LinkPlanner re-po-si-tory is lo
--ca-ted in the GitHub site
- []
-
-)
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 26.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 26.
- [4
-
-
-
-]
-\openout2 = `chapter/case_studies.aux'.
-
- (chapter/case_studies.tex
-Cap\'{\i }tulo 4.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 3.
-(sdf/tiago/tiago.tex
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 1.
- [5
-
-
-
-]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 2.
-
-Overfull \hbox (7.33366pt too wide) in paragraph at lines 5--10
-[][] 
- []
-
-))
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 27.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 27.
- [6
-
-]
-No file main_netplanner.gls.
-No file main_netplanner.acr.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 60.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 60.
-[7
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 60.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 60.
- (main_netplanner.aux (chapter/introduction.aux)
-(chapter/simulator_structure.aux) (chapter/development_cycle.aux)
-(chapter/case_studies.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
-Package rerunfilecheck Info: File `main_netplanner.out' has not changed.
-(rerunfilecheck)             Checksum: BEDC595E6A6966A2D7F70B5D07E824DD;464.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
- ) 
-Here is how much of TeX's memory you used:
- 24852 strings out of 493328
- 449224 string characters out of 3139131
- 586353 words of memory out of 3000000
- 27807 multiletter control sequences out of 15000+200000
- 22375 words of font info for 54 fonts, out of 3000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 58i,10n,94p,1982b,418s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/u
-rw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/up
-lr8a.pfb>
-Output written on main_netplanner.pdf (8 pages, 73194 bytes).
-PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
- 77 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+) ("C:\

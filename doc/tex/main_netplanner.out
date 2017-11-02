@@ -5,4 +5,18 @@
 \BOOKMARK [1][-]{section.2.3}{Signals}{chapter.2}% 5
 \BOOKMARK [0][-]{chapter.3}{Development Cycle}{}% 6
 \BOOKMARK [0][-]{chapter.4}{Case Studies}{}% 7
-\BOOKMARK [1][-]{section.4.1}{Network dimensioning as Translucent mode of transport}{chapter.4}% 8
+\BOOKMARK [1][-]{section.4.1}{Objective and methodology for the dissertation}{chapter.4}% 8
+\BOOKMARK [2][-]{subsection.4.1.1}{Objective}{section.4.1}% 9
+\BOOKMARK [2][-]{subsection.4.1.2}{Methodology}{section.4.1}% 10
+\BOOKMARK [1][-]{section.4.2}{Physical Network Topology}{chapter.4}% 11
+\BOOKMARK [2][-]{subsection.4.2.1}{Reference Network}{section.4.2}% 12
+\BOOKMARK [2][-]{subsection.4.2.2}{Realistic Network}{section.4.2}% 13
+\BOOKMARK [1][-]{section.4.3}{Dimensioning using ILP models}{chapter.4}% 14
+\BOOKMARK [2][-]{subsection.4.3.1}{Opaque with 1+1 Protection}{section.4.3}% 15
+\BOOKMARK [2][-]{subsection.4.3.2}{Transparent with 1+1 Protection}{section.4.3}% 16
+\BOOKMARK [2][-]{subsection.4.3.3}{Translucent with 1+1 Protection}{section.4.3}% 17
+\BOOKMARK [1][-]{section.4.4}{ILP Results}{chapter.4}% 18
+\BOOKMARK [2][-]{subsection.4.4.1}{Opaque with 1+1 Protection}{section.4.4}% 19
+\BOOKMARK [2][-]{subsection.4.4.2}{Transparent with 1+1 Protection}{section.4.4}% 20
+\BOOKMARK [2][-]{subsection.4.4.3}{Translucent with 1+1 Protection}{section.4.4}% 21
+\BOOKMARK [1][-]{section.4.5}{Heuristics}{chapter.4}% 22
