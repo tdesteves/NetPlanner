@@ -1,6 +1,6 @@
 SyncTeX Version:1
-Input:1:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\main_netplanner.tex
-Input:2:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\style\phdthesis.cls
+Input:1:C:/netxpto\NetPlanner\doc\tex\main_netplanner.tex
+Input:2:C:\netxpto\NetPlanner\doc\tex\style\phdthesis.cls
 Input:3:C:\Program Files\MiKTeX 2.9\tex\latex\base\book.cls
 Input:4:C:\Program Files\MiKTeX 2.9\tex\latex\base\bk11.clo
 Input:5:C:\Program Files\MiKTeX 2.9\tex\latex\graphics\epsfig.sty
@@ -12,7 +12,7 @@ Input:10:C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg
 Input:11:C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def
 Input:12:C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty
 Input:13:C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty
-Input:14:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\style\my_packages.tex
+Input:14:C:\netxpto\NetPlanner\doc\tex\style\my_packages.tex
 Input:15:C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty
 Input:16:C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty
 Input:17:C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty
@@ -164,20 +164,20 @@ Input:162:C:\Program Files\MiKTeX 2.9\tex\latex\pgf\compatibility\pgfcomp-versio
 Input:163:C:\Program Files\MiKTeX 2.9\tex\latex\pgf\compatibility\pgfcomp-version-1-18.sty
 Input:164:C:\Program Files\MiKTeX 2.9\tex\latex\environ\environ.sty
 Input:165:C:\Program Files\MiKTeX 2.9\tex\latex\trimspaces\trimspaces.sty
-Input:166:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\style\my_commands.tex
-Input:167:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\main_netplanner.aux
-Input:168:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\introduction.aux
-Input:169:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\simulator_structure.aux
-Input:170:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\development_cycle.aux
-Input:171:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\case_studies.aux
+Input:166:C:\netxpto\NetPlanner\doc\tex\style\my_commands.tex
+Input:167:C:\netxpto\NetPlanner\doc\tex\main_netplanner.aux
+Input:168:C:\netxpto\NetPlanner\doc\tex\chapter\introduction.aux
+Input:169:C:\netxpto\NetPlanner\doc\tex\chapter\simulator_structure.aux
+Input:170:C:\netxpto\NetPlanner\doc\tex\chapter\development_cycle.aux
+Input:171:C:\netxpto\NetPlanner\doc\tex\chapter\case_studies.aux
 Input:172:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ppl.fd
 Input:173:C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii
 Input:174:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty
 Input:175:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty
 Input:176:C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty
 Input:177:C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty
-Input:178:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\main_netplanner.out
-Input:179:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\main_netplanner.out
+Input:178:C:\netxpto\NetPlanner\doc\tex\main_netplanner.out
+Input:179:C:\netxpto\NetPlanner\doc\tex\main_netplanner.out
 Input:180:C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd
 Input:181:C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd
 Output:pdf
@@ -186,7 +186,7 @@ Unit:1
 X Offset:0
 Y Offset:0
 Content:
-!13656
+!13425
 {1
 [1,18:4736286,50192074:29956998,45455788,0
 h1,18:4736286,4736286:0,0,0
@@ -261,8 +261,8 @@ h1,18:5683528,50192074:29009756,0,0
 ]
 !1695
 }1
-Input:182:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\main_netplanner.toc
-!90
+Input:182:C:\netxpto\NetPlanner\doc\tex\main_netplanner.toc
+!69
 {2
 [1,24:4736286,50192074:29956998,45455788,2150
 [1,24:4736286,4736286:0,0,0
@@ -3537,8 +3537,8 @@ k1,24:34693285,50192074:14325474
 ]
 !78269
 }2
-Input:183:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\introduction.tex
-!96
+Input:183:C:\netxpto\NetPlanner\doc\tex\chapter\introduction.tex
+!75
 {3
 [1,24:4736286,50192074:29956998,45455788,2150
 [1,24:4736286,4736286:0,0,0
@@ -3618,9 +3618,9 @@ k1,24:34693285,50192074:14325474
 ]
 !1903
 }3
-Input:184:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\simulator_structure.tex
+Input:184:C:\netxpto\NetPlanner\doc\tex\chapter\simulator_structure.tex
 Input:185:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsppl.fd
-!167
+!146
 {4
 [1,25:4736286,50192074:29956998,45455788,15426
 [1,25:4736286,4736286:0,0,0
@@ -3811,8 +3811,8 @@ k1,25:34693285,50192074:14325474
 ]
 !4799
 }4
-Input:186:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\development_cycle.tex
-!100
+Input:186:C:\netxpto\NetPlanner\doc\tex\chapter\development_cycle.tex
+!79
 {5
 [1,26:4736286,50192074:29956998,45455788,2150
 [1,26:4736286,4736286:0,0,0
@@ -4143,11 +4143,11 @@ k1,26:34693285,50192074:14325474
 ]
 ]
 ]
-!8847
+!8846
 }5
-Input:187:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\case_studies.tex
-Input:188:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\sdf\tiago\tiago.tex
-!176
+Input:187:C:\netxpto\NetPlanner\doc\tex\chapter\case_studies.tex
+Input:188:C:\netxpto\NetPlanner\doc\tex\sdf\tiago\tiago.tex
+!134
 {6
 [188,1:4736286,50192074:29956998,45455788,15426
 [188,1:4736286,4736286:0,0,0
@@ -5231,14 +5231,11 @@ h188,42:5683528,16823502:0,0,0
 (188,42:5683528,16823502:29009756,9924528,0
 (188,42:5683528,16823502:29010231,9924552,0
 (188,42:5683528,16823502:29010231,9924552,0
-(188,42:5683528,16823502:0,9924552,0
 (188,42:5683528,16823502:0,12827443,0
 (188,42:5683528,16823502:37495603,12827443,0
 )
 k188,42:5683527,16823502:-37495604
 )
-)
-g188,42:34693759,16823502
 )
 )
 )
@@ -5887,7 +5884,7 @@ h188,85:5683528,50192074:29009756,0,0
 ]
 ]
 ]
-!19361
+!19296
 }8
 !10
 {9
@@ -5925,14 +5922,11 @@ h188,83:5683528,26744191:0,0,0
 (188,83:5683528,26744191:29009756,19845217,0
 (188,83:5683528,26744191:29010171,19845266,0
 (188,83:5683528,26744191:29010171,19845266,0
-(188,83:5683528,26744191:0,19845266,0
 (188,83:5683528,26744191:0,27134976,0
 (188,83:5683528,26744191:39666401,27134976,0
 )
 k188,83:5683529,26744191:-39666400
 )
-)
-g188,83:34693699,26744191
 )
 )
 )
@@ -6478,7 +6472,7 @@ h188,123:5683528,50192074:29009756,0,0
 ]
 ]
 ]
-!16649
+!16583
 }9
 !10
 {10
@@ -6639,13 +6633,10 @@ h188,121:5831573,29685315:0,0,0
 (188,121:5831573,29685315:28713738,15886295,0
 (188,121:5831573,29685315:28713738,15886295,0
 (188,121:5831573,29685315:0,15886295,0
-(188,121:5831573,29685315:0,15886295,0
 (188,121:5831573,29685315:28713738,15886295,0
 )
 k188,121:5831573,29685315:-28713738
 )
-)
-g188,121:34545311,29685315
 )
 )
 )
@@ -7208,7 +7199,7 @@ h188,133:5683528,50192074:29009756,0,0
 ]
 ]
 ]
-!21004
+!20936
 }10
 !11
 {11
@@ -7317,13 +7308,10 @@ h188,132:5683528,24521758:0,0,0
 (188,132:5683528,24521758:29453783,14998241,0
 (188,132:5683528,24521758:29453783,14998241,0
 (188,132:5683528,24521758:0,14998241,0
-(188,132:5683528,24521758:0,14998241,0
 (188,132:5683528,24521758:29453783,14998241,0
 )
 k188,132:5683527,24521758:-29453784
 )
-)
-g188,132:35137311,24521758
 )
 )
 )
@@ -7709,14 +7697,11 @@ h188,145:5683528,43369980:0,0,0
 (188,145:5683528,43369980:29009756,2791498,0
 (188,145:5683528,43369980:29010456,2791505,0
 (188,145:5683528,43369980:29010456,2791505,0
-(188,145:5683528,43369980:0,2791505,0
 (188,145:5683528,43369980:0,3897569,0
 (188,145:5683528,43369980:40505119,3897569,0
 )
 k188,145:5683527,43369980:-40505120
 )
-)
-g188,145:34693984,43369980
 )
 )
 )
@@ -7832,7 +7817,7 @@ h188,168:5683528,50192074:29009756,0,0
 ]
 ]
 ]
-!17397
+!17262
 }11
 !11
 {12
@@ -7872,13 +7857,10 @@ h188,151:13996714,10007154:0,0,0
 (188,151:13996714,10007154:12383416,3108188,0
 (188,151:13996714,10007154:12383416,3108188,0
 (188,151:13996714,10007154:0,3108188,0
-(188,151:13996714,10007154:0,3108188,0
 (188,151:13996714,10007154:12383416,3108188,0
 )
 k188,151:13996714,10007154:-12383416
 )
-)
-g188,151:26380130,10007154
 )
 )
 )
@@ -7936,13 +7918,10 @@ h188,159:11702581,22641962:0,0,0
 (188,159:11702581,22641962:16971694,10212618,0
 (188,159:11702581,22641962:16971694,10212618,0
 (188,159:11702581,22641962:0,10212618,0
-(188,159:11702581,22641962:0,10212618,0
 (188,159:11702581,22641962:16971694,10212618,0
 )
 k188,159:11702581,22641962:-16971694
 )
-)
-g188,159:28674275,22641962
 )
 )
 )
@@ -8452,7 +8431,7 @@ h188,197:5683528,50192074:29009756,0,0
 ]
 ]
 ]
-!17428
+!17291
 }12
 !11
 {13
@@ -8790,13 +8769,13 @@ h1,60:5683528,50192074:29009756,0,0
 ]
 !800
 }14
-Input:189:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\main_netplanner.aux
-Input:190:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\introduction.aux
-Input:191:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\simulator_structure.aux
-Input:192:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\development_cycle.aux
-Input:193:C:\Users\Tiago\Documents\GitHub\NetPlanner\doc\tex\chapter\case_studies.aux
-!446
+Input:189:C:\netxpto\NetPlanner\doc\tex\main_netplanner.aux
+Input:190:C:\netxpto\NetPlanner\doc\tex\chapter\introduction.aux
+Input:191:C:\netxpto\NetPlanner\doc\tex\chapter\simulator_structure.aux
+Input:192:C:\netxpto\NetPlanner\doc\tex\chapter\development_cycle.aux
+Input:193:C:\netxpto\NetPlanner\doc\tex\chapter\case_studies.aux
+!341
 Postamble:
-Count:6062
+Count:5919
 !27
 Post scriptum:
