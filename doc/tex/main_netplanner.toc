@@ -1,0 +1,23 @@
+\select@language {portuguese}
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
+\contentsline {chapter}{\numberline {2}Simulator Structure}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}System}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Blocks}{3}{section.2.2}
+\contentsline {section}{\numberline {2.3}Signals}{3}{section.2.3}
+\contentsline {chapter}{\numberline {3}Development Cycle}{4}{chapter.3}
+\contentsline {chapter}{\numberline {4}Case Studies}{5}{chapter.4}
+\contentsline {section}{\numberline {4.1}Objective and methodology for the dissertation}{6}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Objective}{6}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.2}Methodology}{6}{subsection.4.1.2}
+\contentsline {section}{\numberline {4.2}Physical Network Topology}{6}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Reference Network}{6}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Realistic Network}{7}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Dimensioning using ILP models}{9}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Opaque with 1+1 Protection}{9}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Transparent with 1+1 Protection}{9}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Translucent with 1+1 Protection}{10}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}ILP Results}{10}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Opaque with 1+1 Protection}{11}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Transparent with 1+1 Protection}{11}{subsection.4.4.2}
+\contentsline {subsection}{\numberline {4.4.3}Translucent with 1+1 Protection}{12}{subsection.4.4.3}
+\contentsline {section}{\numberline {4.5}Heuristics}{12}{section.4.5}
