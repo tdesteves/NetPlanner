@@ -1,6 +1,7 @@
 2017-11-02
 TO BE DONE
 	- trabalhar documento
+		- colocar o net2plan com anexo no documento principal
 		- colocar mais detalhe no documento, no ue diz respeito ao transporte opaco e transparente
 
 	- correr os ILPs
