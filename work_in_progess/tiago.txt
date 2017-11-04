@@ -1,3 +1,15 @@
+2017-11-02
+TO BE DONE
+	- trabalhar documento
+		- colocar o net2plan com anexo no documento principal
+		- colocar mais detalhe no documento, no ue diz respeito ao transporte opaco e transparente
+
+	- correr os ILPs
+		. num servidor do IT
+
+	- desenvolver os ILPs para o modo de transporte translúcido
+		- estudar o script e os artigos, para na próxima semana discutirmos 
+
 2017-10-18
 TO BE DONE
 	- trabalhar documento
