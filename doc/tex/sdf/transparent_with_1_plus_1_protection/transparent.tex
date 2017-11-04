@@ -1,0 +1,142 @@
+\clearpage
+
+\section{Transparent with 1+1 Protection}
+In this case study we focus on the transparent case with 1 + 1 protection.
+
+\subsection{Physical Network Topology}
+
+\subsubsection{Reference Network}
+As we can see in the figure, our reference network consists of 6 nodes and 8 Bidirectional links.
+The average length of the links was chosen so that the following calculations are more simplistic.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{RedeTeste}
+\caption{Physical Topology of the Reference Network.}
+\end{figure}
+
+The following table shows the values of the variables associated with this network.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c||}
+ \hline
+ Constant & Description & Value \\
+ \hline\hline
+ N & Number of Nodes & 6 \\
+ L & Number of Bidirectional Links & 8 \\
+ <$\delta$> & Node out-degree & 2,667 \\
+ <len> & Mean Link Length (km) & 500 \\
+ <h> & Mean Number of Hops,for Working Paths & 1,533 \\
+ <h'> & Mean Number of Hops,for Backup Paths & 2,467 \\
+ \hline
+\end{tabular}
+\caption{Table of reference network values}
+\label{table:1}
+\end{table}
+
+As we can see from table \ref{table:1}, to do all the calculations necessary for this project, let us know the value of the traffic used. This value is defined depending on the scenario used, as we can see:
+\begin{itemize}
+  \item Low Traffic: \textbf{0.5 TBits/s}
+  \item High Traffic: \textbf{5 TBits/s}
+\end{itemize}
+
+\subsubsection{Realistic Network}
+The real network chosen for this work is the EON (European Optical Network).
+The way the nodes are arranged geographically can be seen from the following figure.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{EON_Rede_Realista}
+\caption{Physical Topology of the Realistic Network.}
+\end{figure}
+
+The table \ref{table:2} shows the values of the variables associated with this network.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c||}
+ \hline
+ Constant & Description & Value \\
+ \hline\hline
+ N & Number of Nodes & 19 \\
+ L & Number of Bidirectional Links & 37 \\
+ <$\delta$> & Node out-degree & 3,89 \\
+ <len> & Mean Link Length (km) & 753,76 \\
+ <h> & Mean Number of Hops,for Working Paths & 2,3 \\
+ <h'> & Mean Number of Hops,for Backup Paths & 3,2 \\
+ \hline
+\end{tabular}
+\caption{Table of realistic network values}
+\label{table:2}
+\end{table}
+
+Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
+
+\begin{itemize}
+  \item Low Traffic: \textbf{2 TBits/s}
+  \item High Traffic: \textbf{20 TBits/s}
+\end{itemize}
+
+\subsection{Dimensioning using ILP models}
+
+The optimization model suggested for transparent transport mode with dedicated path protection intends to minimize the total number of flows crossing link (i; j) for all demand pairs (o; d). The mathematical model described below also minimizes the total number of optical channels between each demand end nodes Wod, instead of minimizing the number of optical link-by-link channels as in the previous model.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=1]{ILP_Transp}
+\end{figure}
+
+The objective function, to be minimized, is the expression(3.9). The flow conservation is performed by equations (3.10), (3.11) and (3.12) and share the same mathematical description of opaque model. The inequality (3.13) answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last two constraints define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
+
+\subsection{ILP Results}
+In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network.
+For this we will use the following calculation formulas:
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{CAPEX}
+  \caption{First function is CAPEX cost, second is cost of the links}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=1]{CAPEX2}
+  \caption{This function represent the cost of the nodes}
+\end{figure}
+
+We will also need a price list that we can see below.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=1]{TabValor}
+  \caption{Table with costs}
+\end{figure}
+
+Finally we will calculate the CAPEX values for the various situations mentioned.
+
+The first we will present the low traffic and then the high of traffic.
+To know the value of CAPEX we will have to first calculate the value of the cost of the links and then the cost of the nodes.
+
+\textbf{First scenario:}
+
+Through the table, of auxiliary calculations and MatLab the value of the cost of the links is:
+
+Cost link = 44 336 000 euros
+
+Again, through the table, of auxiliary calculations and MatLab the value of the cost of the nodes is:
+
+Cost node = 2 515 000 euros
+
+Finally, for this scenario the cost of CAPEX is:
+
+CAPEX = 46 851 000 euros
+
+\textbf{Second scenario:}
+
+Cost link = 391 336 000 euros
+
+Cost node = 21 445 000 euros
+
+CAPEX = 412 781 000 euros
+
+\subsection{Heuristics}
+

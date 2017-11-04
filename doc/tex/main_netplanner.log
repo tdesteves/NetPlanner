@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  2 NOV 2017 15:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  4 NOV 2017 17:11
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -999,7 +999,20 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 Writing index file main_netplanner.idx
 (main_netplanner.aux (chapter/introduction.aux)
 (chapter/simulator_structure.aux) (chapter/development_cycle.aux)
-(chapter/case_studies.aux))
+(chapter/case_studies.aux
+
+LaTeX Warning: Label `table:1' multiply defined.
+
+
+LaTeX Warning: Label `table:2' multiply defined.
+
+
+LaTeX Warning: Label `table:1' multiply defined.
+
+
+LaTeX Warning: Label `table:2' multiply defined.
+
+))
 \openout1 = `main_netplanner.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
@@ -1017,8 +1030,7 @@ LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
 LaTeX Font Info:    Try loading font information for T1+ppl on input line 9.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ppl.fd"
+ ("C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\t1ppl.fd"
 File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
@@ -1220,139 +1232,245 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 13.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 22.
+) (sdf/opaque_with_1_plus_1_protection/opaque.tex
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 34.
+(babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 36.
-<./figures/RedeTeste.jpg, id=144, 572.1375pt x 195.73125pt>
+(babel)             in language  on input line 1.
+ [6
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 3.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 6.
+
+<./figures/RedeTeste.jpg, id=168, 572.1375pt x 195.73125pt>
 File: ./figures/RedeTeste.jpg Graphic file (type jpg)
 
 <use ./figures/RedeTeste.jpg>
-Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 42.
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 14.
 (pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
+
+<./figures/EON_Rede_Realista.jpg, id=170, 605.26125pt x 414.04688pt>
+File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
+
+<use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 50.
+
+(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 52.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 52.
+ [7
+
+ <./figures/RedeTeste.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 78.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 78.
+ [8 <./figures/EON_Rede_Realista.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 80.
+
+<./figures/ILP_Opaque.jpg, id=189, 438.13687pt x 242.40562pt>
+File: ./figures/ILP_Opaque.jpg Graphic file (type jpg)
+
+<use ./figures/ILP_Opaque.jpg>
+Package pdftex.def Info: ./figures/ILP_Opaque.jpg used on input line 85.
+(pdftex.def)             Requested size: 438.13579pt x 242.40501pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 91.
+
+<./figures/CAPEX.jpg, id=190, 618.05907pt x 59.47218pt>
+File: ./figures/CAPEX.jpg Graphic file (type jpg)
+
+<use ./figures/CAPEX.jpg>
+Package pdftex.def Info: ./figures/CAPEX.jpg used on input line 97.
+(pdftex.def)             Requested size: 442.65375pt x 42.59488pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 68.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 68.
-[6
-
-]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 76.
- <./figures/EON_Rede_Realista.jpg, id=155, 605.26125pt x 414.04688pt>
-File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
-
-<use ./figures/EON_Rede_Realista.jpg>
-Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 83.
-
-(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 85.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 85.
- [7 <./figures/RedeTeste.jpg>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 115.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 117.
-
-<./figures/ILP_Opaque.jpg, id=164, 438.13687pt x 242.40562pt>
-File: ./figures/ILP_Opaque.jpg Graphic file (type jpg)
-
-<use ./figures/ILP_Opaque.jpg>
-Package pdftex.def Info: ./figures/ILP_Opaque.jpg used on input line 121.
-(pdftex.def)             Requested size: 438.13579pt x 242.40501pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 123.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 123.
- [8 <./figures/EON_Rede_Realista.jpg>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 126.
-
-<./figures/ILP_Transp.jpg, id=171, 449.42906pt x 228.855pt>
-File: ./figures/ILP_Transp.jpg Graphic file (type jpg)
-
-<use ./figures/ILP_Transp.jpg>
-Package pdftex.def Info: ./figures/ILP_Transp.jpg used on input line 132.
-(pdftex.def)             Requested size: 449.42795pt x 228.85443pt.
-
-Overfull \hbox (6.7742pt too wide) in paragraph at lines 132--133
- [][] 
- []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 133.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 133.
-[9 <./figures/ILP_Opaque.jpg>]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 137.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 139.
-
-<./figures/CAPEX.jpg, id=177, 618.05907pt x 59.47218pt>
-File: ./figures/CAPEX.jpg Graphic file (type jpg)
-
-<use ./figures/CAPEX.jpg>
-Package pdftex.def Info: ./figures/CAPEX.jpg used on input line 145.
-(pdftex.def)             Requested size: 442.65375pt x 42.59488pt.
-
-<./figures/CAPEX2.jpg, id=178, 188.95593pt x 47.42719pt>
+<./figures/CAPEX2.jpg, id=191, 188.95593pt x 47.42719pt>
 File: ./figures/CAPEX2.jpg Graphic file (type jpg)
 
 <use ./figures/CAPEX2.jpg>
-Package pdftex.def Info: ./figures/CAPEX2.jpg used on input line 151.
+Package pdftex.def Info: ./figures/CAPEX2.jpg used on input line 103.
 (pdftex.def)             Requested size: 188.95546pt x 47.42706pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<./figures/TabValor.jpg, id=179, 258.9675pt x 155.83218pt>
+<./figures/TabValor.jpg, id=192, 258.9675pt x 155.83218pt>
 File: ./figures/TabValor.jpg Graphic file (type jpg)
 
 <use ./figures/TabValor.jpg>
-Package pdftex.def Info: ./figures/TabValor.jpg used on input line 159.
+Package pdftex.def Info: ./figures/TabValor.jpg used on input line 111.
 (pdftex.def)             Requested size: 258.96684pt x 155.8318pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 165.
+(babel)             in language  on input line 119.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 168.
+(babel)             in language  on input line 119.
+[9 <./figures/ILP_Opaque.jpg>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 168.
-[10 <./figures/ILP_Transp.jpg> <./figures/CAPEX.jpg>]
+(babel)             in language  on input line 143.
+)
+(sdf/transparent_with_1_plus_1_protection/transparent.tex
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 191.
+(babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 197.
+(babel)             in language  on input line 1.
+ [10 <./figures/CAPEX.jpg> <./figures/CAPEX2.jpg> <./figures/TabValor.jpg>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 197.
- [11 <./figures/CAPEX2.jpg> <./figures/TabValor.jpg>]
+(babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 217.
+(babel)             in language  on input line 1.
+ [11]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 219.
+(babel)             in language  on input line 3.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 6.
+File: ./figures/RedeTeste.jpg Graphic file (type jpg)
+
+<use ./figures/RedeTeste.jpg>
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 14.
+(pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
+File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
+ <use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 49.
+
+(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 51.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 51.
+ [12
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 77.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 77.
+
+[13]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 79.
+ <./figures/ILP_Transp.jpg, id=226, 449.42906pt x 228.855pt>
+File: ./figures/ILP_Transp.jpg Graphic file (type jpg)
+
+<use ./figures/ILP_Transp.jpg>
+Package pdftex.def Info: ./figures/ILP_Transp.jpg used on input line 85.
+(pdftex.def)             Requested size: 449.42795pt x 228.85443pt.
+
+Overfull \hbox (6.7742pt too wide) in paragraph at lines 85--86
+ [][] 
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 90.
+File: ./figures/CAPEX.jpg Graphic file (type jpg)
+<use ./figures/CAPEX.jpg>
+Package pdftex.def Info: ./figures/CAPEX.jpg used on input line 96.
+(pdftex.def)             Requested size: 442.65375pt x 42.59488pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: ./figures/CAPEX2.jpg Graphic file (type jpg)
+<use ./figures/CAPEX2.jpg>
+Package pdftex.def Info: ./figures/CAPEX2.jpg used on input line 102.
+(pdftex.def)             Requested size: 188.95546pt x 47.42706pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+File: ./figures/TabValor.jpg Graphic file (type jpg)
+<use ./figures/TabValor.jpg>
+Package pdftex.def Info: ./figures/TabValor.jpg used on input line 110.
+(pdftex.def)             Requested size: 258.96684pt x 155.8318pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 121.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 121.
+[14 <./figures/ILP_Transp.jpg>]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 141.
+)
+(sdf/translucent_with_1_plus_1_protection/translucent.tex
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 1.
+ [15]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 3.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 7.
+File: ./figures/RedeTeste.jpg Graphic file (type jpg)
+
+<use ./figures/RedeTeste.jpg>
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 15.
+(pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
+File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
+ <use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 50.
+
+(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 52.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 52.
+ [16
+
+]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 78.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 78.
+
+[17]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 80.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 83.
+File: ./figures/CAPEX.jpg Graphic file (type jpg)
+ <use ./figures/CAPEX.jpg>
+Package pdftex.def Info: ./figures/CAPEX.jpg used on input line 89.
+(pdftex.def)             Requested size: 442.65375pt x 42.59488pt.
+File: ./figures/CAPEX2.jpg Graphic file (type jpg)
+ <use ./figures/CAPEX2.jpg>
+Package pdftex.def Info: ./figures/CAPEX2.jpg used on input line 95.
+(pdftex.def)             Requested size: 188.95546pt x 47.42706pt.
+File: ./figures/TabValor.jpg Graphic file (type jpg)
+
+<use ./figures/TabValor.jpg>
+Package pdftex.def Info: ./figures/TabValor.jpg used on input line 103.
+(pdftex.def)             Requested size: 258.96684pt x 155.8318pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 109.
 ))
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 27.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 27.
- [12]
+ [18]
 No file main_netplanner.gls.
 No file main_netplanner.acr.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 60.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 60.
-[13
+[19
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 60.
@@ -1363,26 +1481,30 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 60.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 60.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 60.
 Package rerunfilecheck Info: File `main_netplanner.out' has not changed.
-(rerunfilecheck)             Checksum: B94A72052AA7545639FD1DE2A255A117;1503.
+(rerunfilecheck)             Checksum: 00AF70A7CFB91B73467C0236E99C6FEA;1703.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
  ) 
 Here is how much of TeX's memory you used:
- 25034 strings out of 493323
- 452374 string characters out of 3139065
- 594395 words of memory out of 3000000
- 27951 multiletter control sequences out of 15000+200000
+ 25081 strings out of 493323
+ 453414 string characters out of 3139065
+ 593439 words of memory out of 3000000
+ 27954 multiletter control sequences out of 15000+200000
  23824 words of font info for 56 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,10n,94p,2034b,429s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 58i,10n,94p,2034b,449s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palat
 ino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb
 >
-Output written on main_netplanner.pdf (14 pages, 425306 bytes).
+Output written on main_netplanner.pdf (20 pages, 441409 bytes).
 PDF statistics:
- 233 PDF objects out of 1000 (max. 8388607)
- 49 named destinations out of 1000 (max. 500000)
- 224 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 302 PDF objects out of 1000 (max. 8388607)
+ 78 named destinations out of 1000 (max. 500000)
+ 248 words of extra memory for PDF output out of 10000 (max. 10000000)
 
