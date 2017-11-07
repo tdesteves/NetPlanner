@@ -53,19 +53,19 @@ This first section will describe how to install Net2Plan and some of the solvers
 
     \subsection{Net2Plan download and installation}
     \vspace{0.5cm}
-	Before downloading Net2Plan, the first step is verifying if the computer has the necessary Java Runtime Environment, it is recommended the latest release (Version 8). This can be download from the java website at \url{https://java.com/en/download/}. The Java Runtime Environment is necessary as Net2Plan was coded in Java.   
+	Before downloading Net2Plan, the first step is verifying if the computer has the necessary Java Runtime Environment, it is recommended the latest release (Version 8). This can be download from the java website at \url{https://java.com/en/download/}. The Java Runtime Environment is necessary as Net2Plan was coded in Java.
 		
     Having installed the Java Environment it is now possible to install Net2Plan. The download is available on its website at \url{http://net2plan.com/download.php}. The files just need to be extracted and the program can be run without an installation by just double clicking on the file "Net2Plan.jar". The latest Net2Plan version available at the time this report was revised is 0.4.2 from July 22nd, 2016
-        
+
     \begin{figure}[h!]
        	\centering
        	\includegraphics[width = 13cm]{Net2Plan.pdf}
        	\caption{Net2Plan Opening Menu}
     \end{figure}
-               
+
 	\subsection{Net2Plan Options and installing solvers}
 	\vspace{0.5cm}
-	To access the main Net2Plan options click "File $\rightarrow$ Options". In this window the global parameters for simulations can be changed if needed. 
+	To access the main Net2Plan options click "File $\rightarrow$ Options". In this window the global parameters for simulations can be changed if needed.
 	For example, an important option to note in this tab is the parameter "defaultRunnableCodePath", whose value should be the path to the jar file containing NetPlanner algorithms. As will be explained further on, Net2Plan is an open source tool and as such, new algorithms can be implemented and the default path can be changed to the path where those will be available instead of loading them manually each time Net2Plan is opened.	The remaining parameters are related to solver options, which are the default external solvers used and also the path in which the $".dll"$, $".so"$, $".dylib"$ files of each solver are available. By default there is no path for each solver but in this case it was already changed to where the solvers were installed.
 	\pagebreak
 	
@@ -73,7 +73,7 @@ This first section will describe how to install Net2Plan and some of the solvers
 		\centering
 		\includegraphics[width = 11cm]{Net2Plan_options.pdf}
 		\caption{Net2Plan General Options}
-	\end{figure}  
+	\end{figure}
 		
 	
 			
@@ -107,7 +107,7 @@ This first section will describe how to install Net2Plan and some of the solvers
 \section{Net2Plan Tools}
 This section will describe in some detail the tools presented in Net2Plan as a network planner, most notably how to created a traffic matrix, design a network and some of the simulation options available.
 
-	\subsection{Creating Traffic Matrices}    
+	\subsection{Creating Traffic Matrices}
     To start creating a traffic matrix in Net2Plan go to "Tools $\rightarrow$ Traffic matrix design" or press $Alt+2$. The traffic matrix menu is shown on Figure \ref{Net2Plan_traffic}.
 	
 	\begin{figure}[h!]
@@ -116,11 +116,11 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\includegraphics[width = 16cm]{Net2Plan_traffic.pdf}
 		\caption{Net2Plan Traffic Matrix Design}
 		\label{Net2Plan_traffic}
-	\end{figure} 
+	\end{figure}
 		
 	\vspace{-0.3cm}
 	
-	On the top left side a traffic pattern can be chosen for one matrix or several if used the "Apply batch" option. 
+	On the top left side a traffic pattern can be chosen for one matrix or several if used the "Apply batch" option.
 	
 	\begin{itemize}	
 		
@@ -158,7 +158,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\includegraphics[width = 13cm]{Net2Plan_matrix.pdf}
 		\caption{Net2Plan Traffic Matrix Example}
 		\label{Net2Plan_matrix}
-	\end{figure} 
+	\end{figure}
 	
 	This example demonstrates how several different types of traffic can be introduced for a network by creating different matrices for each. These can then be saved individually and will further on be used as traffic matrices for ODU's 0 through 4.
 	
@@ -172,7 +172,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\includegraphics[width = 17cm]{Net2Plan_Network.pdf}
 		\caption{Net2Plan Offline Network Design}
 		\label{Net2Plan_Network}
-	\end{figure} 
+	\end{figure}
 	
 	On the left side, the network topology part has the option to load an existing design and demand set or a new one can be created. To start creating a new network, first nodes have to be introduced by right clicking on the grey area and choosing "Add node here". Links between nodes are created by holding a click on the origin node and dragging until the destination node, holding shift before releasing the click creates 2 links, one in each direction. Another option to create links is to right click on an existing node and choosing the desired create a link option. Nodes can be moved by holding control and dragging them into the desired position.\\
 	
@@ -188,7 +188,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\includegraphics[width = 12cm]{Net2Plan_Network_1.pdf}
 		\caption{Net2Plan Network Example}
 		\label{Net2Plan_Network_1}
-	\end{figure} 
+	\end{figure}
 
 	The links and nodes parameters created for the network can be visualized and modified as seen on Figures \ref{Net2Plan_Network_Parameters_a} and \ref{Net2Plan_Network_Parameters_b} displaying the tabs for each case.
 	
@@ -241,11 +241,11 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\includegraphics[width = 11cm]{Logical_Topology_Algorithm.pdf}
 		\caption{Net2Plan Logical Topology Algorithm}
 		\label{Logical_Topology_Algorithm}
-	\end{figure}	 
+	\end{figure}	
 	
 	There are two user defined parameters on this algorithm. The "logicalTopology" parameter defines the type of transport mode, Opaque or Transparent.\\
 	
-	%The other parameter, "maximumOpticalReach" is only needed for the Translucent transport mode to define the distance between OEO (Optical-Electrical-Optical) conversions. 
+	%The other parameter, "maximumOpticalReach" is only needed for the Translucent transport mode to define the distance between OEO (Optical-Electrical-Optical) conversions.
 	
 	Besides creating this new Layer, the algorithm also copies the demands to that layer and defines the logical links based on the length of the physical ones.
 	Figures \ref{Net2Plan_Opaque}, \ref{Net2Plan_Transparent}  demonstrate the resulting logical topologies for each transport mode.
@@ -273,9 +273,9 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	\subsection{Routing and Grooming} \label{Routing and Grooming}
 	
 	\vspace{1cm}
-	In this section, different routing and grooming options will be discussed for both a network without protection and using a 1+1 protection scheme (dedicated path protection). 
+	In this section, different routing and grooming options will be discussed for both a network without protection and using a 1+1 protection scheme (dedicated path protection).
 		
-	The routing will be done based on a shortest path algorithm where the routes for each demand are are created based one either the shortest number of hops needed to reach the destination node or by shortest distance in km. The option can be chosen as a user defined parameter on the algorithm as can be seen on Figure \ref{Grooming_Algorithm}. This algorithm does the routing in both the logical and physical topologies based on the transport mode chosen and makes sure routes are bidirectional meaning the route from node $o$ to $d$ should be the opposite direction of node $d$ to $o$ as there could be different routes with the shortest path that are not using the same path. 
+	The routing will be done based on a shortest path algorithm where the routes for each demand are are created based one either the shortest number of hops needed to reach the destination node or by shortest distance in km. The option can be chosen as a user defined parameter on the algorithm as can be seen on Figure \ref{Grooming_Algorithm}. This algorithm does the routing in both the logical and physical topologies based on the transport mode chosen and makes sure routes are bidirectional meaning the route from node $o$ to $d$ should be the opposite direction of node $d$ to $o$ as there could be different routes with the shortest path that are not using the same path.
 	
 	\vspace{0.5cm}
 	\begin{figure}[h!]
@@ -289,7 +289,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 
 	%The other option for routing without protection is based on reducing the number of wavelengths needed for the network to carry all traffic. Instead of finding the shortest distance between origin and destination node, this algorithm creates the routes based on the previous ones, for example, if the first demand goes through a specific group of links and there is enough capacity in the wavelengths left for the traffic in the next one that demand will be routed to use this spare capacity instead of going through the shortest path.
 	
-	%As this algorithm is only trying to reduce wasted capacity in links the only user defined parameter available is as before the wavelength capacity in ODU0s, as can be seen on Figure \ref{Grooming2_Algorithm}. The default value is again defined as 80 ODU0s. 
+	%As this algorithm is only trying to reduce wasted capacity in links the only user defined parameter available is as before the wavelength capacity in ODU0s, as can be seen on Figure \ref{Grooming2_Algorithm}. The default value is again defined as 80 ODU0s.
 		
 	%An important point to take into consideration in this algorithm is that even though it might reduce the number of wavelengths needed compared to the shortest path it is not the optimal solution. This fact is due to the limitation imposed by Net2Plan as there is not an option to obtain all available paths between two nodes. The option chosen in order to perform the calculations was to obtain two disjoint paths between the origin and destination node and then performs the steps explained above. This limitation is also felt when creating protection segments in the network as will be explained further on in the 1+1 protection scheme grooming.\\
 	
@@ -323,7 +323,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 %		\includegraphics[width=15cm]{lineMatrix_Report.pdf}
 %		\caption{Line matrix report}
 %		\label{lineMatrix_Report}
-%	\end{figure} 
+%	\end{figure}
 %	
 %	This report showcases the client matrix created for each ODU type as well as the line matrices in both topologies. In the physical topology the matrix is in Och, number of wavelengths between nodes while on the logical topology there is both a matrix in Och and one in ODU0s.
 %	
@@ -368,7 +368,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\label{networkCost_Report}
 	\end{figure}	
 	
-	Besides the equipment costs, this report also has the parameter "span". The value of this variable is used to calculate the number of optical amplifiers needed in the network using Equation \ref{amplifiersLink}.  
+	Besides the equipment costs, this report also has the parameter "span". The value of this variable is used to calculate the number of optical amplifiers needed in the network using Equation \ref{amplifiersLink}.
 	
 	\begin{equation}
 		N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
@@ -383,7 +383,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\item{$span$		$\rightarrow$ Distance between amplifiers}	
 	\end{itemize}	
 	
-	By running the report three main categories are presented to the user. 
+	By running the report three main categories are presented to the user.
 	
 	The first category displayed by the report is the Detailed per-link description. In here the number of optical channels or wavelengths is displayed for each link based on the grooming algorithm used. The numbers displayed are based on the physical topology and represent all the wavelengths that will be needed to transport the network traffic. Using this information it is possible to obtain the average and total number of optical channels on the network.
 	
@@ -393,7 +393,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	The number of line ports is obtained by adding the total amount of optical channels in the links that use that specific node as origin or destination.\\
 	
-	Finally the total number of ports is as expected the sum of all the tributary ports with the line ones. With this information the average and the total number of ports in the network can be obtained which will later be used in calculating the network cost.\\ 
+	Finally the total number of ports is as expected the sum of all the tributary ports with the line ones. With this information the average and the total number of ports in the network can be obtained which will later be used in calculating the network cost.\\
 	
 	Having the node and link information available, the network cost can then be calculated as displayed on the third category of the report.								
 	The Node electrical cost is obtained with Equation \ref{electricalPortsCostTransparent} for a Transparent Network.
@@ -446,7 +446,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	The rest of the network cost is from the links. This cost is obtained with Equation \ref{linksCost}.
 	
 	\begin{equation}
-		C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)  
+		C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
 		\label{linksCost}
 	\end{equation}	
 	
@@ -465,12 +465,12 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	The middle part of the equation: $\gamma_1^{OLT} \times \tau \times W$ refers to the Transponders cost while the rest is the "Fiber" and the "OLT" cost.	Lastly the total network cost can be obtained by adding the Links cost with the Nodes cost.\\
 	
-	\section{Results} 
-	This section will display the results obtained using the algorithms and reports previously explained for a network with an Opaque transport mode and for one with Transparent.  
+	\section{Results}
+	This section will display the results obtained using the algorithms and reports previously explained for a network with an Opaque transport mode and for one with Transparent.
 
 	
 	\subsection{Opaque with 1+1 protection}
-	%For this case, the difference to the previous example will be as for the case of a transparent network in the creation of a protection segment for each route. 
+	%For this case, the difference to the previous example will be as for the case of a transparent network in the creation of a protection segment for each route.
 	
 	The results will be displayed only in the logical topology as in an opaque network it is the same as the physical one.
 	Using the algorithm presented on figure \ref{Grooming_Algorithm} the routes and protection segments are created as well as the grooming. \\
@@ -548,7 +548,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		
 
 		
-		The conclusions that can be taken from the physical topology are as explained before, the huge number of wavelengths is related to the needed for double the amount of traffic where this extra will go through even more links. 
+		The conclusions that can be taken from the physical topology are as explained before, the huge number of wavelengths is related to the needed for double the amount of traffic where this extra will go through even more links.
 		
 		For the logical topology the Average second shortest path number of hops is 1 since as for the shortest path, it is considered that there are always direct links between nodes in a transparent network. As for the physical topology, this value is not so obvious as it has to be calculated based on the second shortest path between each node pair. \\
 		
@@ -631,7 +631,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	As everything in Net2Plan was built in Java, the program "Eclipse" that can be downloaded from \url{https://eclipse.org/downloads/} was chosen as the best option for coding. All the .java files from the available algorithms in Net2Plan can be downloaded from its website and introduced into "Eclipse" to create a class.
 	
-	When opening Eclipse, the first choice is to define the work directory in which all the projects will be created. Having defined the workspace, Figure \ref{Eclipse_project} demonstrates the window for creating new projects in Eclipse, this can be accessed by going into "File $\rightarrow$ New $\rightarrow$ Java Project". In this window, only the name needs to be defined and then finish.   
+	When opening Eclipse, the first choice is to define the work directory in which all the projects will be created. Having defined the workspace, Figure \ref{Eclipse_project} demonstrates the window for creating new projects in Eclipse, this can be accessed by going into "File $\rightarrow$ New $\rightarrow$ Java Project". In this window, only the name needs to be defined and then finish.
 	
 	\vspace{1.5cm}
 	\begin{figure}[h!]
@@ -669,7 +669,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 			\label{Eclipse_libraries_1}
 		}
 		\caption{a) Eclipse Java Configure Build Path ; b) Net2Plan library files}
-	\end{figure}	 
+	\end{figure}	
 	
 
 	
@@ -706,16 +706,16 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 		\caption{a) Eclipse export ; b) Projects to export into a .jar file}
 	\end{figure}
 	
-	By default only the .class files are exported along with the necessary libraries so that the algorithms can be loaded on Net2Plan. There is however an option to also export the .java files so that if needed the ones who will use the code also have access to it if they need to change it. 
-	 						 
+	By default only the .class files are exported along with the necessary libraries so that the algorithms can be loaded on Net2Plan. There is however an option to also export the .java files so that if needed the ones who will use the code also have access to it if they need to change it.
+	 						
 	\newpage
 
 	\section{Developing new Reports}
 	Similarly to the way algorithms can be modified or new ones created, also reports can be done using almost the same steps. For the following examples, the "Optical\_Network\_networkcost" is being used as a basis for modifying or creating new reports.
 
-	An important point to note as the main difference as to when modifying algorithms, is that in this case not only are the Net2Plan libraries needed but also the extra files summoned by the report. These files can be found opening the "BuiltInExamples.jar" file in the Net2Plan directory on the corresponding report. 
+	An important point to note as the main difference as to when modifying algorithms, is that in this case not only are the Net2Plan libraries needed but also the extra files summoned by the report. These files can be found opening the "BuiltInExamples.jar" file in the Net2Plan directory on the corresponding report.
 
-	For the report being used there is an .html file called "main" which is where the information to be displayed in html form is described as well as several image files that are displayed in the report. As such, if the modifications to be done in the reports are to be shown in html format the "main.html" file needs to be modified in order to adapt to these changes. 
+	For the report being used there is an .html file called "main" which is where the information to be displayed in html form is described as well as several image files that are displayed in the report. As such, if the modifications to be done in the reports are to be shown in html format the "main.html" file needs to be modified in order to adapt to these changes.
 	
 	The tables themselves are created in eclipse as Java code but the html file needs to be opened for example with "Notepadd++" to change some its code as the tables are being appended into the html. Figure \ref{html_report} shows the modified html that is used in the Optical\_Network\_networkcost.
 	
