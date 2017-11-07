@@ -1,16 +1,16 @@
 2017-11-02
 TO BE DONE
-	- trabalhar documento
-		- colocar o net2plan com anexo no documento principal
-		- colocar mais detalhe no documento, no ue diz respeito ao transporte opaco e transparente
+	- trabalhar documento ----- com tempo tenho de melhorar -----
+		- colocar o net2plan com anexo no documento principal ----- este ponto está feito mas tem erro -----
+		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente ----- este ponto por agora está feito -----
 
 	- correr os ILPs
 		. num servidor do IT
 
 	- desenvolver os ILPs para o modo de transporte translúcido
-		- estudar o script e os artigos, para na próxima semana discutirmos 
+		- estudar o script e os artigos, para na próxima semana discutirmos ----- este ponto está feito -----
 
-2017-10-18
+2017-10-18 ----- está tudo feito -----
 TO BE DONE
 	- trabalhar documento
 		- acabar a parte da metodologia ----- este ponto está feito -----
@@ -20,7 +20,7 @@ TO BE DONE
 	- resultaods dos ILPs para a rede referência no modo opaco com proteção 1+1
 
 
-2017-10-11
+2017-10-11 ----- está tudo feito -----
 TO BE DONE
 - duas redes (rede de referência & rede realista diferente da do Vasco) ----- este ponto está feito -----
 	http://www.av.it.pt/anp/on/refnet2.html ---- escolhi deste site a rede realista (EON) ----
@@ -37,7 +37,7 @@ TO BE DONE
 
 
 
-2017-10-02
+2017-10-02 ----- está tudo feito -----
 TO BE DONE
 - duas redes (rede de referência & rede realista diferente da do Vasco)
 - dimensionamento opaco e transparente (ILP (Matlab + LPSolve), Heuristica (NetPlan)) (pouco tráfego & muito trafego)
