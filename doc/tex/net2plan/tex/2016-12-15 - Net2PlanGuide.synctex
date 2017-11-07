@@ -1,5 +1,5 @@
 SyncTeX Version:1
-Input:1:C:/netxpto\vasco\doc\Net2Plan\tex\2016-12-15 - Net2PlanGuide.tex
+Input:1:C:/netxpto\NetPlanner\doc\tex\net2plan\tex\2016-12-15 - Net2PlanGuide.tex
 Input:2:C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls
 Input:3:C:\Program Files\MiKTeX 2.9\tex\latex\base\size12.clo
 Input:4:C:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty
@@ -16,12 +16,12 @@ Input:14:C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty
 Input:15:C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty
 Input:16:C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty
 Input:17:C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty
-Input:18:C:\Users\anp\AppData\Roaming\MiKTeX\2.9\tex\latex\subfigure\subfigure.sty
-Input:19:C:\Users\anp\AppData\Roaming\MiKTeX\2.9\tex\latex\subfigure\subfigure.cfg
+Input:18:C:\Program Files\MiKTeX 2.9\tex\latex\subfigure\subfigure.sty
+Input:19:C:\Program Files\MiKTeX 2.9\tex\latex\subfigure\subfigure.cfg
 Input:20:C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty
 Input:21:C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty
 Input:22:C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty
-Input:23:C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg
+Input:23:C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\graphics.cfg
 Input:24:C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def
 Input:25:C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty
 Input:26:C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty
@@ -34,33 +34,33 @@ Input:32:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\auxhook.sty
 Input:33:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\kvoptions.sty
 Input:34:C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def
 Input:35:C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg
-Input:36:C:\Users\anp\AppData\Roaming\MiKTeX\2.9\tex\latex\url\url.sty
+Input:36:C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty
 Input:37:C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def
 Input:38:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty
 Input:39:C:\Program Files\MiKTeX 2.9\tex\latex\eurosym\eurosym.sty
-Input:40:C:\netxpto\vasco\doc\Net2Plan\tex\2016-12-15 - Net2PlanGuide.aux
+Input:40:C:\netxpto\NetPlanner\doc\tex\net2plan\tex\2016-12-15 - Net2PlanGuide.aux
 Input:41:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ptm.fd
-Input:42:C:\Users\anp\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
+Input:42:C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii
 Input:43:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty
 Input:44:C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\grfext.sty
 Input:45:C:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty
-Input:46:C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg
+Input:46:C:\Program Files\MiKTeX 2.9\tex\latex\graphics-cfg\color.cfg
 Input:47:C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty
 Input:48:C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty
-Input:49:C:\netxpto\vasco\doc\Net2Plan\tex\2016-12-15 - Net2PlanGuide.out
-Input:50:C:\netxpto\vasco\doc\Net2Plan\tex\2016-12-15 - Net2PlanGuide.out
+Input:49:C:\netxpto\NetPlanner\doc\tex\net2plan\tex\2016-12-15 - Net2PlanGuide.out
+Input:50:C:\netxpto\NetPlanner\doc\tex\net2plan\tex\2016-12-15 - Net2PlanGuide.out
 Input:51:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\ot1ztmcm.fd
 Input:52:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omlztmcm.fd
 Input:53:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omsztmcm.fd
 Input:54:C:\Program Files\MiKTeX 2.9\tex\latex\psnfss\omxztmcm.fd
-Input:55:C:\netxpto\vasco\doc\Net2Plan\tex\2016-12-15 - Net2PlanGuide.toc
+Input:55:C:\netxpto\NetPlanner\doc\tex\net2plan\tex\2016-12-15 - Net2PlanGuide.toc
 Output:pdf
 Magnification:1000
 Unit:1
 X Offset:0
 Y Offset:0
 Content:
-!3905
+!3910
 {1
 [1,42:4736286,53617711:30692631,48881425,0
 h1,42:4736286,4736286:0,0,0
@@ -125,15 +125,17 @@ g1,40:23842982,10086351
 k1,40:35428916,10086351:11585934
 )
 (1,40:3729359,12041992:31699558,643605,133055
-k1,40:15870819,12041992:12141460
-h1,40:15870819,12041992:0,0,0
-x1,40:19748516,12041992
-g1,40:19984445,12041992
-x1,40:21164092,12041992
-g1,40:21400021,12041992
-x1,40:23287457,12041992
-g1,40:23287457,12041992
-k1,40:35428917,12041992:12141460
+k1,40:16068041,12041992:12338682
+h1,40:16068041,12041992:0,0,0
+x1,40:17221261,12041992
+x1,40:17678973,12041992
+x1,40:20023152,12041992
+g1,40:20259081,12041992
+x1,40:20966869,12041992
+g1,40:21202798,12041992
+x1,40:23090234,12041992
+g1,40:23090234,12041992
+k1,40:35428916,12041992:12338682
 )
 (1,41:3729359,15574381:31699558,780261,20943
 (1,41:3729359,15574381:0,0,0
@@ -1697,7 +1699,7 @@ k1,42:35428917,53617711:15653171
 ]
 ]
 ]
-!37777
+!37825
 }1
 !10
 {2
@@ -18365,8 +18367,8 @@ k1,731:35428917,53617711:15456563
 ]
 !21731
 }24
-Input:57:C:\netxpto\vasco\doc\Net2Plan\tex\2016-12-15 - Net2PlanGuide.aux
-!85
+Input:57:C:\netxpto\NetPlanner\doc\tex\net2plan\tex\2016-12-15 - Net2PlanGuide.aux
+!94
 Postamble:
 Count:10380
 !27
