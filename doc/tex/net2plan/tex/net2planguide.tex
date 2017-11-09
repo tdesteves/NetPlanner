@@ -1,5 +1,4 @@
-\clearpage
-
+\graphicspath{{./figures/}}
 \section{Installing Net2Plan and its main options}
 This first section will describe how to install Net2Plan and some of the solvers usable by it as well as the main program preferences available.
 
@@ -148,15 +147,16 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 
 	\begin{figure}[!h]
 		\centering
-		\begin{subfigure}[b]
+		\subfigure[]
+		{
 			\includegraphics[width=8cm]{Net2Plan_Network_Parameters.pdf}
 			\label{Net2Plan_Network_Parameters_a}
-		\end{subfigure}
-
-		\begin{subfigure}[b]
+		}
+		\subfigure[]
+		{
 			\includegraphics[width=8cm]{Net2Plan_Network_Parameters_1.pdf}
 			\label{Net2Plan_Network_Parameters_b}
-		\end{subfigure}
+		}
 		\caption{Network a) Nodes tab ; b) Links tab}
 	\end{figure}	
 	
@@ -268,6 +268,27 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	\subsection{Reports} \label{Reports}
 	As looking separately at each tab to obtain information for different parts of the network is a slow process and does not show some important metrics, Net2Plan allows for the creation of reports where in a similar way to algorithms they can be adjusted to display the information needed, these can also be seen in html format for an easier read. In this section, the report developed will be demonstrated.
 	
+%   	The first report developed for the optical network classes is called "lineMatrix". This report can be loaded as seen on Figure \ref{lineMatrix_Report}.
+%	
+%	\begin{figure}[h!]
+%		\centering
+%		\includegraphics[width=15cm]{lineMatrix_Report.pdf}
+%		\caption{Line matrix report}
+%		\label{lineMatrix_Report}
+%	\end{figure}
+%	
+%	This report showcases the client matrix created for each ODU type as well as the line matrices in both topologies. In the physical topology the matrix is in Och, number of wavelengths between nodes while on the logical topology there is both a matrix in Och and one in ODU0s.
+%	
+%	Another report that was created was called "simplifiedReport". This one is a simplified version of the "networkDesign" report whereas in this case only the most relevant information is displayed as can be seen on Figure \ref{simplified_Report}.
+%	
+%	\begin{figure}[h!]
+%		\centering
+%		\includegraphics[width=16cm]{simplified_Report.pdf}
+%		\caption{Simplified Report}
+%		\label{simplified_Report}
+%	\end{figure}	
+%	
+%	Both of these reports have no user defined parameters as they only relay network information. Another option to obtain more network metrics is to use the "Report\_networkDesignModified" as this is a modified version of the already built in Net2Plan report but with a few fixes. This option not only represents the metrics in tables but also has expressions indicating how some of the main network metric can be calculated from basic information. For example the average node degree is obtained by calculating $\frac{E}{N}$.\\
 	
 	A very important aspect in network planning that is not present natively in Net2Plan is a Network Cost report. To fulfil this gap, a report was created to obtain the network Capex based on user defined equipment costs present on Table \ref{EquipmentCosts}.
 		
@@ -660,4 +681,3 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	As can be seen, this is a simple example of an html file since there are only hyper links created to link the contents index to the tables. Other options could be added as for example, hyper links to each of the network costs with the formula describing its calculations by adding the necessary information in this file. These extra options are present on more complex reports such as the "Report\_networkDesign" where the images used are equations showcasing how some of the calculations are done.
 	
 \clearpage
-\end{document} 
