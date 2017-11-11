@@ -1,5 +1,13 @@
 \clearpage
 
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves\\
+\textbf{Starting Date} &:& October 03, 2017\\
+\textbf{Goal}          &:& Implement the dimensioning of optical networks in the translucent transport mode.
+\end{tabular}
+\end{tcolorbox}
+
 \section{Transparent with 1+1 Protection}
 In this case study we focus on the transparent case with 1 + 1 protection.
 
@@ -31,10 +39,10 @@ The following table shows the values of the variables associated with this netwo
  \hline
 \end{tabular}
 \caption{Table of reference network values}
-\label{table:1}
+\label{table:3}
 \end{table}
 
-As we can see from table \ref{table:1}, to do all the calculations necessary for this project, let us know the value of the traffic used. This value is defined depending on the scenario used, as we can see:
+As we can see from table \ref{table:3}, to do all the calculations necessary for this project, let us know the value of the traffic used. This value is defined depending on the scenario used, as we can see:
 \begin{itemize}
   \item Low Traffic: \textbf{0.5 TBits/s}
   \item High Traffic: \textbf{5 TBits/s}
@@ -50,8 +58,8 @@ The way the nodes are arranged geographically can be seen from the following fig
 \caption{Physical Topology of the Realistic Network.}
 \end{figure}
 
-The table \ref{table:2} shows the values of the variables associated with this network.
 \begin{table}[h!]
+The table \ref{table:4} shows the values of the variables associated with this network.\vspace{10pt}
 \centering
 \begin{tabular}{|| c | c | c||}
  \hline
@@ -66,7 +74,7 @@ The table \ref{table:2} shows the values of the variables associated with this n
  \hline
 \end{tabular}
 \caption{Table of realistic network values}
-\label{table:2}
+\label{table:4}
 \end{table}
 
 Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
@@ -76,67 +84,136 @@ Again, to make all the necessary calculations, only the value of the traffic use
   \item High Traffic: \textbf{20 TBits/s}
 \end{itemize}
 
-\subsection{Dimensioning using ILP models}
+\subsection{Dimensioning using ILP}
 
-The optimization model suggested for transparent transport mode with dedicated path protection intends to minimize the total number of flows crossing link (i; j) for all demand pairs (o; d). The mathematical model described below also minimizes the total number of optical channels between each demand end nodes Wod, instead of minimizing the number of optical link-by-link channels as in the previous model.
+\subsubsection{ILP Models} \label{ILP_models_Transp}
+The optimization model suggested for transparent transport mode with dedicated path protection intends to minimize the total number of flows crossing link (i, j) for all demand pairs (o, d). The mathematical model described below also minimizes the total number of optical channels between each demand end nodes $W_{od}$, instead of minimizing the number of optical link-by-link channels as in the previous model.
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=1]{ILP_Transp}
-\end{figure}
+\begin{equation}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(o,d)} W_{od}
+\label{ILPTransp}
+\end{equation}
 
-The objective function, to be minimized, is the expression(3.9). The flow conservation is performed by equations (3.10), (3.11) and (3.12) and share the same mathematical description of opaque model. The inequality (3.13) answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last two constraints define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
+$subject$ $to$
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTransp1}
+\end{equation}
 
-\subsection{ILP Results}
+\vspace{-5pt}
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\ \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTransp2}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTransp3}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) x W_{od} \leq 80 G_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPTransp4}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} \in \{0,2\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPTransp5}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+W_{od} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d
+\label{ILPTransp6}
+\end{equation}
+
+The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and share the same mathematical description of opaque model. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last two constraints define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
+
+\subsubsection{ILP Results}
+
 In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network.
-For this we will use the following calculation formulas:
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{CAPEX}
-  \caption{First function is CAPEX cost, second is cost of the links}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=1]{CAPEX2}
-  \caption{This function represent the cost of the nodes}
-\end{figure}
-
-We will also need a price list that we can see below.
-
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the figure below.
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=1]{TabValor}
   \caption{Table with costs}
+  \label{TabCustTransp}
 \end{figure}
 
-Finally we will calculate the CAPEX values for the various situations mentioned.
+In addition to the equipment costs, we will also use the parameter "span", which in this case will have a value of 100.
+Because this value is used to calculate the number of optical amplifiers required in the network using Equation \ref{amplifiersTransp}.
 
-The first we will present the low traffic and then the high of traffic.
-To know the value of CAPEX we will have to first calculate the value of the cost of the links and then the cost of the nodes.
+\begin{equation}
+N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
+\label{amplifiersTransp}
+\end{equation} \\
 
-\textbf{First scenario:}
+To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.
 
-Through the table, of auxiliary calculations and MatLab the value of the cost of the links is:
+To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the optical cost is given by equation \ref{opticalCost} and the electrical cost by the equation \ref{electricalCostTransp}.
 
-Cost link = 44 336 000 euros
 
-Again, through the table, of auxiliary calculations and MatLab the value of the cost of the nodes is:
+\begin{equation}
+C_{exc} = \left(\gamma_{e0}\times N\right) + \gamma_{e1} \times \left(2 \times T_1 \right)		\label{electricalCostTransp}
+\end{equation}
 
-Cost node = 2 515 000 euros
+\begin{equation}
+C_{oxc} = \left(\gamma_{o0} \times N \right) + \gamma_{o1} \times  \left(P_{LINE} + P_{ADD}\right)
+\label{opticalCost}
+\end{equation}	
+	
+\begin{itemize}
+\item{$C_{oxc}$		$\rightarrow$	Optical Ports Cost}
+\item{$\gamma_{o0}$	$\rightarrow$	OXC cost in Euros}
+\item{$\gamma_{o1}$	$\rightarrow$	OXC port cost in Euros}
+\item{$P_{TRIB}	$	$\rightarrow$	Number of tributary ports}
+\item{$P_{ADD} $	$\rightarrow$	Number of adding ports}
+\end{itemize}
 
-Finally, for this scenario the cost of CAPEX is:
+\vspace{10pt}
+To calculate the cost of the Links we will use the equation \ref{linkCostsTransp}.
 
-CAPEX = 46 851 000 euros
+\begin{equation}
+C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
+\label{linkCostsTransp}
+\end{equation} \\
+	
+To perform the calculations using the implementation of the models described in section \ref{ILP_models_Transp} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.
 
-\textbf{Second scenario:}
+Using the values calculated through MatLab as well as the values indicated in table \ref{table:3} or table \ref{table:4} (depending on the scenario used) and figure \ref{TabCustTransp} we can finally calculate the CAPEX value using equations \ref{electricalCostTransp}, \ref{opticalCost} and \ref{linkCostsTransp} for the various situations mentioned.\\
 
-Cost link = 391 336 000 euros
 
-Cost node = 21 445 000 euros
+\textbf{Low Traffic scenario:}\\
 
-CAPEX = 412 781 000 euros
+$C_L$ = \textbf{44 336 000\euro}
 
-\subsection{Heuristics}
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{2 515 000\euro}
 
+$CAPEX$ = 44 336 000 + 2 515 000 = \textbf{46 851 000\euro}\\
+
+\textbf{High Traffic scenario:}\\
+
+$C_L$ = \textbf{391 336 000\euro}
+
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{21 445 000 \euro}
+
+$CAPEX$ = 391 336 000 + 21 445 000 = \textbf{412 781 000 \euro}\\
+
+
+\subsection{Dimensioning using Heuristics}
+
+\subsubsection{Heuristics Models}
+
+\subsubsection{Heuristics Results}
+
+\subsection{Analysis and comparison of results}

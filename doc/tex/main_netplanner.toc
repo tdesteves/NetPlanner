@@ -1,30 +1,56 @@
 \select@language {portuguese}
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
-\contentsline {chapter}{\numberline {2}Simulator Structure}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}System}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Blocks}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}Signals}{3}{section.2.3}
-\contentsline {chapter}{\numberline {3}Development Cycle}{4}{chapter.3}
-\contentsline {chapter}{\numberline {4}Case Studies}{5}{chapter.4}
-\contentsline {section}{\numberline {4.1}Opaque with 1+1 Protection}{6}{section.4.1}
-\contentsline {subsection}{\numberline {4.1.1}Physical Network Topology}{6}{subsection.4.1.1}
-\contentsline {subsubsection}{Reference Network}{6}{section*.2}
-\contentsline {subsubsection}{Realistic Network}{7}{section*.5}
-\contentsline {subsection}{\numberline {4.1.2}Dimensioning using ILP models}{8}{subsection.4.1.2}
-\contentsline {subsection}{\numberline {4.1.3}ILP Results}{8}{subsection.4.1.3}
-\contentsline {subsection}{\numberline {4.1.4}Heuristics}{10}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Transparent with 1+1 Protection}{11}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Physical Network Topology}{11}{subsection.4.2.1}
-\contentsline {subsubsection}{Reference Network}{11}{section*.12}
-\contentsline {subsubsection}{Realistic Network}{12}{section*.15}
-\contentsline {subsection}{\numberline {4.2.2}Dimensioning using ILP models}{13}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}ILP Results}{13}{subsection.4.2.3}
-\contentsline {subsection}{\numberline {4.2.4}Heuristics}{14}{subsection.4.2.4}
-\contentsline {section}{\numberline {4.3}Translucent with 1+1 Protection}{15}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Physical Network Topology}{15}{subsection.4.3.1}
-\contentsline {subsubsection}{Reference Network}{15}{section*.22}
-\contentsline {subsubsection}{Realistic Network}{16}{section*.25}
-\contentsline {subsection}{\numberline {4.3.2}Dimensioning using ILP models}{17}{subsection.4.3.2}
-\contentsline {subsection}{\numberline {4.3.3}ILP Results}{17}{subsection.4.3.3}
-\contentsline {subsection}{\numberline {4.3.4}Heuristics}{17}{subsection.4.3.4}
-\contentsline {chapter}{\numberline {5}Attachments}{18}{chapter.5}
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Simulator Structure}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}System}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Blocks}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Signals}{4}{section.2.3}
+\contentsline {chapter}{\numberline {3}Development Cycle}{5}{chapter.3}
+\contentsline {chapter}{\numberline {4}Case Studies}{6}{chapter.4}
+\contentsline {section}{\numberline {4.1}Opaque with 1+1 Protection}{7}{section.4.1}
+\contentsline {subsection}{\numberline {4.1.1}Physical Network Topology}{7}{subsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.1.1}Reference Network}{7}{subsubsection.4.1.1.1}
+\contentsline {subsubsection}{\numberline {4.1.1.2}Realistic Network}{8}{subsubsection.4.1.1.2}
+\contentsline {subsection}{\numberline {4.1.2}Dimensioning using ILP}{9}{subsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.2.1}ILP models}{9}{subsubsection.4.1.2.1}
+\contentsline {subsubsection}{\numberline {4.1.2.2}ILP Results}{10}{subsubsection.4.1.2.2}
+\contentsline {subsection}{\numberline {4.1.3}Dimensioning using Heuristics}{12}{subsection.4.1.3}
+\contentsline {subsubsection}{\numberline {4.1.3.1}Heuristics Models}{12}{subsubsection.4.1.3.1}
+\contentsline {subsubsection}{\numberline {4.1.3.2}Heuristics Results}{12}{subsubsection.4.1.3.2}
+\contentsline {subsection}{\numberline {4.1.4}Analysis and comparison of results}{12}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Transparent with 1+1 Protection}{13}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Physical Network Topology}{13}{subsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1.1}Reference Network}{13}{subsubsection.4.2.1.1}
+\contentsline {subsubsection}{\numberline {4.2.1.2}Realistic Network}{14}{subsubsection.4.2.1.2}
+\contentsline {subsection}{\numberline {4.2.2}Dimensioning using ILP}{15}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}ILP Models}{15}{subsubsection.4.2.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2.2}ILP Results}{16}{subsubsection.4.2.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Dimensioning using Heuristics}{17}{subsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.3.1}Heuristics Models}{17}{subsubsection.4.2.3.1}
+\contentsline {subsubsection}{\numberline {4.2.3.2}Heuristics Results}{17}{subsubsection.4.2.3.2}
+\contentsline {subsection}{\numberline {4.2.4}Analysis and comparison of results}{17}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Translucent with 1+1 Protection}{18}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Physical Network Topology}{18}{subsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1.1}Reference Network}{18}{subsubsection.4.3.1.1}
+\contentsline {subsubsection}{\numberline {4.3.1.2}Realistic Network}{19}{subsubsection.4.3.1.2}
+\contentsline {subsection}{\numberline {4.3.2}Dimensioning using ILP}{20}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}ILP models}{20}{subsubsection.4.3.2.1}
+\contentsline {subsubsection}{\numberline {4.3.2.2}ILP Results}{21}{subsubsection.4.3.2.2}
+\contentsline {subsection}{\numberline {4.3.3}Dimensioning using Heuristics}{22}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}Heuristics Models}{22}{subsubsection.4.3.3.1}
+\contentsline {subsubsection}{\numberline {4.3.3.2}Heuristics Results}{22}{subsubsection.4.3.3.2}
+\contentsline {subsection}{\numberline {4.3.4}Analysis and comparison of results}{22}{subsection.4.3.4}
+\contentsline {chapter}{\numberline {5}Attachments}{23}{chapter.5}
+\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{23}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{23}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{24}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Net2Plan Tools}{26}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{26}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{29}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{36}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Reports}{37}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Results}{40}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{41}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{43}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Simulations}{46}{section.5.4}
+\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{47}{section.5.5}
+\contentsline {section}{\numberline {5.6}Developing new Reports}{50}{section.5.6}

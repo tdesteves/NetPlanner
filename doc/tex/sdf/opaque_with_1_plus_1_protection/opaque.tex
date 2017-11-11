@@ -1,5 +1,13 @@
 \clearpage
 
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves\\
+\textbf{Starting Date} &:& October 03, 2017\\
+\textbf{Goal}          &:& Implement the dimensioning of optical networks in the translucent transport mode.
+\end{tabular}
+\end{tcolorbox}
+
 \section{Opaque with 1+1 Protection}
 In this case study we focus on the opaque case with 1 + 1 protection.
 
@@ -51,8 +59,8 @@ The way the nodes are arranged geographically can be seen from the following fig
 \caption{Physical Topology of the Realistic Network.}
 \end{figure}
 
-The table \ref{table:2} shows the values of the variables associated with this network.
 \begin{table}[h!]
+The table \ref{table:2} shows the values of the variables associated with this network.\vspace{10pt}
 \centering
 \begin{tabular}{|| c | c | c||}
  \hline
@@ -77,68 +85,155 @@ Again, to make all the necessary calculations, only the value of the traffic use
   \item High Traffic: \textbf{20 TBits/s}
 \end{itemize}
 
-\subsection{Dimensioning using ILP models}
+\subsection{Dimensioning using ILP}
 
+\subsubsection{ILP models}\label{ILP_models_OP}
 The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i; j) for all demand pairs (o; d) and total number of optical channels in each link (i; j).
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=1]{ILP_Opaque}
-\end{figure}
 
-The objective function, to be minimized, is the expression(3.1). The flow conservation constraints are (3.2), (3.3) and (3.4). First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when "j" is not equal to the origin of the demand. Equation (3.4) is based on the same idea of (3.1), however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same (3.3). The inequality (3.5) is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint (3.6) is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic (3.7). The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+\begin{equation}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} W_{ij}
+\label{ILPOpaque}
+\end{equation}
+
+$subject$ $to$
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPOpaque1}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\ \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPOpaque2}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPOpaque3}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{cod}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPOpaque4}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+\label{ILPOpaque5}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} \in \{0,2\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPOpaque6}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j\label{ILPOpaque7}
+\end{equation}
 
 
-\subsection{ILP Results}
+The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic \ref{ILPOpaque6}. The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+
+
+\subsubsection{ILP Results}
+
 In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network.
-For this we will use the following calculation formulas:
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=\textwidth]{CAPEX}
-  \caption{First function is CAPEX cost, second is cost of the links}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=1]{CAPEX2}
-  \caption{This function represent the cost of the nodes}
-\end{figure}
-
-We will also need a price list that we can see below.
-
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the figure below.
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=1]{TabValor}
   \caption{Table with costs}
+  \label{TabCustOp}
 \end{figure}
 
-Finally we will calculate the CAPEX values for the various situations mentioned.
+In addition to the equipment costs, we will also use the parameter "span", which in this case will have a value of 100.
+Because this value is used to calculate the number of optical amplifiers required in the network using Equation \ref{amplifiers}.
 
-First we will present the scenario of low traffic and then in the case of a high of traffic.
-To know the value of CAPEX we will have to first calculate the value of the cost of the links and then the cost of the nodes.
+\begin{equation}
+N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
+\label{amplifiers}
+\end{equation}
 
-\textbf{First scenario:}
+The other parameters of this equation are:
+\begin{itemize}
+\item{$N^R$			$\rightarrow$ Total number of regenerators/amplifiers}
+\item{$len_l$		$\rightarrow$ Length of link l}
+\item{$span$		$\rightarrow$ Distance between amplifiers}	
+\end{itemize}	
 
-Through the table, of auxiliary calculations and MatLab the value of the cost of the links is:
+To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.
 
-Cost link = 24 336 000 euros
+To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the value of the optical cost is zero only needing to know the electric cost of the nodes that is given by equation \ref{electricalCostOpaque}.
 
-Again, through the table, of auxiliary calculations and MatLab the value of the cost of the nodes is:
+\begin{equation}
+C_{exc} = \left(\gamma_{e0}\times N\right) + \gamma_{e1} \times \left(T_1 + \left(2 \times w^0 \times \tau \right)\right)
+\label{electricalCostOpaque}
+\end{equation}
 
-Cost node = 5 860 000 euros
+\begin{itemize}
+\item{$C_{exc}$		$\rightarrow$	Electrical Ports Cost}
+\item{$\gamma_{e0}$	$\rightarrow$	EXC cost in Euros}
+\item{$N$			$\rightarrow$	Number of Nodes}
+\item{$\gamma_{e1}$	$\rightarrow$	EXC port cost in Euros}
+\item{$T_1$         $\rightarrow$   Total Unidirectional Traffic}
+\item{$w^0$			$\rightarrow$	Total number of optical channels}
+\item{$\tau$		$\rightarrow$	Traffic per port}
+\end{itemize}
 
-Finally, for this scenario the cost of CAPEX is:
+To calculate the cost of the Links we will use the equation \ref{linkCosts}.
 
-CAPEX = 30 196 000 euros
+\begin{equation}
+C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
+\label{linkCosts}
+\end{equation}	
+	
+\begin{itemize}
+\item{$C_L$				$\rightarrow$	Links Cost}
+\item{$\gamma_0^{OLT}$	$\rightarrow$	OLT cost in Euros}
+\item{$L$				$\rightarrow$	Number of unidirectional Links}
+\item{$\gamma_1^{OLT}$	$\rightarrow$	Transponder cost in Euros}
+\item{$W$             $\rightarrow$	Total number of optical channels}
+\item{$N^R$				$\rightarrow$	Total number of optical amplifiers}
+\item{$c^R$				$\rightarrow$	Optical amplifiers cost in Euros}
+\end{itemize}
 
-\textbf{Second scenario:}
+To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.
 
-Cost link = 191 336 000 euros
+\pagebreak
+Using the values calculated through MatLab as well as the values indicated in table \ref{table:1} or table \ref{table:2} (depending on the scenario used) and figure \ref{TabCustOp} we can finally calculate the CAPEX value using equations \ref{electricalCostOpaque} and \ref{linkCosts} for the various situations mentioned.\\
 
-Cost node = 48 260 000 euros
+\textbf{Low Traffic scenario:}\\
 
-CAPEX = 239 596 000 euros
+$C_L$ = \textbf{24 336 000\euro}
 
+$C_N$ = $C_{exc}$ = \textbf{5 860 000\euro}
 
-\subsection{Heuristics}
+$CAPEX$ = 24 336 000 + 5 860 000 = \textbf{30 196 000\euro}\\
 
+\textbf{High Traffic scenario:}\\
+
+$C_L$ = \textbf{191 336 000\euro}
+
+$C_N$ = $C_{exc}$ = \textbf{48 260 000 \euro}
+
+$CAPEX$ = 191 336 000 + 48 260 000 = \textbf{239 596 000 \euro}\\
+
+\subsection{Dimensioning using Heuristics}
+
+\subsubsection{Heuristics Models}
+
+\subsubsection{Heuristics Results}
+
+\subsection{Analysis and comparison of results}
