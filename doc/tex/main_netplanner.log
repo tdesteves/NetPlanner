@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  11 NOV 2017 17:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  14 NOV 2017 12:46
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -1236,80 +1236,78 @@ Overfull \hbox (7.33366pt too wide) in paragraph at lines 4--9
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 11.
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
-(Font)              Font shape `T1/ppl/b/n' tried instead on input line 14.
+(Font)              Font shape `T1/ppl/b/n' tried instead on input line 17.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 14.
+(babel)             in language  on input line 17.
 <./figures/RedeTeste.jpg, id=225, 572.1375pt x 195.73125pt>
 File: ./figures/RedeTeste.jpg Graphic file (type jpg)
 
 <use ./figures/RedeTeste.jpg>
-Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 22.
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 25.
 (pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 47.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 47.
- [7
-
- <./figures/RedeTeste.jpg>]
-<./figures/EON_Rede_Realista.jpg, id=235, 605.26125pt x 414.04688pt>
-File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
-
-<use ./figures/EON_Rede_Realista.jpg>
-Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 58.
-
-(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+<./figures/EON_Rede_Realista.jpg, id=227, 603.0028pt x 371.13657pt>
+File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
+
+<use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 60.
+
+(pdftex.def)             Requested size: 442.65375pt x 272.44514pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 88.
+(babel)             in language  on input line 62.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 92.
+(babel)             in language  on input line 62.
+ [7
+
+ <./figures/RedeTeste.jpg>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 92.
+(babel)             in language  on input line 90.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 94.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 94.
 [8 <./figures/EON_Rede_Realista.jpg>]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 100.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 102.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 107.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 109.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 114.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 116.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 147.
+(babel)             in language  on input line 149.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 147.
+(babel)             in language  on input line 149.
 [9] <./figures/TabValor.jpg, id=273, 258.9675pt x 155.83218pt>
 File: ./figures/TabValor.jpg Graphic file (type jpg)
 
 <use ./figures/TabValor.jpg>
-Package pdftex.def Info: ./figures/TabValor.jpg used on input line 156.
+Package pdftex.def Info: ./figures/TabValor.jpg used on input line 158.
 (pdftex.def)             Requested size: 258.96684pt x 155.8318pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 174.
+(babel)             in language  on input line 176.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 174.
+(babel)             in language  on input line 176.
  [10 <./figures/TabValor.jpg>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 215.
+(babel)             in language  on input line 217.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 215.
+(babel)             in language  on input line 217.
  [11]
-Underfull \hbox (badness 10000) in paragraph at lines 215--216
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 217--218
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 223--224
+Underfull \hbox (badness 10000) in paragraph at lines 219--220
 
  []
 
@@ -1319,14 +1317,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 225--226
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
+Underfull \hbox (badness 10000) in paragraph at lines 227--228
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 233--234
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 233.
+(babel)             in language  on input line 235.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 239.
+(babel)             in language  on input line 241.
 ) (sdf/transparent_with_1_plus_1_protection/transparent.tex
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
@@ -1346,68 +1349,66 @@ Overfull \hbox (7.33366pt too wide) in paragraph at lines 4--9
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 11.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 14.
+(babel)             in language  on input line 17.
 File: ./figures/RedeTeste.jpg Graphic file (type jpg)
 <use ./figures/RedeTeste.jpg>
-Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 22.
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 25.
 (pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 46.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 46.
- [13
-
-]
-File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
- <use ./figures/EON_Rede_Realista.jpg>
-Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 57.
-
-(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
+<use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 60.
+
+(pdftex.def)             Requested size: 442.65375pt x 272.44514pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 87.
+(babel)             in language  on input line 62.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 91.
+(babel)             in language  on input line 62.
+ [13
+
+]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 91.
+(babel)             in language  on input line 90.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 94.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 94.
 [14]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 99.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 102.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 106.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 109.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 113.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 116.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 140.
+(babel)             in language  on input line 143.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 140.
+(babel)             in language  on input line 143.
 [15]
 File: ./figures/TabValor.jpg Graphic file (type jpg)
  <use ./figures/TabValor.jpg>
-Package pdftex.def Info: ./figures/TabValor.jpg used on input line 148.
+Package pdftex.def Info: ./figures/TabValor.jpg used on input line 151.
 (pdftex.def)             Requested size: 258.96684pt x 155.8318pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 159--160
+Underfull \hbox (badness 10000) in paragraph at lines 162--163
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 176.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 173.
+(babel)             in language  on input line 176.
 [16]
-Underfull \hbox (badness 10000) in paragraph at lines 189--190
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 193--194
+Underfull \hbox (badness 10000) in paragraph at lines 192--193
 
  []
 
@@ -1417,24 +1418,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 196--197
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 202--203
+Underfull \hbox (badness 10000) in paragraph at lines 199--200
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 204--205
+Underfull \hbox (badness 10000) in paragraph at lines 205--206
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 210--211
+Underfull \hbox (badness 10000) in paragraph at lines 207--208
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 213.
+(babel)             in language  on input line 216.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 219.
+(babel)             in language  on input line 222.
 ) (sdf/translucent_with_1_plus_1_protection/translucent.tex
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
@@ -1470,7 +1476,7 @@ File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
  <use ./figures/EON_Rede_Realista.jpg>
 Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 58.
 
-(pdftex.def)             Requested size: 442.65375pt x 302.81398pt.
+(pdftex.def)             Requested size: 442.65375pt x 272.44514pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1478,17 +1484,17 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 88.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 95.
+(babel)             in language  on input line 99.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 95.
+(babel)             in language  on input line 99.
 [19]
 
 LaTeX Warning: Command \textbackslash invalid in math mode on input line 107.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 167.
+(babel)             in language  on input line 174.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 167.
+(babel)             in language  on input line 174.
 [20]
 File: ./figures/TabValor.jpg Graphic file (type jpg)
  <use ./figures/TabValor.jpg>
@@ -1509,11 +1515,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 221--222
 
  []
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 222.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 222.
-[21]
+
 Underfull \hbox (badness 10000) in paragraph at lines 227--228
 
  []
@@ -1523,7 +1525,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 229--230
 
  []
 
-
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 235.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 235.
+[21]
 Underfull \hbox (badness 10000) in paragraph at lines 235--236
 
  []
@@ -2384,7 +2390,7 @@ iles/MiKTeX 2.9/fonts/type1/public/eurosym/feymr10.pfb><C:/Program Files/MiKTeX
 9/fonts/type1/urw/courier/ucrr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/u
 rw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/up
 lr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (53 pages, 2703142 bytes).
+Output written on main_netplanner.pdf (53 pages, 2695412 bytes).
 PDF statistics:
  833 PDF objects out of 1000 (max. 8388607)
  203 named destinations out of 1000 (max. 500000)
