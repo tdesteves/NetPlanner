@@ -1,3 +1,18 @@
+2017-11-14
+TO BE DONE
+	- correr os ILPs no servidor para o modo opáco e transparente para as redes de referência e a rede real
+	- definir as variaveis (criar uma tabela)
+	- correr no Net2Plan para o modo opaco e transparente
+	- incluir os resultados no documento
+
+	- trabalhar no ILP para o modo translucido
+		- perceber o algoritmo
+		- definir as variaveis
+		- ajustar a notação
+		- implementar no Matlab
+
+	
+
 2017-11-07
 TO BE DONE
 	- trabalhar documento ----- feito -----
