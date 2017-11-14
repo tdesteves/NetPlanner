@@ -1,14 +1,15 @@
 2017-11-07
 TO BE DONE
-	- trabalhar documento
-		- colocar o net2plan com anexo no documento principal
-		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente
+	- trabalhar documento ----- feito -----
+		- colocar o net2plan com anexo no documento principal ----- feito -----
+		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente ----- feito -----
 
-	- correr os ILPs
-		. num servidor do IT
+	- correr os ILPs ----- obtenho sempre erro no mxlpsolve -----
+		. num servidor do IT ----- feito -----
 
-	- desenvolver os ILPs para o modo de transporte translúcido
-		- estudar o script e os artigos, para na próxima semana discutirmos
+	- desenvolver os ILPs para o modo de transporte translúcido ----- incompleto -----
+		- estudar o script e os artigos, para na próxima semana discutirmos ----- feito -----
+
 
 
 
