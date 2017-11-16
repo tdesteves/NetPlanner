@@ -54,3 +54,4 @@
 \contentsline {section}{\numberline {5.4}Simulations}{46}{section.5.4}
 \contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{47}{section.5.5}
 \contentsline {section}{\numberline {5.6}Developing new Reports}{50}{section.5.6}
+\contentsline {chapter}{\numberline {6}Dimensioning and Optimization of Node Architecture in Optical Transport Networks}{52}{chapter.6}
