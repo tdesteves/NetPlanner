@@ -1,14 +1,56 @@
-2017-10-18
+2017-11-14
+TO BE DONE
+	- correr os ILPs no servidor para o modo opáco e transparente para as redes de referência e a rede real
+	- definir as variaveis (criar uma tabela)
+	- correr no Net2Plan para o modo opaco e transparente
+	- incluir os resultados no documento
+
+	- trabalhar no ILP para o modo translucido
+		- perceber o algoritmo
+		- definir as variaveis
+		- ajustar a notação
+		- implementar no Matlab
+
+	
+
+2017-11-07
+TO BE DONE
+	- trabalhar documento ----- feito -----
+		- colocar o net2plan com anexo no documento principal ----- feito -----
+		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente ----- feito -----
+
+	- correr os ILPs ----- obtenho sempre erro no mxlpsolve -----
+		. num servidor do IT ----- feito -----
+
+	- desenvolver os ILPs para o modo de transporte translúcido ----- incompleto -----
+		- estudar o script e os artigos, para na próxima semana discutirmos ----- feito -----
+
+
+
+
+2017-11-02
+TO BE DONE
+	- trabalhar documento ----- com tempo tenho de melhorar -----
+		- colocar o net2plan com anexo no documento principal ----- este ponto está feito mas tem erro -----
+		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente ----- este ponto por agora está feito -----
+
+	- correr os ILPs
+		. num servidor do IT
+
+	- desenvolver os ILPs para o modo de transporte translúcido
+		- estudar o script e os artigos, para na próxima semana discutirmos ----- este ponto está feito -----
+
+2017-10-18 ----- está tudo feito -----
 TO BE DONE
 	- trabalhar documento
-		- acabar a parte da metodologia
-		- inserir a rede de referência e a rede realista
-		- ILPs para a rede referência no modo opaco com proteção 1+1
+		- acabar a parte da metodologia ----- este ponto está feito -----
+		- inserir a rede de referência e a rede realista ----- este ponto está feito -----
+		- ILPs para a rede referência no modo opaco com proteção 1+1 ----- este ponto está feito -----
 
 	- resultaods dos ILPs para a rede referência no modo opaco com proteção 1+1
 
 
-2017-10-11
+2017-10-11 ----- está tudo feito -----
 TO BE DONE
 - duas redes (rede de referência & rede realista diferente da do Vasco) ----- este ponto está feito -----
 	http://www.av.it.pt/anp/on/refnet2.html ---- escolhi deste site a rede realista (EON) ----
@@ -25,7 +67,7 @@ TO BE DONE
 
 
 
-2017-10-02
+2017-10-02 ----- está tudo feito -----
 TO BE DONE
 - duas redes (rede de referência & rede realista diferente da do Vasco)
 - dimensionamento opaco e transparente (ILP (Matlab + LPSolve), Heuristica (NetPlan)) (pouco tráfego & muito trafego)
