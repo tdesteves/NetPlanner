@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2017.2.15)  7 NOV 2017 16:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6300 64-bit) (preloaded format=pdflatex 2017.5.9)  16 NOV 2017 09:57
 entering extended mode
-**C:/netxpto/NetPlanner/doc/tex/main_netplanner.tex
-(C:/netxpto/NetPlanner/doc/tex/main_netplanner.tex
-LaTeX2e <2016/03/31> patch level 3
+**./main_netplanner.tex
+(main_netplanner.tex
+LaTeX2e <2017-04-15>
 Babel <3.9r> and hyphenation patterns for 75 language(s) loaded.
 (style/phdthesis.cls
 
@@ -39,7 +39,7 @@ Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
-Package: graphics 2016/07/10 v1.0t Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
@@ -50,7 +50,7 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 Package graphics Info: Driver file: pdftex.def on input line 99.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics-def\pdftex.def"
-File: pdftex.def 2016/07/10 v0.06j Graphics/color for pdfTeX
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
@@ -75,7 +75,7 @@ Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 
 (style/my_packages.tex
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
-Package: amsmath 2016/06/28 v2.15d AMS math features
+Package: amsmath 2016/11/05 v2.16a AMS math features
 \@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
@@ -95,20 +95,20 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 Package: amsopn 2016/03/08 v2.02 operator names
 )
 \inf@bad=\count89
-LaTeX Info: Redefining \frac on input line 199.
+LaTeX Info: Redefining \frac on input line 213.
 \uproot@=\count90
 \leftroot@=\count91
-LaTeX Info: Redefining \overline on input line 297.
+LaTeX Info: Redefining \overline on input line 375.
 \classnum@=\count92
 \DOTSCASE@=\count93
-LaTeX Info: Redefining \ldots on input line 394.
-LaTeX Info: Redefining \dots on input line 397.
-LaTeX Info: Redefining \cdots on input line 518.
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen109
-LaTeX Font Info:    Redeclaring font encoding OML on input line 634.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
 \macc@depth=\count94
 \c@MaxMatrixCols=\count95
 \dotsspace@=\muskip10
@@ -129,8 +129,8 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 635.
 \multlinegap=\skip47
 \multlinetaggap=\skip48
 \mathdisplay@stack=\toks19
-LaTeX Info: Redefining \[ on input line 2739.
-LaTeX Info: Redefining \] on input line 2740.
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2015/03/17 v1.2c Input encoding file
@@ -235,14 +235,14 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\here.sty")
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
-Package: fontenc 2016/06/19 v1.99m Standard LaTeX package
+Package: fontenc 2017/04/05 v2.0i Standard LaTeX package
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
-File: t1enc.def 2016/06/19 v1.99m Standard LaTeX file
+File: t1enc.def 2017/04/05 v2.0i Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\graphics\rotating.sty"
-Package: rotating 2016/05/22 v2.16c rotated objects in LaTeX
+Package: rotating 2016/08/11 v2.16d rotated objects in LaTeX
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ifthen.sty"
 Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
@@ -254,10 +254,9 @@ Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
 \rot@mess@toks=\toks29
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
-Package: multirow 2016/10/11 v2.1 Span multiple rows of a table
+Package: multirow 2016/11/25 v2.2 Span multiple rows of a table
 \multirow@colwidth=\skip60
-\multirow@cnta=\count106
-\multirow@cntb=\count107
+\multirow@cntb=\count106
 \multirow@dima=\skip61
 \bigstrutjot=\dimen118
 )
@@ -269,7 +268,7 @@ Package: epigraph 2009/09/02 v1.5c typesetting epigraphs
 \epigraphrule=\skip65
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hyperref.sty"
-Package: hyperref 2016/06/24 v6.83q Hypertext links for LaTeX
+Package: hyperref 2017/03/14 v6.85a Hypertext links for LaTeX
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\hobsub-hyperref.sty"
 Package: hobsub-hyperref 2016/05/16 v1.14 Bundle oberdiek, subset hyperref (HO)
@@ -285,7 +284,7 @@ Package ifluatex Info: LuaTeX not detected.
 Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 Package: intcalc 2016/05/16 v1.2 Expandable calculations with integers (HO)
-Package: ifpdf 2016/05/14 v3.1 Provides the ifpdf switch
+Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 Package etexcmds Info: Could not find \expanded.
 (etexcmds)             That can mean that you are not using pdfTeX 1.50 or
@@ -293,7 +292,7 @@ Package etexcmds Info: Could not find \expanded.
 (etexcmds)             In the latter case, load this package earlier.
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-Package: pdftexcmds 2016/05/21 v0.22 Utility functions of pdfTeX for LuaTeX (HO
+Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
@@ -325,55 +324,55 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
 \@linkdim=\dimen119
-\Hy@linkcounter=\count108
-\Hy@pagecounter=\count109
+\Hy@linkcounter=\count107
+\Hy@pagecounter=\count108
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\pd1enc.def"
-File: pd1enc.def 2016/06/24 v6.83q Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2017/03/14 v6.85a Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count110
+\Hy@SavedSpaceFactor=\count109
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\00miktex\hyperref.cfg"
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
-Package hyperref Info: Hyper figures OFF on input line 4486.
-Package hyperref Info: Link nesting OFF on input line 4491.
-Package hyperref Info: Hyper index ON on input line 4494.
-Package hyperref Info: Plain pages OFF on input line 4501.
-Package hyperref Info: Backreferencing OFF on input line 4506.
+Package hyperref Info: Hyper figures OFF on input line 4498.
+Package hyperref Info: Link nesting OFF on input line 4503.
+Package hyperref Info: Hyper index ON on input line 4506.
+Package hyperref Info: Plain pages OFF on input line 4513.
+Package hyperref Info: Backreferencing OFF on input line 4518.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4735.
-\c@Hy@tempcnt=\count111
+Package hyperref Info: Bookmarks ON on input line 4751.
+\c@Hy@tempcnt=\count110
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\url\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 5088.
+LaTeX Info: Redefining \url on input line 5104.
 \XeTeXLinkMargin=\dimen120
-\Fld@menulength=\count112
+\Fld@menulength=\count111
 \Field@Width=\dimen121
 \Fld@charsize=\dimen122
-Package hyperref Info: Hyper figures OFF on input line 6342.
-Package hyperref Info: Link nesting OFF on input line 6347.
-Package hyperref Info: Hyper index ON on input line 6350.
-Package hyperref Info: backreferencing OFF on input line 6357.
-Package hyperref Info: Link coloring OFF on input line 6362.
-Package hyperref Info: Link coloring with OCG OFF on input line 6367.
-Package hyperref Info: PDF/A mode OFF on input line 6372.
-LaTeX Info: Redefining \ref on input line 6412.
-LaTeX Info: Redefining \pageref on input line 6416.
-\Hy@abspage=\count113
-\c@Item=\count114
-\c@Hfootnote=\count115
+Package hyperref Info: Hyper figures OFF on input line 6358.
+Package hyperref Info: Link nesting OFF on input line 6363.
+Package hyperref Info: Hyper index ON on input line 6366.
+Package hyperref Info: backreferencing OFF on input line 6373.
+Package hyperref Info: Link coloring OFF on input line 6378.
+Package hyperref Info: Link coloring with OCG OFF on input line 6383.
+Package hyperref Info: PDF/A mode OFF on input line 6388.
+LaTeX Info: Redefining \ref on input line 6428.
+LaTeX Info: Redefining \pageref on input line 6432.
+\Hy@abspage=\count112
+\c@Item=\count113
+\c@Hfootnote=\count114
 )
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\hpdftex.def"
-File: hpdftex.def 2016/06/24 v6.83q Hyperref driver for pdfTeX
-\Fld@listcount=\count116
-\c@bookmark@seq@number=\count117
+File: hpdftex.def 2017/03/14 v6.85a Hyperref driver for pdfTeX
+\Fld@listcount=\count115
+\c@bookmark@seq@number=\count116
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\rerunfilecheck.sty"
 Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
@@ -400,12 +399,12 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \cmidrulesep=\dimen130
 \cmidrulekern=\dimen131
 \defaultaddspace=\dimen132
-\@cmidla=\count118
-\@cmidlb=\count119
+\@cmidla=\count117
+\@cmidlb=\count118
 \@aboverulesep=\dimen133
 \@belowrulesep=\dimen134
-\@thisruleclass=\count120
-\@lastruleclass=\count121
+\@thisruleclass=\count119
+\@lastruleclass=\count120
 \@thisrulewidth=\dimen135
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\eurosym\eurosym.sty"
@@ -426,7 +425,7 @@ Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 \XKV@toks=\toks31
 \XKV@tempa@toks=\toks32
 )
-\XKV@depth=\count122
+\XKV@depth=\count121
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\xfor\xfor.sty"
@@ -434,11 +433,11 @@ Package: xfor 2009/02/05 v1.05 (NLCT)
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\substr\substr.sty"
 Package: substr 2009/10/20 v1.2 Handle substrings
-\c@su@anzahl=\count123
+\c@su@anzahl=\count122
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\etoolbox\etoolbox.sty"
 Package: etoolbox 2017/01/02 v2.4 e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count124
+\etb@tempcnta=\count123
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\datatool\datatool-base.sty"
 Package: datatool-base 2016/07/28 v2.27 (NLCT)
@@ -452,19 +451,19 @@ Package: fp 1995/04/02
 `Fixed Point Package', Version 0.8, April 2, 1995 (C) Michael Mehlich
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fp\defpattern.sty"
 Package: defpattern 1994/10/12
-\actioncount=\count125
+\actioncount=\count124
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-basic.sty"
 Package: fp-basic 1996/05/13
-\FP@xs=\count126
-\FP@xia=\count127
-\FP@xib=\count128
-\FP@xfa=\count129
-\FP@xfb=\count130
-\FP@rega=\count131
-\FP@regb=\count132
-\FP@regs=\count133
-\FP@times=\count134
+\FP@xs=\count125
+\FP@xia=\count126
+\FP@xib=\count127
+\FP@xfa=\count128
+\FP@xfb=\count129
+\FP@rega=\count130
+\FP@regb=\count131
+\FP@regs=\count132
+\FP@times=\count133
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-addons.sty"
 Package: fp-addons 1995/03/15
@@ -483,7 +482,7 @@ Package: fp-pas 1994/08/29
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-random.sty"
 Package: fp-random 1995/02/23
-\FPseed=\count135
+\FPseed=\count134
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\fp\fp-eqn.sty"
 Package: fp-eqn 1995/04/03
@@ -495,31 +494,31 @@ Package: fp-upn 1996/10/21
 Package: fp-eval 1995/04/03
 )))
 \@dtl@toks=\toks33
-\@dtl@tmpcount=\count136
+\@dtl@tmpcount=\count135
 \dtl@tmplength=\skip67
-\dtl@sortresult=\count137
-\@dtl@numgrpsepcount=\count138
-\@dtl@datatype=\count139
-\dtl@codeA=\count140
-\dtl@codeB=\count141
-\@dtl@foreach@level=\count142
+\dtl@sortresult=\count136
+\@dtl@numgrpsepcount=\count137
+\@dtl@datatype=\count138
+\dtl@codeA=\count139
+\dtl@codeB=\count140
+\@dtl@foreach@level=\count141
 )
-\dtlcolumnnum=\count143
-\dtlrownum=\count144
+\dtlcolumnnum=\count142
+\dtlrownum=\count143
 \@dtl@before=\toks34
 \@dtl@after=\toks35
 \@dtl@colhead=\toks36
 \dtlcurrentrow=\toks37
 \dtlbeforerow=\toks38
 \dtlafterrow=\toks39
-\dtlforeachlevel=\count145
-\c@DTLrowi=\count146
-\c@DTLrowii=\count147
-\c@DTLrowiii=\count148
-\c@DTLrow=\count149
-\dtl@rowi=\count150
-\dtl@rowii=\count151
-\dtl@rowiii=\count152
+\dtlforeachlevel=\count144
+\c@DTLrowi=\count145
+\c@DTLrowii=\count146
+\c@DTLrowiii=\count147
+\c@DTLrow=\count148
+\dtl@rowi=\count149
+\dtl@rowii=\count150
+\dtl@rowiii=\count151
 \@dtl@curi=\toks40
 \@dtl@previ=\toks41
 \@dtl@nexti=\toks42
@@ -529,7 +528,7 @@ Package: fp-eval 1995/04/03
 \@dtl@curiii=\toks46
 \@dtl@previii=\toks47
 \@dtl@nextiii=\toks48
-\@dtl@elements=\count153
+\@dtl@elements=\count152
 \@dtl@list=\toks49
 \@dtl@rowa=\toks50
 \@dtl@rowb=\toks51
@@ -537,8 +536,8 @@ Package: fp-eval 1995/04/03
 \@dtl@toksB=\toks53
 \@dtl@write=\write5
 \@dtl@read=\read2
-\dtl@entrycr=\count154
-\dtl@omitlines=\count155
+\dtl@entrycr=\count153
+\dtl@omitlines=\count154
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries\base\glossaries.sty"
 Package: glossaries 2017/01/19 v4.29 (NLCT)
@@ -555,7 +554,7 @@ Package: textcase 2004/10/07 v0.07 Text only upper/lower case changing (DPC)
 07.sty"
 Package: glossaries-compatible-307 2017/01/19 v4.29 (NLCT)
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\tracklang\tracklang.sty"
-Package: tracklang 2016/11/03 v1.3.3 (NLCT) Track Languages
+Package: tracklang 2017/03/25 v1.3.4 (NLCT) Track Languages
 
 ("C:\Program Files\MiKTeX 2.9\tex\generic\tracklang\tracklang.tex"))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\beamer\translator\translator.sty"
@@ -569,7 +568,7 @@ File: glossaries-portuges.ldf 2014/11/23 v1.0
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\glossaries-portuges\glossaries-portuges
 -noenc.ldf"))
-\gls@level=\count156
+\gls@level=\count155
 \@gls@tmpb=\toks56
 \gls@tmplen=\skip68
 \glskeylisttok=\toks57
@@ -592,16 +591,16 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \LTright=\skip71
 \LTpre=\skip72
 \LTpost=\skip73
-\LTchunksize=\count157
+\LTchunksize=\count156
 \LTcapwidth=\dimen136
 \LT@head=\box34
 \LT@firsthead=\box35
 \LT@foot=\box36
 \LT@lastfoot=\box37
-\LT@cols=\count158
-\LT@rows=\count159
-\c@LT@tables=\count160
-\c@LT@chunks=\count161
+\LT@cols=\count157
+\LT@rows=\count158
+\c@LT@tables=\count159
+\c@LT@chunks=\count160
 \LT@p@ftn=\toks61
 )
 \glsdescwidth=\skip74
@@ -612,7 +611,7 @@ Package: glossary-super 2017/01/19 v4.29 (NLCT)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\supertabular\supertabular.sty"
 Package: supertabular 2004/02/20 v4.1e the supertabular environment
-\c@tracingst=\count162
+\c@tracingst=\count161
 \ST@wd=\dimen137
 \ST@rightskip=\skip76
 \ST@leftskip=\skip77
@@ -647,7 +646,7 @@ Package caption3 Info: TeX engine: e-TeX on input line 67.
 \caption@parindent=\dimen153
 \caption@hangindent=\dimen154
 )
-\c@ContinuedFloat=\count163
+\c@ContinuedFloat=\count162
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
@@ -660,21 +659,21 @@ Package caption Info: supertabular package is loaded.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\caption\subcaption.sty"
 Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
-\c@subfigure=\count164
-\c@subtable=\count165
+\c@subfigure=\count163
+\c@subtable=\count164
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tabulary\tabulary.sty"
 Package: tabulary 2014/06/11 v0.10 tabulary package (DPC)
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
-Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+Package: array 2016/10/06 v2.4d Tabular extension package (FMi)
 \col@sep=\dimen155
 \extrarowheight=\dimen156
 \NC@list=\toks62
 \extratabsurround=\skip80
 \backup@length=\skip81
 )
-\TY@count=\count166
+\TY@count=\count165
 \TY@linewidth=\dimen157
 \tymin=\dimen158
 \tymax=\dimen159
@@ -691,15 +690,15 @@ Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
 \verbatim@in@stream=\read3
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tools\multicol.sty"
-Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
-\c@tracingmulticols=\count167
+Package: multicol 2017/04/11 v1.8q multicolumn formatting (FMi)
+\c@tracingmulticols=\count166
 \mult@box=\box39
 \multicol@leftmargin=\dimen161
-\c@unbalance=\count168
-\c@collectmore=\count169
-\doublecol@number=\count170
-\multicoltolerance=\count171
-\multicolpretolerance=\count172
+\c@unbalance=\count167
+\c@collectmore=\count168
+\doublecol@number=\count169
+\multicoltolerance=\count170
+\multicolpretolerance=\count171
 \full@width=\dimen162
 \page@free=\dimen163
 \premulticols=\dimen164
@@ -730,17 +729,17 @@ Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
 \@tempa=\box60
 \@tempa=\box61
 \@tempa=\box62
-\c@columnbadness=\count173
-\c@finalcolumnbadness=\count174
+\c@columnbadness=\count172
+\c@finalcolumnbadness=\count173
 \last@try=\dimen167
 \multicolovershoot=\dimen168
 \multicolundershoot=\dimen169
 \mult@nat@firstbox=\box63
 \colbreak@box=\box64
-\mc@col@check@num=\count175
+\mc@col@check@num=\count174
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\tcolorbox\tcolorbox.sty"
-Package: tcolorbox 2017/09/14 version 4.11 text color boxes
+Package: tcolorbox 2017/07/05 version 4.10 text color boxes
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\basiclayer\pgf.sty"
 ("C:\Program Files\MiKTeX 2.9\tex\latex\pgf\utilities\pgfrcs.sty"
@@ -783,10 +782,10 @@ x"
 \pgf@yc=\dimen179
 \w@pgf@writea=\write6
 \r@pgf@reada=\read4
-\c@pgf@counta=\count176
-\c@pgf@countb=\count177
-\c@pgf@countc=\count178
-\c@pgf@countd=\count179
+\c@pgf@counta=\count175
+\c@pgf@countb=\count176
+\c@pgf@countc=\count177
+\c@pgf@countd=\count178
 \t@pgf@toka=\toks69
 \t@pgf@tokb=\toks70
 \t@pgf@tokc=\toks71
@@ -805,8 +804,8 @@ File: pgfsys-common-pdf.def 2013/10/10  (rcs-revision 1.13)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsyssoftpath.code.t
 ex"
 File: pgfsyssoftpath.code.tex 2013/09/09  (rcs-revision 1.9)
-\pgfsyssoftpath@smallbuffer@items=\count180
-\pgfsyssoftpath@bigbuffer@items=\count181
+\pgfsyssoftpath@smallbuffer@items=\count179
+\pgfsyssoftpath@bigbuffer@items=\count180
 )
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\systemlayer\pgfsysprotocol.code.t
 ex"
@@ -836,7 +835,7 @@ Package: pgfcore 2010/04/11 v3.0.1a (rcs-revision 1.7)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\math\pgfmathutil.code.tex")
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\math\pgfmathparser.code.tex"
 \pgfmath@dimen=\dimen180
-\pgfmath@count=\count182
+\pgfmath@count=\count181
 \pgfmath@box=\box66
 \pgfmath@toks=\toks72
 \pgfmath@stack@operand=\toks73
@@ -860,7 +859,7 @@ ex")
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\math\pgfmathfunctions.integerarit
 hmetics.code.tex")))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\math\pgfmathfloat.code.tex"
-\c@pgfmathroundto@lastzeros=\count183
+\c@pgfmathroundto@lastzeros=\count182
 ))
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\basiclayer\pgfcorepoints.code.tex
 "
@@ -898,7 +897,7 @@ File: pgfcorescopes.code.tex 2015/05/08  (rcs-revision 1.46)
 \pgfpic=\box67
 \pgf@hbox=\box68
 \pgf@layerbox@main=\box69
-\pgf@picture@serial@count=\count184
+\pgf@picture@serial@count=\count183
 )
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\basiclayer\pgfcoregraphicstate.co
 de.tex"
@@ -931,7 +930,7 @@ File: pgfcorearrows.code.tex 2015/05/14  (rcs-revision 1.43)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\basiclayer\pgfcoreshade.code.tex"
 File: pgfcoreshade.code.tex 2013/07/15  (rcs-revision 1.15)
 \pgf@max=\dimen260
-\pgf@sys@shading@range@num=\count185
+\pgf@sys@shading@range@num=\count184
 ) ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\basiclayer\pgfcoreimage.code.te
 x"
 File: pgfcoreimage.code.tex 2013/07/15  (rcs-revision 1.18)
@@ -978,9 +977,9 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \tcb@upperbox=\box73
 \tcb@lowerbox=\box74
 \tcb@phantombox=\box75
-\c@tcbbreakpart=\count186
-\c@tcblayer=\count187
-\tcolorbox@number=\count188
+\c@tcbbreakpart=\count185
+\c@tcblayer=\count186
+\tcolorbox@number=\count187
 \tcb@temp=\box76
 \tcb@temp=\box77
 \tcb@temp=\box78
@@ -1036,16 +1035,16 @@ File: t1ppl.fd 2001/06/04 font definitions for T1/ppl.
 )
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count189
+\scratchcounter=\count188
 \scratchdimen=\dimen263
 \scratchbox=\box80
-\nofMPsegments=\count190
-\nofMParguments=\count191
+\nofMPsegments=\count189
+\nofMParguments=\count190
 \everyMPshowfont=\toks75
-\MPscratchCnt=\count192
+\MPscratchCnt=\count191
 \MPscratchDim=\dimen264
-\MPnumerator=\count193
-\makeMPintoPDFobject=\count194
+\MPnumerator=\count192
+\makeMPintoPDFobject=\count193
 \everyMPtoPDFconversion=\toks76
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -1069,7 +1068,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count195
+\c@section@level=\count194
 )
 LaTeX Info: Redefining \ref on input line 9.
 LaTeX Info: Redefining \pageref on input line 9.
@@ -1493,20 +1492,20 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 60.
  ) 
 Here is how much of TeX's memory you used:
- 24997 strings out of 493333
- 452049 string characters out of 3139194
- 589498 words of memory out of 3000000
- 27859 multiletter control sequences out of 15000+200000
+ 25006 strings out of 493328
+ 452182 string characters out of 3139131
+ 590097 words of memory out of 3000000
+ 27872 multiletter control sequences out of 15000+200000
  23824 words of font info for 56 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,10n,94p,2010b,449s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 58i,10n,94p,1982b,449s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
 ype1/urw/palatino/uplb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palat
 ino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb
 >
-Output written on main_netplanner.pdf (20 pages, 439874 bytes).
+Output written on main_netplanner.pdf (20 pages, 439875 bytes).
 PDF statistics:
  289 PDF objects out of 1000 (max. 8388607)
  73 named destinations out of 1000 (max. 500000)
