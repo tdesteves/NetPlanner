@@ -1,14 +1,30 @@
+2017-11-14
+TO BE DONE
+	- correr os ILPs no servidor para o modo opáco e transparente para as redes de referência e a rede real
+	- definir as variaveis (criar uma tabela)
+	- correr no Net2Plan para o modo opaco e transparente
+	- incluir os resultados no documento
+
+	- trabalhar no ILP para o modo translucido
+		- perceber o algoritmo
+		- definir as variaveis
+		- ajustar a notação
+		- implementar no Matlab
+
+	
+
 2017-11-07
 TO BE DONE
-	- trabalhar documento
-		- colocar o net2plan com anexo no documento principal
-		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente
+	- trabalhar documento ----- feito -----
+		- colocar o net2plan com anexo no documento principal ----- feito -----
+		- colocar mais detalhe no documento, no que diz respeito ao transporte opaco e transparente ----- feito -----
 
-	- correr os ILPs
-		. num servidor do IT
+	- correr os ILPs ----- obtenho sempre erro no mxlpsolve -----
+		. num servidor do IT ----- feito -----
 
-	- desenvolver os ILPs para o modo de transporte translúcido
-		- estudar o script e os artigos, para na próxima semana discutirmos
+	- desenvolver os ILPs para o modo de transporte translúcido ----- incompleto -----
+		- estudar o script e os artigos, para na próxima semana discutirmos ----- feito -----
+
 
 
 
