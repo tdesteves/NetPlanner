@@ -1,9 +1,10 @@
 \graphicspath{{./figures/}}
-\section{Installing Net2Plan and its main options}
+\section{Net2Plan}
+\subsection{Installing Net2Plan}
 This first section will describe how to install Net2Plan and some of the solvers usable by it as well as the main program preferences available.
 
 
-    \subsection{Net2Plan download and installation}
+    \subsubsection{Net2Plan download and installation}
     \vspace{0.5cm}
 	Before downloading Net2Plan, the first step is verifying if the computer has the necessary Java Runtime Environment, it is recommended the latest release (Version 8). This can be download from the java website at \url{https://java.com/en/download/}. The Java Runtime Environment is necessary as Net2Plan was coded in Java.
 		
@@ -15,7 +16,7 @@ This first section will describe how to install Net2Plan and some of the solvers
        	\caption{Net2Plan Opening Menu}
     \end{figure}
 
-	\subsection{Net2Plan Options and installing solvers}
+	\subsubsection{Net2Plan Options and installing solvers}
 	\vspace{0.5cm}
 	To access the main Net2Plan options click "File $\rightarrow$ Options". In this window the global parameters for simulations can be changed if needed.
 	For example, an important option to note in this tab is the parameter "defaultRunnableCodePath", whose value should be the path to the jar file containing NetPlanner algorithms. As will be explained further on, Net2Plan is an open source tool and as such, new algorithms can be implemented and the default path can be changed to the path where those will be available instead of loading them manually each time Net2Plan is opened.	The remaining parameters are related to solver options, which are the default external solvers used and also the path in which the $".dll"$, $".so"$, $".dylib"$ files of each solver are available. By default there is no path for each solver but in this case it was already changed to where the solvers were installed.
@@ -56,10 +57,10 @@ This first section will describe how to install Net2Plan and some of the solvers
 		   	
     \newpage
 
-\section{Net2Plan Tools}
+\subsection{Using Net2Plan}
 This section will describe in some detail the tools presented in Net2Plan as a network planner, most notably how to created a traffic matrix, design a network and some of the simulation options available.
 
-	\subsection{Creating Traffic Matrices}
+	\subsubsection{Creating Traffic Matrices}
     To start creating a traffic matrix in Net2Plan go to "Tools $\rightarrow$ Traffic matrix design" or press $Alt+2$. The traffic matrix menu is shown on Figure \ref{Net2Plan_traffic}.
 	
 	\begin{figure}[h!]
@@ -116,7 +117,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	\newpage
 		
-	\subsection{Creating the Network topologies} \label{Creating the Network topologies}
+	\subsubsection{Creating the Network topologies} \label{Creating the Network topologies}
 	To start with the Network creation tools in Net2Plan go to "Tools $\rightarrow$ Offline network design" or press $Alt+1$. The network design menu is shown on Figure \ref{Net2Plan_Network}.
 	
 	\begin{figure}[h!]
@@ -222,7 +223,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	%Lastly for the Translucent mode, the grooming is performed in a mix between the previous two modes. Up to a certain reach defined in the logical topology algorithm the network acts similarly to a transparent one and after that distance the signal is regenerated as in an Opaque network. For the example presented the optical reach was 400 km.
 	\pagebreak
-	\subsection{Routing and Grooming} \label{Routing and Grooming}
+	\subsubsection{Routing and Grooming} \label{Routing and Grooming}
 	
 	\vspace{1cm}
 	In this section, different routing and grooming options will be discussed for both a network without protection and using a 1+1 protection scheme (dedicated path protection).
@@ -265,7 +266,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 
 \newpage
 	
-	\subsection{Reports} \label{Reports}
+	\subsubsection{Reports} \label{Reports}
 	As looking separately at each tab to obtain information for different parts of the network is a slow process and does not show some important metrics, Net2Plan allows for the creation of reports where in a similar way to algorithms they can be adjusted to display the information needed, these can also be seen in html format for an easier read. In this section, the report developed will be demonstrated.
 	
 %   	The first report developed for the optical network classes is called "lineMatrix". This report can be loaded as seen on Figure \ref{lineMatrix_Report}.
@@ -417,11 +418,11 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	The middle part of the equation: $\gamma_1^{OLT} \times \tau \times W$ refers to the Transponders cost while the rest is the "Fiber" and the "OLT" cost.	Lastly the total network cost can be obtained by adding the Links cost with the Nodes cost.\\
 	
-	\section{Results}
+	\subsection{Dimensioning Results}
 	This section will display the results obtained using the algorithms and reports previously explained for a network with an Opaque transport mode and for one with Transparent.
 
 	
-	\subsection{Opaque with 1+1 protection}
+	\subsubsection{Opaque with 1+1 protection}
 	%For this case, the difference to the previous example will be as for the case of a transparent network in the creation of a protection segment for each route.
 	
 	The results will be displayed only in the logical topology as in an opaque network it is the same as the physical one.
@@ -490,7 +491,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	
 	
-		\subsection{Transparent with 1+1 protection}
+		\subsubsection{Transparent with 1+1 protection}
 		
 		
 		For a network with a transparent transport mode, the routing as was explained before, is done using a shortest path algorithm since there are no traffic grooming between different node pairs. For this instance as there is also a 1+1 protection scheme in place, the algorithm needs to not only create the routes but also a protection segment for each route. This segment is the shortest disjoint path of the route created.
@@ -547,7 +548,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	\newpage
 	
 	
-	\section{Simulations}
+	\subsection{Simulations}
 	To access the Simulations window go to  "Tools $\rightarrow$ Online Simulation" or press $Alt + 3$. The simulations menu is very similar to the one available for network design with the notable difference that in this instance the network needs to have already been saved with every definition done as all the tabs described earlier are only available here for viewing.
 	
 	Using the already built network with the demand set introduced as well as routing and protection segments, an example of a Time-varying simulation is demonstrated. The main parameters to be chosen on this simulation are the "Event generator" and the "Provisioning algorithm", displayed on Figures \ref{Net2Plan_Simulation} and \ref{Net2Plan_Simulation_1}.
@@ -575,7 +576,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	
 	\newpage
 
-	\section{Implementing new algorithms on Net2Plan}
+	\subsection{Implementing new algorithms on Net2Plan}
 	\vspace{1cm}
 	This section will demonstrate some of the possibilities provided by Net2Plan as an open source tool. By creating new algorithms or reports it is possible to adapt this program for most necessities in terms of network planning.
 
@@ -662,7 +663,7 @@ This section will describe in some detail the tools presented in Net2Plan as a n
 	 						
 	\newpage
 
-	\section{Developing new Reports}
+	\subsection{Developing new Reports}
 	Similarly to the way algorithms can be modified or new ones created, also reports can be done using almost the same steps. For the following examples, the "Optical\_Network\_networkcost" is being used as a basis for modifying or creating new reports.
 
 	An important point to note as the main difference as to when modifying algorithms, is that in this case not only are the Net2Plan libraries needed but also the extra files summoned by the report. These files can be found opening the "BuiltInExamples.jar" file in the Net2Plan directory on the corresponding report.

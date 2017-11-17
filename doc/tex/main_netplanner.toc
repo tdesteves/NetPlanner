@@ -40,18 +40,20 @@
 \contentsline {subsubsection}{\numberline {4.3.3.2}Heuristics Results}{22}{subsubsection.4.3.3.2}
 \contentsline {subsection}{\numberline {4.3.4}Analysis and comparison of results}{22}{subsection.4.3.4}
 \contentsline {chapter}{\numberline {5}Attachments}{23}{chapter.5}
-\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{23}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{23}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{24}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Net2Plan Tools}{26}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{26}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{29}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{36}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Reports}{37}{subsection.5.2.4}
-\contentsline {section}{\numberline {5.3}Results}{40}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{41}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{43}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Simulations}{46}{section.5.4}
-\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{47}{section.5.5}
-\contentsline {section}{\numberline {5.6}Developing new Reports}{50}{section.5.6}
-\contentsline {chapter}{\numberline {6}Dimensioning and Optimization of Node Architecture in Optical Transport Networks}{52}{chapter.6}
+\contentsline {section}{\numberline {5.1}Net2Plan}{23}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Installing Net2Plan}{23}{subsection.5.1.1}
+\contentsline {subsubsection}{\numberline {5.1.1.1}Net2Plan download and installation}{23}{subsubsection.5.1.1.1}
+\contentsline {subsubsection}{\numberline {5.1.1.2}Net2Plan Options and installing solvers}{24}{subsubsection.5.1.1.2}
+\contentsline {subsection}{\numberline {5.1.2}Using Net2Plan}{26}{subsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.1.2.1}Creating Traffic Matrices}{26}{subsubsection.5.1.2.1}
+\contentsline {subsubsection}{\numberline {5.1.2.2}Creating the Network topologies}{29}{subsubsection.5.1.2.2}
+\contentsline {subsubsection}{\numberline {5.1.2.3}Routing and Grooming}{36}{subsubsection.5.1.2.3}
+\contentsline {subsubsection}{\numberline {5.1.2.4}Reports}{37}{subsubsection.5.1.2.4}
+\contentsline {subsection}{\numberline {5.1.3}Dimensioning Results}{40}{subsection.5.1.3}
+\contentsline {subsubsection}{\numberline {5.1.3.1}Opaque with 1+1 protection}{40}{subsubsection.5.1.3.1}
+\contentsline {subsubsection}{\numberline {5.1.3.2}Transparent with 1+1 protection}{43}{subsubsection.5.1.3.2}
+\contentsline {subsection}{\numberline {5.1.4}Simulations}{46}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Implementing new algorithms on Net2Plan}{47}{subsection.5.1.5}
+\contentsline {subsection}{\numberline {5.1.6}Developing new Reports}{50}{subsection.5.1.6}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{52}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{53}{section*.47}
