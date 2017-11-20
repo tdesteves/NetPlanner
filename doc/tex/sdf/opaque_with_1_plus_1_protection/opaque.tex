@@ -17,7 +17,7 @@ It can thus improve the usability of optical channels by providing grooming at e
 \subsection{Physical Network Topology}
 
 \subsubsection{Reference Network}
-As we can see in the figure, our reference network consists of 6 nodes and 8 Bidirectional links.
+In the figure below we ca see that our reference network consists of 6 nodes and 8 Bidirectional links.
 The average length of the links was chosen so that the following calculations are more simplistic.
 
 \begin{figure}[h!]
@@ -25,6 +25,15 @@ The average length of the links was chosen so that the following calculations ar
 \includegraphics[width=\textwidth]{RedeTeste}
 \caption{Physical Topology of the Reference Network.}
 \end{figure}
+
+\vspace{10pt}
+
+As we can see from table \ref{table:1}, to do all the calculations necessary for this project, let us know the value of the traffic used. This value is defined depending on the scenario used, as we can see:
+
+\begin{itemize}
+  \item Low Traffic: \textbf{0.5 TBits/s}
+  \item High Traffic: \textbf{5 TBits/s}
+\end{itemize}
 
 \begin{table}[h!]
 The following table shows the values of the variables associated with this network.\vspace{10pt}
@@ -45,11 +54,7 @@ The following table shows the values of the variables associated with this netwo
 \label{table:1}
 \end{table}
 
-As we can see from table \ref{table:1}, to do all the calculations necessary for this project, let us know the value of the traffic used. This value is defined depending on the scenario used, as we can see:
-\begin{itemize}
-  \item Low Traffic: \textbf{0.5 TBits/s}
-  \item High Traffic: \textbf{5 TBits/s}
-\end{itemize}
+
 
 \subsubsection{Realistic Network}
 The real network chosen for this work is the EON (European Optical Network).
@@ -60,6 +65,17 @@ The way the nodes are arranged geographically can be seen from the following fig
 \includegraphics[width=\textwidth]{EON_Rede_Realista}
 \caption{Physical Topology of the Realistic Network.}
 \end{figure}
+
+\vspace{10pt}
+
+Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
+
+\begin{itemize}
+  \item Low Traffic: \textbf{2 TBits/s}
+  \item High Traffic: \textbf{20 TBits/s}
+\end{itemize}
+
+\vspace{20pt}
 
 \begin{table}[h!]
 The table \ref{table:2} shows the values of the variables associated with this network.\vspace{10pt}
@@ -80,18 +96,38 @@ The table \ref{table:2} shows the values of the variables associated with this n
 \label{table:2}
 \end{table}
 
-Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
-
-\begin{itemize}
-  \item Low Traffic: \textbf{2 TBits/s}
-  \item High Traffic: \textbf{20 TBits/s}
-\end{itemize}
+\vspace{10pt}
 
 \subsection{Dimensioning using ILP}
-
+\vspace{10pt}
 \subsubsection{ILP models}\label{ILP_models_OP}
-The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i; j) for all demand pairs (o; d) and total number of optical channels in each link (i; j).
 
+For a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all the variables and their description. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Variables & Description \\
+ \hline\hline
+ $($ i,j $)$ & Origin node, i and destination node, j of a Link \\
+ $($ o,d $)$ & Origin node, o and destination node, d of a Demand \\
+ c & Client traffic Type $($ 1 to 5 $)$ \\
+ f & Binary variable indicating if link is used in the path between nodes \\
+ W & Number of optical channels \\
+ B & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ D & Client traffic demands \\
+ G & Network topology in form of Adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_opaque}
+\end{table}
+
+\vspace{20pt}
+
+The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i; j) for all demand pairs (o; d) and total number of optical channels in each link (i; j).
+\newpage
 \begin{equation}
 minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} W_{ij}
 \label{ILPOpaque}
@@ -144,21 +180,35 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 \forall(i,j) : i < j\label{ILPOpaque7}
 \end{equation}
 
+\vspace{10pt}
 
-The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic \ref{ILPOpaque6}. The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
 
-
+\newpage
 \subsubsection{ILP Results}
 
-In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network.
+In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network. \\
 
-The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the figure below.
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=1]{TabValor}
-  \caption{Table with costs}
-  \label{TabCustOp}
-\end{figure}
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table below.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Equipment & Cost \\
+ \hline\hline
+ OLT without transponders & 15000 \euro \\
+ Transponder & 5000 \euro/Gb \\
+ Optical Amplifier & 4000 \euro \\
+ EXC & 10000 \euro \\
+ OXC & 20000 \euro \\
+ EXC Port & 1000 \euro /Gb/s\\
+ OXC Port & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost1}
+\end{table}
 
 In addition to the equipment costs, we will also use the parameter "span", which in this case will have a value of 100.
 Because this value is used to calculate the number of optical amplifiers required in the network using Equation \ref{amplifiers}.
@@ -211,26 +261,43 @@ C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \t
 \item{$c^R$				$\rightarrow$	Optical amplifiers cost in Euros}
 \end{itemize}
 
-To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.
+To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
 
-\pagebreak
-Using the values calculated through MatLab as well as the values indicated in table \ref{table:1} or table \ref{table:2} (depending on the scenario used) and figure \ref{TabCustOp} we can finally calculate the CAPEX value using equations \ref{electricalCostOpaque} and \ref{linkCosts} for the various situations mentioned.\\
+Using the values calculated through MatLab as well as the values indicated in table \ref{table:1} or table \ref{table:2} (depending on the scenario used) and table \ref{table_cost1} we can finally calculate the CAPEX value using equations \ref{electricalCostOpaque} and \ref{linkCosts} for the various situations mentioned.\\
 
-\textbf{Low Traffic scenario:}\\
+\textbf{Scenario 1: Test Network Low Traffic} \label{Scenario1_opaque} \\
+%$C_L$ = $($15 000 * 8$)$ + $($5 000 * 100 * 23$)$ + $($24 * 4 000$)$
 
-$C_L$ = \textbf{24 336 000\euro}
+$C_L$ = \textbf{23 336 000\euro}
 
-$C_N$ = $C_{exc}$ = \textbf{5 860 000\euro}
+$C_N$ = $C_{exc}$ = \textbf{5 660 000\euro}
 
-$CAPEX$ = 24 336 000 + 5 860 000 = \textbf{30 196 000\euro}\\
+$CAPEX$ = 23 336 000 + 5 660 000 = \textbf{28 996 000\euro}\\
 
-\textbf{High Traffic scenario:}\\
+\textbf{Scenario 2: Test Network High Traffic} \label{Scenario2_opaque} \\
 
-$C_L$ = \textbf{191 336 000\euro}
+$C_L$ = \textbf{100 336 000\euro}
 
-$C_N$ = $C_{exc}$ = \textbf{48 260 000 \euro}
+$C_N$ = $C_{exc}$ = \textbf{21 060 000 \euro}
 
-$CAPEX$ = 191 336 000 + 48 260 000 = \textbf{239 596 000 \euro}\\
+$CAPEX$ = 100 336 000 + 21 060 000 = \textbf{121 396 000 \euro}\\
+
+
+\textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_opaque} \\
+
+$C_L$ = \textbf{\euro}
+
+$C_N$ = $C_{exc}$ = \textbf{\euro}
+
+$CAPEX$ =  +  = \textbf{\euro}\\
+
+\textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_opaque} \\
+
+$C_L$ = \textbf{\euro}
+
+$C_N$ = $C_{exc}$ = \textbf{ \euro}
+
+$CAPEX$ =  +  = \textbf{ \euro}\\
 
 \subsection{Dimensioning using Heuristics}
 
