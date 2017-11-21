@@ -50,7 +50,7 @@ As we can see from table \ref{table:5}, to do all the calculations necessary for
 \end{itemize}
 
 \subsubsection{Realistic Network}
-The real network chosen for this work is the EON (European Optical Network).
+The real network chosen for this work is the EON (European Optical Network). \\
 The way the nodes are arranged geographically can be seen from the following figure.
 
 \begin{figure}[h!]
@@ -58,6 +58,14 @@ The way the nodes are arranged geographically can be seen from the following fig
 \includegraphics[width=\textwidth]{EON_Rede_Realista}
 \caption{Physical Topology of the Realistic Network.}
 \end{figure}
+
+
+Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
+
+\begin{itemize}
+  \item Low Traffic: \textbf{2 TBits/s}
+  \item High Traffic: \textbf{20 TBits/s}
+\end{itemize}
 
 \begin{table}[h!]
 The table \ref{table:6} shows the values of the variables associated with this network.\vspace{10pt}
@@ -78,91 +86,111 @@ The table \ref{table:6} shows the values of the variables associated with this n
 \label{table:6}
 \end{table}
 
-Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
-
-\begin{itemize}
-  \item Low Traffic: \textbf{2 TBits/s}
-  \item High Traffic: \textbf{20 TBits/s}
-\end{itemize}
-
+\newpage
 \subsection{Dimensioning using ILP}
 
-\subsubsection{ILP models}
+\subsubsection{ILP models} \label{ILP_models_Transluc}
+
+Again, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transluc} will be created with all the variables and their description. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Variables & Description \\
+ \hline\hline
+ $($ i,j $)$ & Origin node, i and destination node, j of a Link \\
+ $($ o,d $)$ & Origin node, o and destination node, d of a Demand \\
+ c & Client traffic Type $($ 1 to 5 $)$ \\
+ L &  \\
+ y &  \\
+ W & Number of optical channels \\
+ B & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ D & Client traffic demands \\
+ G & Network topology in form of Adjacency matrix \\
+ BD & \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_transluc}
+\end{table}
+
+\vspace{20pt}
 
 \begin{equation}
-minimize \qquad \qquad   \sum_{(p,k,b)} l[p,k,b]
+minimize \qquad \qquad \qquad \qquad \qquad  \sum_{(o,d,b)} W_{od}
 \label{ILPTransluc}
 \end{equation}
 
 $subject$ $to$
 
 \begin{equation}
-\sum_{k \neq s} L[s,d,o,s,k] == traffic[o,s,d]
-\qquad \qquad \qquad \qquad \qquad \qquad
-\forall s,d,o : s < d
+\sum_{j \neq i} L_{ij}^{od} = D_{odc}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall o,c,d : o < d
 \label{ILPTransluc1}
 \end{equation}
 
 \begin{equation}
-\sum_{k \neq p \ k \neq s} L[s,d,o,p,k] == \sum_{k\textbackslash \{p,d\}} L[s,d,o,k,p]
-\qquad \qquad
+\sum_{j \neq i \ j \neq o} L_{ij}^{od} = \sum_{j \neq i \ j \neq o} L_{ji}^{od}
+\qquad \qquad \qquad \qquad \qquad \qquad
 \forall s,d,p,o : s < d : p \neq s : p \neq d
 \label{ILPTransluc2}
 \end{equation}
 
 \begin{equation}
-\sum_{k \neq d} L[s,d,o,k,d] == traffic[o,s,d]
-\qquad \qquad \qquad \qquad \qquad \qquad
-\forall s,d,o : s < d
+\sum_{i \neq j} L_{ji}^{od} = D_{odc}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall o,d,c : o < d
 \label{ILPTransluc3}
 \end{equation}
 
 \begin{equation}
-\sum_{(s,d,o): s<d} (granularities[o] \times L[s,d,o,p,k]) \Leftarrow  \sum_{b} BD[b] \times l[p,k,b]
-\qquad \qquad
-\forall p,k 
+\sum_{(o,d,c): o<d} (B(c) \times L_{ij}^{od}) \leq  \sum_{b} BD_b \times W_{ijb}
+\qquad \qquad \qquad \qquad \qquad
+\forall i,j
 \label{ILPTransluc4}
 \end{equation}
 
 \begin{equation}
-L[s,d,o,p,k] \geq 0;
+L_{ij}^{od} \geq 0;
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall s,d,p,k,o : s < d
+\forall o,d,i,j : o < d
 \label{ILPTransluc5}
 \end{equation}
 
 \begin{equation}
-\sum_{j \neq p} y[p,k,p,j,b] \equiv l[p,k,b]
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall k,p,b
+\sum_{i \neq j} y_{ij}^{od} = W_{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall i,j,b
 \label{ILPTransluc6}
 \end{equation}
 
 \begin{equation}
-\sum_{j\neq i \ j\neq p} y[p,k,i,j,b] \equiv \sum_{j \neq i \ j \neq k} y[p,k,j,i,b]
-\qquad \qquad \qquad \qquad
-\forall k,p,i,b : i \neq k : i \neq p
+\sum_{j\neq i \ j\neq o} y_{ij}^{od} = \sum_{j \neq i \ j \neq d} y_{ji}^{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall o,d,i,b : i \neq d : i \neq o
 \label{ILPTransluc7}
 \end{equation}
 
 \begin{equation}
-\sum_{j \neq k} y[p,k,j,k,b] \equiv l[p,k,b]
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall k,p,b
+\sum_{j \neq i} y_{ji}^{od} = W_{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall o,d,b
 \label{ILPTransluc8}
 \end{equation}
 
 \begin{equation}
-\sum_{(p,k,b)} \left( y[p,k,i,j,b] + y[p,k,j,i,b]\right) \leq 80 \times C[i,j]
-\qquad \qquad \qquad \qquad
+\sum_{(o,d,b)} \left( y_{ij}^{od} + y_{ji}^{od}\right) \leq 80 G_{ij}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall i,j : i < j
 \label{ILPTransluc9}
 \end{equation}
 
 \begin{equation}
-y[p,k,i,j,b] \geq 0
+y_{ij}^{od} \geq 0
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall p,k,i,j,b
+\forall o,d,i,j,b
 \label{ILPTransluc10}
 \end{equation}	
 
@@ -171,12 +199,25 @@ y[p,k,i,j,b] \geq 0
 
 In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network.
 
-The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the figure below.
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=1]{TabValor}
-  \caption{Table with costs}
-\end{figure}
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table below.
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Equipment & Cost \\
+ \hline\hline
+ OLT without transponders & 15000 \euro \\
+ Transponder & 5000 \euro/Gb \\
+ Optical Amplifier & 4000 \euro \\
+ EXC & 10000 \euro \\
+ OXC & 20000 \euro \\
+ EXC Port & 1000 \euro /Gb/s\\
+ OXC Port & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost3}
+\end{table}
 
 In addition to the equipment costs, we will also use the parameter "span", which in this case will have a value of 100.
 Because this value is used to calculate the number of optical amplifiers required in the network using Equation \ref{amplifiersTranslu}.
