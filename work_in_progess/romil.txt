@@ -1,0 +1,18 @@
+2017-11-17
+TO BE DONE
+	- to prepare the document
+		master dissertations, section number and hyperlink
+		improve the Net2Plan documentation, talk with Tiago
+
+	- run a simple simulation
+
+
+2017-11-16
+TO BE DONE
+	- to prepare the document
+		appendices
+			to include vasco Dissertations (appear in index)
+		improve the Net2Plan
+
+	- to prepare a folder where we put a stable version of the sofware
+

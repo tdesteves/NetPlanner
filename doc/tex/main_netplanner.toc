@@ -58,3 +58,5 @@
 \contentsline {section}{\numberline {5.8}Script Scenario 2}{59}{section.5.8}
 \contentsline {section}{\numberline {5.9}Script Scenario 3}{62}{section.5.9}
 \contentsline {section}{\numberline {5.10}Script Scenario 4}{63}{section.5.10}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{64}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{65}{section*.50}
