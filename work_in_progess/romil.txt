@@ -1,3 +1,12 @@
+2017-11-17
+TO BE DONE
+	- to prepare the document
+		master dissertations, section number and hyperlink
+		improve the Net2Plan documentation, talk with Tiago
+
+	- run a simple simulation
+
+
 2017-11-16
 TO BE DONE
 	- to prepare the document
