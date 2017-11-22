@@ -4,14 +4,14 @@ TO BE DONE
 		opaco, both networks in both scenarios
 			reference network, low traffic -> DONE
 			reference network, high traffic -> DONE
-			realistic network, low traffic -> MIssing (to be done)
-			realistic network, high traffic -> MIssing (to be done)
+			realistic network, low traffic -> Missing (to be done)
+			realistic network, high traffic -> Missing (to be done)
 
 		transparent, both networks in both scenarios
 			reference network, low traffic -> Missing (to be done)
 			reference network, high traffic -> Missing (to be done)
-			realistic network, low traffic -> MIssing (to be done)
-			realistic network, high traffic -> MIssing (to be done)
+			realistic network, low traffic -> Missing (to be done)
+			realistic network, high traffic -> Missing (to be done)
 
 	- finalize the ILP for the translucent for reference network with 1+1
 			- perceber o algoritmo ->finish
@@ -37,10 +37,6 @@ TO BE DONE
 		- definir as variaveis ----- quase feito -----
 		- ajustar a notação ----- feito -----
 		- implementar no Matlab ----- quase feito -----
-
-
-
-	
 
 2017-11-07
 TO BE DONE
