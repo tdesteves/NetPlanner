@@ -104,27 +104,33 @@ The table \ref{table:2} shows the values of the variables associated with this n
 
 For a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all the variables and their description. \\
 
+
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c||}
+\begin{tabular}{ |p{1cm}||p{13cm}|}
  \hline
- Variables & Description \\
- \hline\hline
- $($ i,j $)$ & Origin node, i and destination node, j of a Link \\
- $($ o,d $)$ & Origin node, o and destination node, d of a Demand \\
- c & Client traffic Type $($ 1 to 5 $)$ \\
- f & Binary variable indicating if link is used in the path between nodes \\
- W & Number of optical channels \\
- B & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
- D & Client traffic demands \\
- G & Network topology in form of Adjacency matrix \\
+ \multicolumn{2}{|c|}{Description of variables used in the objective function} \\
+ \hline
+ \hline
+ $i$ & start node of a physical link \\
+ $j$ & end node of a physical link \\
+ $o$ & node that is origin of a demand \\
+ $d$ & node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $c$ & bit rate of the client signal \\
+ $C$ & set of the client signal \\
+ $f_{ij}^{od}$ & binary variable indicating if link between the nodes $i$ and $j$ is used in the path between nodes $o$ and $d$ \\
+ $W_{ij}$ & number of optical channels between the nodes $i$ and $j$\\
+ $B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ $D_{odc}$ & client demands with bit rate $c$ between nodes $o$ and $d$ \\
+ $G$ & network topology in form of Adjacency matrix \\
  \hline
 \end{tabular}
 \caption{Table with description of variables}
 \label{description_opaque}
 \end{table}
 
-\vspace{20pt}
 
 The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i; j) for all demand pairs (o; d) and total number of optical channels in each link (i; j).
 \newpage
@@ -247,7 +253,7 @@ C_{exc} = \left(\gamma_{e0}\times N\right) + \gamma_{e1} \times \left(T_1 + \lef
 To calculate the cost of the Links we will use the equation \ref{linkCosts}.
 
 \begin{equation}
-C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
+C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
 \label{linkCosts}
 \end{equation}	
 	
@@ -263,41 +269,61 @@ C_L = \left(\gamma_0^{OLT} \times L\right) + \left(\gamma_1^{OLT} \times \tau \t
 
 To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
 
-Using the values calculated through MatLab as well as the values indicated in table \ref{table:1} or table \ref{table:2} (depending on the scenario used) and table \ref{table_cost1} we can finally calculate the CAPEX value using equations \ref{electricalCostOpaque} and \ref{linkCosts} for the various situations mentioned.\\
+Using the values calculated through MatLab as well as the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value for the various situations mentioned.\\
 
 \textbf{Scenario 1: Test Network Low Traffic} \label{Scenario1_opaque} \\
-%$C_L$ = $($15 000 * 8$)$ + $($5 000 * 100 * 23$)$ + $($24 * 4 000$)$
+In this scenario we used the table \ref{table:1} \\
 
-$C_L$ = \textbf{23 336 000\euro}
+Using equation \ref{linkCosts} : \\
+$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 23$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{23 336 000\euro} \\
 
-$C_N$ = $C_{exc}$ = \textbf{5 660 000\euro}
+Using equation \ref{electricalCostOpaque} : \\
+$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($1 000 + $($2 * 23 * 100$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{5 660 000\euro} \\
 
 $CAPEX$ = 23 336 000 + 5 660 000 = \textbf{28 996 000\euro}\\
 
 \textbf{Scenario 2: Test Network High Traffic} \label{Scenario2_opaque} \\
+In this scenario we used again the table \ref{table:1} \\
 
-$C_L$ = \textbf{100 336 000\euro}
+Using equation \ref{linkCosts} : \\
+$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 100$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{100 336 000\euro} \\
 
-$C_N$ = $C_{exc}$ = \textbf{21 060 000 \euro}
+Using equation \ref{electricalCostOpaque} : \\
+$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($1 000 + $($2 * 100 * 100$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{21 060 000\euro} \\
 
-$CAPEX$ = 100 336 000 + 21 060 000 = \textbf{121 396 000 \euro}\\
-
+$CAPEX$ = 100 336 000 + 21 060 000 = \textbf{121 396 000\euro}\\
 
 \textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_opaque} \\
+In this scenario we used the table \ref{table:2} \\
 
-$C_L$ = \textbf{\euro}
+Using equation \ref{linkCosts} : \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{ \euro} \\
 
-$C_N$ = $C_{exc}$ = \textbf{\euro}
+Using equation \ref{electricalCostOpaque} : \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($1 000 + $($2 *  * 100$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{ \euro} \\
+
+$CAPEX$ =  +  = \textbf{ \euro}\\
+
+\textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_opaque} \\
+In this scenario we used again the table \ref{table:2} \\
+
+Using equation \ref{linkCosts} : \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{ \euro} \\
+
+Using equation \ref{electricalCostOpaque} : \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($1 000 + $($2 * 100 * $)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{\euro} \\
 
 $CAPEX$ =  +  = \textbf{\euro}\\
 
-\textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_opaque} \\
-
-$C_L$ = \textbf{\euro}
-
-$C_N$ = $C_{exc}$ = \textbf{ \euro}
-
-$CAPEX$ =  +  = \textbf{ \euro}\\
+\newpage
 
 \subsection{Dimensioning using Heuristics}
 
