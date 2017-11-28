@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  22 NOV 2017 22:31
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  28 NOV 2017 12:46
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -1160,14 +1160,14 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <17.28> not available
 LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 2.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 48.
+(babel)             in language  on input line 50.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 48.
+(babel)             in language  on input line 50.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.48 ... Network topologies}{35}{subsection.5.2.2}
+l.50 ...ng Traffic Matrices}{33}{subsection.5.2.1}
                                                    [1
 
 ])
@@ -1278,7 +1278,7 @@ LaTeX Font Info:    Font shape `T1/ppl/bx/n' in size <12> not available
 (Font)              Font shape `T1/ppl/b/n' tried instead on input line 17.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 17.
-<./figures/RedeTeste.jpg, id=256, 572.1375pt x 195.73125pt>
+<./figures/RedeTeste.jpg, id=261, 572.1375pt x 195.73125pt>
 File: ./figures/RedeTeste.jpg Graphic file (type jpg)
 
 <use ./figures/RedeTeste.jpg>
@@ -1288,7 +1288,7 @@ Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 25.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<./figures/EON_Rede_Realista.jpg, id=258, 603.0028pt x 371.13657pt>
+<./figures/EON_Rede_Realista.jpg, id=263, 603.0028pt x 371.13657pt>
 File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
 
 <use ./figures/EON_Rede_Realista.jpg>
@@ -1746,15 +1746,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 276--277
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 280.
+(babel)             in language  on input line 278.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 284.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 284.
+[27]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 286.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 292.
 ))
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 27.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 27.
- [27]
+ [28]
 \openout2 = `chapter/attachments.aux'.
 
  (chapter/attachments.tex
@@ -1766,7 +1773,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
- [28
+ [29
 
 
 
@@ -1783,7 +1790,7 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan.pdf): PDF inclusion: foun
 d PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan.pdf, id=495, 1028.34187pt x 548.80031pt>
+<./figures/Net2Plan.pdf, id=506, 1028.34187pt x 548.80031pt>
 File: ./figures/Net2Plan.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan.pdf>
@@ -1795,18 +1802,18 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 25.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 25.
- [29
+ [30
 
  <./figures/Net2Plan.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 25.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 25.
- [30]
+ [31]
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_options.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_options.pdf, id=509, 595.47469pt x 449.42906pt>
+<./figures/Net2Plan_options.pdf, id=520, 595.47469pt x 449.42906pt>
 File: ./figures/Net2Plan_options.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_options.pdf>
@@ -1821,7 +1828,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--35
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_ipopt.pdf): PDF inclusion
 : found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_ipopt.pdf, id=512, 335.75438pt x 475.7775pt>
+<./figures/Net2Plan_ipopt.pdf, id=523, 335.75438pt x 475.7775pt>
 File: ./figures/Net2Plan_ipopt.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_ipopt.pdf>
@@ -1835,7 +1842,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_glpk.pdf): PDF inclusion:
  found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_glpk.pdf, id=515, 336.50719pt x 477.28313pt>
+<./figures/Net2Plan_glpk.pdf, id=526, 336.50719pt x 477.28313pt>
 File: ./figures/Net2Plan_glpk.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_glpk.pdf>
@@ -1849,7 +1856,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 59.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 59.
-[31 <./figures/Net2Plan_options.pdf>]
+[32 <./figures/Net2Plan_options.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 61.
 Package babel Info: Redefining portuges shorthand "|
@@ -1858,7 +1865,7 @@ Package babel Info: Redefining portuges shorthand "|
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_traffic.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_traffic.pdf, id=527, 1028.34187pt x 547.2947pt>
+<./figures/Net2Plan_traffic.pdf, id=538, 1028.34187pt x 547.2947pt>
 File: ./figures/Net2Plan_traffic.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_traffic.pdf>
@@ -1876,12 +1883,12 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 87.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 87.
-[32 <./figures/Net2Plan_ipopt.pdf>]
+[33 <./figures/Net2Plan_ipopt.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 88.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 88.
- [33 <./figures/Net2Plan_glpk.pdf> <./figures/Net2Plan_traffic.pdf>]
+ [34 <./figures/Net2Plan_glpk.pdf> <./figures/Net2Plan_traffic.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
@@ -1890,7 +1897,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
 pdfTeX warning: pdflatex.exe (file ./figures/TrafficMatrixCreation.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/TrafficMatrixCreation.pdf, id=544, 626.08606pt x 209.20259pt>
+<./figures/TrafficMatrixCreation.pdf, id=555, 626.08606pt x 209.20259pt>
 File: ./figures/TrafficMatrixCreation.pdf Graphic file (type pdf)
 
 <use ./figures/TrafficMatrixCreation.pdf>
@@ -1901,7 +1908,7 @@ Package pdftex.def Info: ./figures/TrafficMatrixCreation.pdf used on input line
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_matrix.pdf): PDF inclusio
 n: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_matrix.pdf, id=546, 742.47891pt x 124.00026pt>
+<./figures/Net2Plan_matrix.pdf, id=557, 742.47891pt x 124.00026pt>
 File: ./figures/Net2Plan_matrix.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_matrix.pdf>
@@ -1911,14 +1918,14 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 119.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 119.
- [34 <./figures/TrafficMatrixCreation.pdf> <./figures/Net2Plan_matrix.pdf>]
+ [35 <./figures/TrafficMatrixCreation.pdf> <./figures/Net2Plan_matrix.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 121.
 
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Network.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Network.pdf, id=560, 1028.34187pt x 539.76656pt>
+<./figures/Net2Plan_Network.pdf, id=571, 1028.34187pt x 539.76656pt>
 File: ./figures/Net2Plan_Network.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Network.pdf>
@@ -1949,7 +1956,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 137.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 137.
-[35 <./figures/Net2Plan_Network.pdf>]
+[36 <./figures/Net2Plan_Network.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
  []
@@ -1958,11 +1965,11 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 140.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 140.
-[36]
+[37]
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Network_1.pdf): PDF inclu
 sion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Network_1.pdf, id=575, 687.31781pt x 365.11406pt>
+<./figures/Net2Plan_Network_1.pdf, id=586, 687.31781pt x 365.11406pt>
 File: ./figures/Net2Plan_Network_1.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Network_1.pdf>
@@ -1973,7 +1980,7 @@ Package pdftex.def Info: ./figures/Net2Plan_Network_1.pdf used on input line 14
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Network_Parameters.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Network_Parameters.pdf, id=578, 331.2375pt x 146.04562pt>
+<./figures/Net2Plan_Network_Parameters.pdf, id=589, 331.2375pt x 146.04562pt>
 File: ./figures/Net2Plan_Network_Parameters.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Network_Parameters.pdf>
@@ -1985,7 +1992,7 @@ t line 156.
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Network_Parameters_1.pdf)
 : PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<./figures/Net2Plan_Network_Parameters_1.pdf, id=579, 335.75438pt x 265.74281pt
+<./figures/Net2Plan_Network_Parameters_1.pdf, id=590, 335.75438pt x 265.74281pt
 >
 File: ./figures/Net2Plan_Network_Parameters_1.pdf Graphic file (type pdf)
  <use ./figures/Net2Plan_Network_Parameters_1.pdf>
@@ -1996,7 +2003,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 166.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 166.
- [37 <./figures/Net2Plan_Network_1.pdf> <./figures/Net2Plan_Network_Parameters.
+ [38 <./figures/Net2Plan_Network_1.pdf> <./figures/Net2Plan_Network_Parameters.
 pdf> <./figures/Net2Plan_Network_Parameters_1.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
@@ -2006,7 +2013,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 167--168
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_joinMatrices.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_joinMatrices.pdf, id=594, 325.215pt x 258.21469pt>
+<./figures/Net2Plan_joinMatrices.pdf, id=605, 325.215pt x 258.21469pt>
 File: ./figures/Net2Plan_joinMatrices.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_joinMatrices.pdf>
@@ -2022,7 +2029,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 184.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 184.
-[38 <./figures/Net2Plan_joinMatrices.pdf>]
+[39 <./figures/Net2Plan_joinMatrices.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 184--185
 
  []
@@ -2036,7 +2043,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 189.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 189.
-[39]
+[40]
 Underfull \hbox (badness 10000) in paragraph at lines 190--191
 
  []
@@ -2045,7 +2052,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 190--191
 
 pdfTeX warning: pdflatex.exe (file ./figures/Logical_Topology_Algorithm.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Logical_Topology_Algorithm.pdf, id=608, 321.45094pt x 198.7425pt>
+<./figures/Logical_Topology_Algorithm.pdf, id=619, 321.45094pt x 198.7425pt>
 File: ./figures/Logical_Topology_Algorithm.pdf Graphic file (type pdf)
 
 <use ./figures/Logical_Topology_Algorithm.pdf>
@@ -2066,7 +2073,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 200--201
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Opaque.pdf): PDF inclusio
 n: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Opaque.pdf, id=611, 680.5425pt x 312.41719pt>
+<./figures/Net2Plan_Opaque.pdf, id=622, 680.5425pt x 312.41719pt>
 File: ./figures/Net2Plan_Opaque.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Opaque.pdf>
@@ -2076,7 +2083,7 @@ Package pdftex.def Info: ./figures/Net2Plan_Opaque.pdf used on input line 212.
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Transparent.pdf): PDF inc
 lusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Transparent.pdf, id=612, 675.27281pt x 310.91156pt>
+<./figures/Net2Plan_Transparent.pdf, id=623, 675.27281pt x 310.91156pt>
 File: ./figures/Net2Plan_Transparent.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Transparent.pdf>
@@ -2087,21 +2094,21 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 224.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 224.
- [40 <./figures/Logical_Topology_Algorithm.pdf> <./figures/Net2Plan_Opaque.pdf>
+ [41 <./figures/Logical_Topology_Algorithm.pdf> <./figures/Net2Plan_Opaque.pdf>
  <./figures/Net2Plan_Transparent.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 227.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 227.
 
-[41]
+[42]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 227.
 
 
 pdfTeX warning: pdflatex.exe (file ./figures/Grooming_Algorithm.pdf): PDF inclu
 sion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Grooming_Algorithm.pdf, id=632, 324.46219pt x 212.29312pt>
+<./figures/Grooming_Algorithm.pdf, id=644, 324.46219pt x 212.29312pt>
 File: ./figures/Grooming_Algorithm.pdf Graphic file (type pdf)
 
 <use ./figures/Grooming_Algorithm.pdf>
@@ -2117,14 +2124,14 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 268.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 268.
-[42 <./figures/Grooming_Algorithm.pdf>]
+[43 <./figures/Grooming_Algorithm.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 270.
 
 
 pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report.pdf): PDF inclu
 sion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/networkCost_Report.pdf, id=643, 334.24875pt x 469.00218pt>
+<./figures/networkCost_Report.pdf, id=654, 334.24875pt x 469.00218pt>
 File: ./figures/networkCost_Report.pdf Graphic file (type pdf)
 
 <use ./figures/networkCost_Report.pdf>
@@ -2144,7 +2151,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 346.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 346.
-[43]
+[44]
 Underfull \hbox (badness 10000) in paragraph at lines 346--347
 
  []
@@ -2163,7 +2170,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 354.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 354.
-[44 <./figures/networkCost_Report.pdf>]
+[45 <./figures/networkCost_Report.pdf>]
 Underfull \hbox (badness 10000) in paragraph at lines 369--370
 
  []
@@ -2192,7 +2199,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 397.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 397.
-[45]
+[46]
 Underfull \hbox (badness 10000) in paragraph at lines 398--399
 
  []
@@ -2215,11 +2222,11 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 432.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 432.
-[46]
+[47]
 
 pdfTeX warning: pdflatex.exe (file ./figures/opaqueLineMatricesLogical11.pdf): 
 PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/opaqueLineMatricesLogical11.pdf, id=679, 184.43906pt x 97.86563pt>
+<./figures/opaqueLineMatricesLogical11.pdf, id=690, 184.43906pt x 97.86563pt>
 File: ./figures/opaqueLineMatricesLogical11.pdf Graphic file (type pdf)
 
 <use ./figures/opaqueLineMatricesLogical11.pdf>
@@ -2243,7 +2250,7 @@ pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report_Links_Opaque11.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
 
-<./figures/networkCost_Report_Links_Opaque11.pdf, id=681, 546.20866pt x 213.766
+<./figures/networkCost_Report_Links_Opaque11.pdf, id=692, 546.20866pt x 213.766
 63pt>
 File: ./figures/networkCost_Report_Links_Opaque11.pdf Graphic file (type pdf)
  <use ./figures/networkCost_Report_Links_Opaque11.pdf>
@@ -2254,14 +2261,14 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 467.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 467.
- [47 <./figures/opaqueLineMatricesLogical11.pdf> <./figures/networkCost_Report_
+ [48 <./figures/opaqueLineMatricesLogical11.pdf> <./figures/networkCost_Report_
 Links_Opaque11.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report_Nodes_Opaque11.
 pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
 
-<./figures/networkCost_Report_Nodes_Opaque11.pdf, id=694, 483.06773pt x 188.662
+<./figures/networkCost_Report_Nodes_Opaque11.pdf, id=706, 483.06773pt x 188.662
 84pt>
 File: ./figures/networkCost_Report_Nodes_Opaque11.pdf Graphic file (type pdf)
  <use ./figures/networkCost_Report_Nodes_Opaque11.pdf>
@@ -2283,7 +2290,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 480--481
 pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report_Cost_Opaque11.p
 df): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<./figures/networkCost_Report_Cost_Opaque11.pdf, id=696, 264.73605pt x 168.8839
+<./figures/networkCost_Report_Cost_Opaque11.pdf, id=708, 264.73605pt x 168.8839
 6pt>
 File: ./figures/networkCost_Report_Cost_Opaque11.pdf Graphic file (type pdf)
  <use ./figures/networkCost_Report_Cost_Opaque11.pdf>
@@ -2294,7 +2301,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 490.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 490.
- [48 <./figures/networkCost_Report_Nodes_Opaque11.pdf> <./figures/networkCost_R
+ [49 <./figures/networkCost_Report_Nodes_Opaque11.pdf> <./figures/networkCost_R
 eport_Cost_Opaque11.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 495.
@@ -2319,7 +2326,7 @@ pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report_Links_Transpare
 nt11.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
 
-<./figures/networkCost_Report_Links_Transparent11.pdf, id=711, 546.9695pt x 209
+<./figures/networkCost_Report_Links_Transparent11.pdf, id=722, 546.9695pt x 209
 .96342pt>
 File: ./figures/networkCost_Report_Links_Transparent11.pdf Graphic file (type p
 df)
@@ -2336,18 +2343,18 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 522.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 522.
-[49 <./figures/networkCost_Report_Links_Transparent11.pdf>]
+[50 <./figures/networkCost_Report_Links_Transparent11.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 522.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 522.
- [50]
+ [51]
 
 pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report_Nodes_Transpare
 nt11.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
 
-<./figures/networkCost_Report_Nodes_Transparent11.pdf, id=724, 483.06773pt x 19
+<./figures/networkCost_Report_Nodes_Transparent11.pdf, id=735, 483.06773pt x 19
 0.18452pt>
 File: ./figures/networkCost_Report_Nodes_Transparent11.pdf Graphic file (type p
 df)
@@ -2371,7 +2378,7 @@ pdfTeX warning: pdflatex.exe (file ./figures/networkCost_Report_Cost_Transparen
 t11.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> all
 owed
 
-<./figures/networkCost_Report_Cost_Transparent11.pdf, id=726, 270.06195pt x 168
+<./figures/networkCost_Report_Cost_Transparent11.pdf, id=737, 270.06195pt x 168
 .12311pt>
 File: ./figures/networkCost_Report_Cost_Transparent11.pdf Graphic file (type pd
 f)
@@ -2383,7 +2390,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 549.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 549.
- [51 <./figures/networkCost_Report_Nodes_Transparent11.pdf> <./figures/networkC
+ [52 <./figures/networkCost_Report_Nodes_Transparent11.pdf> <./figures/networkC
 ost_Report_Cost_Transparent11.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 552.
@@ -2391,7 +2398,7 @@ Package babel Info: Redefining portuges shorthand "|
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Simulation.pdf): PDF incl
 usion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Simulation.pdf, id=741, 680.5425pt x 799.98875pt>
+<./figures/Net2Plan_Simulation.pdf, id=752, 680.5425pt x 799.98875pt>
 File: ./figures/Net2Plan_Simulation.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Simulation.pdf>
@@ -2402,7 +2409,7 @@ Package pdftex.def Info: ./figures/Net2Plan_Simulation.pdf used on input line 5
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_Simulation_1.pdf): PDF in
 clusion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Net2Plan_Simulation_1.pdf, id=742, 691.58376pt x 807.015pt>
+<./figures/Net2Plan_Simulation_1.pdf, id=753, 691.58376pt x 807.015pt>
 File: ./figures/Net2Plan_Simulation_1.pdf Graphic file (type pdf)
 
 <use ./figures/Net2Plan_Simulation_1.pdf>
@@ -2413,7 +2420,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 578.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 578.
- [52 <./figures/Net2Plan_Simulation.pdf> <./figures/Net2Plan_Simulation_1.pdf>]
+ [53 <./figures/Net2Plan_Simulation.pdf> <./figures/Net2Plan_Simulation_1.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 580.
 
@@ -2431,7 +2438,7 @@ Eclipse"that can be
 
 pdfTeX warning: pdflatex.exe (file ./figures/Eclipse_project.pdf): PDF inclusio
 n: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Eclipse_project.pdf, id=756, 1028.34187pt x 548.80031pt>
+<./figures/Eclipse_project.pdf, id=767, 1028.34187pt x 548.80031pt>
 File: ./figures/Eclipse_project.pdf Graphic file (type pdf)
 
 <use ./figures/Eclipse_project.pdf>
@@ -2441,11 +2448,11 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 598.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 598.
- [53 <./figures/Eclipse_project.pdf>]
+ [54 <./figures/Eclipse_project.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./figures/Eclipse_project_1.pdf): PDF inclus
 ion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Eclipse_project_1.pdf, id=765, 1028.34187pt x 548.80031pt>
+<./figures/Eclipse_project_1.pdf, id=777, 1028.34187pt x 548.80031pt>
 File: ./figures/Eclipse_project_1.pdf Graphic file (type pdf)
 
 <use ./figures/Eclipse_project_1.pdf>
@@ -2456,7 +2463,7 @@ Package pdftex.def Info: ./figures/Eclipse_project_1.pdf used on input line 605
 
 pdfTeX warning: pdflatex.exe (file ./figures/Eclipse_libraries.pdf): PDF inclus
 ion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Eclipse_libraries.pdf, id=768, 544.28343pt x 414.79968pt>
+<./figures/Eclipse_libraries.pdf, id=780, 544.28343pt x 414.79968pt>
 File: ./figures/Eclipse_libraries.pdf Graphic file (type pdf)
 
 <use ./figures/Eclipse_libraries.pdf>
@@ -2467,7 +2474,7 @@ Package pdftex.def Info: ./figures/Eclipse_libraries.pdf used on input line 619
 
 pdfTeX warning: pdflatex.exe (file ./figures/Eclipse_libraries_1.pdf): PDF incl
 usion: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Eclipse_libraries_1.pdf, id=769, 1023.07219pt x 538.26094pt>
+<./figures/Eclipse_libraries_1.pdf, id=781, 1023.07219pt x 538.26094pt>
 File: ./figures/Eclipse_libraries_1.pdf Graphic file (type pdf)
 
 <use ./figures/Eclipse_libraries_1.pdf>
@@ -2482,12 +2489,12 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 631.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 631.
-[54 <./figures/Eclipse_project_1.pdf>]
+[55 <./figures/Eclipse_project_1.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./figures/Net2Plan_introduce_algorithm.pdf):
  PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<./figures/Net2Plan_introduce_algorithm.pdf, id=782, 331.99031pt x 209.28188pt>
+<./figures/Net2Plan_introduce_algorithm.pdf, id=793, 331.99031pt x 209.28188pt>
 File: ./figures/Net2Plan_introduce_algorithm.pdf Graphic file (type pdf)
 <use ./figures/Net2Plan_introduce_algorithm.pdf>
 Package pdftex.def Info: ./figures/Net2Plan_introduce_algorithm.pdf used on inp
@@ -2501,7 +2508,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 pdfTeX warning: pdflatex.exe (file ./figures/Eclipse_export.pdf): PDF inclusion
 : found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Eclipse_export.pdf, id=786, 384.6872pt x 409.53pt>
+<./figures/Eclipse_export.pdf, id=797, 384.6872pt x 409.53pt>
 File: ./figures/Eclipse_export.pdf Graphic file (type pdf)
 
 <use ./figures/Eclipse_export.pdf>
@@ -2511,7 +2518,7 @@ Package pdftex.def Info: ./figures/Eclipse_export.pdf used on input line 654.
 
 pdfTeX warning: pdflatex.exe (file ./figures/Eclipse_export_1.pdf): PDF inclusi
 on: found PDF version <1.7>, but at most version <1.5> allowed
-<./figures/Eclipse_export_1.pdf, id=787, 413.29407pt x 498.36188pt>
+<./figures/Eclipse_export_1.pdf, id=798, 413.29407pt x 498.36188pt>
 File: ./figures/Eclipse_export_1.pdf Graphic file (type pdf)
 
 <use ./figures/Eclipse_export_1.pdf>
@@ -2526,7 +2533,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 665.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 665.
-[55 <./figures/Eclipse_libraries.pdf> <./figures/Eclipse_libraries_1.pdf>]
+[56 <./figures/Eclipse_libraries.pdf> <./figures/Eclipse_libraries_1.pdf>]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 667.
 
@@ -2545,12 +2552,12 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 672.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 672.
-[56 <./figures/Net2Plan_introduce_algorithm.pdf> <./figures/Eclipse_export.pdf>
+[57 <./figures/Net2Plan_introduce_algorithm.pdf> <./figures/Eclipse_export.pdf>
  <./figures/Eclipse_export_1.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./figures/html_report.pdf): PDF inclusion: f
 ound PDF version <1.7>, but at most version <1.5> allowed
-<./figures/html_report.pdf, id=812, 1028.34187pt x 549.55313pt>
+<./figures/html_report.pdf, id=823, 1028.34187pt x 549.55313pt>
 File: ./figures/html_report.pdf Graphic file (type pdf)
 
 <use ./figures/html_report.pdf>
@@ -2565,7 +2572,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 685.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 685.
-[57 <./figures/html_report.pdf>]) (sdf/appendices/ILP_Scenario1.tex
+[58 <./figures/html_report.pdf>]) (sdf/appendices/ILP_Scenario1.tex
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 3.
 
@@ -2632,7 +2639,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 50.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 50.
-[58
+[59
 
 
 ]
@@ -2694,7 +2701,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 91.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 91.
-[59]
+[60]
 Underfull \hbox (badness 10000) in paragraph at lines 92--96
 
  []
@@ -2718,7 +2725,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
-[60]
+[61]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 3.
 
@@ -2785,7 +2792,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 53.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 53.
-[61
+[62
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 55--56
@@ -2846,7 +2853,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 98.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 98.
-[62]
+[63]
 Underfull \hbox (badness 10000) in paragraph at lines 99--103
 
  []
@@ -2870,7 +2877,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
-[63]
+[64]
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 3.
 ) (sdf/appendices/ILP_Scenario4.tex
@@ -2878,7 +2885,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
- [64
+ [65
 
 ]
 Package babel Info: Redefining portuges shorthand "|
@@ -2888,7 +2895,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 28.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 28.
- [65
+ [66
 
 ]
 \openout2 = `chapter/dissertations.aux'.
@@ -2906,7 +2913,7 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 18.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 18.
-[66
+[67
 
 
 
@@ -2921,7 +2928,7 @@ Package babel Info: Redefining portuges shorthand "|
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<dissertations/2015_2016_Vasco_Braz.pdf, id=858, 597.50829pt x 845.0471pt>
+<dissertations/2015_2016_Vasco_Braz.pdf, id=869, 597.50829pt x 845.0471pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 
 <use dissertations/2015_2016_Vasco_Braz.pdf>
@@ -2946,7 +2953,7 @@ DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=861, page=1, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=872, page=1, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 1>
@@ -2981,14 +2988,14 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page1 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [67
+ [68
 
  <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=883, page=2, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=894, page=2, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 2>
@@ -3011,12 +3018,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page2 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [68 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [69 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=888, page=3, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=899, page=3, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 3>
@@ -3039,12 +3046,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page3 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [69 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [70 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=898, page=4, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=909, page=4, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 4>
@@ -3067,12 +3074,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page4 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [70 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [71 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=903, page=5, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=914, page=5, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 5>
@@ -3095,12 +3102,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page5 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [71 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [72 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=908, page=6, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=920, page=6, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 6>
@@ -3123,12 +3130,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page6 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [72 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [73 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=914, page=7, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=925, page=7, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 7>
@@ -3151,12 +3158,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page7 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [73 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [74 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=919, page=8, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=930, page=8, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 8>
@@ -3179,12 +3186,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page8 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [74 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [75 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=924, page=9, 597.50829pt x 845.0471
+<dissertations/2015_2016_Vasco_Braz.pdf, id=935, page=9, 597.50829pt x 845.0471
 pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 9>
@@ -3207,12 +3214,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page9 used on 
 input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [75 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [76 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=929, page=10, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=940, page=10, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 10>
@@ -3235,12 +3242,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page10 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [76 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [77 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=934, page=11, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=945, page=11, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 11>
@@ -3263,12 +3270,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page11 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [77 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [78 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=939, page=12, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=951, page=12, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 12>
@@ -3291,12 +3298,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page12 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [78 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [79 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=945, page=13, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=956, page=13, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 13>
@@ -3319,12 +3326,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page13 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [79 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [80 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=950, page=14, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=961, page=14, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 14>
@@ -3347,12 +3354,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page14 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [80 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [81 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=955, page=15, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=966, page=15, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 15>
@@ -3375,12 +3382,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page15 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [81 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [82 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=970, page=16, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=981, page=16, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 16>
@@ -3403,12 +3410,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page16 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [82 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [83 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=975, page=17, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=986, page=17, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 17>
@@ -3431,12 +3438,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page17 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [83 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [84 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=985, page=18, 597.50829pt x 845.047
+<dissertations/2015_2016_Vasco_Braz.pdf, id=997, page=18, 597.50829pt x 845.047
 1pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 18>
@@ -3459,13 +3466,13 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page18 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [84 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [85 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=991, page=19, 597.50829pt x 845.047
-1pt>
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1002, page=19, 597.50829pt x 845.04
+71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 19>
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page19 used on
@@ -3487,13 +3494,13 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page19 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [85 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [86 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=996, page=20, 597.50829pt x 845.047
-1pt>
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1007, page=20, 597.50829pt x 845.04
+71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 20>
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page20 used on
@@ -3515,12 +3522,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page20 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [86 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [87 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1001, page=21, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1012, page=21, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 21>
@@ -3543,12 +3550,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page21 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [87 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [88 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1006, page=22, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1017, page=22, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 22>
@@ -3571,12 +3578,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page22 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [88 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [89 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1011, page=23, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1022, page=23, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 23>
@@ -3599,12 +3606,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page23 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [89 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [90 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1019, page=24, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1031, page=24, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 24>
@@ -3627,12 +3634,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page24 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [90 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [91 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1025, page=25, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1036, page=25, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 25>
@@ -3655,12 +3662,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page25 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [91 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [92 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1030, page=26, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1041, page=26, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 26>
@@ -3683,12 +3690,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page26 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [92 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [93 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1035, page=27, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1046, page=27, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 27>
@@ -3711,12 +3718,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page27 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [93 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [94 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1040, page=28, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1051, page=28, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 28>
@@ -3739,12 +3746,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page28 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [94 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [95 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1051, page=29, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1062, page=29, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 29>
@@ -3767,12 +3774,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page29 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [95 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [96 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1119, page=30, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1131, page=30, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 30>
@@ -3795,12 +3802,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page30 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [96 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [97 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1143, page=31, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1154, page=31, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 31>
@@ -3823,12 +3830,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page31 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [97 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [98 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1154, page=32, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1165, page=32, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 32>
@@ -3851,12 +3858,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page32 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [98 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [99 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1222, page=33, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1233, page=33, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 33>
@@ -3879,12 +3886,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page33 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [99 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [100 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1407, page=34, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1418, page=34, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 34>
@@ -3907,12 +3914,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page34 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [100 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [101 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=1662, page=35, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=1673, page=35, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 35>
@@ -3935,12 +3942,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page35 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [101 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [102 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2042, page=36, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2054, page=36, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 36>
@@ -3963,12 +3970,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page36 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [102 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [103 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2051, page=37, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2062, page=37, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 37>
@@ -3991,12 +3998,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page37 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [103 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [104 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2056, page=38, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2067, page=38, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 38>
@@ -4019,12 +4026,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page38 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [104 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [105 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2061, page=39, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2072, page=39, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 39>
@@ -4047,12 +4054,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page39 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [105 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [106 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2066, page=40, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2077, page=40, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 40>
@@ -4075,12 +4082,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page40 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [106 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [107 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2074, page=41, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2085, page=41, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 41>
@@ -4103,12 +4110,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page41 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [107 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [108 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2099, page=42, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2111, page=42, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 42>
@@ -4131,12 +4138,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page42 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [108 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [109 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2108, page=43, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2119, page=43, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 43>
@@ -4159,12 +4166,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page43 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [109 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [110 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2113, page=44, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2124, page=44, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 44>
@@ -4187,12 +4194,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page44 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [110 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [111 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2123, page=45, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2134, page=45, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 45>
@@ -4215,12 +4222,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page45 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [111 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [112 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2131, page=46, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2142, page=46, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 46>
@@ -4243,12 +4250,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page46 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [112 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [113 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2145, page=47, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2156, page=47, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 47>
@@ -4271,12 +4278,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page47 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [113 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [114 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2153, page=48, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2165, page=48, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 48>
@@ -4299,12 +4306,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page48 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [114 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [115 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2159, page=49, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2170, page=49, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 49>
@@ -4327,12 +4334,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page49 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [115 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [116 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2164, page=50, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2175, page=50, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 50>
@@ -4355,12 +4362,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page50 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [116 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [117 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2227, page=51, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2238, page=51, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 51>
@@ -4383,12 +4390,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page51 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [117 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [118 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2310, page=52, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2321, page=52, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 52>
@@ -4411,12 +4418,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page52 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [118 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [119 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2409, page=53, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2420, page=53, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 53>
@@ -4439,12 +4446,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page53 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [119 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [120 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2417, page=54, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2429, page=54, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 54>
@@ -4467,12 +4474,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page54 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [120 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [121 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2426, page=55, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2437, page=55, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 55>
@@ -4495,12 +4502,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page55 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [121 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [122 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2437, page=56, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2448, page=56, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 56>
@@ -4523,12 +4530,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page56 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [122 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [123 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2445, page=57, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2456, page=57, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 57>
@@ -4551,12 +4558,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page57 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [123 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [124 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2453, page=58, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2464, page=58, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 58>
@@ -4579,12 +4586,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page58 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [124 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [125 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2464, page=59, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2475, page=59, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 59>
@@ -4607,12 +4614,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page59 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [125 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [126 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2478, page=60, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2490, page=60, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 60>
@@ -4635,12 +4642,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page60 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [126 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [127 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2484, page=61, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2495, page=61, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 61>
@@ -4663,12 +4670,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page61 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [127 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [128 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2489, page=62, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2500, page=62, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 62>
@@ -4691,12 +4698,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page62 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [128 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [129 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2497, page=63, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2508, page=63, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 63>
@@ -4719,12 +4726,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page63 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [129 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [130 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2505, page=64, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2516, page=64, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 64>
@@ -4747,12 +4754,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page64 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [130 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [131 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2516, page=65, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2527, page=65, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 65>
@@ -4775,12 +4782,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page65 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [131 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [132 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2521, page=66, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2533, page=66, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 66>
@@ -4803,12 +4810,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page66 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [132 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [133 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2527, page=67, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2538, page=67, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 67>
@@ -4831,12 +4838,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page67 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [133 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [134 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2538, page=68, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2549, page=68, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 68>
@@ -4859,12 +4866,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page68 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [134 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [135 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2549, page=69, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2560, page=69, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 69>
@@ -4887,12 +4894,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page69 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [135 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [136 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2557, page=70, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2568, page=70, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 70>
@@ -4915,12 +4922,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page70 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [136 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [137 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2562, page=71, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2573, page=71, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 71>
@@ -4943,12 +4950,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page71 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [137 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [138 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2567, page=72, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2579, page=72, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 72>
@@ -4971,12 +4978,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page72 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [138 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [139 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2573, page=73, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2584, page=73, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 73>
@@ -4999,12 +5006,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page73 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [139 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [140 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2578, page=74, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2589, page=74, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 74>
@@ -5027,12 +5034,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page74 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [140 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [141 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2583, page=75, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2594, page=75, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 75>
@@ -5055,12 +5062,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page75 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [141 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [142 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2588, page=76, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2599, page=76, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 76>
@@ -5083,12 +5090,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page76 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [142 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [143 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2607, page=77, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2618, page=77, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 77>
@@ -5111,12 +5118,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page77 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [143 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [144 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2613, page=78, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2625, page=78, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 78>
@@ -5139,12 +5146,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page78 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [144 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [145 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2643, page=79, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2654, page=79, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 79>
@@ -5167,12 +5174,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page79 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [145 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [146 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2655, page=80, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2666, page=80, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 80>
@@ -5195,12 +5202,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page80 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [146 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [147 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2664, page=81, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2675, page=81, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 81>
@@ -5223,12 +5230,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page81 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [147 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [148 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2677, page=82, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2688, page=82, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 82>
@@ -5251,12 +5258,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page82 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [148 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [149 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2691, page=83, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2702, page=83, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 83>
@@ -5279,12 +5286,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page83 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [149 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [150 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2700, page=84, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2712, page=84, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 84>
@@ -5307,12 +5314,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page84 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [150 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [151 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2716, page=85, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2727, page=85, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 85>
@@ -5335,12 +5342,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page85 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [151 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [152 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2725, page=86, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2736, page=86, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 86>
@@ -5363,12 +5370,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page86 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [152 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [153 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2740, page=87, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2751, page=87, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 87>
@@ -5391,12 +5398,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page87 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [153 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [154 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2749, page=88, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2760, page=88, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 88>
@@ -5419,12 +5426,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page88 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [154 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [155 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2764, page=89, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2775, page=89, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 89>
@@ -5447,12 +5454,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page89 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [155 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [156 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2786, page=90, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2798, page=90, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 90>
@@ -5475,12 +5482,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page90 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [156 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [157 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2793, page=91, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2804, page=91, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 91>
@@ -5503,12 +5510,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page91 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [157 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [158 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2802, page=92, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2813, page=92, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 92>
@@ -5531,12 +5538,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page92 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [158 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [159 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2820, page=93, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2831, page=93, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 93>
@@ -5559,12 +5566,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page93 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [159 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [160 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2830, page=94, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2841, page=94, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 94>
@@ -5587,12 +5594,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page94 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [160 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [161 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2844, page=95, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2855, page=95, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 95>
@@ -5615,12 +5622,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page95 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [161 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [162 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2856, page=96, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2868, page=96, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 96>
@@ -5643,12 +5650,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page96 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [162 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [163 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2866, page=97, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2877, page=97, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 97>
@@ -5671,12 +5678,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page97 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [163 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [164 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2881, page=98, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2892, page=98, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 98>
@@ -5699,12 +5706,12 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page98 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [164 <./dissertations/2015_2016_Vasco_Braz.pdf>]
+ [165 <./dissertations/2015_2016_Vasco_Braz.pdf>]
 
 pdfTeX warning: pdflatex.exe (file ./dissertations/2015_2016_Vasco_Braz.pdf): P
 DF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
 
-<dissertations/2015_2016_Vasco_Braz.pdf, id=2896, page=99, 597.50829pt x 845.04
+<dissertations/2015_2016_Vasco_Braz.pdf, id=2907, page=99, 597.50829pt x 845.04
 71pt>
 File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
  <use dissertations/2015_2016_Vasco_Braz.pdf, page 99>
@@ -5727,14 +5734,14 @@ File: dissertations/2015_2016_Vasco_Braz.pdf Graphic file (type pdf)
 Package pdftex.def Info: dissertations/2015_2016_Vasco_Braz.pdf, page99 used on
  input line 20.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
- [165 <./dissertations/2015_2016_Vasco_Braz.pdf>])
+ [166 <./dissertations/2015_2016_Vasco_Braz.pdf>])
 No file main_netplanner.gls.
 No file main_netplanner.acr.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 62.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 62.
-[166
+[167
 
 ]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 62.
@@ -5746,14 +5753,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 62.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 62.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 62.
 Package rerunfilecheck Info: File `main_netplanner.out' has not changed.
-(rerunfilecheck)             Checksum: 515D9A84505AEF36E4D65EEAE90EF1A2;3191.
+(rerunfilecheck)             Checksum: 44C9370C638350065477C7D649E587FF;3284.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 62.
  ) 
 Here is how much of TeX's memory you used:
- 26894 strings out of 493323
- 494829 string characters out of 3139065
+ 26899 strings out of 493323
+ 494913 string characters out of 3139065
  615679 words of memory out of 3000000
- 29426 multiletter control sequences out of 15000+200000
+ 29427 multiletter control sequences out of 15000+200000
  26285 words of font info for 62 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,18n,94p,2034b,564s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -5776,9 +5783,9 @@ msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (167 pages, 9576669 bytes).
+Output written on main_netplanner.pdf (168 pages, 9578250 bytes).
 PDF statistics:
- 3027 PDF objects out of 3580 (max. 8388607)
- 326 named destinations out of 1000 (max. 500000)
- 1047 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3038 PDF objects out of 3580 (max. 8388607)
+ 330 named destinations out of 1000 (max. 500000)
+ 1055 words of extra memory for PDF output out of 10000 (max. 10000000)
 
