@@ -1,13 +1,18 @@
 ﻿2017-11-28
 TO BE DONE
-	- melhorar a edição e colocar mais informação no documento, incluindo os resultados (IPLs para a parte opaca e transparente)
-	- incluir também os anexos (opaco e o transparent)
-	- incluir um anexo para o lpsolve
-	- incluir um diretorio para o lpsolve
+	- melhorar a edição e colocar mais informação no documento, incluindo os resultados ----- este ponto esta feito -----
+	- incluir também os anexos (opaco e o transparent) ----- este ponto esta praticamente feito -----
+	- incluir um anexo para o lpsolve ----- este ponto esta feito -----
+	- incluir um diretorio para o lpsolve ----- este ponto esta feito -----
 
 	- fazer o script para o translucido, incluir no documento
 
 	- preparar apresentação
+
+
+
+
+
 
 
 2017-11-21
@@ -32,11 +37,6 @@ TO BE DONE
 			- implementar no Matlab ->finish
 				
 			 -> preparar apresentação (5/6 slides) 
-
-
-
-
-
 
 2017-11-14
 TO BE DONE
