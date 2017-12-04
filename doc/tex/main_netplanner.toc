@@ -84,4 +84,4 @@
 \contentsline {subsection}{\numberline {5.10.2}ILP using LPSolve}{84}{subsection.5.10.2}
 \contentsline {subsection}{\numberline {5.10.3}Results using LPSolve}{84}{subsection.5.10.3}
 \contentsline {chapter}{\numberline {6}Master Dissertations}{85}{chapter.6}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{86}{section*.58}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{86}{section*.59}
