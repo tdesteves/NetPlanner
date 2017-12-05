@@ -1,4 +1,15 @@
-﻿2017-11-28
+﻿2017-05-17
+TO BE DONE
+	diretorios figuras: sdf/opaco/figures (pdfs), sdf/opaco/figures_raw (power point)
+
+	opaco, alterar a função objetivo de forma a minimizar o custo total
+
+	fazer igual para o transparente
+
+	translucido perceber o modelo de custos para depois escrever a função objetivo 
+
+
+2017-11-28
 TO BE DONE
 	- melhorar a edição e colocar mais informação no documento, incluindo os resultados ----- este ponto esta feito -----
 	- incluir também os anexos (opaco e o transparent) ----- este ponto esta feito -----
