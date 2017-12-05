@@ -66,22 +66,24 @@
 \contentsline {subsubsection}{\numberline {5.8.1.4}Scenario 4}{74}{subsubsection.5.8.1.4}
 \contentsline {subsection}{\numberline {5.8.2}ILP using LPSolve}{74}{subsection.5.8.2}
 \contentsline {subsubsection}{\numberline {5.8.2.1}Scenario 1}{74}{subsubsection.5.8.2.1}
-\contentsline {subsection}{\numberline {5.8.3}Results using LPSolve}{82}{subsection.5.8.3}
-\contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{83}{section.5.9}
-\contentsline {subsection}{\numberline {5.9.1}Script using MatLab}{83}{subsection.5.9.1}
-\contentsline {subsubsection}{\numberline {5.9.1.1}Scenario 1}{83}{subsubsection.5.9.1.1}
-\contentsline {subsubsection}{\numberline {5.9.1.2}Scenario 2}{83}{subsubsection.5.9.1.2}
-\contentsline {subsubsection}{\numberline {5.9.1.3}Scenario 3}{83}{subsubsection.5.9.1.3}
-\contentsline {subsubsection}{\numberline {5.9.1.4}Scenario 4}{83}{subsubsection.5.9.1.4}
-\contentsline {subsection}{\numberline {5.9.2}ILP using LPSolve}{83}{subsection.5.9.2}
-\contentsline {subsection}{\numberline {5.9.3}Results using LPSolve}{83}{subsection.5.9.3}
-\contentsline {section}{\numberline {5.10}Transparent with 1+1 protection appendices}{84}{section.5.10}
-\contentsline {subsection}{\numberline {5.10.1}Script using MatLab}{84}{subsection.5.10.1}
-\contentsline {subsubsection}{\numberline {5.10.1.1}Scenario 1}{84}{subsubsection.5.10.1.1}
-\contentsline {subsubsection}{\numberline {5.10.1.2}Scenario 2}{84}{subsubsection.5.10.1.2}
-\contentsline {subsubsection}{\numberline {5.10.1.3}Scenario 3}{84}{subsubsection.5.10.1.3}
-\contentsline {subsubsection}{\numberline {5.10.1.4}Scenario 4}{84}{subsubsection.5.10.1.4}
-\contentsline {subsection}{\numberline {5.10.2}ILP using LPSolve}{84}{subsection.5.10.2}
-\contentsline {subsection}{\numberline {5.10.3}Results using LPSolve}{84}{subsection.5.10.3}
-\contentsline {chapter}{\numberline {6}Master Dissertations}{85}{chapter.6}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{86}{section*.59}
+\contentsline {subsubsection}{\numberline {5.8.2.2}Scenario 2}{82}{subsubsection.5.8.2.2}
+\contentsline {subsection}{\numberline {5.8.3}Results using LPSolve}{90}{subsection.5.8.3}
+\contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{91}{section.5.9}
+\contentsline {subsection}{\numberline {5.9.1}Script using MatLab}{91}{subsection.5.9.1}
+\contentsline {subsubsection}{\numberline {5.9.1.1}Scenario 1}{91}{subsubsection.5.9.1.1}
+\contentsline {subsubsection}{\numberline {5.9.1.2}Scenario 2}{93}{subsubsection.5.9.1.2}
+\contentsline {subsubsection}{\numberline {5.9.1.3}Scenario 3}{93}{subsubsection.5.9.1.3}
+\contentsline {subsubsection}{\numberline {5.9.1.4}Scenario 4}{93}{subsubsection.5.9.1.4}
+\contentsline {subsection}{\numberline {5.9.2}ILP using LPSolve}{93}{subsection.5.9.2}
+\contentsline {subsubsection}{\numberline {5.9.2.1}Scenario 1}{93}{subsubsection.5.9.2.1}
+\contentsline {subsection}{\numberline {5.9.3}Results using LPSolve}{100}{subsection.5.9.3}
+\contentsline {section}{\numberline {5.10}Translucent with 1+1 protection appendices}{101}{section.5.10}
+\contentsline {subsection}{\numberline {5.10.1}Script using MatLab}{101}{subsection.5.10.1}
+\contentsline {subsubsection}{\numberline {5.10.1.1}Scenario 1}{101}{subsubsection.5.10.1.1}
+\contentsline {subsubsection}{\numberline {5.10.1.2}Scenario 2}{101}{subsubsection.5.10.1.2}
+\contentsline {subsubsection}{\numberline {5.10.1.3}Scenario 3}{101}{subsubsection.5.10.1.3}
+\contentsline {subsubsection}{\numberline {5.10.1.4}Scenario 4}{101}{subsubsection.5.10.1.4}
+\contentsline {subsection}{\numberline {5.10.2}ILP using LPSolve}{101}{subsection.5.10.2}
+\contentsline {subsection}{\numberline {5.10.3}Results using LPSolve}{101}{subsection.5.10.3}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{102}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{103}{section*.59}
