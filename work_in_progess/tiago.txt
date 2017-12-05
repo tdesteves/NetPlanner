@@ -1,13 +1,14 @@
 ﻿2017-11-28
 TO BE DONE
-	- melhorar a edição e colocar mais informação no documento, incluindo os resultados (IPLs para a parte opaca e transparente)
-	- incluir também os anexos (opaco e o transparent)
-	- incluir um anexo para o lpsolve
-	- incluir um diretorio para o lpsolve
+	- melhorar a edição e colocar mais informação no documento, incluindo os resultados ----- este ponto esta feito -----
+	- incluir também os anexos (opaco e o transparent) ----- este ponto esta feito -----
+	- incluir um anexo para o lpsolve ----- este ponto esta feito -----
+	- incluir um diretorio para o lpsolve ----- este ponto esta feito -----
 
-	- fazer o script para o translucido, incluir no documento
+	- fazer o script para o translucido ----- este ponto esta praticamente feito -----
+		- incluir no documento ----- este ponto esta feito -----
 
-	- preparar apresentação
+	- preparar apresentação ----- este ponto esta feito -----
 
 
 2017-11-21
@@ -16,27 +17,22 @@ TO BE DONE
 		opaco, both networks in both scenarios
 			reference network, low traffic -> DONE
 			reference network, high traffic -> DONE
-			realistic network, low traffic -> Missing (to be done)
-			realistic network, high traffic -> Missing (to be done)
+			realistic network, low traffic -> Running
+			realistic network, high traffic -> Running
 
 		transparent, both networks in both scenarios
-			reference network, low traffic -> Missing (to be done)
+			reference network, low traffic -> DONE
 			reference network, high traffic -> Missing (to be done)
-			realistic network, low traffic -> Missing (to be done)
+			realistic network, low traffic -> Running
 			realistic network, high traffic -> Missing (to be done)
 
 	- finalize the ILP for the translucent for reference network with 1+1
-			- perceber o algoritmo ->finish
-			- definir as variaveis ->finish
-			- ajustar a notação ->finish
-			- implementar no Matlab ->finish
+			- perceber o algoritmo ->finish 		DONE
+			- definir as variaveis ->finish 		DONE
+			- ajustar a notação ->finish 			DONE
+			- implementar no Matlab ->finish 		DONE
 				
-			 -> preparar apresentação (5/6 slides) 
-
-
-
-
-
+			 -> preparar apresentação (5/6 slides) 	DONE 
 
 2017-11-14
 TO BE DONE

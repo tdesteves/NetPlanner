@@ -15,8 +15,9 @@ In this case study we focus on the translucent case with 1 + 1 protection.
 \subsection{Physical Network Topology}
 
 \subsubsection{Reference Network}
-As we can see in the figure, our reference network consists of 6 nodes and 8 Bidirectional links.
-The average length of the links was chosen so that the following calculations are more simplistic.
+In the figure below we ca see that our reference network consists of 6 nodes and 8 Bidirectional links.
+The average length of the links was chosen so that the following calculations are more simplistic, for this was created a matrix of distances between the respective nodes.
+Finally, ODU's matrices were also created to be able to determine the total traffic used in each scenario.
 
 \begin{figure}[h!]
 \centering
@@ -24,34 +25,109 @@ The average length of the links was chosen so that the following calculations ar
 \caption{Physical Topology of the Reference Network.}
 \end{figure}
 
-The following table shows the values of the variables associated with this network.
+The distance matrix is the same for the two scenarios but the ODU's matrices are not.
+In this way only the matrices for the case of low traffic are elucidated, being that in the case of a high traffic it is only necessary to multiply these matrices by the value 10.
+
+\[
+Dist=
+  \begin{bmatrix}
+    0 & 500 & 500 & 0 & 0 & 0 \\
+    500 & 0 & 400 & 500 & 0 & 0 \\
+    500 & 400 & 0 & 0 & 500 & 0 \\
+    0 & 500 & 0 & 0 & 600 & 450 \\
+    0 & 0 & 500 & 600 & 0 & 550 \\
+    0 & 0 & 0 & 450 & 550 & 0
+  \end{bmatrix}
+\]
+
+\[
+ODU0=
+  \begin{bmatrix}
+    0 & 5 & 1 & 3 & 1 & 3 \\
+    5 & 0 & 0 & 1 & 5 & 0 \\
+    1 & 0 & 0 & 1 & 4 & 1 \\
+    3 & 1 & 1 & 0 & 1 & 0 \\
+    1 & 5 & 4 & 1 & 0 & 3 \\
+    3 & 0 & 1 & 1 & 3 & 0
+  \end{bmatrix}
+\quad ODU1=
+  \begin{bmatrix}
+    0 & 2 & 4 & 2 & 0 & 5 \\
+    2 & 0 & 0 & 3 & 1 & 1 \\
+    4 & 0 & 0 & 1 & 1 & 0 \\
+    3 & 3 & 1 & 0 & 1 & 3 \\
+    0 & 1 & 1 & 1 & 0 & 1 \\
+    5 & 1 & 0 & 3 & 1 & 0
+  \end{bmatrix}
+\quad ODU2=
+  \begin{bmatrix}
+    0 & 1 & 1 & 1 & 0 & 0 \\
+    1 & 0 & 0 & 0 & 1 & 0 \\
+    1 & 0 & 0 & 1 & 1 & 0 \\
+    1 & 0 & 1 & 0 & 1 & 0 \\
+    0 & 1 & 1 & 1 & 0 & 1 \\
+    0 & 0 & 0 & 0 & 1 & 0
+  \end{bmatrix}
+\]
+\[
+ODU3=
+  \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 1 \\
+    0 & 1 & 0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 & 0 & 0
+  \end{bmatrix}
+\qquad ODU4=
+  \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 1 \\
+    0 & 1 & 0 & 0 & 1 & 0
+  \end{bmatrix}
+\]
+
+Through these ODU's we can calculate total network traffic for the low traffic scenario:\\
+$T_1^0$ = 60x1.25 = 75 Gbits/s \qquad
+$T_1^1$ = 50x2.5 = 125 Gbits/s \qquad
+$T_1^2$ = 16x10 = 160 Gbits/s \\
+$T_1^3$ = 6x40 = 240 Gbits/s \quad
+$T_1^4$ = 4x100 = 400 Gbits/s \\
+$T_{1total}$ = 75 + 125 + 160 + 240 + 400 = 1000 Gbits/s \qquad
+$T_{total}$ = 1000/2 = 0.5 Tbits/s\\
+
+We can thus conclude that the total traffic for the two scenarios is as follows:
+\begin{itemize}
+  \item Low Traffic: \textbf{0.5 TBits/s}
+  \item High Traffic: \textbf{5 TBits/s}
+\end{itemize}
+
+Finally for this project has to take into consideration the table \ref{table:5} because in it we can see the values of the variables associated with this network.
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c||}
  \hline
  Constant & Description & Value \\
  \hline\hline
- N & Number of Nodes & 6 \\
- L & Number of Bidirectional Links & 8 \\
- <$\delta$> & Node out-degree & 2,667 \\
- <len> & Mean Link Length (km) & 500 \\
- <h> & Mean Number of Hops,for Working Paths & 1,533 \\
- <h'> & Mean Number of Hops,for Backup Paths & 2,467 \\
+ N & Number of nodes & 6 \\
+ L & Number of bidirectional links & 8 \\
+ <$\delta$> & Node out-degree & 2.667 \\
+ <len> & Mean link length (km) & 500 \\
+ <h> & Mean number of hops for working paths & 1.533 \\
+ <h'> & Mean number of hops for backup paths & 2.467 \\
  \hline
 \end{tabular}
 \caption{Table of reference network values}
 \label{table:5}
 \end{table}
 
-As we can see from table \ref{table:5}, to do all the calculations necessary for this project, let us know the value of the traffic used. This value is defined depending on the scenario used, as we can see:
-\begin{itemize}
-  \item Low Traffic: \textbf{0.5 TBits/s}
-  \item High Traffic: \textbf{5 TBits/s}
-\end{itemize}
-
 \subsubsection{Realistic Network}
-The real network chosen for this work is the EON (European Optical Network). \\
-The way the nodes are arranged geographically can be seen from the following figure.
+The real network chosen for this work is the EON (European Optical Network).
+The way the nodes are arranged geographically can be seen from the following figure and the matrix of distances created in the next page is constructed based on real distances.
+In this case just ODU's matrices are created to be able to determine the total traffic used in each scenario.
 
 \begin{figure}[h!]
 \centering
@@ -60,31 +136,57 @@ The way the nodes are arranged geographically can be seen from the following fig
 \end{figure}
 
 
-Again, to make all the necessary calculations, only the value of the traffic used is missing. This value is set depending on the scenario used, as we can see:
-
-\begin{itemize}
-  \item Low Traffic: \textbf{2 TBits/s}
-  \item High Traffic: \textbf{20 TBits/s}
-\end{itemize}
-
+The table \ref{table:6} shows the values of the variables associated with this network.
 \begin{table}[h!]
-The table \ref{table:6} shows the values of the variables associated with this network.\vspace{10pt}
 \centering
 \begin{tabular}{|| c | c | c||}
  \hline
  Constant & Description & Value \\
  \hline\hline
- N & Number of Nodes & 19 \\
- L & Number of Bidirectional Links & 37 \\
- <$\delta$> & Node out-degree & 3,89 \\
- <len> & Mean Link Length (km) & 753,76 \\
- <h> & Mean Number of Hops,for Working Paths & 2,3 \\
- <h'> & Mean Number of Hops,for Backup Paths & 3,2 \\
+ N & Number of nodes & 19 \\
+ L & Number of bidirectional links & 37 \\
+ <$\delta$> & Node out-degree & 3.89 \\
+ <len> & Mean link length (km) & 753.76 \\
+ <h> & Mean number of hops for working paths & 2.3 \\
+ <h'> & Mean number of hops for backup paths & 3.2 \\
  \hline
 \end{tabular}
 \caption{Table of realistic network values}
 \label{table:6}
 \end{table}
+
+Again, through the ODU's we can calculate the total traffic for both scenarios being them:
+\begin{itemize}
+  \item Low Traffic: \textbf{2 TBits/s}
+  \item High Traffic: \textbf{20 TBits/s}
+\end{itemize}
+
+
+\[
+  \text{Dist} = \kbordermatrix{
+    & Oslo & Stockholm & Moscow & Copenhagen & Berlin & Prague & Vienna & Zagreb & Athens & Rome & Milan & Zurich & Brussels & Amesterdan & London & Dublin & Paris & Madrid & Lisbon \\
+    Oslo & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Stockholm & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Moscow & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Copenhagen & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Berlin & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Prague & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Vienna & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Zagreb & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Athens & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Rome & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Milan & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Zurich & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Brussels & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Amesterdan & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    London & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Dublin & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Paris & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500\\
+    Madrid & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
+    Lisbon & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 444
+  }
+\]
+
 
 \newpage
 \subsection{Dimensioning using ILP}
@@ -95,20 +197,25 @@ Again, for a better understanding of the functions and variables used in the ILP
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c||}
+\begin{tabular}{ |p{1cm}||p{13cm}|}
  \hline
- Variables & Description \\
- \hline\hline
- $($ i,j $)$ & Origin node, i and destination node, j of a Link \\
- $($ o,d $)$ & Origin node, o and destination node, d of a Demand \\
- c & Client traffic Type $($ 1 to 5 $)$ \\
- L &  \\
- y &  \\
- W & Number of optical channels \\
- B & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
- D & Client traffic demands \\
- G & Network topology in form of Adjacency matrix \\
- BD & \\
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $c$ & Client traffic Type $($ 1 to 5 $)$ \\
+ $L_{ij}^{od}$ & Number of ODU-o low speed signals from node $o$ to node $d$ employing lightpath ($i$,$j$) \\
+ $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $W_{od}$ & Number of lightpath channels between the nodes $o$ and $d$ \\
+ $B$ & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ $D_{od}$ & Client traffic demands between the nodes $o$ and $d$ \\
+ G & Network topology in form of adjacency matrix \\
+ $BD$ & Bandwidth \\
  \hline
 \end{tabular}
 \caption{Table with description of variables}
@@ -118,79 +225,79 @@ Again, for a better understanding of the functions and variables used in the ILP
 \vspace{20pt}
 
 \begin{equation}
-minimize \qquad \qquad \qquad \qquad \qquad  \sum_{(o,d,b)} W_{od}
+minimize \qquad \qquad \qquad \qquad \qquad  \sum_{(o,d)} W_{od}
 \label{ILPTransluc}
 \end{equation}
 
 $subject$ $to$
 
 \begin{equation}
-\sum_{j \neq i} L_{ij}^{od} = D_{odc}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall o,c,d : o < d
+\sum_{j \textbackslash \{o\} } L_{ij}^{od} = D_{odc}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d
 \label{ILPTransluc1}
 \end{equation}
 
 \begin{equation}
-\sum_{j \neq i \ j \neq o} L_{ij}^{od} = \sum_{j \neq i \ j \neq o} L_{ji}^{od}
-\qquad \qquad \qquad \qquad \qquad \qquad
-\forall s,d,p,o : s < d : p \neq s : p \neq d
+\sum_{j \textbackslash \{o\} } L_{ji}^{od} = \sum_{j \textbackslash \{d\} } L_{ji}^{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d , \forall i : i \neq o,d
 \label{ILPTransluc2}
 \end{equation}
 
 \begin{equation}
-\sum_{i \neq j} L_{ji}^{od} = D_{odc}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall o,d,c : o < d
+\sum_{j \textbackslash \{d\} } L_{ij}^{od} = D_{odc}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d
 \label{ILPTransluc3}
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d,c): o<d} (B(c) \times L_{ij}^{od}) \leq  \sum_{b} BD_b \times W_{ijb}
+\sum_{(o,d):o<d} \left( B(c) \times L_{ij}^{od}\right) \leq  \sum BD \times W_{ij}
 \qquad \qquad \qquad \qquad \qquad
-\forall i,j
+\forall (i,j)
 \label{ILPTransluc4}
 \end{equation}
 
 \begin{equation}
 L_{ij}^{od} \geq 0;
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall o,d,i,j : o < d
+\forall (i,j) , \forall (o,d) : o < d
 \label{ILPTransluc5}
 \end{equation}
 
 \begin{equation}
-\sum_{i \neq j} y_{ij}^{od} = W_{od}
+\sum_{j \textbackslash \{o\} } f_{ji}^{od} = W_{od}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall i,j,b
+\forall (o,d):o<d
 \label{ILPTransluc6}
 \end{equation}
 
 \begin{equation}
-\sum_{j\neq i \ j\neq o} y_{ij}^{od} = \sum_{j \neq i \ j \neq d} y_{ji}^{od}
+\sum_{j \textbackslash \{o\} } f_{ji}^{od} = \sum_{j \textbackslash \{d\} } f_{ji}^{od}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall o,d,i,b : i \neq d : i \neq o
+\forall (o,d):o<d , \forall i : i \neq o,d
 \label{ILPTransluc7}
 \end{equation}
 
 \begin{equation}
-\sum_{j \neq i} y_{ji}^{od} = W_{od}
+\sum_{j \textbackslash \{d\} } f_{ji}^{od} = W_{od}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall o,d,b
+\forall (o,d):o<d
 \label{ILPTransluc8}
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d,b)} \left( y_{ij}^{od} + y_{ji}^{od}\right) \leq 80 G_{ij}
+\sum_{(o,d):o<d} \left( f_{ij}^{od} + f_{ji}^{od}\right) \leq 80 G_{ij}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall i,j : i < j
+\forall (i,j) : i < j
 \label{ILPTransluc9}
 \end{equation}
 
 \begin{equation}
-y_{ij}^{od} \geq 0
+f_{ij}^{od} \geq 0
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall o,d,i,j,b
+\forall (i,j) \forall (o,d)
 \label{ILPTransluc10}
 \end{equation}	
 
@@ -289,4 +396,4 @@ $CAPEX$ =  \textbf{ \euro}\\
 
 \subsubsection{Heuristics Results}
 
-\subsection{Analysis and comparison of results}
+\subsection{Comparative Analysis}
