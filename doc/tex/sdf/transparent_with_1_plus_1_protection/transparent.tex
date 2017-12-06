@@ -89,14 +89,25 @@ ODU3=
   \end{bmatrix}
 \]
 
+\vspace{17pt}
+
+The values indicated in the distance matrix, referred to below, are expressed in kilometers (Km) and as it couldn't be otherwise, this matrix is symmetric.
+In relation to the traffic matrices each ODU, referred previously, has its respective value being that the ODU0 corresponds to 1.25 Gbits/s, ODU1 to 2.5 Gbits/s, ODU2 to 10 Gbits/s, ODU3 to 40 Gbits/s and finally the ODU4 corresponds to 100 Gbits/s.
+As we can see these matrices are bidirectional because they are symmetric matrices and as such the traffic sent in one direction must be the same traffic sent in the opposite direction. \\
+
 Through these ODU's we can calculate total network traffic for the low traffic scenario:\\
-$T_1^0$ = 600x1.25 = 750 Gbits/s \qquad
-$T_1^1$ = 500x2.5 = 1250 Gbits/s \qquad
+
+$T_1^0$ = 600x1.25 = 750 Gbits/s \quad
+$T_1^1$ = 500x2.5 = 1250 Gbits/s \quad
 $T_1^2$ = 160x10 = 1600 Gbits/s \\
+
 $T_1^3$ = 60x40 = 2400 Gbits/s \quad
 $T_1^4$ = 40x100 = 4000 Gbits/s \\
+
 $T_{1total}$ = 750 + 1250 + 1600 + 2400 + 4000 = 10000 Gbits/s \qquad
 $T_{total}$ = 10000/2 = 5 Tbits/s\\
+
+Where the variable $T_1^x$ represents the unidirectional traffic of the ODUx, for example, $T_1^0$ represents the unidirectional traffic of the ODU0 and $T_1^1$ represents the unidirectional traffic of the ODU1. The variable $T_{1}$ represents the total of unidirectional traffic that is injected into the network and finally the variable $T$ represents the total of bidirectional traffic.\\
 
 We can thus conclude that the total traffic for the two scenarios is as follows:
 \begin{itemize}
@@ -126,8 +137,6 @@ Finally for this project has to take into consideration the table \ref{table:3} 
 
 \subsubsection{Realistic Network}
 The real network chosen for this work is the EON (European Optical Network).
-The way the nodes are arranged geographically can be seen from the following figure and the matrix of distances created in the next page is constructed based on real distances.
-In this case just ODU's matrices are created to be able to determine the total traffic used in each scenario.
 
 \begin{figure}[h!]
 \centering
@@ -135,7 +144,42 @@ In this case just ODU's matrices are created to be able to determine the total t
 \caption{Physical Topology of the Realistic Network.}
 \end{figure}
 
-The table \ref{table:4} shows the values of the variables associated with this network.
+Through the previous figure we can see how nodes are organized geographically and the distance matrix created on the next page is constructed based on real distances between them.
+For a better understanding of the distances matrix the table \ref{city_nodes_t} was created to assign to each city a number of a node in the network.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ City & Node \\
+ \hline\hline
+ Oslo & 1 \\
+ Stockholm & 2 \\
+ Moscow & 3 \\
+ Copenhagen & 4 \\
+ Berlin & 5 \\
+ Prague & 6 \\
+ Vienna & 7 \\
+ Zagreb & 8 \\
+ Athens & 9 \\
+ Rome & 10 \\
+ Milan & 11 \\
+ Zurich & 12 \\
+ Brussels & 13 \\
+ Amesterdan & 14 \\
+ London & 15 \\
+ Dublin & 16 \\
+ Paris & 17 \\
+ Madrid & 18 \\
+ Lisbon & 19 \\
+ \hline
+\end{tabular}
+\caption{Table of city and respective node}
+\label{city_nodes_t}
+\end{table}
+
+In this real case we have once again to take into consideration the table \ref{table:4} because it is through it that we can see the values of the variables associated with this network.
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c||}
@@ -154,6 +198,187 @@ The table \ref{table:4} shows the values of the variables associated with this n
 \label{table:4}
 \end{table}
 
+The values indicated in the distance matrix, referred to below, are expressed in kilometers (Km).
+For this network we must also create matrices of ODU's to determine the total traffic used in each scenario  but in this case only the matrices for high traffic are elucidated.
+
+
+\begin{sidewaysfigure}
+
+\[
+Dist=
+  \begin{pmatrix}
+    0 & 417 & 0 & 484 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1155 & 0 & 0 & 0 & 0 \\
+    417 & 0 & 1228 & 523 & 811 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 1228 & 0 & 0 & 1611 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    484 & 523 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 622 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 811 & 1611 & 0 & 0 & 281 & 524 & 0 & 0 & 0 & 843 & 0 & 0 & 577 & 933 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 281 & 0 & 251 & 0 & 0 & 0 & 646 & 527 & 0 & 712 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 524 & 251 & 0 & 268 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 268 & 0 & 1081 & 518 & 530 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 1081 & 0 & 1052 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 518 & 1052 & 0 & 477 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 843 & 646 & 0 & 530 & 0 & 477 & 0 & 219 & 0 & 0 & 0 & 0 & 640 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 646 & 0 & 0 & 0 & 0 & 219 & 0 & 493 & 0 & 0 & 0 & 488 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 493 & 0 & 173 & 321 & 0 & 264 & 0 & 0 \\
+    0 & 0 & 0 & 622 & 577 & 712 & 0 & 0 & 0 & 0 & 0 & 0 & 173 & 0 & 358 & 0 & 0 & 0 & 0 \\
+    1155 & 0 & 0 & 0 & 933 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 321 & 358 & 0 & 464 & 344 & 0 & 1587 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 464 & 0 & 782 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 640 & 488 & 264 & 0 & 344 & 782 & 0 & 1054 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1054 & 0 & 503 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1587 & 0 & 0 & 503 & 0
+  \end{pmatrix}
+\]
+\end{sidewaysfigure}
+
+\[
+ODU0=
+  \begin{bmatrix}
+    0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+  \end{bmatrix}
+\]
+
+\vspace{15pt}
+
+\[
+ODU1=
+  \begin{bmatrix}
+    0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 \\
+    10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 0 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 10 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 \\
+    0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10& 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+  \end{bmatrix}
+\]
+
+
+\[
+ODU2=
+  \begin{bmatrix}
+    0 & 10 & 10 & 20 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 0 & 20 & 20 & 20 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 20 & 0 & 20 & 20 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    20 & 20 & 20 & 0 & 20 & 20 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    20 & 20 & 20 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 20 & 20 & 20 & 0 & 0 & 20 & 0 & 20 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 20 & 0 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 20 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+  \end{bmatrix}
+\]
+
+\vspace{15pt}
+
+\[
+ODU3=
+  \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 10 & 0
+  \end{bmatrix}
+\]
+
+
+\[
+ODU4=
+  \begin{bmatrix}
+    0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 \\
+    0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 10 & 0
+  \end{bmatrix}
+\]
+
+\vspace{11pt}
+In the traffic matrices each ODU, referred previously, has its respective value being that the ODU0 corresponds to 1.25 Gbits/s, ODU1 to 2.5 Gbits/s, ODU2 to 10 Gbits/s, ODU3 to 40 Gbits/s and finally the ODU4 corresponds to 100 Gbits/s.
+As we can see these matrices are bidirectional because they are symmetric matrices and as such the traffic sent in one direction must be the same traffic sent in the opposite direction.
+
+Through these ODU's we can calculate total network traffic for the low traffic scenario:\\
+
+$T_1^0$ = 2400x1.25 = 3000 Gbits/s \quad
+$T_1^1$ = 2000x2.5 = 5000 Gbits/s \\
+
+$T_1^2$ = 640x10 = 6400 Gbits/s \quad
+$T_1^3$ = 240x40 = 9600 Gbits/s \quad
+$T_1^4$ = 160x100 = 16000 Gbits/s \\
+
+$T_{1}$ = 3000 + 5000 + 6400 + 9600 + 16000 = 40000 Gbits/s \qquad
+$T$ = 40000/2 = 20 Tbits/s\\
+
+Where the variable $T_1^x$ represents the unidirectional traffic of the ODUx, for example, $T_1^1$ represents the unidirectional traffic of the ODU1 and $T_1^2$ represents the unidirectional traffic of the ODU2. The variable $T_{1}$ represents the total of unidirectional traffic that is injected into the network and finally the variable $T$ represents the total of bidirectional traffic.\\
+
 Again, through the ODU's we can calculate the total traffic for both scenarios being them:
 \begin{itemize}
   \item Low Traffic: \textbf{2 TBits/s}
@@ -161,33 +386,7 @@ Again, through the ODU's we can calculate the total traffic for both scenarios b
 \end{itemize}
 
 
-\[
-  \text{Dist} = \kbordermatrix{
-    & Oslo & Stockholm & Moscow & Copenhagen & Berlin & Prague & Vienna & Zagreb & Athens & Rome & Milan & Zurich & Brussels & Amesterdan & London & Dublin & Paris & Madrid & Lisbon \\
-    Oslo & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Stockholm & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Moscow & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Copenhagen & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Berlin & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Prague & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Vienna & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Zagreb & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Athens & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Rome & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Milan & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Zurich & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Brussels & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Amesterdan & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    London & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Dublin & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Paris & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500\\
-    Madrid & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 \\
-    Lisbon & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 500 & 0 & 0 & 500 & 500 & 0 & 0 & 0 & 0 & 500 & 444
-  }
-\]
 
-
-\newpage
 \subsection{Dimensioning using ILP}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
@@ -460,18 +659,44 @@ In this scenario we used again the table \ref{table:4} In the table \ref{result_
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c || c | c || c | c ||}
+\begin{tabular}{| c | c |}
  \hline
- Number of optical channels & Value & ADD PORTS & Value & LINE PORTS & Value \\
+ Number of optical channels & Value \\
  \hline\hline
- in the link (1,2) & 3 & Node 1 & 5 & Node 1 & 5 \\
- in the link (1,3) & 2 & Node 2 & 6 & Node 2 & 12 \\
- in the link (2,3) & 4 & Node 3 & 5 & Node 3 & 11 \\
- in the link (2,4) & 5 & Node 4 & 5 & Node 4 & 11 \\
- in the link (3,5) & 5 & Node 5 & 6 & Node 5 & 10 \\
- in the link (4,5) & 2 & Node 6 & 7 & Node 6 & 7 \\
- in the link (4,6) & 4 & & & & \\
- in the link (5,6) & 3 & & & & \\
+ in the link (1,2) & 3 \\
+ in the link (1,3) & 2 \\
+ in the link (2,3) & 4 \\
+ in the link (2,4) & 5 \\
+ in the link (3,5) & 5 \\
+ in the link (4,5) & 2 \\
+ in the link (4,6) & 4 \\
+ in the link (5,6) & 3 \\
+ \hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+ \hline
+ ADD PORTS & Value \\
+ \hline\hline
+ Node 1 & 5 \\
+ Node 2 & 6 \\
+ Node 3 & 5 \\
+ Node 4 & 5 \\
+ Node 5 & 6 \\
+ Node 6 & 7 \\
+ \hline
+\end{tabular}
+\quad
+\begin{tabular}{| c | c |}
+ \hline
+ LINE PORTS & Value \\
+ \hline\hline
+ Node 1 & 5 \\
+ Node 2 & 12 \\
+ Node 3 & 11 \\
+ Node 4 & 11 \\
+ Node 5 & 10 \\
+ Node 6 & 7 \\
  \hline
 \end{tabular}
 \caption{Table with results}

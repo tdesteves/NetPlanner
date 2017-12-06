@@ -10,80 +10,80 @@
 \contentsline {subsection}{\numberline {4.1.1}Physical Network Topology}{7}{subsection.4.1.1}
 \contentsline {subsubsection}{\numberline {4.1.1.1}Reference Network}{7}{subsubsection.4.1.1.1}
 \contentsline {subsubsection}{\numberline {4.1.1.2}Realistic Network}{9}{subsubsection.4.1.1.2}
-\contentsline {subsection}{\numberline {4.1.2}Dimensioning using ILP}{11}{subsection.4.1.2}
-\contentsline {subsubsection}{\numberline {4.1.2.1}ILP models}{11}{subsubsection.4.1.2.1}
-\contentsline {subsubsection}{\numberline {4.1.2.2}ILP Results}{12}{subsubsection.4.1.2.2}
-\contentsline {subsection}{\numberline {4.1.3}Dimensioning using Heuristics}{18}{subsection.4.1.3}
-\contentsline {subsubsection}{\numberline {4.1.3.1}Heuristics Models}{18}{subsubsection.4.1.3.1}
-\contentsline {subsubsection}{\numberline {4.1.3.2}Heuristics Results}{18}{subsubsection.4.1.3.2}
-\contentsline {subsection}{\numberline {4.1.4}Comparative Analysis}{18}{subsection.4.1.4}
-\contentsline {section}{\numberline {4.2}Transparent with 1+1 Protection}{19}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Physical Network Topology}{19}{subsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.1.1}Reference Network}{19}{subsubsection.4.2.1.1}
-\contentsline {subsubsection}{\numberline {4.2.1.2}Realistic Network}{21}{subsubsection.4.2.1.2}
-\contentsline {subsection}{\numberline {4.2.2}Dimensioning using ILP}{23}{subsection.4.2.2}
-\contentsline {subsubsection}{\numberline {4.2.2.1}ILP Models}{23}{subsubsection.4.2.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2.2}ILP Results}{24}{subsubsection.4.2.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Dimensioning using Heuristics}{29}{subsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.3.1}Heuristics Models}{29}{subsubsection.4.2.3.1}
-\contentsline {subsubsection}{\numberline {4.2.3.2}Heuristics Results}{29}{subsubsection.4.2.3.2}
-\contentsline {subsection}{\numberline {4.2.4}Comparative Analysis}{29}{subsection.4.2.4}
-\contentsline {section}{\numberline {4.3}Translucent with 1+1 Protection}{30}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Physical Network Topology}{30}{subsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.1.1}Reference Network}{30}{subsubsection.4.3.1.1}
-\contentsline {subsubsection}{\numberline {4.3.1.2}Realistic Network}{32}{subsubsection.4.3.1.2}
-\contentsline {subsection}{\numberline {4.3.2}Dimensioning using ILP}{34}{subsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.2.1}ILP models}{34}{subsubsection.4.3.2.1}
-\contentsline {subsubsection}{\numberline {4.3.2.2}ILP Results}{35}{subsubsection.4.3.2.2}
-\contentsline {subsection}{\numberline {4.3.3}Dimensioning using Analytical solution}{36}{subsection.4.3.3}
-\contentsline {subsubsection}{\numberline {4.3.3.1}Analytical Models}{36}{subsubsection.4.3.3.1}
-\contentsline {subsubsection}{\numberline {4.3.3.2}Analytical Results}{36}{subsubsection.4.3.3.2}
-\contentsline {subsection}{\numberline {4.3.4}Dimensioning using Heuristics}{37}{subsection.4.3.4}
-\contentsline {subsubsection}{\numberline {4.3.4.1}Heuristics Models}{37}{subsubsection.4.3.4.1}
-\contentsline {subsubsection}{\numberline {4.3.4.2}Heuristics Results}{37}{subsubsection.4.3.4.2}
-\contentsline {subsection}{\numberline {4.3.5}Comparative Analysis}{37}{subsection.4.3.5}
-\contentsline {chapter}{\numberline {5}Appendices}{38}{chapter.5}
-\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{39}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{39}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{39}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Net2Plan Tools}{42}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{42}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{45}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{52}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Reports}{53}{subsection.5.2.4}
-\contentsline {section}{\numberline {5.3}Results}{56}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{57}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{59}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Simulations}{62}{section.5.4}
-\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{63}{section.5.5}
-\contentsline {section}{\numberline {5.6}Developing new Reports}{66}{section.5.6}
-\contentsline {section}{\numberline {5.7}Installing LPSOLVE for using in MatLab}{68}{section.5.7}
-\contentsline {section}{\numberline {5.8}Opaque with 1+1 protection appendices}{69}{section.5.8}
-\contentsline {subsection}{\numberline {5.8.1}Script using MatLab}{69}{subsection.5.8.1}
-\contentsline {subsubsection}{\numberline {5.8.1.1}Scenario 1}{69}{subsubsection.5.8.1.1}
-\contentsline {subsubsection}{\numberline {5.8.1.2}Scenario 2}{71}{subsubsection.5.8.1.2}
-\contentsline {subsubsection}{\numberline {5.8.1.3}Scenario 3}{74}{subsubsection.5.8.1.3}
-\contentsline {subsubsection}{\numberline {5.8.1.4}Scenario 4}{74}{subsubsection.5.8.1.4}
-\contentsline {subsection}{\numberline {5.8.2}ILP using LPSolve}{74}{subsection.5.8.2}
-\contentsline {subsubsection}{\numberline {5.8.2.1}Scenario 1}{74}{subsubsection.5.8.2.1}
-\contentsline {subsubsection}{\numberline {5.8.2.2}Scenario 2}{82}{subsubsection.5.8.2.2}
-\contentsline {subsection}{\numberline {5.8.3}Results using LPSolve}{91}{subsection.5.8.3}
-\contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{92}{section.5.9}
-\contentsline {subsection}{\numberline {5.9.1}Script using MatLab}{92}{subsection.5.9.1}
-\contentsline {subsubsection}{\numberline {5.9.1.1}Scenario 1}{92}{subsubsection.5.9.1.1}
-\contentsline {subsubsection}{\numberline {5.9.1.2}Scenario 2}{94}{subsubsection.5.9.1.2}
-\contentsline {subsubsection}{\numberline {5.9.1.3}Scenario 3}{94}{subsubsection.5.9.1.3}
-\contentsline {subsubsection}{\numberline {5.9.1.4}Scenario 4}{94}{subsubsection.5.9.1.4}
-\contentsline {subsection}{\numberline {5.9.2}ILP using LPSolve}{94}{subsection.5.9.2}
-\contentsline {subsubsection}{\numberline {5.9.2.1}Scenario 1}{94}{subsubsection.5.9.2.1}
-\contentsline {subsection}{\numberline {5.9.3}Results using LPSolve}{102}{subsection.5.9.3}
-\contentsline {section}{\numberline {5.10}Translucent with 1+1 protection appendices}{103}{section.5.10}
-\contentsline {subsection}{\numberline {5.10.1}Script using MatLab}{103}{subsection.5.10.1}
-\contentsline {subsubsection}{\numberline {5.10.1.1}Scenario 1}{103}{subsubsection.5.10.1.1}
-\contentsline {subsubsection}{\numberline {5.10.1.2}Scenario 2}{103}{subsubsection.5.10.1.2}
-\contentsline {subsubsection}{\numberline {5.10.1.3}Scenario 3}{103}{subsubsection.5.10.1.3}
-\contentsline {subsubsection}{\numberline {5.10.1.4}Scenario 4}{103}{subsubsection.5.10.1.4}
-\contentsline {subsection}{\numberline {5.10.2}ILP using LPSolve}{103}{subsection.5.10.2}
-\contentsline {subsection}{\numberline {5.10.3}Results using LPSolve}{103}{subsection.5.10.3}
-\contentsline {chapter}{\numberline {6}Master Dissertations}{104}{chapter.6}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{105}{section*.59}
+\contentsline {subsection}{\numberline {4.1.2}Dimensioning using ILP}{15}{subsection.4.1.2}
+\contentsline {subsubsection}{\numberline {4.1.2.1}ILP models}{15}{subsubsection.4.1.2.1}
+\contentsline {subsubsection}{\numberline {4.1.2.2}ILP Results}{16}{subsubsection.4.1.2.2}
+\contentsline {subsection}{\numberline {4.1.3}Dimensioning using Heuristics}{22}{subsection.4.1.3}
+\contentsline {subsubsection}{\numberline {4.1.3.1}Heuristics Models}{22}{subsubsection.4.1.3.1}
+\contentsline {subsubsection}{\numberline {4.1.3.2}Heuristics Results}{22}{subsubsection.4.1.3.2}
+\contentsline {subsection}{\numberline {4.1.4}Comparative Analysis}{22}{subsection.4.1.4}
+\contentsline {section}{\numberline {4.2}Transparent with 1+1 Protection}{23}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Physical Network Topology}{23}{subsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.1.1}Reference Network}{23}{subsubsection.4.2.1.1}
+\contentsline {subsubsection}{\numberline {4.2.1.2}Realistic Network}{25}{subsubsection.4.2.1.2}
+\contentsline {subsection}{\numberline {4.2.2}Dimensioning using ILP}{31}{subsection.4.2.2}
+\contentsline {subsubsection}{\numberline {4.2.2.1}ILP Models}{31}{subsubsection.4.2.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2.2}ILP Results}{32}{subsubsection.4.2.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Dimensioning using Heuristics}{38}{subsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.3.1}Heuristics Models}{38}{subsubsection.4.2.3.1}
+\contentsline {subsubsection}{\numberline {4.2.3.2}Heuristics Results}{38}{subsubsection.4.2.3.2}
+\contentsline {subsection}{\numberline {4.2.4}Comparative Analysis}{38}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Translucent with 1+1 Protection}{39}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Physical Network Topology}{39}{subsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1.1}Reference Network}{39}{subsubsection.4.3.1.1}
+\contentsline {subsubsection}{\numberline {4.3.1.2}Realistic Network}{41}{subsubsection.4.3.1.2}
+\contentsline {subsection}{\numberline {4.3.2}Dimensioning using ILP}{43}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}ILP models}{43}{subsubsection.4.3.2.1}
+\contentsline {subsubsection}{\numberline {4.3.2.2}ILP Results}{44}{subsubsection.4.3.2.2}
+\contentsline {subsection}{\numberline {4.3.3}Dimensioning using Analytical solution}{45}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}Analytical Models}{45}{subsubsection.4.3.3.1}
+\contentsline {subsubsection}{\numberline {4.3.3.2}Analytical Results}{45}{subsubsection.4.3.3.2}
+\contentsline {subsection}{\numberline {4.3.4}Dimensioning using Heuristics}{46}{subsection.4.3.4}
+\contentsline {subsubsection}{\numberline {4.3.4.1}Heuristics Models}{46}{subsubsection.4.3.4.1}
+\contentsline {subsubsection}{\numberline {4.3.4.2}Heuristics Results}{46}{subsubsection.4.3.4.2}
+\contentsline {subsection}{\numberline {4.3.5}Comparative Analysis}{46}{subsection.4.3.5}
+\contentsline {chapter}{\numberline {5}Appendices}{47}{chapter.5}
+\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{48}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{48}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{48}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Net2Plan Tools}{51}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{51}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{54}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{61}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Reports}{62}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Results}{65}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{66}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{68}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Simulations}{71}{section.5.4}
+\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{72}{section.5.5}
+\contentsline {section}{\numberline {5.6}Developing new Reports}{75}{section.5.6}
+\contentsline {section}{\numberline {5.7}Installing LPSOLVE for using in MatLab}{77}{section.5.7}
+\contentsline {section}{\numberline {5.8}Opaque with 1+1 protection appendices}{78}{section.5.8}
+\contentsline {subsection}{\numberline {5.8.1}Script using MatLab}{78}{subsection.5.8.1}
+\contentsline {subsubsection}{\numberline {5.8.1.1}Scenario 1}{78}{subsubsection.5.8.1.1}
+\contentsline {subsubsection}{\numberline {5.8.1.2}Scenario 2}{80}{subsubsection.5.8.1.2}
+\contentsline {subsubsection}{\numberline {5.8.1.3}Scenario 3}{83}{subsubsection.5.8.1.3}
+\contentsline {subsubsection}{\numberline {5.8.1.4}Scenario 4}{83}{subsubsection.5.8.1.4}
+\contentsline {subsection}{\numberline {5.8.2}ILP using LPSolve}{83}{subsection.5.8.2}
+\contentsline {subsubsection}{\numberline {5.8.2.1}Scenario 1}{83}{subsubsection.5.8.2.1}
+\contentsline {subsubsection}{\numberline {5.8.2.2}Scenario 2}{91}{subsubsection.5.8.2.2}
+\contentsline {subsection}{\numberline {5.8.3}Results using LPSolve}{100}{subsection.5.8.3}
+\contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{101}{section.5.9}
+\contentsline {subsection}{\numberline {5.9.1}Script using MatLab}{101}{subsection.5.9.1}
+\contentsline {subsubsection}{\numberline {5.9.1.1}Scenario 1}{101}{subsubsection.5.9.1.1}
+\contentsline {subsubsection}{\numberline {5.9.1.2}Scenario 2}{103}{subsubsection.5.9.1.2}
+\contentsline {subsubsection}{\numberline {5.9.1.3}Scenario 3}{103}{subsubsection.5.9.1.3}
+\contentsline {subsubsection}{\numberline {5.9.1.4}Scenario 4}{103}{subsubsection.5.9.1.4}
+\contentsline {subsection}{\numberline {5.9.2}ILP using LPSolve}{103}{subsection.5.9.2}
+\contentsline {subsubsection}{\numberline {5.9.2.1}Scenario 1}{103}{subsubsection.5.9.2.1}
+\contentsline {subsection}{\numberline {5.9.3}Results using LPSolve}{111}{subsection.5.9.3}
+\contentsline {section}{\numberline {5.10}Translucent with 1+1 protection appendices}{112}{section.5.10}
+\contentsline {subsection}{\numberline {5.10.1}Script using MatLab}{112}{subsection.5.10.1}
+\contentsline {subsubsection}{\numberline {5.10.1.1}Scenario 1}{112}{subsubsection.5.10.1.1}
+\contentsline {subsubsection}{\numberline {5.10.1.2}Scenario 2}{112}{subsubsection.5.10.1.2}
+\contentsline {subsubsection}{\numberline {5.10.1.3}Scenario 3}{112}{subsubsection.5.10.1.3}
+\contentsline {subsubsection}{\numberline {5.10.1.4}Scenario 4}{112}{subsubsection.5.10.1.4}
+\contentsline {subsection}{\numberline {5.10.2}ILP using LPSolve}{112}{subsection.5.10.2}
+\contentsline {subsection}{\numberline {5.10.3}Results using LPSolve}{112}{subsection.5.10.3}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{113}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{114}{section*.62}
