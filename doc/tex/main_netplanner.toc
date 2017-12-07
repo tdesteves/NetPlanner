@@ -40,23 +40,7 @@
 \contentsline {subsubsection}{\numberline {4.3.3.2}Heuristics Results}{25}{subsubsection.4.3.3.2}
 \contentsline {subsection}{\numberline {4.3.4}Analysis and comparison of results}{25}{subsection.4.3.4}
 \contentsline {chapter}{\numberline {5}Appendices}{26}{chapter.5}
-\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{27}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{27}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{27}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Net2Plan Tools}{30}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{30}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{33}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{40}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Reports}{41}{subsection.5.2.4}
-\contentsline {section}{\numberline {5.3}Results}{44}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{45}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{47}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Simulations}{50}{section.5.4}
-\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{51}{section.5.5}
-\contentsline {section}{\numberline {5.6}Developing new Reports}{54}{section.5.6}
-\contentsline {section}{\numberline {5.7}Script Scenario 1}{56}{section.5.7}
-\contentsline {section}{\numberline {5.8}Script Scenario 2}{59}{section.5.8}
-\contentsline {section}{\numberline {5.9}Script Scenario 3}{62}{section.5.9}
-\contentsline {section}{\numberline {5.10}Script Scenario 4}{63}{section.5.10}
-\contentsline {chapter}{\numberline {6}Master Dissertations}{64}{chapter.6}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{65}{section*.50}
+\contentsline {section}{\numberline {5.1}Net2Plan guide}{27}{section.5.1}
+\contentsline {section}{\numberline {5.2}ILP scenarios}{56}{section.5.2}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{62}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{63}{section*.65}
