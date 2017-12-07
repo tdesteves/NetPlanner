@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span>package com.net2plan.examples.ocnbook.reports;<a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span>import java.text.DecimalFormat;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import java.util.List;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.util.Map;<a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import com.net2plan.interfaces.networkDesign.IReport;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import com.net2plan.interfaces.networkDesign.Route;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.net2plan.utils.InputParameter;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.net2plan.utils.Triple;<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>/**<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * This report receives as an input a network design, where the network is assumed to be based on packet switching, and estimates the packet delay <a name="line.25"></a>
+<span class="sourceLineNo">026</span> * of the different flows.<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * <a name="line.27"></a>
+<span class="sourceLineNo">028</span> * @net2plan.keywords <a name="line.28"></a>
+<span class="sourceLineNo">029</span> * @net2plan.ocnbooksections Section 3.2<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * @net2plan.inputParameters <a name="line.30"></a>
+<span class="sourceLineNo">031</span> * @author Pablo Pavon-Marino<a name="line.31"></a>
+<span class="sourceLineNo">032</span> */<a name="line.32"></a>
+<span class="sourceLineNo">033</span>public class Report_delay implements IReport<a name="line.33"></a>
+<span class="sourceLineNo">034</span>{<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        private InputParameter hurstParameter = new InputParameter ("hurstParameter" , (double) 0.5 , "Hurst parameter (H) of self-similar sources [0.5, 1) (M/M/1 model when H = 0.5)" , 0.5 , true, 1, false);<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        private InputParameter averagePacketLength_bits = new InputParameter ("averagePacketLength_bits" , (double) 500*8 , "Average packet length in bits" , 0 , false , Double.MAX_VALUE, true);<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        private InputParameter linkCapacityUnits_bps = new InputParameter ("linkCapacityUnits_bps" , (double) 1e6 , "Units in bps in which the capacity of the links is measured" , 0 , false , Double.MAX_VALUE, true);<a name="line.37"></a>
+<span class="sourceLineNo">038</span><a name="line.38"></a>
+<span class="sourceLineNo">039</span>        @Override<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        public String executeReport(NetPlan netPlan, Map&lt;String, String&gt; reportParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        {<a name="line.41"></a>
+<span class="sourceLineNo">042</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.42"></a>
+<span class="sourceLineNo">043</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, reportParameters);<a name="line.43"></a>
+<span class="sourceLineNo">044</span><a name="line.44"></a>
+<span class="sourceLineNo">045</span>                if (netPlan.getRoutingType() != RoutingType.SOURCE_ROUTING)<a name="line.45"></a>
+<span class="sourceLineNo">046</span>                {<a name="line.46"></a>
+<span class="sourceLineNo">047</span>                        return "&lt;html&gt;&lt;body&gt;&lt;p&gt;No delay information available. The routing must be of the form SOURCE ROUTING.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;";<a name="line.47"></a>
+<span class="sourceLineNo">048</span>                }<a name="line.48"></a>
+<span class="sourceLineNo">049</span>                <a name="line.49"></a>
+<span class="sourceLineNo">050</span>                if (!netPlan.hasRoutes())<a name="line.50"></a>
+<span class="sourceLineNo">051</span>                {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>                        return "&lt;html&gt;&lt;body&gt;&lt;p&gt;No delay information available. Routing is not defined.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;";<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                }<a name="line.53"></a>
+<span class="sourceLineNo">054</span><a name="line.54"></a>
+<span class="sourceLineNo">055</span>                final int E = netPlan.getNumberOfLinks();<a name="line.55"></a>
+<span class="sourceLineNo">056</span>                final int D = netPlan.getNumberOfDemands();<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                final int R = netPlan.getNumberOfRoutes();<a name="line.57"></a>
+<span class="sourceLineNo">058</span><a name="line.58"></a>
+<span class="sourceLineNo">059</span>                StringBuilder out = new StringBuilder();<a name="line.59"></a>
+<span class="sourceLineNo">060</span>                DecimalFormat df_6 = new DecimalFormat("#.######");<a name="line.60"></a>
+<span class="sourceLineNo">061</span>                out.append("&lt;html&gt;&lt;body&gt;");<a name="line.61"></a>
+<span class="sourceLineNo">062</span>                out.append("&lt;head&gt;&lt;title&gt;Packet delay report&lt;/title&gt;&lt;/head&gt;");<a name="line.62"></a>
+<span class="sourceLineNo">063</span>                out.append("&lt;h1&gt;Introduction&lt;/h1&gt;");<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                out.append("&lt;p&gt;This report receives as an input a network design, where the network is assumed to be based on packet switching, and estimates the packet delay of the different flows.&lt;/p&gt;");<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                out.append("&lt;h1&gt;Motivation&lt;/h1&gt;");<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                out.append("&lt;p&gt;In packet-switched networks, traffic sources split data into smaller pieces called packets, and transmit them attached to a header with control information. Per each packet received, packet-switching nodes read its header and take appropriate forwarding decisions, according to the routing plan configured. In real networks, traffic is highly unpredictable and thus modelled as random processes. When we say that a traffic source &lt;em&gt;d&lt;/em&gt; generates &lt;em&gt;h_d&lt;/em&gt; traffic units, we refer to a time average. Instantaneous traffic generated oscillates very fast and uncontrollably from peak intervals (generating more traffic than the average) to valley intervals (generating less traffic than the average).&lt;/p&gt;");<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                out.append("&lt;p&gt;The traffic carried by a link is the aggregation (multiplexing) of the traffic from all the sources routed through this link. At a given moment, it is very likely that some of the sources aggregated are in a peak, while others are in a valley. They compensate each other. Thus, you do not need a link capacity equal to the sum of the peak traffics of all the sources, but a capacity between the sum of the averages and the sum of the peaks. We say that multiplexing sources provides an &lt;em&gt;statistical multiplexing gain&lt;/em&gt;.&lt;/p&gt;");<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                out.append("&lt;p&gt;Statistical multiplexing gain is the powering fact propeling packet switching. Since it is very common that sources have peaks of traffic several times higher than their average (e.g. 2 or 3 times). However, at unpredictable moments in time, peak traffic intervals coincide and link capacities are not enough to forward traffic. Then, nodes store packets in queues, so they are delayed until they can be transmitted (this delay is known as queuing delay). If this situation remains, queues are filled provoking packet drops. We say that the link is congested or saturated. Note that if the link capacity is below the sum of the average traffic generated by the traversing sources, a large amount of packet drops will always occur, whatever buffer you allocate in the nodes. Network designs must enforce always that link capacities are not below the sum of the averages of the traffics to be carried.&lt;/p&gt;");<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                out.append("&lt;p&gt;Network design tries to model statistically delays and drops in order to minimize their effects. Traffic models capture not only the average of each traffic source, but also a measure of its burstiness. Intuitively, it is clear that the more steep and long that the peak-valley intervals are (or the more bursty the traffic is), the higher the queuing delay. This is because, during low load intervals, the link is underutilized with negligible delays, but during peak traffic intervals packets need to be buffered and can suffer large queuing delays or drops. Naturally, a zero queuing delay occurs when the traffic is perfectly constant (not random).&lt;/p&gt;");<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                out.append("&lt;p&gt;This report estimates the link, path and demand delays using a self-similar model, where the average queueing delay in a link depends on the link capacity, its average traffic, and a so-called &lt;em&gt;Hurst parameter&lt;/em&gt; measuring its degree of self-similarity.&lt;/p&gt;");<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                out.append("&lt;p&gt;For more information:&lt;/p&gt;");<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                out.append("&lt;ul&gt;&lt;li&gt;&lt;a href=\"http://www.wiley.com/WileyCDA/WileyTitle/productCd-1119013356.html\"&gt;Pablo Pav&amp;oacute;n Mari&amp;ntilde;o, \"Optimization of computer networks. Modeling and algorithms. A hands-on approach\", Wiley 2016\"&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;");<a name="line.72"></a>
+<span class="sourceLineNo">073</span><a name="line.73"></a>
+<span class="sourceLineNo">074</span>                // Link metrics<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                double[] T_e_prop = new double [E];<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                double[] T_e_tx = new double [E];<a name="line.76"></a>
+<span class="sourceLineNo">077</span>                double[] T_e_buf = new double [E];<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                double[] T_e = new double [E];<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                for (Link e : netPlan.getLinks())<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                {<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                        final double rho_e = e.getUtilizationIncludingProtectionSegments();<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                        T_e_prop [e.getIndex()] = e.getPropagationDelayInMs();<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                        T_e_tx [e.getIndex()] = 1000 * averagePacketLength_bits.getDouble() / (e.getCapacity() * linkCapacityUnits_bps.getDouble()); <a name="line.83"></a>
+<span class="sourceLineNo">084</span>                        T_e_buf [e.getIndex()] = 1000 * averagePacketLength_bits.getDouble() / (e.getCapacity() * linkCapacityUnits_bps.getDouble()) * Math.pow(rho_e, 1/(2*(1-hurstParameter.getDouble()))) / Math.pow(1-rho_e , hurstParameter.getDouble()/(1 - hurstParameter.getDouble())); <a name="line.84"></a>
+<span class="sourceLineNo">085</span>                        T_e [e.getIndex()] = T_e_prop [e.getIndex()] + T_e_tx [e.getIndex()] + T_e_buf [e.getIndex()];  <a name="line.85"></a>
+<span class="sourceLineNo">086</span>                }<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                <a name="line.87"></a>
+<span class="sourceLineNo">088</span>                // Route metrics<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                double[] T_r_prop = new double [R];<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                double[] T_r_tx = new double [R];<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                double[] T_r_buf = new double [R];<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                double[] T_r = new double [R];<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                for (Route r : netPlan.getRoutes())<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                        for (Link e : r.getSeqLinksRealPath())<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                        {<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                                T_r_prop [r.getIndex()] += T_e_prop [e.getIndex()];<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                                T_r_tx [r.getIndex()] += T_e_tx [e.getIndex()];<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                                T_r_buf [r.getIndex()] += T_e_buf [e.getIndex()];<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                                T_r [r.getIndex()] += T_e [e.getIndex()];<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                        }<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span>                // Demand metrics<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                double[] T_d_prop = new double [D];<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                double[] T_d_tx = new double [D];<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                double[] T_d_buf = new double [D];<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                double[] T_d = new double [D];<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                for (Demand d : netPlan.getDemands())<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                        for (Route r : d.getRoutes())<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                        {<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                                final double weightFactor = d.getCarriedTraffic() == 0? 0 : r.getCarriedTraffic() / d.getCarriedTraffic();<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                                T_d_prop [d.getIndex()] += weightFactor * T_r_prop [r.getIndex()];<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                                T_d_tx [d.getIndex()] += weightFactor * T_r_tx [r.getIndex()];<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                                T_d_buf [d.getIndex()] += weightFactor * T_r_buf [r.getIndex()];<a name="line.113"></a>
+<span class="sourceLineNo">114</span>                                T_d [d.getIndex()] += weightFactor * T_r [r.getIndex()];<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                        }<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>                // Network metrics<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                final double sumCarriedTraffic = netPlan.getVectorRouteCarriedTraffic().zSum();<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                double avNetDelay_T = 0; <a name="line.119"></a>
+<span class="sourceLineNo">120</span>                double avNetDelay_T_prop = 0; <a name="line.120"></a>
+<span class="sourceLineNo">121</span>                for (Route r : netPlan.getRoutes())<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                        avNetDelay_T += r.getCarriedTraffic() * T_r [r.getIndex()];<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                        avNetDelay_T_prop += r.getCarriedTraffic() * T_r_prop [r.getIndex()];<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                }<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                avNetDelay_T /= sumCarriedTraffic;<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                avNetDelay_T_prop /= sumCarriedTraffic;<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                <a name="line.128"></a>
+<span class="sourceLineNo">129</span>                out.append("&lt;h2&gt;Link delay information&lt;/h2&gt;");<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                out.append("&lt;table border='1'&gt;");<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Link index&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Origin node&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Destination node&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Propagation delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Transmission delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Queuing delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Total delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Attributes&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;");<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                for (Link e : netPlan.getLinks())<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                        final int linkId = e.getIndex();<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                        out.append(String.format("&lt;tr&gt;&lt;td&gt;%d&lt;/td&gt;&lt;td&gt;%d (%s)&lt;/td&gt;&lt;td&gt;%d (%s)&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;", e.getIndex(), e.getOriginNode().getIndex() , e.getOriginNode().getName(), e.getDestinationNode().getIndex(),e.getDestinationNode().getName(), T_e_prop[linkId], T_e_tx[linkId], T_e_buf[linkId], T_e[linkId], e.getAttributes()));<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                }<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                out.append("&lt;/table&gt;");<a name="line.137"></a>
+<span class="sourceLineNo">138</span><a name="line.138"></a>
+<span class="sourceLineNo">139</span>                // Route information table<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                out.append("&lt;h2&gt;Path delay information&lt;/h2&gt;");<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                out.append("&lt;table border='1'&gt;");<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Route id&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Demand id&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Ingress node&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Egress node&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Sequence of links&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Propagation delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Transmission delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Queuing delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Total delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Attributes&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                for (Route r : netPlan.getRoutes())<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                {<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                        final int rIndex = r.getIndex();<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                        final Demand d = r.getDemand();<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                        out.append(String.format("&lt;tr&gt;&lt;td&gt;%d&lt;/td&gt;&lt;td&gt;%d&lt;/td&gt;&lt;td&gt;%d (%s)&lt;/td&gt;&lt;td&gt;%d (%s)&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;", r.getIndex () , d.getIndex(), r.getIngressNode().getIndex() , r.getIngressNode().getName(), r.getEgressNode().getIndex() , r.getEgressNode().getName(), r.getSeqLinksRealPath(), T_r_prop[rIndex], T_r_tx[rIndex], T_r_buf[rIndex], T_r[rIndex], r.getAttributes()));<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                }<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                out.append("&lt;/table&gt;");<a name="line.149"></a>
+<span class="sourceLineNo">150</span><a name="line.150"></a>
+<span class="sourceLineNo">151</span>                // Demand information table<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                out.append("&lt;h2&gt;Demand delay information&lt;/h2&gt;");<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                out.append("&lt;table border='1'&gt;");<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Demand id&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Ingress node&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Egress node&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Propagation delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Transmission delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Queuing delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Total delay (ms)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Attributes&lt;/a&gt;&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                for (Demand d : netPlan.getDemands())<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                {<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                        final int dIndex = d.getIndex();<a name="line.157"></a>
+<span class="sourceLineNo">158</span>                        out.append(String.format("&lt;tr&gt;&lt;td&gt;%d&lt;/td&gt;&lt;td&gt;%d (%s)&lt;/td&gt;&lt;td&gt;%d (%s)&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%.3g&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;", dIndex, d.getIngressNode().getIndex() , d.getIngressNode().getName(), d.getEgressNode().getIndex() , d.getEgressNode().getName(), T_d_prop[dIndex] , T_d_tx[dIndex] , T_d_buf[dIndex] , T_d[dIndex] , d.getAttributes()));<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                }<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                out.append("&lt;/table&gt;");<a name="line.160"></a>
+<span class="sourceLineNo">161</span><a name="line.161"></a>
+<span class="sourceLineNo">162</span>                // Network information table<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                out.append("&lt;table border='1'&gt;");<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                out.append("&lt;tr&gt;&lt;td&gt;Average network delay (ms) [UNICAST]&lt;/td&gt;&lt;td&gt;").append(String.format("%.3g", avNetDelay_T * 1000)).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                out.append("&lt;tr&gt;&lt;td&gt;Average network delay only considering propagation (ms) [UNICAST]&lt;/td&gt;&lt;td&gt;").append(String.format("%.3g", avNetDelay_T_prop * 1000)).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                out.append("&lt;/table&gt;");<a name="line.166"></a>
+<span class="sourceLineNo">167</span><a name="line.167"></a>
+<span class="sourceLineNo">168</span>                out.append("&lt;/body&gt;&lt;/html&gt;");<a name="line.168"></a>
+<span class="sourceLineNo">169</span><a name="line.169"></a>
+<span class="sourceLineNo">170</span>                return out.toString();<a name="line.170"></a>
+<span class="sourceLineNo">171</span>        }<a name="line.171"></a>
+<span class="sourceLineNo">172</span><a name="line.172"></a>
+<span class="sourceLineNo">173</span>        @Override<a name="line.173"></a>
+<span class="sourceLineNo">174</span>        public String getDescription()<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                return "This report shows delay information considering a packet-switched network";<a name="line.176"></a>
+<span class="sourceLineNo">177</span>        }<a name="line.177"></a>
+<span class="sourceLineNo">178</span><a name="line.178"></a>
+<span class="sourceLineNo">179</span>        @Override<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        public String getTitle()<a name="line.180"></a>
+<span class="sourceLineNo">181</span>        {<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                return "Delay metrics";<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        }<a name="line.183"></a>
+<span class="sourceLineNo">184</span><a name="line.184"></a>
+<span class="sourceLineNo">185</span>        @Override<a name="line.185"></a>
+<span class="sourceLineNo">186</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.186"></a>
+<span class="sourceLineNo">187</span>        {<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.189"></a>
+<span class="sourceLineNo">190</span>        }<a name="line.190"></a>
+<span class="sourceLineNo">191</span><a name="line.191"></a>
+<span class="sourceLineNo">192</span>        <a name="line.192"></a>
+<span class="sourceLineNo">193</span><a name="line.193"></a>
+<span class="sourceLineNo">194</span><a name="line.194"></a>
+<span class="sourceLineNo">195</span>}<a name="line.195"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

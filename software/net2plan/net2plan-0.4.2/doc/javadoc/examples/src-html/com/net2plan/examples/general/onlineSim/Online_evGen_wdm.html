@@ -1,0 +1,530 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package com.net2plan.examples.general.onlineSim;<a name="line.1"></a>
+<span class="sourceLineNo">002</span>/*******************************************************************************<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * All rights reserved. This program and the accompanying materials<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * which accompanies this distribution, and is available at<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.7"></a>
+<span class="sourceLineNo">008</span> ******************************************************************************/<a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span>import java.text.SimpleDateFormat;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import java.util.Arrays;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.util.Calendar;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.HashSet;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.LinkedList;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import java.util.List;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import java.util.Map;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import java.util.Random;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import java.util.Set;<a name="line.19"></a>
+<span class="sourceLineNo">020</span><a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.interfaces.networkDesign.NetworkLayer;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.interfaces.networkDesign.Node;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.interfaces.networkDesign.SharedRiskGroup;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.interfaces.simulation.IEventGenerator;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.simulation.SimEvent;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.libraries.SRGUtils;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.libraries.TrafficMatrixGenerationModels;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.libraries.WDMUtils;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.utils.DoubleUtils;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.utils.InputParameter;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.utils.Pair;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.utils.RandomUtils;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.net2plan.utils.StringUtils;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.net2plan.utils.Triple;<a name="line.38"></a>
+<span class="sourceLineNo">039</span><a name="line.39"></a>
+<span class="sourceLineNo">040</span>import cern.colt.matrix.tdouble.DoubleFactory1D;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>import cern.jet.random.tdouble.Exponential;<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>/** <a name="line.44"></a>
+<span class="sourceLineNo">045</span> * Generates events for a WDM network carrying lightpaths in a fixed or flexi grid of wavelengths<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * <a name="line.46"></a>
+<span class="sourceLineNo">047</span> * &lt;p&gt;The design follows the assumptions described in {@link com.net2plan.libraries.WDMUtils WDMUtils} Net2Plan library&lt;/p&gt;<a name="line.47"></a>
+<span class="sourceLineNo">048</span> * &lt;p&gt;The events generated targeted to the event processor module (e.g. {@link com.net2plan.examples.general.onlineSim.Online_evProc_wdm Online_evProc_wdm}) are:&lt;/p&gt; <a name="line.48"></a>
+<span class="sourceLineNo">049</span> * &lt;ul&gt;<a name="line.49"></a>
+<span class="sourceLineNo">050</span> * &lt;li&gt;WDMUtils.LightpathAdd: Request to add a new lightpath to the network. In this case, the lightpath is associated to an existing demand, which generates lightpath requests. <a name="line.50"></a>
+<span class="sourceLineNo">051</span> * The line rates of the requested lightpaths are chosen among a user-defined set of possible line rates.&lt;/li&gt;<a name="line.51"></a>
+<span class="sourceLineNo">052</span> * &lt;li&gt;WDMUtils.LightpathRemove: Removes the corresponding lightpath, releasing the resources. This occurs if the generator is configured to generate on-demand lightpath connection requests, and the increemntal mode is NOT activated (in the incremental model, lightpaths are setup, and necever released, so traffic always increments).&lt;/li&gt;<a name="line.52"></a>
+<span class="sourceLineNo">053</span> * &lt;li&gt;SimEvent.DemandModify: Modifies the offered traffic of a demand (here a demand is a source that generates lightpath requests).&lt;/li&gt;<a name="line.53"></a>
+<span class="sourceLineNo">054</span> * &lt;li&gt;SimEvent.NodesAndLinksChangeFailureState: Sends these events to the processor, representing network failures and repairs to react to.&lt;/li&gt;<a name="line.54"></a>
+<span class="sourceLineNo">055</span> * &lt;/ul&gt;<a name="line.55"></a>
+<span class="sourceLineNo">056</span> * The average rate of lightpath requests sent can change along time using fast and/or slow fluctuations. Fast fluctuations are <a name="line.56"></a>
+<span class="sourceLineNo">057</span> * intended to reflect typical short time-scale traffic variations, while slow fluctuation are more suitable for representing <a name="line.57"></a>
+<span class="sourceLineNo">058</span> * multihour (slow) traffic fluctuations (e.g. night vs day traffic). <a name="line.58"></a>
+<span class="sourceLineNo">059</span> *  <a name="line.59"></a>
+<span class="sourceLineNo">060</span> *  In the long-run simulations, lightpath requests and removal are sent. This is used to simulate the operation of a lightpath-on-demand service. <a name="line.60"></a>
+<span class="sourceLineNo">061</span> *  With the incremental model, lightpaths are never released, and the traffic only increases. This can be used e.g. in studies that search for the moment in <a name="line.61"></a>
+<span class="sourceLineNo">062</span> *  which the network needs an upgrade, since its capacity is exhausted.<a name="line.62"></a>
+<span class="sourceLineNo">063</span> *  <a name="line.63"></a>
+<span class="sourceLineNo">064</span> * See the technology conventions used in Net2Plan built-in algorithms and libraries to represent WDM networks. <a name="line.64"></a>
+<span class="sourceLineNo">065</span> * @net2plan.keywords WDM, Network recovery: protection, Network recovery: restoration, Multihour optimization<a name="line.65"></a>
+<span class="sourceLineNo">066</span> * @net2plan.inputParameters <a name="line.66"></a>
+<span class="sourceLineNo">067</span> * @author Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza<a name="line.67"></a>
+<span class="sourceLineNo">068</span> */<a name="line.68"></a>
+<span class="sourceLineNo">069</span>public class Online_evGen_wdm extends IEventGenerator<a name="line.69"></a>
+<span class="sourceLineNo">070</span>{<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        private final static String DATE_FORMAT = "MM/dd/YY HH:mm:ss";<a name="line.71"></a>
+<span class="sourceLineNo">072</span>        <a name="line.72"></a>
+<span class="sourceLineNo">073</span>        private InputParameter _fail_failureModel = new InputParameter ("_fail_failureModel", "#select# perBidirectionalLinkBundle none SRGfromNetPlan perNode perLink perDirectionalLinkBundle" , "Failure model selection: SRGfromNetPlan, perNode, perLink, perDirectionalLinkBundle, perBidirectionalLinkBundle");<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        private InputParameter _tfFast_fluctuationType = new InputParameter ("_tfFast_fluctuationType", "#select# none random-truncated-gaussian" , "");<a name="line.74"></a>
+<span class="sourceLineNo">075</span>        private InputParameter _trafficType = new InputParameter ("_trafficType", "#select# connection-based-longrun connection-based-incremental " , "");<a name="line.75"></a>
+<span class="sourceLineNo">076</span>        private InputParameter _tfSlow_fluctuationType = new InputParameter ("_tfSlow_fluctuationType", "#select# none time-zone-based" , "");<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        private InputParameter cac_arrivalsPattern = new InputParameter ("cac_arrivalsPattern", "#select# deterministic random-exponential-arrivals-deterministic-duration random-exponential-arrivals-and-duration" , "");<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        private InputParameter trafficLayerId = new InputParameter ("trafficLayerId", (long) -1 , "Layer containing traffic demands (-1 means default layer)");<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        private InputParameter randomSeed = new InputParameter ("randomSeed", (long) 1 , "Seed for the random generator (-1 means random)");<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        private InputParameter cac_avHoldingTimeHours = new InputParameter ("cac_avHoldingTimeHours", (double) 1 , "Default average connection duration (in seconds)" , 0 , false , Double.MAX_VALUE , true);<a name="line.80"></a>
+<span class="sourceLineNo">081</span>        private InputParameter tfFast_timeBetweenDemandFluctuationsHours = new InputParameter ("tfFast_timeBetweenDemandFluctuationsHours", (double) 0.1 , "Average time between two changes of demand offered traffic in a demand (demands behave independently)" , 0 , false , Double.MAX_VALUE , true);<a name="line.81"></a>
+<span class="sourceLineNo">082</span>        private InputParameter tfFast_fluctuationCoefficientOfVariation = new InputParameter ("tfFast_fluctuationCoefficientOfVariation", (double) 1.0 , "Average time between two changes of demand offered traffic in a demand (demands behave independently)" , 0 , false , Double.MAX_VALUE , true);<a name="line.82"></a>
+<span class="sourceLineNo">083</span>        private InputParameter tfFast_maximumFluctuationRelativeFactor = new InputParameter ("tfFast_maximumFluctuationRelativeFactor", (double) 1.0 , "The fluctuation of a demand cannot exceed this percentage from the media" , 0 , true , Double.MAX_VALUE , true);<a name="line.83"></a>
+<span class="sourceLineNo">084</span>        private InputParameter tfSlow_startDate = new InputParameter ("tfSlow_startDate", new SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().getTime()) , "Initial date and time of the simulation");<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        private InputParameter tfSlow_timeBetweenDemandFluctuationsHours = new InputParameter ("tfSlow_timeBetweenDemandFluctuationsHours", (double) 1.0 , "Average time between two changes of demand offered traffic in a demand (demands behave independently)" , 0 , false , Double.MAX_VALUE , true);<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        private InputParameter tfSlow_defaultTimezone = new InputParameter ("tfSlow_defaultTimezone", (int) 0 , "Default timezone with respect to UTC (in range [-12, 12])" , -12 , 12);<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        private InputParameter fail_defaultMTTFInHours = new InputParameter ("fail_defaultMTTFInHours", (double) 10 , "Default value for Mean Time To Fail (hours) (unused when failureModel=SRGfromNetPlan)" , 0 , false , Double.MAX_VALUE , true);<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        private InputParameter fail_defaultMTTRInHours = new InputParameter ("fail_defaultMTTRInHours", (double) 12 , "Default value for Mean Time To Repair (hours) (unused when failureModel=SRGfromNetPlan)" , 0 , false , Double.MAX_VALUE , true);<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        private InputParameter fail_statisticalPattern = new InputParameter ("fail_statisticalPattern", "#select# exponential-iid" , "Type of failure and repair statistical pattern");<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        private InputParameter lineRatesPerLightpath_Gbps = new InputParameter ("lineRatesPerLightpath_Gbps", "40 0.5 ; 100 0.5" , "Pairs of the form line-rate-Gbps SPACE probability, where probability stands for the chances of requesting a lightpath of such rate. Pairs are separated among them by character \";\" ");<a name="line.90"></a>
+<span class="sourceLineNo">091</span><a name="line.91"></a>
+<span class="sourceLineNo">092</span>        /* demands and links do not change the number (maybe capacity, offered traffic...) */<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        private Random rng;<a name="line.93"></a>
+<span class="sourceLineNo">094</span>        private DoubleMatrix1D cac_avHoldingTimeHours_d , cac_avConnectionSize_d;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        private DoubleMatrix1D currentTheoreticalOfferedTraffic_d; <a name="line.95"></a>
+<span class="sourceLineNo">096</span>        private boolean cac_auxIATDeterministic , cac_auxIATExponential , cac_auxDurationDeterministic , cac_auxDurationExponential , cac_auxIncremental;<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        private boolean isCac;<a name="line.97"></a>
+<span class="sourceLineNo">098</span>        private boolean tfFast_auxRandomGaussian;<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        private DoubleMatrix1D initialOfferedTraffic_d; // the offered traffic is the sum of the two<a name="line.99"></a>
+<span class="sourceLineNo">100</span>        private DoubleMatrix1D slowChangingOfferedTraffic_d; // the offered traffic is the sum of the two<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        private DoubleMatrix1D tfSlow_timeZones_n; <a name="line.101"></a>
+<span class="sourceLineNo">102</span>        private Calendar tfSlow_calendar;<a name="line.102"></a>
+<span class="sourceLineNo">103</span>        private double tfSlow_simTimeOfLastCalendarUpdate;<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        private boolean tfSlow_auxTimeZoneBased;<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        private double [] probabilitiesLineRates_t;<a name="line.105"></a>
+<span class="sourceLineNo">106</span>        private double [] accumProbabilitiesLineRates_t;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>        private double [] lineRatesGbps_t;<a name="line.107"></a>
+<span class="sourceLineNo">108</span>        private Set&lt;Pair&lt;WDMUtils.LightpathAdd,Double&gt;&gt; cacIncremental_potentiallyBlockedRouteRequests;<a name="line.108"></a>
+<span class="sourceLineNo">109</span>        <a name="line.109"></a>
+<span class="sourceLineNo">110</span>        private Set&lt;SharedRiskGroup&gt; fail_currentlyFailedSRGs;<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        <a name="line.111"></a>
+<span class="sourceLineNo">112</span>        @Override<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        public String getDescription()<a name="line.113"></a>
+<span class="sourceLineNo">114</span>        {<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                return "Generates events for a WDM network carrying lightpaths in a fixed grid of wavelengths";<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        }<a name="line.116"></a>
+<span class="sourceLineNo">117</span><a name="line.117"></a>
+<span class="sourceLineNo">118</span>        @Override<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        {<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.122"></a>
+<span class="sourceLineNo">123</span>        }<a name="line.123"></a>
+<span class="sourceLineNo">124</span><a name="line.124"></a>
+<span class="sourceLineNo">125</span>        @Override<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        public void initialize(NetPlan initialNetPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; simulationParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.126"></a>
+<span class="sourceLineNo">127</span>        {<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.129"></a>
+<span class="sourceLineNo">130</span><a name="line.130"></a>
+<span class="sourceLineNo">131</span>                NetworkLayer trafficLayer = trafficLayerId.getLong () == -1? initialNetPlan.getNetworkLayerDefault () : initialNetPlan.getNetworkLayerFromId(trafficLayerId.getLong ());<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                if (trafficLayer == null) throw new Net2PlanException ("Unknown layer id");<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                final int D = initialNetPlan.getNumberOfDemands(trafficLayer);<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                final int N = initialNetPlan.getNumberOfNodes ();<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                if (D == 0) throw new Net2PlanException("No demands were defined in the original design");<a name="line.135"></a>
+<span class="sourceLineNo">136</span><a name="line.136"></a>
+<span class="sourceLineNo">137</span>                /* Initialize the transponders information: the line rates of the lightpaths that will be requested */<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                final String [] lineRateInfo_t = StringUtils.split(lineRatesPerLightpath_Gbps.getString() , ";");<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                final int T = lineRateInfo_t.length;<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                if (T == 0) throw new Net2PlanException ("The number of line rates defined cannot be zero");<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                this.accumProbabilitiesLineRates_t = new double [T];<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                this.lineRatesGbps_t = new double [T];<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                this.probabilitiesLineRates_t = new double [T];<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                double sumProbabilities = 0;<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                for (int t = 0; t &lt; T ; t ++)<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                {<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                        double [] vals = StringUtils.toDoubleArray(StringUtils.split(lineRateInfo_t [t]));<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                        this.lineRatesGbps_t [t] = vals [0]; if (lineRatesGbps_t [t] &lt;= 0) throw new Net2PlanException ("The line rate of a lightpath must be positive");<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                        this.probabilitiesLineRates_t [t] = vals [1]; if (vals [1] &lt; 0) throw new Net2PlanException ("Occurrence probablities of the line rates cannot be negative");<a name="line.149"></a>
+<span class="sourceLineNo">150</span>                        sumProbabilities += vals [1];<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                }<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                if (sumProbabilities == 0) Arrays.fill(probabilitiesLineRates_t , 1.0/T);<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                else for (int t = 0; t &lt; T ; t ++) probabilitiesLineRates_t [t] /= sumProbabilities;<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                for (int t = 0 ; t &lt; T ; t ++) accumProbabilitiesLineRates_t [t] = t == 0? probabilitiesLineRates_t [0] : probabilitiesLineRates_t [t] + accumProbabilitiesLineRates_t [t-1];<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                if (Math.abs(accumProbabilitiesLineRates_t [T-1] - 1) &gt; 1e-3) throw new RuntimeException ("Bad");<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                <a name="line.156"></a>
+<span class="sourceLineNo">157</span>                /* More initializations */<a name="line.157"></a>
+<span class="sourceLineNo">158</span>                if (randomSeed.getLong () == -1) randomSeed.initialize((long) RandomUtils.random(0, Long.MAX_VALUE - 1));<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                this.rng = new Random(randomSeed.getLong ());<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                this.initialOfferedTraffic_d = initialNetPlan.getVectorDemandOfferedTraffic(trafficLayer);<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                this.currentTheoreticalOfferedTraffic_d = initialNetPlan.getVectorDemandOfferedTraffic(trafficLayer);<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                this.isCac = (_trafficType.getString ().equalsIgnoreCase("connection-based-longrun") || _trafficType.getString ().equalsIgnoreCase("connection-based-incremental"));<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                /* Initialize CAC if applicable */<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                if (isCac)<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                {<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                        this.cac_auxIATDeterministic = cac_arrivalsPattern.getString ().equalsIgnoreCase("deterministic");<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                        this.cac_auxIATExponential = cac_arrivalsPattern.getString ().equalsIgnoreCase("random-exponential-arrivals-deterministic-duration") || cac_arrivalsPattern.getString ().equalsIgnoreCase("random-exponential-arrivals-and-duration");<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                        this.cac_auxDurationDeterministic = cac_arrivalsPattern.getString ().equalsIgnoreCase("deterministic") || cac_arrivalsPattern.getString ().equalsIgnoreCase("random-exponential-arrivals-deterministic-duration");<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                        this.cac_auxDurationExponential = cac_arrivalsPattern.getString ().equalsIgnoreCase("random-exponential-arrivals-and-duration");<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                        this.cac_auxIncremental = _trafficType.getString ().equalsIgnoreCase("connection-based-incremental");<a name="line.170"></a>
+<span class="sourceLineNo">171</span>                        this.cac_avHoldingTimeHours_d = DoubleFactory1D.dense.make (D , 0); <a name="line.171"></a>
+<span class="sourceLineNo">172</span>                        this.cac_avConnectionSize_d = DoubleFactory1D.dense.make (D , 0);<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                        this.cacIncremental_potentiallyBlockedRouteRequests = cac_auxIncremental? new HashSet&lt;Pair&lt;WDMUtils.LightpathAdd,Double&gt;&gt; () : null;<a name="line.173"></a>
+<span class="sourceLineNo">174</span>                        for (Demand originalDemand : initialNetPlan.getDemands(trafficLayer))<a name="line.174"></a>
+<span class="sourceLineNo">175</span>                        {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                                final int d = originalDemand.getIndex();<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                                final double averageConnectionSize = DoubleUtils.scalarProduct(lineRatesGbps_t , probabilitiesLineRates_t);<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                                final double holdingTime = (originalDemand.getAttribute("holdingTime") != null)? Double.parseDouble(originalDemand.getAttribute("holdingTime")) : cac_avHoldingTimeHours.getDouble();<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                                final double avIATHours = averageConnectionSize * holdingTime / currentTheoreticalOfferedTraffic_d.get(d);<a name="line.179"></a>
+<span class="sourceLineNo">180</span>                                final double nextInterArrivalTime = cac_auxIATDeterministic? avIATHours : cac_auxIATExponential? Exponential.staticNextDouble(1/avIATHours) : -1;<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                                cac_avHoldingTimeHours_d.set (d,holdingTime);<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                                cac_avConnectionSize_d.set (d,averageConnectionSize);<a name="line.182"></a>
+<span class="sourceLineNo">183</span>                                scheduleEvent(new SimEvent(nextInterArrivalTime, SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateConnectionRequest(originalDemand)));<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                        }<a name="line.184"></a>
+<span class="sourceLineNo">185</span>                }<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                <a name="line.186"></a>
+<span class="sourceLineNo">187</span>                /* Initialize fast changing traffic */<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                if (_tfFast_fluctuationType.getString ().equalsIgnoreCase("random-truncated-gaussian"))<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                {<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                        this.tfFast_auxRandomGaussian = true;<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                        for (Demand originalDemand : initialNetPlan.getDemands(trafficLayer))<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                                scheduleEvent(new SimEvent(0, SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateDemandOfferedTrafficFastFluctuation(originalDemand)));<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                }<a name="line.193"></a>
+<span class="sourceLineNo">194</span><a name="line.194"></a>
+<span class="sourceLineNo">195</span>                /* Initialize slow changing traffic */<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                this.slowChangingOfferedTraffic_d = initialNetPlan.getVectorDemandOfferedTraffic(trafficLayer); // the offered traffic is the sum of the two<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                if (_tfSlow_fluctuationType.getString ().equalsIgnoreCase("time-zone-based"))<a name="line.197"></a>
+<span class="sourceLineNo">198</span>                {<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                        this.tfSlow_auxTimeZoneBased = true;<a name="line.199"></a>
+<span class="sourceLineNo">200</span>                        this.tfSlow_calendar = Calendar.getInstance(); <a name="line.200"></a>
+<span class="sourceLineNo">201</span>                        try { this.tfSlow_calendar.setTime(new SimpleDateFormat(DATE_FORMAT).parse(tfSlow_startDate.getString())); } catch (Exception e) { e.printStackTrace(); throw new Net2PlanException ("Error parsing the date"); }<a name="line.201"></a>
+<span class="sourceLineNo">202</span>                        this.tfSlow_simTimeOfLastCalendarUpdate = 0;<a name="line.202"></a>
+<span class="sourceLineNo">203</span>                        tfSlow_timeZones_n = DoubleFactory1D.dense.make (N , tfSlow_defaultTimezone.getInt());<a name="line.203"></a>
+<span class="sourceLineNo">204</span>                        for(Node node : initialNetPlan.getNodes ())<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                        {<a name="line.205"></a>
+<span class="sourceLineNo">206</span>                                if (node.getAttribute("timezone") == null) continue;<a name="line.206"></a>
+<span class="sourceLineNo">207</span>                                double timezone = Double.parseDouble(node.getAttribute("timezone"));<a name="line.207"></a>
+<span class="sourceLineNo">208</span>                                if (timezone &lt; -12 || timezone &gt; 12) throw new Net2PlanException(String.format("Timezone for node %d must be in range [-12, 12]", node.getIndex ()));<a name="line.208"></a>
+<span class="sourceLineNo">209</span>                                tfSlow_timeZones_n.set(node.getIndex (), timezone);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>                        }<a name="line.210"></a>
+<span class="sourceLineNo">211</span>                        for (Demand demand : initialNetPlan.getDemands(trafficLayer))<a name="line.211"></a>
+<span class="sourceLineNo">212</span>                                scheduleEvent(new SimEvent(0.0, SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateDemandOfferedTrafficSlowFluctuation(demand)));<a name="line.212"></a>
+<span class="sourceLineNo">213</span>                }<a name="line.213"></a>
+<span class="sourceLineNo">214</span><a name="line.214"></a>
+<span class="sourceLineNo">215</span>                /* Initialize slow changing traffic */<a name="line.215"></a>
+<span class="sourceLineNo">216</span>                if (!_fail_failureModel.getString ().equalsIgnoreCase("none"))<a name="line.216"></a>
+<span class="sourceLineNo">217</span>                {<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                        this.fail_currentlyFailedSRGs = new HashSet&lt;SharedRiskGroup&gt; ();<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                        if (!fail_statisticalPattern.getString ().equalsIgnoreCase("exponential-iid")) throw new Net2PlanException ("Unknown failure statisitical pattern");<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                        switch (_fail_failureModel.getString ())<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                        {<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                                case "SRGfromNetPlan":<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                                        break;<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                                case "perNode":<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                                        SRGUtils.configureSRGs(initialNetPlan, fail_defaultMTTFInHours.getDouble(), fail_defaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_NODE, true);<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                                        break;<a name="line.226"></a>
+<span class="sourceLineNo">227</span>                                case "perLink":<a name="line.227"></a>
+<span class="sourceLineNo">228</span>                                        SRGUtils.configureSRGs(initialNetPlan, fail_defaultMTTFInHours.getDouble(), fail_defaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_LINK, true);<a name="line.228"></a>
+<span class="sourceLineNo">229</span>                                        break;<a name="line.229"></a>
+<span class="sourceLineNo">230</span>                                case "perDirectionalLinkBundle":<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                                        SRGUtils.configureSRGs(initialNetPlan, fail_defaultMTTFInHours.getDouble(), fail_defaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_DIRECTIONAL_LINK_BUNDLE, true);<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                                        break;<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                                case "perBidirectionalLinkBundle":<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                                        SRGUtils.configureSRGs(initialNetPlan, fail_defaultMTTFInHours.getDouble(), fail_defaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_BIDIRECTIONAL_LINK_BUNDLE, true);<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                                        break;<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                                default:<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                                        throw new Net2PlanException("Failure model not valid. Please, check algorithm parameters description");<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                        }<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                        if (initialNetPlan.getNumberOfSRGs() == 0) throw new Net2PlanException("No SRGs were defined");<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                        for (SharedRiskGroup srg : initialNetPlan.getSRGs())<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                        {<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                                final double nextEvent = Exponential.staticNextDouble(1 / srg.getMeanTimeToFailInHours());<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                                scheduleEvent(new SimEvent(nextEvent , SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateFailureSRG(srg)));<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                        }<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                }<a name="line.245"></a>
+<span class="sourceLineNo">246</span><a name="line.246"></a>
+<span class="sourceLineNo">247</span><a name="line.247"></a>
+<span class="sourceLineNo">248</span>        }<a name="line.248"></a>
+<span class="sourceLineNo">249</span><a name="line.249"></a>
+<span class="sourceLineNo">250</span>        @Override<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        public void processEvent(NetPlan currentNetPlan, SimEvent event)<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        {<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                final double simTime = event.getEventTime();<a name="line.253"></a>
+<span class="sourceLineNo">254</span>                Object eventObject = event.getEventObject();<a name="line.254"></a>
+<span class="sourceLineNo">255</span><a name="line.255"></a>
+<span class="sourceLineNo">256</span>                /* if a connection could not be setup, end simulation in the incremental simulation mode */<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                if (this.cac_auxIncremental)<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                {<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                        for (Pair&lt;WDMUtils.LightpathAdd,Double&gt; ev : new LinkedList&lt;Pair&lt;WDMUtils.LightpathAdd,Double&gt;&gt; (this.cacIncremental_potentiallyBlockedRouteRequests))<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                        {<a name="line.260"></a>
+<span class="sourceLineNo">261</span>                                if (ev.getFirst().lpAddedToFillByProcessor != null) <a name="line.261"></a>
+<span class="sourceLineNo">262</span>                                        cacIncremental_potentiallyBlockedRouteRequests.remove(ev);<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                                else if (ev.getSecond() &lt; simTime) endSimulation(); // not assigned route, and it is in the past =&gt; end simulation in the incremental mode<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                        }<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                }<a name="line.265"></a>
+<span class="sourceLineNo">266</span>                <a name="line.266"></a>
+<span class="sourceLineNo">267</span>                if (eventObject instanceof GenerateConnectionRequest)<a name="line.267"></a>
+<span class="sourceLineNo">268</span>                {<a name="line.268"></a>
+<span class="sourceLineNo">269</span>                        final GenerateConnectionRequest connectionRequest = (GenerateConnectionRequest) eventObject;<a name="line.269"></a>
+<span class="sourceLineNo">270</span>                        final Demand demand = connectionRequest.demand;<a name="line.270"></a>
+<span class="sourceLineNo">271</span>                        final int d = demand.getIndex ();<a name="line.271"></a>
+<span class="sourceLineNo">272</span>                        final double h_d = currentTheoreticalOfferedTraffic_d.get(d); // same traffic units as connection size<a name="line.272"></a>
+<span class="sourceLineNo">273</span>                        final double avHoldingTimeHours = cac_avHoldingTimeHours_d.get(d);<a name="line.273"></a>
+<span class="sourceLineNo">274</span>                        final double connectionSize = cac_avConnectionSize_d.get (d);<a name="line.274"></a>
+<span class="sourceLineNo">275</span>                        final double avIATHours = connectionSize * avHoldingTimeHours / h_d;<a name="line.275"></a>
+<span class="sourceLineNo">276</span>                        final double nextHoldingTime = cac_auxDurationDeterministic? avHoldingTimeHours : cac_auxDurationExponential? Exponential.staticNextDouble(1/avHoldingTimeHours) : -1;<a name="line.276"></a>
+<span class="sourceLineNo">277</span>                        final double nextInterArrivalTime = cac_auxIATDeterministic? avIATHours : cac_auxIATExponential? Exponential.staticNextDouble(1/avIATHours) : -1;<a name="line.277"></a>
+<span class="sourceLineNo">278</span>                        final double lineRateThisLpGbps = randomPick (lineRatesGbps_t , probabilitiesLineRates_t);<a name="line.278"></a>
+<span class="sourceLineNo">279</span>                        <a name="line.279"></a>
+<span class="sourceLineNo">280</span>                        /* Events to the processor. RouteAdd, and if not incremental mode, route remove */<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                        WDMUtils.LightpathAdd routeInfo_add = new WDMUtils.LightpathAdd(demand , lineRateThisLpGbps);<a name="line.281"></a>
+<span class="sourceLineNo">282</span>                        scheduleEvent(new SimEvent (simTime, SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , routeInfo_add));<a name="line.282"></a>
+<span class="sourceLineNo">283</span>                        if (cac_auxIncremental)<a name="line.283"></a>
+<span class="sourceLineNo">284</span>                                this.cacIncremental_potentiallyBlockedRouteRequests.add (Pair.of(routeInfo_add,simTime)); // to check later if it was blocked<a name="line.284"></a>
+<span class="sourceLineNo">285</span>                        else<a name="line.285"></a>
+<span class="sourceLineNo">286</span>                                scheduleEvent(new SimEvent(simTime + nextHoldingTime, SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateConnectionRelease(routeInfo_add)));<a name="line.286"></a>
+<span class="sourceLineNo">287</span>                        <a name="line.287"></a>
+<span class="sourceLineNo">288</span>                        /* Event for me: new connection */<a name="line.288"></a>
+<span class="sourceLineNo">289</span>                        scheduleEvent(new SimEvent(simTime + nextInterArrivalTime, SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateConnectionRequest(demand)));<a name="line.289"></a>
+<span class="sourceLineNo">290</span>                }<a name="line.290"></a>
+<span class="sourceLineNo">291</span>                if (eventObject instanceof GenerateConnectionRelease)<a name="line.291"></a>
+<span class="sourceLineNo">292</span>                {<a name="line.292"></a>
+<span class="sourceLineNo">293</span>                        final GenerateConnectionRelease releaseEvent = (GenerateConnectionRelease) eventObject;<a name="line.293"></a>
+<span class="sourceLineNo">294</span>//                      SimEvent.DemandModify demandOfferedTrafficUpdate = new SimEvent.DemandModify(releaseEvent.routeAddEvent.demand , -releaseEvent.routeAddEvent.carriedTraffic , true);<a name="line.294"></a>
+<span class="sourceLineNo">295</span>//                      scheduleEvent(new SimEvent (simTime, SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , demandOfferedTrafficUpdate));<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                        if (releaseEvent.routeAddEvent.lpAddedToFillByProcessor != null)<a name="line.296"></a>
+<span class="sourceLineNo">297</span>                        {<a name="line.297"></a>
+<span class="sourceLineNo">298</span>                                WDMUtils.LightpathRemove routeInfo_remove = new WDMUtils.LightpathRemove(releaseEvent.routeAddEvent.lpAddedToFillByProcessor);<a name="line.298"></a>
+<span class="sourceLineNo">299</span>                                scheduleEvent(new SimEvent (simTime , SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , routeInfo_remove));<a name="line.299"></a>
+<span class="sourceLineNo">300</span>                        }<a name="line.300"></a>
+<span class="sourceLineNo">301</span>                }<a name="line.301"></a>
+<span class="sourceLineNo">302</span>                else if (eventObject instanceof GenerateDemandOfferedTrafficFastFluctuation)<a name="line.302"></a>
+<span class="sourceLineNo">303</span>                {<a name="line.303"></a>
+<span class="sourceLineNo">304</span>                        final GenerateDemandOfferedTrafficFastFluctuation trafficFluctuation = (GenerateDemandOfferedTrafficFastFluctuation) eventObject;<a name="line.304"></a>
+<span class="sourceLineNo">305</span>                        final Demand demand = trafficFluctuation.demand;<a name="line.305"></a>
+<span class="sourceLineNo">306</span>                        final int d = demand.getIndex ();<a name="line.306"></a>
+<span class="sourceLineNo">307</span>                        final double slowChangingTrafficPart = slowChangingOfferedTraffic_d.get(d);<a name="line.307"></a>
+<span class="sourceLineNo">308</span>                        if (tfFast_auxRandomGaussian)<a name="line.308"></a>
+<span class="sourceLineNo">309</span>                        {<a name="line.309"></a>
+<span class="sourceLineNo">310</span>                                double newFastTrafficVariation = rng.nextGaussian() * tfFast_fluctuationCoefficientOfVariation.getDouble() * slowChangingTrafficPart;<a name="line.310"></a>
+<span class="sourceLineNo">311</span>                                newFastTrafficVariation = Math.max (newFastTrafficVariation , slowChangingTrafficPart * (1 - tfFast_maximumFluctuationRelativeFactor.getDouble()));<a name="line.311"></a>
+<span class="sourceLineNo">312</span>                                newFastTrafficVariation = Math.min (newFastTrafficVariation , slowChangingTrafficPart * (1 + tfFast_maximumFluctuationRelativeFactor.getDouble()));<a name="line.312"></a>
+<span class="sourceLineNo">313</span>                                currentTheoreticalOfferedTraffic_d.set (d , slowChangingTrafficPart + newFastTrafficVariation);<a name="line.313"></a>
+<span class="sourceLineNo">314</span>                                if (!isCac) // inform the processor with a demand modified only if it is NOT cac. In CAC the sent events are the routes only, and the algorithms update the offered traffic according to it<a name="line.314"></a>
+<span class="sourceLineNo">315</span>                                {<a name="line.315"></a>
+<span class="sourceLineNo">316</span>                                        SimEvent.DemandModify modifyEvent = new SimEvent.DemandModify(demand , Math.max (0 , slowChangingTrafficPart + newFastTrafficVariation) , false);<a name="line.316"></a>
+<span class="sourceLineNo">317</span>                                        scheduleEvent(new SimEvent (simTime, SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , modifyEvent));<a name="line.317"></a>
+<span class="sourceLineNo">318</span>                                }<a name="line.318"></a>
+<span class="sourceLineNo">319</span>                        }<a name="line.319"></a>
+<span class="sourceLineNo">320</span>                        else if (_tfFast_fluctuationType.getString ().equalsIgnoreCase("none"))<a name="line.320"></a>
+<span class="sourceLineNo">321</span>                        {<a name="line.321"></a>
+<span class="sourceLineNo">322</span>                                throw new RuntimeException ("Bad");<a name="line.322"></a>
+<span class="sourceLineNo">323</span>                        }<a name="line.323"></a>
+<span class="sourceLineNo">324</span>                        else throw new Net2PlanException ("Unknow fast traffic fluctuation type: " + _tfFast_fluctuationType.getString ());<a name="line.324"></a>
+<span class="sourceLineNo">325</span>                        /* Send event to me for the next fast change */<a name="line.325"></a>
+<span class="sourceLineNo">326</span>                        scheduleEvent(new SimEvent(simTime + tfFast_timeBetweenDemandFluctuationsHours.getDouble() , SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateDemandOfferedTrafficFastFluctuation(demand)));<a name="line.326"></a>
+<span class="sourceLineNo">327</span>                }<a name="line.327"></a>
+<span class="sourceLineNo">328</span>                else if (eventObject instanceof GenerateDemandOfferedTrafficSlowFluctuation)<a name="line.328"></a>
+<span class="sourceLineNo">329</span>                {<a name="line.329"></a>
+<span class="sourceLineNo">330</span>                        final GenerateDemandOfferedTrafficSlowFluctuation trafficFluctuation = (GenerateDemandOfferedTrafficSlowFluctuation) eventObject;<a name="line.330"></a>
+<span class="sourceLineNo">331</span>                        final Demand demand = trafficFluctuation.demand;<a name="line.331"></a>
+<span class="sourceLineNo">332</span>                        final int d = demand.getIndex ();<a name="line.332"></a>
+<span class="sourceLineNo">333</span>                        final double currentSlowHd = slowChangingOfferedTraffic_d.get(d);<a name="line.333"></a>
+<span class="sourceLineNo">334</span>                        final double currentHd = currentTheoreticalOfferedTraffic_d.get(d);<a name="line.334"></a>
+<span class="sourceLineNo">335</span>                        if (tfSlow_auxTimeZoneBased)<a name="line.335"></a>
+<span class="sourceLineNo">336</span>                        {<a name="line.336"></a>
+<span class="sourceLineNo">337</span>                                /* Send event to processor with the demand change */<a name="line.337"></a>
+<span class="sourceLineNo">338</span>                                tfSlow_calendar.add(Calendar.MILLISECOND, (int) ((simTime - tfSlow_simTimeOfLastCalendarUpdate) * 1000));<a name="line.338"></a>
+<span class="sourceLineNo">339</span>                                final int hours = tfSlow_calendar.get(Calendar.HOUR_OF_DAY);<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                                final int minutes = tfSlow_calendar.get(Calendar.MINUTE);<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                                final int seconds = tfSlow_calendar.get(Calendar.SECOND);<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                                final int weekday = tfSlow_calendar.get(Calendar.DAY_OF_WEEK);<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                                final double UTC = hours + (double) minutes / 60 + (double) seconds / 3600;<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                                final double peakTrafficFactor = weekday == Calendar.SATURDAY || weekday == Calendar.SUNDAY ? 0.5 : 1;<a name="line.344"></a>
+<span class="sourceLineNo">345</span>                                final double activityOriginNode = TrafficMatrixGenerationModels.activityFactor(UTC, tfSlow_timeZones_n.get(demand.getIngressNode().getIndex ()), 0.3, peakTrafficFactor);<a name="line.345"></a>
+<span class="sourceLineNo">346</span>                                final double activityDestinationNode = TrafficMatrixGenerationModels.activityFactor(UTC, tfSlow_timeZones_n.get(demand.getEgressNode().getIndex ()), 0.3, peakTrafficFactor);<a name="line.346"></a>
+<span class="sourceLineNo">347</span>                                final double activityFactorNodePair = Math.max (0 , (activityOriginNode + activityDestinationNode) / 2);<a name="line.347"></a>
+<span class="sourceLineNo">348</span>                                final double newSlowFluctuationTraffic = initialOfferedTraffic_d.get(d) * activityFactorNodePair;<a name="line.348"></a>
+<span class="sourceLineNo">349</span>                                final double currentFastFluctuationTraffic = currentHd - currentSlowHd;<a name="line.349"></a>
+<span class="sourceLineNo">350</span>                                currentTheoreticalOfferedTraffic_d.set (d , newSlowFluctuationTraffic + currentFastFluctuationTraffic);<a name="line.350"></a>
+<span class="sourceLineNo">351</span>                                if (!isCac) // inform the processor with a demand modified only if it is NOT cac. In CAC the sent events are the routes only, and the algorithms update the offered traffic according to it<a name="line.351"></a>
+<span class="sourceLineNo">352</span>                                {<a name="line.352"></a>
+<span class="sourceLineNo">353</span>                                        SimEvent.DemandModify modifyEvent = new SimEvent.DemandModify(demand , Math.max (0 , newSlowFluctuationTraffic + currentFastFluctuationTraffic), false);<a name="line.353"></a>
+<span class="sourceLineNo">354</span>                                        scheduleEvent(new SimEvent (simTime, SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , modifyEvent));<a name="line.354"></a>
+<span class="sourceLineNo">355</span>                                }<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                                tfSlow_simTimeOfLastCalendarUpdate = simTime;<a name="line.356"></a>
+<span class="sourceLineNo">357</span>                        }<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                        else throw new Net2PlanException ("Unknow fast traffic fluctuation type: " + _tfFast_fluctuationType.getString ());<a name="line.358"></a>
+<span class="sourceLineNo">359</span>                        /* Send event to me for the next fast change */<a name="line.359"></a>
+<span class="sourceLineNo">360</span>                        scheduleEvent(new SimEvent(simTime + tfSlow_timeBetweenDemandFluctuationsHours.getDouble() , SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateDemandOfferedTrafficSlowFluctuation(demand)));<a name="line.360"></a>
+<span class="sourceLineNo">361</span>                }<a name="line.361"></a>
+<span class="sourceLineNo">362</span>                else if (eventObject instanceof GenerateFailureSRG)<a name="line.362"></a>
+<span class="sourceLineNo">363</span>                {<a name="line.363"></a>
+<span class="sourceLineNo">364</span>                        final GenerateFailureSRG srgEvent = (GenerateFailureSRG) eventObject;<a name="line.364"></a>
+<span class="sourceLineNo">365</span>                        final SharedRiskGroup srg = srgEvent.srg;<a name="line.365"></a>
+<span class="sourceLineNo">366</span>                        <a name="line.366"></a>
+<span class="sourceLineNo">367</span>                        /* Send event of appropriate failures to the processor (only links and nodes changing its state) */<a name="line.367"></a>
+<span class="sourceLineNo">368</span>                        Set&lt;Node&gt; nodesUpToDown = new HashSet&lt;Node&gt; (currentNetPlan.getNodesUp()); nodesUpToDown.retainAll(srg.getNodes());<a name="line.368"></a>
+<span class="sourceLineNo">369</span>                        Set&lt;Link&gt; linksUpToDown = new HashSet&lt;Link&gt; (currentNetPlan.getLinksUpAllLayers()); linksUpToDown.retainAll(srg.getLinks());<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                        if (!nodesUpToDown.isEmpty() || !linksUpToDown.isEmpty())<a name="line.370"></a>
+<span class="sourceLineNo">371</span>                        {<a name="line.371"></a>
+<span class="sourceLineNo">372</span>                                SimEvent.NodesAndLinksChangeFailureState failEvent = new SimEvent.NodesAndLinksChangeFailureState (null , nodesUpToDown , null , linksUpToDown);<a name="line.372"></a>
+<span class="sourceLineNo">373</span>                                scheduleEvent(new SimEvent(simTime , SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , failEvent));<a name="line.373"></a>
+<span class="sourceLineNo">374</span>                        }<a name="line.374"></a>
+<span class="sourceLineNo">375</span>                        /* Send repair event to myself */<a name="line.375"></a>
+<span class="sourceLineNo">376</span>                        scheduleEvent(new SimEvent(simTime + Exponential.staticNextDouble(1 / srg.getMeanTimeToRepairInHours()) , SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateRepairSRG(srg)));                       <a name="line.376"></a>
+<span class="sourceLineNo">377</span>                        <a name="line.377"></a>
+<span class="sourceLineNo">378</span>                        fail_currentlyFailedSRGs.add (srg);<a name="line.378"></a>
+<span class="sourceLineNo">379</span>                }<a name="line.379"></a>
+<span class="sourceLineNo">380</span>                else if (eventObject instanceof GenerateRepairSRG)<a name="line.380"></a>
+<span class="sourceLineNo">381</span>                {<a name="line.381"></a>
+<span class="sourceLineNo">382</span>                        final GenerateRepairSRG srgEvent = (GenerateRepairSRG) eventObject;<a name="line.382"></a>
+<span class="sourceLineNo">383</span>                        final SharedRiskGroup srg = srgEvent.srg;<a name="line.383"></a>
+<span class="sourceLineNo">384</span>                        <a name="line.384"></a>
+<span class="sourceLineNo">385</span>                        /* Send event of appropriate repairs to the processor (only links and nodes changing its state) */<a name="line.385"></a>
+<span class="sourceLineNo">386</span>                        fail_currentlyFailedSRGs.remove (srg);<a name="line.386"></a>
+<span class="sourceLineNo">387</span>                        Set&lt;Node&gt; nodesDownAfterRepair = new HashSet&lt;Node&gt; (); <a name="line.387"></a>
+<span class="sourceLineNo">388</span>                        Set&lt;Link&gt; linksDownAfterRepair = new HashSet&lt;Link&gt; (); <a name="line.388"></a>
+<span class="sourceLineNo">389</span>                        for (SharedRiskGroup srgStillFailed : fail_currentlyFailedSRGs)<a name="line.389"></a>
+<span class="sourceLineNo">390</span>                        {<a name="line.390"></a>
+<span class="sourceLineNo">391</span>                                nodesDownAfterRepair.addAll (srgStillFailed.getNodes());<a name="line.391"></a>
+<span class="sourceLineNo">392</span>                                linksDownAfterRepair.addAll (srgStillFailed.getLinks());<a name="line.392"></a>
+<span class="sourceLineNo">393</span>                        }<a name="line.393"></a>
+<span class="sourceLineNo">394</span>                        Set&lt;Node&gt; nodesDownToUp = new HashSet&lt;Node&gt; (currentNetPlan.getNodesDown()); nodesDownToUp.removeAll (nodesDownAfterRepair);<a name="line.394"></a>
+<span class="sourceLineNo">395</span>                        Set&lt;Link&gt; linksDownToUp = new HashSet&lt;Link&gt; (currentNetPlan.getLinksDownAllLayers()); linksDownToUp.removeAll (linksDownAfterRepair);<a name="line.395"></a>
+<span class="sourceLineNo">396</span>                        <a name="line.396"></a>
+<span class="sourceLineNo">397</span>                        if (!nodesDownToUp.isEmpty() || !linksDownToUp.isEmpty())<a name="line.397"></a>
+<span class="sourceLineNo">398</span>                        {<a name="line.398"></a>
+<span class="sourceLineNo">399</span>                                SimEvent.NodesAndLinksChangeFailureState repairEvent = new SimEvent.NodesAndLinksChangeFailureState (nodesDownToUp , null , linksDownToUp , null);<a name="line.399"></a>
+<span class="sourceLineNo">400</span>                                scheduleEvent(new SimEvent(simTime , SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , repairEvent));<a name="line.400"></a>
+<span class="sourceLineNo">401</span>                        }<a name="line.401"></a>
+<span class="sourceLineNo">402</span>                        /* Send repair event to myself */<a name="line.402"></a>
+<span class="sourceLineNo">403</span>                        scheduleEvent(new SimEvent(simTime + Exponential.staticNextDouble(1 / srg.getMeanTimeToFailInHours()) , SimEvent.DestinationModule.EVENT_GENERATOR , -1 , new GenerateFailureSRG(srg)));                        <a name="line.403"></a>
+<span class="sourceLineNo">404</span>                }<a name="line.404"></a>
+<span class="sourceLineNo">405</span>        }<a name="line.405"></a>
+<span class="sourceLineNo">406</span><a name="line.406"></a>
+<span class="sourceLineNo">407</span>        private double randomPick (double [] vals , double [] accumProbs)<a name="line.407"></a>
+<span class="sourceLineNo">408</span>        {<a name="line.408"></a>
+<span class="sourceLineNo">409</span>                final double x = rng.nextDouble();<a name="line.409"></a>
+<span class="sourceLineNo">410</span>                for (int cont = 0 ; cont &lt; vals.length-1 ; cont ++)<a name="line.410"></a>
+<span class="sourceLineNo">411</span>                        if (accumProbs [cont] &lt; x) return vals [cont];<a name="line.411"></a>
+<span class="sourceLineNo">412</span>                return vals [vals.length - 1];<a name="line.412"></a>
+<span class="sourceLineNo">413</span>        }<a name="line.413"></a>
+<span class="sourceLineNo">414</span>        <a name="line.414"></a>
+<span class="sourceLineNo">415</span>        private static class GenerateConnectionRequest<a name="line.415"></a>
+<span class="sourceLineNo">416</span>        {<a name="line.416"></a>
+<span class="sourceLineNo">417</span>                public final Demand demand;<a name="line.417"></a>
+<span class="sourceLineNo">418</span>                public GenerateConnectionRequest(Demand demand) { this.demand = demand; }<a name="line.418"></a>
+<span class="sourceLineNo">419</span>                @Override<a name="line.419"></a>
+<span class="sourceLineNo">420</span>                public String toString() { return "Generate connection request for demand " + demand.getId (); }<a name="line.420"></a>
+<span class="sourceLineNo">421</span>        }<a name="line.421"></a>
+<span class="sourceLineNo">422</span>        private static class GenerateConnectionRelease<a name="line.422"></a>
+<span class="sourceLineNo">423</span>        {<a name="line.423"></a>
+<span class="sourceLineNo">424</span>                public final WDMUtils.LightpathAdd routeAddEvent;<a name="line.424"></a>
+<span class="sourceLineNo">425</span>                public GenerateConnectionRelease(WDMUtils.LightpathAdd routeAddEvent) { this.routeAddEvent = routeAddEvent; }<a name="line.425"></a>
+<span class="sourceLineNo">426</span>                @Override<a name="line.426"></a>
+<span class="sourceLineNo">427</span>                public String toString() { return "Generate connection release for demand " + routeAddEvent.demand.getId (); }<a name="line.427"></a>
+<span class="sourceLineNo">428</span>        }<a name="line.428"></a>
+<span class="sourceLineNo">429</span>        private static class GenerateDemandOfferedTrafficFastFluctuation<a name="line.429"></a>
+<span class="sourceLineNo">430</span>        {<a name="line.430"></a>
+<span class="sourceLineNo">431</span>                public final Demand demand;<a name="line.431"></a>
+<span class="sourceLineNo">432</span>                public GenerateDemandOfferedTrafficFastFluctuation(Demand demand) { this.demand= demand; }<a name="line.432"></a>
+<span class="sourceLineNo">433</span>                @Override<a name="line.433"></a>
+<span class="sourceLineNo">434</span>                public String toString() { return "Generate fast fluctuation of offered traffic of demand " + demand.getId () ; }<a name="line.434"></a>
+<span class="sourceLineNo">435</span>        }<a name="line.435"></a>
+<span class="sourceLineNo">436</span>        private static class GenerateDemandOfferedTrafficSlowFluctuation<a name="line.436"></a>
+<span class="sourceLineNo">437</span>        {<a name="line.437"></a>
+<span class="sourceLineNo">438</span>                public final Demand demand;<a name="line.438"></a>
+<span class="sourceLineNo">439</span>                public GenerateDemandOfferedTrafficSlowFluctuation(Demand demand) { this.demand= demand; }<a name="line.439"></a>
+<span class="sourceLineNo">440</span>                @Override<a name="line.440"></a>
+<span class="sourceLineNo">441</span>                public String toString() { return "Generate slow fluctuation of offered traffic of demand " + demand.getId () ; }<a name="line.441"></a>
+<span class="sourceLineNo">442</span>        }<a name="line.442"></a>
+<span class="sourceLineNo">443</span>        private static class GenerateFailureSRG<a name="line.443"></a>
+<span class="sourceLineNo">444</span>        {<a name="line.444"></a>
+<span class="sourceLineNo">445</span>                public final SharedRiskGroup srg;<a name="line.445"></a>
+<span class="sourceLineNo">446</span>                public GenerateFailureSRG(SharedRiskGroup srg) { this.srg = srg; }<a name="line.446"></a>
+<span class="sourceLineNo">447</span>                @Override<a name="line.447"></a>
+<span class="sourceLineNo">448</span>                public String toString() { return "Generate failure in SRG " + srg.getId () ; }<a name="line.448"></a>
+<span class="sourceLineNo">449</span>        }<a name="line.449"></a>
+<span class="sourceLineNo">450</span>        private static class GenerateRepairSRG<a name="line.450"></a>
+<span class="sourceLineNo">451</span>        {<a name="line.451"></a>
+<span class="sourceLineNo">452</span>                public final SharedRiskGroup srg;<a name="line.452"></a>
+<span class="sourceLineNo">453</span>                public GenerateRepairSRG(SharedRiskGroup srg) { this.srg = srg; }<a name="line.453"></a>
+<span class="sourceLineNo">454</span>                @Override<a name="line.454"></a>
+<span class="sourceLineNo">455</span>                public String toString() { return "Generate repair event in SRG " + srg.getId () ; }<a name="line.455"></a>
+<span class="sourceLineNo">456</span>        }<a name="line.456"></a>
+<span class="sourceLineNo">457</span><a name="line.457"></a>
+<span class="sourceLineNo">458</span>}<a name="line.458"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

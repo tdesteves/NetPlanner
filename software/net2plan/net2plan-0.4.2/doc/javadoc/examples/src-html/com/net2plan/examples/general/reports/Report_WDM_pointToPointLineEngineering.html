@@ -1,0 +1,718 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span> <a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>package com.net2plan.examples.general.reports;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.text.DecimalFormat;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import java.util.ArrayList;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import java.util.LinkedHashMap;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import java.util.LinkedList;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import java.util.List;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import java.util.Map;<a name="line.25"></a>
+<span class="sourceLineNo">026</span><a name="line.26"></a>
+<span class="sourceLineNo">027</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.27"></a>
+<span class="sourceLineNo">028</span><a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.IReport;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.utils.Constants.OrderingType;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.utils.DoubleUtils;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.utils.StringUtils;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.utils.Triple;<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span>/**<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * &lt;p&gt;This report shows line engineering information for WDM links in the network.&lt;/p&gt;<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * <a name="line.40"></a>
+<span class="sourceLineNo">041</span> * &lt;p&gt;The report assumes that the network links are WDM optical fibres with the following scheme:&lt;/p&gt;<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * &lt;ul&gt;<a name="line.42"></a>
+<span class="sourceLineNo">043</span> * &lt;li&gt;A transmitter per WDM channel with the specifications given by "tp__XXX". The number of <a name="line.43"></a>
+<span class="sourceLineNo">044</span> * channels can vary from one to up to channels_maxNumChannels and, the design should be correct <a name="line.44"></a>
+<span class="sourceLineNo">045</span> * in all the cases. Transmitter specifications are set in "tp__XXX" input parameters&lt;/li&gt;<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * &lt;li&gt;A multiplexer that receives the input power from the transmitters and with specifications <a name="line.46"></a>
+<span class="sourceLineNo">047</span> * given by "mux__XXX" parameters&lt;/li&gt;<a name="line.47"></a>
+<span class="sourceLineNo">048</span> * &lt;li&gt;A fiber link of a distance given by the link length, and with specifications given by <a name="line.48"></a>
+<span class="sourceLineNo">049</span> * "fiber__XXX" parameters. The fiber can be split into spans if optical amplifers (EDFAs) <a name="line.49"></a>
+<span class="sourceLineNo">050</span> * and/or dispersion compensating modules (DCMs) are placed along the fiber.&lt;/li&gt;<a name="line.50"></a>
+<span class="sourceLineNo">051</span> * &lt;li&gt;A set of optical amplifiers (EDFAs) located in none, one or more positions in the <a name="line.51"></a>
+<span class="sourceLineNo">052</span> * fiber link, separating them in different spans. EDFAs are supposed to operate in the <a name="line.52"></a>
+<span class="sourceLineNo">053</span> * automatic gain control mode. Thus, the gain is the same, whatever the number of input <a name="line.53"></a>
+<span class="sourceLineNo">054</span> * WDM channels. EDFA positions (as distance in km from the link start to the EDFA location) <a name="line.54"></a>
+<span class="sourceLineNo">055</span> * and EDFA gains (assumed in dB) are read from the "edfaPositions_km" and "edfaGains_dB" <a name="line.55"></a>
+<span class="sourceLineNo">056</span> * attributes of the links. The format of both attributes are the same: a string of numbers <a name="line.56"></a>
+<span class="sourceLineNo">057</span> * separated by spaces. The &lt;i&gt;i&lt;/i&gt;-th number corresponding to the position/gain of the <a name="line.57"></a>
+<span class="sourceLineNo">058</span> * &lt;i&gt;i&lt;/i&gt;-th EDFA. If the attributes do not exist, it is assumed that no EDFAs are placed <a name="line.58"></a>
+<span class="sourceLineNo">059</span> * in this link. EDFA specifications given by "edfa__XXX" parameters&lt;/li&gt;<a name="line.59"></a>
+<span class="sourceLineNo">060</span> * &lt;li&gt;A set of dispersion compensating modules (DCMs) located in none, one or more positions <a name="line.60"></a>
+<span class="sourceLineNo">061</span> * in the fiber link, separating them in different spans. If a DCM and a EDFA have the same <a name="line.61"></a>
+<span class="sourceLineNo">062</span> * location, it is assumed that the DCM is placed first, to reduce the non-linear effects. DCM <a name="line.62"></a>
+<span class="sourceLineNo">063</span> * positions (as distance in km from the link start to the DCM location) are read from the <a name="line.63"></a>
+<span class="sourceLineNo">064</span> * "dcmPositions_km" attribute of the link, and the same format as with "edfaPositions_km" <a name="line.64"></a>
+<span class="sourceLineNo">065</span> * attribute is expected. If the attribute does not exist, it is assumed that no DCMs are <a name="line.65"></a>
+<span class="sourceLineNo">066</span> * placed in this link. DCM specifications are given by "dcm__XXX" parameters&lt;/li&gt;<a name="line.66"></a>
+<span class="sourceLineNo">067</span> * &lt;li&gt;At the receiver end, WDM channels in the links are separated using a demultiplexer, <a name="line.67"></a>
+<span class="sourceLineNo">068</span> * with specifications given by "mux__XXX" parameters&lt;/li&gt;<a name="line.68"></a>
+<span class="sourceLineNo">069</span> * &lt;li&gt;Each channel ends in a receiver, with specifications given by "tp__XXX" parameters&lt;/li&gt;<a name="line.69"></a>
+<span class="sourceLineNo">070</span> * &lt;/ul&gt;<a name="line.70"></a>
+<span class="sourceLineNo">071</span> * <a name="line.71"></a>
+<span class="sourceLineNo">072</span> * &lt;p&gt;The basic checks performed are:&lt;/p&gt;<a name="line.72"></a>
+<span class="sourceLineNo">073</span> * &lt;ul&gt;<a name="line.73"></a>
+<span class="sourceLineNo">074</span> * &lt;li&gt;Signal power levels are within operating ranges at the mux/demux/edfas/dcms and <a name="line.74"></a>
+<span class="sourceLineNo">075</span> * receivers, both when the link has one single active channel, or when all the <a name="line.75"></a>
+<span class="sourceLineNo">076</span> * "channels__maxNumChannels" are active&lt;/li&gt;<a name="line.76"></a>
+<span class="sourceLineNo">077</span> * &lt;li&gt;Chromatic dispersion is within the operating ranges in every point of the fiber, <a name="line.77"></a>
+<span class="sourceLineNo">078</span> * and at the receiver&lt;/li&gt;<a name="line.78"></a>
+<span class="sourceLineNo">079</span> * &lt;li&gt;Optical Signal to Noise Ration (OSNR) is within the operating range at the receiver&lt;/li&gt;<a name="line.79"></a>
+<span class="sourceLineNo">080</span> * &lt;li&gt;Polarization mode dispersion (PMD) is within the operating range at the receiver&lt;/li&gt;<a name="line.80"></a>
+<span class="sourceLineNo">081</span> * &lt;/ul&gt;<a name="line.81"></a>
+<span class="sourceLineNo">082</span> * @net2plan.keywords WDM<a name="line.82"></a>
+<span class="sourceLineNo">083</span> * @author Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza<a name="line.83"></a>
+<span class="sourceLineNo">084</span> * @version 1.1, May 2015<a name="line.84"></a>
+<span class="sourceLineNo">085</span> */<a name="line.85"></a>
+<span class="sourceLineNo">086</span>public class Report_WDM_pointToPointLineEngineering implements IReport<a name="line.86"></a>
+<span class="sourceLineNo">087</span>{<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        private final static double constant_c = 299792458; /* speed of light in m/s */<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        private final static double constant_h = 6.626E-34; /* Plank constant m^2 kg/sec */<a name="line.89"></a>
+<span class="sourceLineNo">090</span>        private final static double precisionMargenForChecks_dB = 0.00001;<a name="line.90"></a>
+<span class="sourceLineNo">091</span>        <a name="line.91"></a>
+<span class="sourceLineNo">092</span>        private List&lt;Link&gt; links;<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        private DoubleMatrix1D d_e;<a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>        @Override<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        public String executeReport(NetPlan netPlan, Map&lt;String, String&gt; reportParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        {<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                links = netPlan.getLinks();<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                d_e = netPlan.getVectorLinkLengthInKm();<a name="line.99"></a>
+<span class="sourceLineNo">100</span><a name="line.100"></a>
+<span class="sourceLineNo">101</span>                final boolean report__checkCDOnlyAtTheReceiver = Boolean.parseBoolean(reportParameters.get("report__checkCDOnlyAtTheReceiver"));<a name="line.101"></a>
+<span class="sourceLineNo">102</span><a name="line.102"></a>
+<span class="sourceLineNo">103</span>                /* Usable wavelengths */<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                final double channels__minChannelLambda_nm = Double.parseDouble(reportParameters.get("channels__minChannelLambda_nm"));<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                final double channels__channelSpacing_GHz = Double.parseDouble(reportParameters.get("channels__channelSpacing_GHz"));<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                final int channels__maxNumChannels = Integer.parseInt(reportParameters.get("channels__maxNumChannels"));<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                final double channels__maxChannelLambda_nm = constant_c / ((constant_c / channels__minChannelLambda_nm) - (channels__maxNumChannels - 1) * channels__channelSpacing_GHz);<a name="line.107"></a>
+<span class="sourceLineNo">108</span><a name="line.108"></a>
+<span class="sourceLineNo">109</span>                /* Fiber specifications  */<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                final double fiber__attenuation_dB_per_km = Double.parseDouble(reportParameters.get("fiber__attenuation_dB_per_km"));<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                final double fiber__worseChromaticDispersion_ps_per_nm_per_km = Double.parseDouble(reportParameters.get("fiber__worseChromaticDispersion_ps_per_nm_per_km"));<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                final double fiber__PMD_ps_per_sqroot_km = Double.parseDouble(reportParameters.get("fiber__PMD_ps_per_sqroot_km"));<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>                /* Transponder specifications */<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                final double tp__outputPower_dBm = Double.parseDouble(reportParameters.get("tp__outputPower_dBm"));<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                final double tp__maxChromaticDispersionTolerance_ps_per_nm = Double.parseDouble(reportParameters.get("tp__maxChromaticDispersionTolerance_ps_per_nm"));<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                final double tp__minOSNR_dB = Double.parseDouble(reportParameters.get("tp__minOSNR_dB"));<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                final double tp__inputPowerSensitivityMin_dBm = Double.parseDouble(reportParameters.get("tp__inputPowerSensitivityMin_dBm"));<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                final double tp__inputPowerSensitivityMax_dBm = Double.parseDouble(reportParameters.get("tp__inputPowerSensitivityMax_dBm"));<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                final double tp__minWavelength_nm = Double.parseDouble(reportParameters.get("tp__minWavelength_nm"));<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                final double tp__maxWavelength_nm = Double.parseDouble(reportParameters.get("tp__maxWavelength_nm"));<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                final double tp__pmdTolerance_ps = Double.parseDouble(reportParameters.get("tp__pmdTolerance_ps"));<a name="line.122"></a>
+<span class="sourceLineNo">123</span><a name="line.123"></a>
+<span class="sourceLineNo">124</span>                /* Optical amplifier specifications */<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                final double edfa__minWavelength_nm = Double.parseDouble(reportParameters.get("edfa__minWavelength_nm"));<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                final double edfa__maxWavelength_nm = Double.parseDouble(reportParameters.get("edfa__maxWavelength_nm"));<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                final double edfa__minInputPower_dBm = Double.parseDouble(reportParameters.get("edfa__minInputPower_dBm"));<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                final double edfa__maxInputPower_dBm = Double.parseDouble(reportParameters.get("edfa__maxInputPower_dBm"));<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                final double edfa__minOutputPower_dBm = Double.parseDouble(reportParameters.get("edfa__minOutputPower_dBm"));<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                final double edfa__maxOutputPower_dBm = Double.parseDouble(reportParameters.get("edfa__maxOutputPower_dBm"));<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                final double edfa__minGain_dB = Double.parseDouble(reportParameters.get("edfa__minGain_dB"));<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                final double edfa__maxGain_dB = Double.parseDouble(reportParameters.get("edfa__maxGain_dB"));<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                final double edfa__PMD_ps = Double.parseDouble(reportParameters.get("edfa__PMD_ps"));<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                final double edfa__noiseFactorMaximumGain_dB = Double.parseDouble(reportParameters.get("edfa__noiseFactorMaximumGain_dB"));<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                final double edfa__noiseFactorMinimumGain_dB = Double.parseDouble(reportParameters.get("edfa__noiseFactorMinimumGain_dB"));<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                final double edfa__noiseFactorReferenceBandwidth_nm = Double.parseDouble(reportParameters.get("edfa__noiseFactorReferenceBandwidth_nm"));<a name="line.136"></a>
+<span class="sourceLineNo">137</span><a name="line.137"></a>
+<span class="sourceLineNo">138</span>                /* Dispersion compensation modules specifications */<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                final double dcm__worseCaseChannelDispersion_ps_per_nm = Double.parseDouble(reportParameters.get("dcm__worseCaseChannelDispersion_ps_per_nm"));<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                final double dcm__PMD_ps = Double.parseDouble(reportParameters.get("dcm__PMD_ps"));<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                final double dcm__insertionLoss_dB = Double.parseDouble(reportParameters.get("dcm__insertionLoss_dB"));<a name="line.141"></a>
+<span class="sourceLineNo">142</span><a name="line.142"></a>
+<span class="sourceLineNo">143</span>                /* Mux/demux modules specifications */<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                final double mux__insertionLoss_dB = Double.parseDouble(reportParameters.get("mux__insertionLoss_dB"));<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                final double mux__PMD_ps = Double.parseDouble(reportParameters.get("mux__PMD_ps"));<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                final double mux__maxInputPower_dBm = Double.parseDouble(reportParameters.get("mux__maxInputPower_dBm"));<a name="line.146"></a>
+<span class="sourceLineNo">147</span><a name="line.147"></a>
+<span class="sourceLineNo">148</span>                /* OSNR penalties */<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                final double osnrPenalty__CD_dB = Double.parseDouble(reportParameters.get("osnrPenalty__CD_dB"));<a name="line.149"></a>
+<span class="sourceLineNo">150</span>                final double osnrPenalty__nonLinear_dB = Double.parseDouble(reportParameters.get("osnrPenalty__nonLinear_dB"));<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                final double osnrPenalty__PMD_dB = Double.parseDouble(reportParameters.get("osnrPenalty__PMD_dB"));<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                final double osnrPenalty__PDL_dB = Double.parseDouble(reportParameters.get("osnrPenalty__PDL_dB"));<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                final double osnrPenalty__transmitterChirp_dB = Double.parseDouble(reportParameters.get("osnrPenalty__transmitterChirp_dB"));<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                final double osnrPenalty__muxDemuxCrosstalk_dB = Double.parseDouble(reportParameters.get("osnrPenalty__muxDemuxCrosstalk_dB"));<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                final double osnrPenalty__unassignedMargin_dB = Double.parseDouble(reportParameters.get("osnrPenalty__unassignedMargin_dB"));<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                final double osnrPenalty__SUM_dB = osnrPenalty__CD_dB + osnrPenalty__nonLinear_dB + osnrPenalty__PMD_dB + osnrPenalty__PDL_dB + osnrPenalty__transmitterChirp_dB + osnrPenalty__muxDemuxCrosstalk_dB + osnrPenalty__unassignedMargin_dB;<a name="line.156"></a>
+<span class="sourceLineNo">157</span><a name="line.157"></a>
+<span class="sourceLineNo">158</span>                Map&lt;Long, List&lt;Triple&lt;Double, String, double[]&gt;&gt;&gt; signalInfo = new LinkedHashMap&lt;Long, List&lt;Triple&lt;Double, String, double[]&gt;&gt;&gt;();<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                Map&lt;Long, List&lt;Triple&lt;Double, String, String&gt;&gt;&gt; warnings = new LinkedHashMap&lt;Long, List&lt;Triple&lt;Double, String, String&gt;&gt;&gt;();<a name="line.159"></a>
+<span class="sourceLineNo">160</span><a name="line.160"></a>
+<span class="sourceLineNo">161</span>                for (Link link : links)<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                {<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                        final double d_e_thisLink = link.getLengthInKm();<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                        List&lt;Triple&lt;Double, String, double[]&gt;&gt; signalInfoThisLink = new ArrayList&lt;Triple&lt;Double, String, double[]&gt;&gt;();<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                        List&lt;Triple&lt;Double, String, String&gt;&gt; warningsThisLink = new ArrayList&lt;Triple&lt;Double, String, String&gt;&gt;();<a name="line.165"></a>
+<span class="sourceLineNo">166</span><a name="line.166"></a>
+<span class="sourceLineNo">167</span>                        final String st_edfaPositions_km = (link.getAttribute("edfaPositions_km") == null) ? "" : link.getAttribute("edfaPositions_km");<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                        final String st_edfaGains_dB = (link.getAttribute("edfaGains_dB") == null) ? "" : link.getAttribute("edfaGains_dB");<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                        final String st_dcmPositions_km = (link.getAttribute("dcmPositions_km") == null) ? "" : link.getAttribute("dcmPositions_km");<a name="line.169"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>                        final double[] edfaPositions_km = StringUtils.toDoubleArray(StringUtils.split(st_edfaPositions_km));<a name="line.171"></a>
+<span class="sourceLineNo">172</span>                        final double[] edfaGains_dB = StringUtils.toDoubleArray(StringUtils.split(st_edfaGains_dB));<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                        final double[] dcmPositions_km = StringUtils.toDoubleArray(StringUtils.split(st_dcmPositions_km));<a name="line.173"></a>
+<span class="sourceLineNo">174</span><a name="line.174"></a>
+<span class="sourceLineNo">175</span>                        /* Put in order the elements in the WDM line */<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                        List&lt;Triple&lt;Double, String, Double&gt;&gt; elementPositions = getElementPositionsArray(link.getId (), d_e_thisLink, edfaPositions_km, edfaGains_dB, dcmPositions_km);<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                        int numDCMs = 0;<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                        int numEDFAs = 0;<a name="line.178"></a>
+<span class="sourceLineNo">179</span><a name="line.179"></a>
+<span class="sourceLineNo">180</span>                        /* In the transmitter */<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                        final double numChannels_dB = linear2dB(channels__maxNumChannels);<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                        double current_powerPerChannel_dBm = tp__outputPower_dBm;<a name="line.182"></a>
+<span class="sourceLineNo">183</span>                        double current_CD_ps_per_nm = 0;<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                        double current_PMDSquared_ps2 = 0;<a name="line.184"></a>
+<span class="sourceLineNo">185</span>                        double current_OSNR_linear = Double.MAX_VALUE; /* no noise */<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                        double current_kmFromTransmitter = 0;<a name="line.186"></a>
+<span class="sourceLineNo">187</span><a name="line.187"></a>
+<span class="sourceLineNo">188</span>                        /* Check the range of wavelengths of the transponder */<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                        if (channels__minChannelLambda_nm &lt; tp__minWavelength_nm)<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                        {<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Transmitter", "Wavelength " + channels__minChannelLambda_nm + " nm is outside the transponder range [" + tp__minWavelength_nm + " nm , " + tp__maxWavelength_nm + " nm]"));<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                        }<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                        if (channels__maxChannelLambda_nm &gt; tp__maxWavelength_nm)<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                        {<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Transmitter", "Wavelength " + channels__maxChannelLambda_nm + " nm is outside the transponder range [" + tp__minWavelength_nm + " nm , " + tp__maxWavelength_nm + " nm]"));<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                        }<a name="line.196"></a>
+<span class="sourceLineNo">197</span><a name="line.197"></a>
+<span class="sourceLineNo">198</span>                        signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "After Transmitter", new double[]<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                        {<a name="line.199"></a>
+<span class="sourceLineNo">200</span>                                current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2)<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                        }));<a name="line.201"></a>
+<span class="sourceLineNo">202</span><a name="line.202"></a>
+<span class="sourceLineNo">203</span>                        /* At the output of the multiplexer */<a name="line.203"></a>
+<span class="sourceLineNo">204</span>                        /* Check if the input power at the multiplexer does not exceed the limit */<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                        if (tp__outputPower_dBm + numChannels_dB &gt; mux__maxInputPower_dBm + precisionMargenForChecks_dB)<a name="line.205"></a>
+<span class="sourceLineNo">206</span>                        {<a name="line.206"></a>
+<span class="sourceLineNo">207</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Mux", "Input power if all the WDM channels are active (" + (tp__outputPower_dBm + numChannels_dB) + " dBm) exceeds the maximum input power to the multiplexer (" + mux__maxInputPower_dBm + " dBm"));<a name="line.207"></a>
+<span class="sourceLineNo">208</span>                        }<a name="line.208"></a>
+<span class="sourceLineNo">209</span>                        current_powerPerChannel_dBm -= mux__insertionLoss_dB;<a name="line.209"></a>
+<span class="sourceLineNo">210</span>                        current_PMDSquared_ps2 += Math.pow(mux__PMD_ps, 2);<a name="line.210"></a>
+<span class="sourceLineNo">211</span><a name="line.211"></a>
+<span class="sourceLineNo">212</span>                        signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "After MUX", DoubleUtils.arrayOf(current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2))));<a name="line.212"></a>
+<span class="sourceLineNo">213</span><a name="line.213"></a>
+<span class="sourceLineNo">214</span>                        /* Iterate along consecutive spans (ended by OA, DCM or DEMUX at the receiver) */<a name="line.214"></a>
+<span class="sourceLineNo">215</span>                        for (Triple&lt;Double, String, Double&gt; span : elementPositions)<a name="line.215"></a>
+<span class="sourceLineNo">216</span>                        {<a name="line.216"></a>
+<span class="sourceLineNo">217</span>                                final double elementPosition_km = span.getFirst();<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                                final String elementType = span.getSecond();<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                                final double gainIfOA_dB = span.getThird();<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                                if (elementPosition_km &lt; current_kmFromTransmitter) throw new RuntimeException("Unexpected error");<a name="line.220"></a>
+<span class="sourceLineNo">221</span><a name="line.221"></a>
+<span class="sourceLineNo">222</span>                                /* The span of fiber */<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                                final double fiberLength_km = elementPosition_km - current_kmFromTransmitter;<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                                current_powerPerChannel_dBm -= fiber__attenuation_dB_per_km * fiberLength_km;<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                                current_CD_ps_per_nm += fiber__worseChromaticDispersion_ps_per_nm_per_km * fiberLength_km;<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                                current_PMDSquared_ps2 += fiberLength_km * Math.pow(fiber__PMD_ps_per_sqroot_km, 2);<a name="line.226"></a>
+<span class="sourceLineNo">227</span>                                current_kmFromTransmitter = elementPosition_km;<a name="line.227"></a>
+<span class="sourceLineNo">228</span><a name="line.228"></a>
+<span class="sourceLineNo">229</span>                                /* Check chromatic dispersion at the end of the fiber span */<a name="line.229"></a>
+<span class="sourceLineNo">230</span>                                if (!report__checkCDOnlyAtTheReceiver)<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                                {<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                                        if (current_CD_ps_per_nm &gt; tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                                        {<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "End fiber span", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is above the upper limit (" + tp__maxChromaticDispersionTolerance_ps_per_nm + " ps/nm)"));<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                                        }<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                                        if (current_CD_ps_per_nm &lt; -tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                                        {<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "End fiber span", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is below the lower limit (" + (-tp__maxChromaticDispersionTolerance_ps_per_nm) + " ps/nm)"));<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                                        }<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                                }<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                                /* The element */<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                                switch (elementType)<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                                {<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                                        case "DCM":<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                                                current_powerPerChannel_dBm -= dcm__insertionLoss_dB;<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                                                current_CD_ps_per_nm += dcm__worseCaseChannelDispersion_ps_per_nm;<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                                                current_PMDSquared_ps2 += Math.pow(dcm__PMD_ps, 2);<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                                                /* Check chromatic dispersion at the end of the fiber */<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                                                if (!report__checkCDOnlyAtTheReceiver)<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                                                {<a name="line.250"></a>
+<span class="sourceLineNo">251</span>                                                        if (current_CD_ps_per_nm &gt; tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.251"></a>
+<span class="sourceLineNo">252</span>                                                        {<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                                                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Output of DCM", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is above the upper limit (" + tp__maxChromaticDispersionTolerance_ps_per_nm + " ps/nm)"));<a name="line.253"></a>
+<span class="sourceLineNo">254</span>                                                        }<a name="line.254"></a>
+<span class="sourceLineNo">255</span>                                                        if (current_CD_ps_per_nm &lt; -tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                                                        {<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                                                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Output of DCM", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is below the lower limit (" + (-tp__maxChromaticDispersionTolerance_ps_per_nm) + " ps/nm)"));<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                                                        }<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                                                }<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                                                numDCMs++;<a name="line.260"></a>
+<span class="sourceLineNo">261</span>                                                signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "After DCM #" + numDCMs, new double[]<a name="line.261"></a>
+<span class="sourceLineNo">262</span>                                                {<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                                                        current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2)<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                                                }));<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                                                break;<a name="line.265"></a>
+<span class="sourceLineNo">266</span>                                        case "OA":<a name="line.266"></a>
+<span class="sourceLineNo">267</span>                                                signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "Before EDFA #" + (numEDFAs + 1), new double[]<a name="line.267"></a>
+<span class="sourceLineNo">268</span>                                                {<a name="line.268"></a>
+<span class="sourceLineNo">269</span>                                                        current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2)<a name="line.269"></a>
+<span class="sourceLineNo">270</span>                                                }));<a name="line.270"></a>
+<span class="sourceLineNo">271</span>                                                if (channels__minChannelLambda_nm &lt; edfa__minWavelength_nm)<a name="line.271"></a>
+<span class="sourceLineNo">272</span>                                                {<a name="line.272"></a>
+<span class="sourceLineNo">273</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "Wavelength " + channels__minChannelLambda_nm + " is outside EDFA range [" + edfa__minWavelength_nm + " nm , " + edfa__maxWavelength_nm + " nm]"));<a name="line.273"></a>
+<span class="sourceLineNo">274</span>                                                }<a name="line.274"></a>
+<span class="sourceLineNo">275</span>                                                if (channels__maxChannelLambda_nm &gt; edfa__maxWavelength_nm)<a name="line.275"></a>
+<span class="sourceLineNo">276</span>                                                {<a name="line.276"></a>
+<span class="sourceLineNo">277</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "Wavelength " + channels__minChannelLambda_nm + " is outside EDFA range [" + edfa__minWavelength_nm + " nm , " + edfa__maxWavelength_nm + " nm]"));<a name="line.277"></a>
+<span class="sourceLineNo">278</span>                                                }<a name="line.278"></a>
+<span class="sourceLineNo">279</span>                                                if (current_powerPerChannel_dBm + precisionMargenForChecks_dB &lt; edfa__minInputPower_dBm)<a name="line.279"></a>
+<span class="sourceLineNo">280</span>                                                {<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "Input power at the amplifier if only one WDM channel is active (" + current_powerPerChannel_dBm + " dBm) is outside the EDFA input power range [" + edfa__minInputPower_dBm + " dBm , " + edfa__maxInputPower_dBm + " dBm]"));<a name="line.281"></a>
+<span class="sourceLineNo">282</span>                                                }<a name="line.282"></a>
+<span class="sourceLineNo">283</span>                                                if (current_powerPerChannel_dBm + numChannels_dB &gt; edfa__maxInputPower_dBm + precisionMargenForChecks_dB)<a name="line.283"></a>
+<span class="sourceLineNo">284</span>                                                {<a name="line.284"></a>
+<span class="sourceLineNo">285</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "Input power at the amplifier if all WDM channels are active (" + (current_powerPerChannel_dBm + numChannels_dB) + " dBm) is outside the EDFA input power range [" + edfa__minInputPower_dBm + " dBm , " + edfa__maxInputPower_dBm + " dBm]"));<a name="line.285"></a>
+<span class="sourceLineNo">286</span>                                                }<a name="line.286"></a>
+<span class="sourceLineNo">287</span>                                                if ((gainIfOA_dB &lt; edfa__minGain_dB - precisionMargenForChecks_dB) || (gainIfOA_dB &gt; edfa__maxGain_dB + precisionMargenForChecks_dB))<a name="line.287"></a>
+<span class="sourceLineNo">288</span>                                                {<a name="line.288"></a>
+<span class="sourceLineNo">289</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "EDFA gain (" + gainIfOA_dB + " dB) is outside the EDFA gain range [" + edfa__minGain_dB + " dB , " + edfa__maxGain_dB + " dB]"));<a name="line.289"></a>
+<span class="sourceLineNo">290</span>                                                }<a name="line.290"></a>
+<span class="sourceLineNo">291</span>                                                /* update the OSNR */<a name="line.291"></a>
+<span class="sourceLineNo">292</span>                                                final double edfa_noiseFactorThisGain_dB = edfa__noiseFactorMinimumGain_dB + (gainIfOA_dB - edfa__minGain_dB) * (edfa__noiseFactorMaximumGain_dB - edfa__noiseFactorMinimumGain_dB) / (edfa__maxGain_dB - edfa__minGain_dB);<a name="line.292"></a>
+<span class="sourceLineNo">293</span>                                                if ((edfa_noiseFactorThisGain_dB &lt; Math.min(edfa__noiseFactorMinimumGain_dB, edfa__noiseFactorMaximumGain_dB)) || (edfa_noiseFactorThisGain_dB &gt; Math.max(edfa__noiseFactorMinimumGain_dB, edfa__noiseFactorMaximumGain_dB)))<a name="line.293"></a>
+<span class="sourceLineNo">294</span>                                                {<a name="line.294"></a>
+<span class="sourceLineNo">295</span>                                                        throw new RuntimeException("Bad");<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                                                }<a name="line.296"></a>
+<span class="sourceLineNo">297</span>                                                final double edfa_NF_linear = dB2Linear(edfa_noiseFactorThisGain_dB);<a name="line.297"></a>
+<span class="sourceLineNo">298</span>                                                final double highestFrequencyChannel_Hz = constant_c / (channels__minChannelLambda_nm * 1e-9);<a name="line.298"></a>
+<span class="sourceLineNo">299</span>                                                final double referenceBandwidthAtHighestFrequency_Hz = -highestFrequencyChannel_Hz + constant_c / ((channels__minChannelLambda_nm - edfa__noiseFactorReferenceBandwidth_nm) * 1e-9);<a name="line.299"></a>
+<span class="sourceLineNo">300</span>                                                final double inputPower_linear = dB2Linear(current_powerPerChannel_dBm) * 1E-3;<a name="line.300"></a>
+<span class="sourceLineNo">301</span>                                                final double thisEDFAAddedNoise_linear = edfa_NF_linear * constant_h * highestFrequencyChannel_Hz * referenceBandwidthAtHighestFrequency_Hz;<a name="line.301"></a>
+<span class="sourceLineNo">302</span>                                                final double addedOSNRThisOA_linear = inputPower_linear / thisEDFAAddedNoise_linear;<a name="line.302"></a>
+<span class="sourceLineNo">303</span>                                                current_OSNR_linear = current_OSNR_linear == Double.MAX_VALUE ? addedOSNRThisOA_linear : 1 / (1 / current_OSNR_linear + 1 / addedOSNRThisOA_linear);<a name="line.303"></a>
+<span class="sourceLineNo">304</span>                                                /* update the signal power */<a name="line.304"></a>
+<span class="sourceLineNo">305</span>                                                current_powerPerChannel_dBm += gainIfOA_dB;<a name="line.305"></a>
+<span class="sourceLineNo">306</span>                                                if (current_powerPerChannel_dBm &lt; edfa__minOutputPower_dBm - precisionMargenForChecks_dB)<a name="line.306"></a>
+<span class="sourceLineNo">307</span>                                                {<a name="line.307"></a>
+<span class="sourceLineNo">308</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "Output power at the amplifier if only one WDM channel is active (" + current_powerPerChannel_dBm + " dBm) is outside the EDFA output power range [" + edfa__minOutputPower_dBm + " dBm , " + edfa__maxOutputPower_dBm + " dBm]"));<a name="line.308"></a>
+<span class="sourceLineNo">309</span>                                                }<a name="line.309"></a>
+<span class="sourceLineNo">310</span>                                                if (current_powerPerChannel_dBm + numChannels_dB &gt; edfa__maxOutputPower_dBm + precisionMargenForChecks_dB)<a name="line.310"></a>
+<span class="sourceLineNo">311</span>                                                {<a name="line.311"></a>
+<span class="sourceLineNo">312</span>                                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "EDFA", "Output power at the amplifier if all WDM channels are active (" + (current_powerPerChannel_dBm + numChannels_dB) + " dBm) is outside the EDFA output power range [" + edfa__minOutputPower_dBm + " dBm , " + edfa__maxOutputPower_dBm + " dBm]"));<a name="line.312"></a>
+<span class="sourceLineNo">313</span>                                                }<a name="line.313"></a>
+<span class="sourceLineNo">314</span>                                                /* update the PMD */<a name="line.314"></a>
+<span class="sourceLineNo">315</span>                                                current_PMDSquared_ps2 += Math.pow(edfa__PMD_ps, 2);<a name="line.315"></a>
+<span class="sourceLineNo">316</span>                                                numEDFAs++;<a name="line.316"></a>
+<span class="sourceLineNo">317</span>                                                signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "After EDFA #" + numEDFAs, new double[]<a name="line.317"></a>
+<span class="sourceLineNo">318</span>                                                {<a name="line.318"></a>
+<span class="sourceLineNo">319</span>                                                        current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2)<a name="line.319"></a>
+<span class="sourceLineNo">320</span>                                                }));<a name="line.320"></a>
+<span class="sourceLineNo">321</span>                                                break;<a name="line.321"></a>
+<span class="sourceLineNo">322</span>                                        default:<a name="line.322"></a>
+<span class="sourceLineNo">323</span>                                                throw new RuntimeException("Unexpected error");<a name="line.323"></a>
+<span class="sourceLineNo">324</span>                                }<a name="line.324"></a>
+<span class="sourceLineNo">325</span>                        }<a name="line.325"></a>
+<span class="sourceLineNo">326</span><a name="line.326"></a>
+<span class="sourceLineNo">327</span>                        /* Fiber span after the last element, to the receiver */<a name="line.327"></a>
+<span class="sourceLineNo">328</span>                        final double spanLength_km = d_e_thisLink - current_kmFromTransmitter;<a name="line.328"></a>
+<span class="sourceLineNo">329</span>                        current_powerPerChannel_dBm -= fiber__attenuation_dB_per_km * spanLength_km;<a name="line.329"></a>
+<span class="sourceLineNo">330</span>                        current_CD_ps_per_nm += fiber__worseChromaticDispersion_ps_per_nm_per_km * spanLength_km;<a name="line.330"></a>
+<span class="sourceLineNo">331</span>                        current_PMDSquared_ps2 += spanLength_km * Math.pow(fiber__PMD_ps_per_sqroot_km, 2);<a name="line.331"></a>
+<span class="sourceLineNo">332</span>                        current_kmFromTransmitter = d_e_thisLink;<a name="line.332"></a>
+<span class="sourceLineNo">333</span><a name="line.333"></a>
+<span class="sourceLineNo">334</span>                        /* Check chromatic dispersion at the end of the fiber (input of the demux) */<a name="line.334"></a>
+<span class="sourceLineNo">335</span>                        if (!report__checkCDOnlyAtTheReceiver)<a name="line.335"></a>
+<span class="sourceLineNo">336</span>                        {<a name="line.336"></a>
+<span class="sourceLineNo">337</span>                                if (current_CD_ps_per_nm &gt; tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.337"></a>
+<span class="sourceLineNo">338</span>                                {<a name="line.338"></a>
+<span class="sourceLineNo">339</span>                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Input of demux", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is above the upper limit (" + tp__maxChromaticDispersionTolerance_ps_per_nm + " ps/nm)"));<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                                }<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                                if (current_CD_ps_per_nm &lt; -tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                                {<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                                        warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Input of demux", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is below the lower limit (" + (-tp__maxChromaticDispersionTolerance_ps_per_nm) + " ps/nm)"));<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                                }<a name="line.344"></a>
+<span class="sourceLineNo">345</span>                        }<a name="line.345"></a>
+<span class="sourceLineNo">346</span>                        signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "Before DEMUX", new double[]<a name="line.346"></a>
+<span class="sourceLineNo">347</span>                        {<a name="line.347"></a>
+<span class="sourceLineNo">348</span>                                current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2)<a name="line.348"></a>
+<span class="sourceLineNo">349</span>                        }));<a name="line.349"></a>
+<span class="sourceLineNo">350</span><a name="line.350"></a>
+<span class="sourceLineNo">351</span>                        /* The demultiplexer at the end of the line */<a name="line.351"></a>
+<span class="sourceLineNo">352</span>                        /* Check if the input power at the multiplexer does not exceed the limit */<a name="line.352"></a>
+<span class="sourceLineNo">353</span>                        if (current_powerPerChannel_dBm + numChannels_dB &gt; mux__maxInputPower_dBm + precisionMargenForChecks_dB)<a name="line.353"></a>
+<span class="sourceLineNo">354</span>                        {<a name="line.354"></a>
+<span class="sourceLineNo">355</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "DEMUX", "Input power at the demux if all WDM channels are active (" + (current_powerPerChannel_dBm + numChannels_dB) + " dBm) is ebove the DEMUX maximum input power (" + mux__maxInputPower_dBm + " dBm)"));<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                        }<a name="line.356"></a>
+<span class="sourceLineNo">357</span>                        current_powerPerChannel_dBm -= mux__insertionLoss_dB;<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                        current_PMDSquared_ps2 += Math.pow(mux__PMD_ps, 2);<a name="line.358"></a>
+<span class="sourceLineNo">359</span><a name="line.359"></a>
+<span class="sourceLineNo">360</span>                        /* In the receiver */<a name="line.360"></a>
+<span class="sourceLineNo">361</span>                        /* CHECK 1: CHROMATIC DISPERSION WITHIN THE LIMITS */<a name="line.361"></a>
+<span class="sourceLineNo">362</span>                        if (current_CD_ps_per_nm &gt; tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.362"></a>
+<span class="sourceLineNo">363</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Receiver", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is above the upper limit (" + tp__maxChromaticDispersionTolerance_ps_per_nm + " ps/nm)"));<a name="line.363"></a>
+<span class="sourceLineNo">364</span><a name="line.364"></a>
+<span class="sourceLineNo">365</span>                        if (current_CD_ps_per_nm &lt; -tp__maxChromaticDispersionTolerance_ps_per_nm)<a name="line.365"></a>
+<span class="sourceLineNo">366</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Receiver", "Chromatic dispersion at this point (" + current_CD_ps_per_nm + " ps/nm) is below the lower limit (" + (-tp__maxChromaticDispersionTolerance_ps_per_nm) + " ps/nm)"));<a name="line.366"></a>
+<span class="sourceLineNo">367</span><a name="line.367"></a>
+<span class="sourceLineNo">368</span>                        /* CHECK 2: OSNR WITHIN THE LIMITS */<a name="line.368"></a>
+<span class="sourceLineNo">369</span>                        if (linear2dB(current_OSNR_linear) &lt; tp__minOSNR_dB + osnrPenalty__SUM_dB)<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Receiver", "OSNR at the receiver (" + linear2dB(current_OSNR_linear) + " dB) is below the minimum OSNR tolerance plus margin (" + tp__minOSNR_dB + " dB + " + osnrPenalty__SUM_dB + " dB = " + (tp__minOSNR_dB + osnrPenalty__SUM_dB) + " dB)"));<a name="line.370"></a>
+<span class="sourceLineNo">371</span><a name="line.371"></a>
+<span class="sourceLineNo">372</span>                        /* CHECK 3: POWER BUDGET WITHIN LIMITS */<a name="line.372"></a>
+<span class="sourceLineNo">373</span>                        if ((current_powerPerChannel_dBm &gt; tp__inputPowerSensitivityMax_dBm + precisionMargenForChecks_dB) || (current_powerPerChannel_dBm &lt; tp__inputPowerSensitivityMin_dBm - precisionMargenForChecks_dB))<a name="line.373"></a>
+<span class="sourceLineNo">374</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Receiver", "Input power (" + current_powerPerChannel_dBm + " dBm) is outside the sensitivity range [" + tp__inputPowerSensitivityMin_dBm + " dBm , " + tp__inputPowerSensitivityMax_dBm + " dBm]"));<a name="line.374"></a>
+<span class="sourceLineNo">375</span><a name="line.375"></a>
+<span class="sourceLineNo">376</span>                        /* CHECK 4: PMD TOLERANCE OF RECEIVER */<a name="line.376"></a>
+<span class="sourceLineNo">377</span>                        if (Math.sqrt(current_PMDSquared_ps2) &gt; tp__pmdTolerance_ps)<a name="line.377"></a>
+<span class="sourceLineNo">378</span>                                warningsThisLink.add(Triple.of(current_kmFromTransmitter, "Receiver", "PMD at the receiver (" + Math.sqrt(current_PMDSquared_ps2) + " ps) is above the maximum PMD tolerance (" + tp__pmdTolerance_ps + " ps)"));<a name="line.378"></a>
+<span class="sourceLineNo">379</span><a name="line.379"></a>
+<span class="sourceLineNo">380</span>                        signalInfoThisLink.add(Triple.of(current_kmFromTransmitter, "Receiver", DoubleUtils.arrayOf(current_CD_ps_per_nm, linear2dB(current_OSNR_linear), current_powerPerChannel_dBm, Math.sqrt(current_PMDSquared_ps2))));<a name="line.380"></a>
+<span class="sourceLineNo">381</span>                        signalInfo.put(link.getId () , signalInfoThisLink);<a name="line.381"></a>
+<span class="sourceLineNo">382</span>                        warnings.put(link.getId (), warningsThisLink);<a name="line.382"></a>
+<span class="sourceLineNo">383</span>                }<a name="line.383"></a>
+<span class="sourceLineNo">384</span><a name="line.384"></a>
+<span class="sourceLineNo">385</span>                return printReport(netPlan, reportParameters, signalInfo, warnings);<a name="line.385"></a>
+<span class="sourceLineNo">386</span>        }<a name="line.386"></a>
+<span class="sourceLineNo">387</span><a name="line.387"></a>
+<span class="sourceLineNo">388</span>        @Override<a name="line.388"></a>
+<span class="sourceLineNo">389</span>        public String getDescription()<a name="line.389"></a>
+<span class="sourceLineNo">390</span>        {<a name="line.390"></a>
+<span class="sourceLineNo">391</span>                return "This report shows line engineering information for WDM links in the network. Further description, in the HTML generated";<a name="line.391"></a>
+<span class="sourceLineNo">392</span>        }<a name="line.392"></a>
+<span class="sourceLineNo">393</span><a name="line.393"></a>
+<span class="sourceLineNo">394</span>        @Override<a name="line.394"></a>
+<span class="sourceLineNo">395</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.395"></a>
+<span class="sourceLineNo">396</span>        {<a name="line.396"></a>
+<span class="sourceLineNo">397</span>                List&lt;Triple&lt;String, String, String&gt;&gt; aux = new LinkedList&lt;Triple&lt;String, String, String&gt;&gt;();<a name="line.397"></a>
+<span class="sourceLineNo">398</span><a name="line.398"></a>
+<span class="sourceLineNo">399</span>                aux.add(Triple.of("report__checkCDOnlyAtTheReceiver", "#boolean# true", "If true, the chromatic dispersion only is checked against the CD tolerance at the receiver. If false, it is checked against the same value, in all the fiber spans"));<a name="line.399"></a>
+<span class="sourceLineNo">400</span><a name="line.400"></a>
+<span class="sourceLineNo">401</span>                /* Usable wavelengths */<a name="line.401"></a>
+<span class="sourceLineNo">402</span>                aux.add(Triple.of("channels__minChannelLambda_nm", "1530.33", "Channel minimum wavelength in nm"));<a name="line.402"></a>
+<span class="sourceLineNo">403</span>                aux.add(Triple.of("channels__channelSpacing_GHz", "100", "Channel spacing in GHz"));<a name="line.403"></a>
+<span class="sourceLineNo">404</span>                aux.add(Triple.of("channels__maxNumChannels", "16", "Maximum number of WDM channels that will be used"));<a name="line.404"></a>
+<span class="sourceLineNo">405</span><a name="line.405"></a>
+<span class="sourceLineNo">406</span>                /* Fiber specifications  */<a name="line.406"></a>
+<span class="sourceLineNo">407</span>                aux.add(Triple.of("fiber__ituType", "G.655", "ITU-T fiber type"));<a name="line.407"></a>
+<span class="sourceLineNo">408</span>                aux.add(Triple.of("fiber__attenuation_dB_per_km", "0.25", "Fiber attenuation in dB/km"));<a name="line.408"></a>
+<span class="sourceLineNo">409</span>                aux.add(Triple.of("fiber__worseChromaticDispersion_ps_per_nm_per_km", "6", "Chromatic dispersion of the fiber in ps/nm/km"));<a name="line.409"></a>
+<span class="sourceLineNo">410</span>                aux.add(Triple.of("fiber__PMD_ps_per_sqroot_km", "0.5", "Polarization mode dispersion per km^0.5 of fiber (PMD_Q link factor)"));<a name="line.410"></a>
+<span class="sourceLineNo">411</span><a name="line.411"></a>
+<span class="sourceLineNo">412</span>                /* Transponder specifications */<a name="line.412"></a>
+<span class="sourceLineNo">413</span>                aux.add(Triple.of("tp__outputPower_dBm", "6", "Output power of the transmitter in dBm"));<a name="line.413"></a>
+<span class="sourceLineNo">414</span>                aux.add(Triple.of("tp__maxChromaticDispersionTolerance_ps_per_nm", "800", "Maximum chromatic dispersion tolerance in ps/nm at the receiver"));<a name="line.414"></a>
+<span class="sourceLineNo">415</span>                aux.add(Triple.of("tp__minOSNR_dB", "10", "Minimum OSNR needed at the receiver"));<a name="line.415"></a>
+<span class="sourceLineNo">416</span>                aux.add(Triple.of("tp__inputPowerSensitivityMin_dBm", "-18", "Minimum input power at the receiver in dBm"));<a name="line.416"></a>
+<span class="sourceLineNo">417</span>                aux.add(Triple.of("tp__inputPowerSensitivityMax_dBm", "-8", "Maximum input power at the receiver in dBm"));<a name="line.417"></a>
+<span class="sourceLineNo">418</span>                aux.add(Triple.of("tp__minWavelength_nm", "1529.55", "Minimum wavelength usable by the transponder"));<a name="line.418"></a>
+<span class="sourceLineNo">419</span>                aux.add(Triple.of("tp__maxWavelength_nm", "1561.84", "Maximum wavelength usable by the transponder"));<a name="line.419"></a>
+<span class="sourceLineNo">420</span>                aux.add(Triple.of("tp__pmdTolerance_ps", "10", "Maximum tolarance of polarizarion mode dispersion (mean of differential group delay) in ps at the receiver"));<a name="line.420"></a>
+<span class="sourceLineNo">421</span><a name="line.421"></a>
+<span class="sourceLineNo">422</span>                /* Optical amplifier specifications */<a name="line.422"></a>
+<span class="sourceLineNo">423</span>                aux.add(Triple.of("edfa__minWavelength_nm", "1530", "Minimum wavelength usable by the EDFA"));<a name="line.423"></a>
+<span class="sourceLineNo">424</span>                aux.add(Triple.of("edfa__maxWavelength_nm", "1563", "Maximum wavelength usable by the EDFA"));<a name="line.424"></a>
+<span class="sourceLineNo">425</span>                aux.add(Triple.of("edfa__minInputPower_dBm", "-29", "Minimum input power at the EDFA"));<a name="line.425"></a>
+<span class="sourceLineNo">426</span>                aux.add(Triple.of("edfa__maxInputPower_dBm", "2", "Maximum input power at the EDFA"));<a name="line.426"></a>
+<span class="sourceLineNo">427</span>                aux.add(Triple.of("edfa__minOutputPower_dBm", "-6", "Minimum output power at the EDFA"));<a name="line.427"></a>
+<span class="sourceLineNo">428</span>                aux.add(Triple.of("edfa__maxOutputPower_dBm", "19", "Maximum output power at the EDFA"));<a name="line.428"></a>
+<span class="sourceLineNo">429</span>                aux.add(Triple.of("edfa__minGain_dB", "17", "Minimum gain at the EDFA"));<a name="line.429"></a>
+<span class="sourceLineNo">430</span>                aux.add(Triple.of("edfa__maxGain_dB", "23", "Maximum gain at the EDFA"));<a name="line.430"></a>
+<span class="sourceLineNo">431</span>                aux.add(Triple.of("edfa__PMD_ps", "0.5", "Polarization mode dispersion in ps added by the EDFA"));<a name="line.431"></a>
+<span class="sourceLineNo">432</span>                aux.add(Triple.of("edfa__noiseFactorMaximumGain_dB", "5.4", "Noise factor at the EDFA when the gain is in its upper limit (linear interpolation is used to estimate the noise figura at other gains)"));<a name="line.432"></a>
+<span class="sourceLineNo">433</span>                aux.add(Triple.of("edfa__noiseFactorMinimumGain_dB", "6.4", "Noise factor at the EDFA when the gain is in its lower limit (linear interpolation is used to estimate the noise figura at other gains)"));<a name="line.433"></a>
+<span class="sourceLineNo">434</span>                aux.add(Triple.of("edfa__noiseFactorReferenceBandwidth_nm", "0.5", "Reference bandwidth that measures the noise factor at the EDFA"));<a name="line.434"></a>
+<span class="sourceLineNo">435</span><a name="line.435"></a>
+<span class="sourceLineNo">436</span>                /* Dispersion compensation modules specifications */<a name="line.436"></a>
+<span class="sourceLineNo">437</span>                aux.add(Triple.of("dcm__worseCaseChannelDispersion_ps_per_nm", "-551", "Dispersion compensation (ps/nm) in the WDM channel with lower dispersion in absolute number"));<a name="line.437"></a>
+<span class="sourceLineNo">438</span>                aux.add(Triple.of("dcm__PMD_ps", "0.7", "Polarization mode dispersion in ps added by the DCM"));<a name="line.438"></a>
+<span class="sourceLineNo">439</span>                aux.add(Triple.of("dcm__insertionLoss_dB", "3.5", "Maximum insertion loss added by the DCM"));<a name="line.439"></a>
+<span class="sourceLineNo">440</span><a name="line.440"></a>
+<span class="sourceLineNo">441</span>                /* Mux/demux modules specifications */<a name="line.441"></a>
+<span class="sourceLineNo">442</span>                aux.add(Triple.of("mux__insertionLoss_dB", "5.1", "Maximum insertion loss in dB added by the mux/demux"));<a name="line.442"></a>
+<span class="sourceLineNo">443</span>                aux.add(Triple.of("mux__PMD_ps", "0.5", "Polarization mode dispersion in ps added by the mux/demux"));<a name="line.443"></a>
+<span class="sourceLineNo">444</span>                aux.add(Triple.of("mux__maxInputPower_dBm", "24", "Maximum input power in dBm at the mux/demux"));<a name="line.444"></a>
+<span class="sourceLineNo">445</span><a name="line.445"></a>
+<span class="sourceLineNo">446</span>                /* OSNR penalties */<a name="line.446"></a>
+<span class="sourceLineNo">447</span>                aux.add(Triple.of("osnrPenalty__CD_dB", "1", "OSNR penalty caused by residual chromatic dispersion (assumed within limits)"));<a name="line.447"></a>
+<span class="sourceLineNo">448</span>                aux.add(Triple.of("osnrPenalty__nonLinear_dB", "2", "OSNR penalty caused by the non-linear effects SPM, XPM, FWM and Brillouin / Raman scattering"));<a name="line.448"></a>
+<span class="sourceLineNo">449</span>                aux.add(Triple.of("osnrPenalty__PMD_dB", "0.5", "OSNR penalty caused by the polarization mode dispersion (assumed within limits)"));<a name="line.449"></a>
+<span class="sourceLineNo">450</span>                aux.add(Triple.of("osnrPenalty__PDL_dB", "0.3", "OSNR penalty caused by polarization dispersion losses"));<a name="line.450"></a>
+<span class="sourceLineNo">451</span>                aux.add(Triple.of("osnrPenalty__transmitterChirp_dB", "0.5", "OSNR penalty caused by transmitter chirp "));<a name="line.451"></a>
+<span class="sourceLineNo">452</span>                aux.add(Triple.of("osnrPenalty__muxDemuxCrosstalk_dB", "0.2", "OSNR penalty caused by the crosstalk at the mux and the demux"));<a name="line.452"></a>
+<span class="sourceLineNo">453</span>                aux.add(Triple.of("osnrPenalty__unassignedMargin_dB", "3", "OSNR penalty caused by not assigned margins (e.g. random effects, aging, ...)"));<a name="line.453"></a>
+<span class="sourceLineNo">454</span><a name="line.454"></a>
+<span class="sourceLineNo">455</span>                return aux;<a name="line.455"></a>
+<span class="sourceLineNo">456</span>        }<a name="line.456"></a>
+<span class="sourceLineNo">457</span><a name="line.457"></a>
+<span class="sourceLineNo">458</span>        @Override<a name="line.458"></a>
+<span class="sourceLineNo">459</span>        public String getTitle()<a name="line.459"></a>
+<span class="sourceLineNo">460</span>        {<a name="line.460"></a>
+<span class="sourceLineNo">461</span>                return "WDM line engineering";<a name="line.461"></a>
+<span class="sourceLineNo">462</span>        }<a name="line.462"></a>
+<span class="sourceLineNo">463</span><a name="line.463"></a>
+<span class="sourceLineNo">464</span>        private static double dB2Linear(double dB)<a name="line.464"></a>
+<span class="sourceLineNo">465</span>        {<a name="line.465"></a>
+<span class="sourceLineNo">466</span>                return Math.pow(10, dB / 10);<a name="line.466"></a>
+<span class="sourceLineNo">467</span>        }<a name="line.467"></a>
+<span class="sourceLineNo">468</span><a name="line.468"></a>
+<span class="sourceLineNo">469</span>        private List&lt;Triple&lt;Double, String, Double&gt;&gt; getElementPositionsArray(long linkId, double linkLength, double[] edfaPositions_km, double[] edfaGains_dB, double[] dcmPositions_km) throws Net2PlanException<a name="line.469"></a>
+<span class="sourceLineNo">470</span>        {<a name="line.470"></a>
+<span class="sourceLineNo">471</span>                if (edfaPositions_km.length != edfaGains_dB.length)<a name="line.471"></a>
+<span class="sourceLineNo">472</span>                {<a name="line.472"></a>
+<span class="sourceLineNo">473</span>                        throw new Net2PlanException("Link: " + linkId + ". Number of elements in edfaPositions_km is not equal to the number of elements in edfaGains_dB.");<a name="line.473"></a>
+<span class="sourceLineNo">474</span>                }<a name="line.474"></a>
+<span class="sourceLineNo">475</span>                for (double edfaPosition : edfaPositions_km)<a name="line.475"></a>
+<span class="sourceLineNo">476</span>                {<a name="line.476"></a>
+<span class="sourceLineNo">477</span>                        if ((edfaPosition &lt; 0) || (edfaPosition &gt; linkLength))<a name="line.477"></a>
+<span class="sourceLineNo">478</span>                        {<a name="line.478"></a>
+<span class="sourceLineNo">479</span>                                throw new Net2PlanException("Link: " + linkId + ". Wrong OA position: " + edfaPosition + ", link length = " + linkLength);<a name="line.479"></a>
+<span class="sourceLineNo">480</span>                        }<a name="line.480"></a>
+<span class="sourceLineNo">481</span>                }<a name="line.481"></a>
+<span class="sourceLineNo">482</span>                for (double dcmPosition : dcmPositions_km)<a name="line.482"></a>
+<span class="sourceLineNo">483</span>                {<a name="line.483"></a>
+<span class="sourceLineNo">484</span>                        if ((dcmPosition &lt; 0) || (dcmPosition &gt; linkLength))<a name="line.484"></a>
+<span class="sourceLineNo">485</span>                        {<a name="line.485"></a>
+<span class="sourceLineNo">486</span>                                throw new Net2PlanException("Link: " + linkId + ". Wrong DCM position: " + ", link length = " + linkLength);<a name="line.486"></a>
+<span class="sourceLineNo">487</span>                        }<a name="line.487"></a>
+<span class="sourceLineNo">488</span>                }<a name="line.488"></a>
+<span class="sourceLineNo">489</span><a name="line.489"></a>
+<span class="sourceLineNo">490</span>                List&lt;Triple&lt;Double, String, Double&gt;&gt; res = new ArrayList&lt;Triple&lt;Double, String, Double&gt;&gt;();<a name="line.490"></a>
+<span class="sourceLineNo">491</span><a name="line.491"></a>
+<span class="sourceLineNo">492</span>                int[] sortedOAPositionsIndexes = (edfaPositions_km.length == 0) ? new int[0] : DoubleUtils.sortIndexes(edfaPositions_km, OrderingType.ASCENDING);<a name="line.492"></a>
+<span class="sourceLineNo">493</span>                int[] sortedDCMPositionsIndexes = (dcmPositions_km.length == 0) ? new int[0] : DoubleUtils.sortIndexes(dcmPositions_km, OrderingType.ASCENDING);<a name="line.493"></a>
+<span class="sourceLineNo">494</span><a name="line.494"></a>
+<span class="sourceLineNo">495</span>                int numOAInserted = 0;<a name="line.495"></a>
+<span class="sourceLineNo">496</span>                int numDCMInserted = 0;<a name="line.496"></a>
+<span class="sourceLineNo">497</span>                while (true)<a name="line.497"></a>
+<span class="sourceLineNo">498</span>                {<a name="line.498"></a>
+<span class="sourceLineNo">499</span>                        double positionNextOA = (numOAInserted &lt; edfaPositions_km.length) ? edfaPositions_km[sortedOAPositionsIndexes[numOAInserted]] : -1;<a name="line.499"></a>
+<span class="sourceLineNo">500</span>                        double positionNextDCM = (numDCMInserted &lt; dcmPositions_km.length) ? dcmPositions_km[sortedDCMPositionsIndexes[numDCMInserted]] : -1;<a name="line.500"></a>
+<span class="sourceLineNo">501</span><a name="line.501"></a>
+<span class="sourceLineNo">502</span>                        /* IS no more elements, it is done */<a name="line.502"></a>
+<span class="sourceLineNo">503</span>                        if ((positionNextOA == -1) &amp;&amp; (positionNextDCM == -1))<a name="line.503"></a>
+<span class="sourceLineNo">504</span>                        {<a name="line.504"></a>
+<span class="sourceLineNo">505</span>                                break;<a name="line.505"></a>
+<span class="sourceLineNo">506</span>                        }<a name="line.506"></a>
+<span class="sourceLineNo">507</span><a name="line.507"></a>
+<span class="sourceLineNo">508</span>                        /* If at the same position, we assume DCM goes first, to reduce non-linear impairments in the DCM */<a name="line.508"></a>
+<span class="sourceLineNo">509</span>                        boolean nextElementIsOA = (positionNextDCM == -1) || ((positionNextOA != -1) &amp;&amp; (positionNextOA &lt; positionNextDCM));<a name="line.509"></a>
+<span class="sourceLineNo">510</span>                        if (nextElementIsOA)<a name="line.510"></a>
+<span class="sourceLineNo">511</span>                        {<a name="line.511"></a>
+<span class="sourceLineNo">512</span>                                res.add(Triple.of(positionNextOA, "OA", edfaGains_dB[sortedOAPositionsIndexes[numOAInserted]]));<a name="line.512"></a>
+<span class="sourceLineNo">513</span>                                numOAInserted++;<a name="line.513"></a>
+<span class="sourceLineNo">514</span>                        }<a name="line.514"></a>
+<span class="sourceLineNo">515</span>                        else<a name="line.515"></a>
+<span class="sourceLineNo">516</span>                        {<a name="line.516"></a>
+<span class="sourceLineNo">517</span>                                res.add(Triple.of(positionNextDCM, "DCM", -1.0));<a name="line.517"></a>
+<span class="sourceLineNo">518</span>                                numDCMInserted++;<a name="line.518"></a>
+<span class="sourceLineNo">519</span>                        }<a name="line.519"></a>
+<span class="sourceLineNo">520</span>                }<a name="line.520"></a>
+<span class="sourceLineNo">521</span><a name="line.521"></a>
+<span class="sourceLineNo">522</span>                return res;<a name="line.522"></a>
+<span class="sourceLineNo">523</span>        }<a name="line.523"></a>
+<span class="sourceLineNo">524</span><a name="line.524"></a>
+<span class="sourceLineNo">525</span>        private static double linear2dB(double num)<a name="line.525"></a>
+<span class="sourceLineNo">526</span>        {<a name="line.526"></a>
+<span class="sourceLineNo">527</span>                return 10 * Math.log10(num);<a name="line.527"></a>
+<span class="sourceLineNo">528</span>        }<a name="line.528"></a>
+<span class="sourceLineNo">529</span><a name="line.529"></a>
+<span class="sourceLineNo">530</span>        private String printReport(NetPlan netPlan, Map&lt;String, String&gt; reportParameters, Map&lt;Long, List&lt;Triple&lt;Double, String, double[]&gt;&gt;&gt; signalInfo, Map&lt;Long, List&lt;Triple&lt;Double, String, String&gt;&gt;&gt; warnings)<a name="line.530"></a>
+<span class="sourceLineNo">531</span>        {<a name="line.531"></a>
+<span class="sourceLineNo">532</span>                StringBuilder out = new StringBuilder();<a name="line.532"></a>
+<span class="sourceLineNo">533</span>                DecimalFormat df_2 = new DecimalFormat("###.##");<a name="line.533"></a>
+<span class="sourceLineNo">534</span><a name="line.534"></a>
+<span class="sourceLineNo">535</span>                out.append("&lt;html&gt;");<a name="line.535"></a>
+<span class="sourceLineNo">536</span>                out.append("&lt;head&gt;&lt;title&gt;Point-to-point WDM line engineering report&lt;/title&gt;&lt;/head&gt;");<a name="line.536"></a>
+<span class="sourceLineNo">537</span>                out.append("&lt;html&gt;&lt;body&gt;");<a name="line.537"></a>
+<span class="sourceLineNo">538</span>                out.append("&lt;h1&gt;Point-to-point WDM line engineering report&lt;/h1&gt;");<a name="line.538"></a>
+<span class="sourceLineNo">539</span>                out.append("&lt;p&gt;This report checks the correctness of the line engineering design of the point-to-point WDM links in an optical network, following the guidelines described in ITU-T Manual 2009 \"Optical fibres, cables and systems\" (chapter 7, section 2 &lt;em&gt;Worst case design for system with optical line amplifiers&lt;/em&gt;). The report assumes that the network links are WDM optical fibres with the following scheme:&lt;/p&gt;");<a name="line.539"></a>
+<span class="sourceLineNo">540</span>                out.append("&lt;ul&gt;");<a name="line.540"></a>
+<span class="sourceLineNo">541</span>                out.append("&lt;li&gt;A transmitter per WDM channel with the specifications given by \"tp__XXX\". The number of channels can vary from one to up to channels_maxNumChannels and, the design should be correct in all the cases. Transmitter specifications are set in \"tp__XXX\" input parameters&lt;/li&gt;");<a name="line.541"></a>
+<span class="sourceLineNo">542</span>                out.append("&lt;li&gt;A multiplexer that receives the input power from the transmitters and  with specifications given by \"mux__XXX\" parameters&lt;/li&gt;");<a name="line.542"></a>
+<span class="sourceLineNo">543</span>                out.append("&lt;li&gt;A fiber link of a distance given by the link length, and with specifications given by \"fiber__XXX\" parameters. The fiber can be split into spans if optical amplifers (EDFAs) and/or dispersion compensating modules (DCMs) are placed along the fibre.&lt;/li&gt;");<a name="line.543"></a>
+<span class="sourceLineNo">544</span>                out.append("&lt;li&gt;A set of optical amplifiers (EDFAs) located in none, one or more positions in the fiber link, separating them in different spans. EDFAs are supposed to operate in the automatic gain control mode. Thus, the gain is the same, whatever the number of input WDM channels. "<a name="line.544"></a>
+<span class="sourceLineNo">545</span>                                + "EDFA positions (as distance in km from the link start to the EDFA location) and EDFA gains (assumed in dB) are read from the \"edfaPositions_km\" and \"edfaGains_dB\" attributes of the links. The format of both attributes are the same: a string of numbers separated by spaces. "<a name="line.545"></a>
+<span class="sourceLineNo">546</span>                                + "The i-th number corresponding to the position/gain of the i-th EDFA. If the attributes do not exist, it is assumed that no EDFAs are placed in this link. EDFA specifications given by \"edfa__XXX\" parameters&lt;/li&gt;");<a name="line.546"></a>
+<span class="sourceLineNo">547</span>                out.append("&lt;li&gt;A set of dispersion compensating modules (DCMs) located in none, one or more positions in the fiber link, separating them in different spans. If a DCM and a EDFA have the same location, it is assumed that the DCM is placed first, to reduce the non-linear effects. "<a name="line.547"></a>
+<span class="sourceLineNo">548</span>                                + "DCM positions (as distance in km from the link start to the DCM location) are read from the \"dcmPositions_km\" attribute of the link, and the same format as with \"edfaPositions_km\" attribute is expected. "<a name="line.548"></a>
+<span class="sourceLineNo">549</span>                                + "If the attribute does not exist, it is assumed that no DCMs are placed in this link. DCM specifications are given by \"dcm__XXX\" parameters&lt;/li&gt;");<a name="line.549"></a>
+<span class="sourceLineNo">550</span>                out.append("&lt;li&gt;At the receiver end, WDM channels in the links are separated using a demultiplexer, with specifications given by \"mux__XXX\" parameters&lt;/li&gt;");<a name="line.550"></a>
+<span class="sourceLineNo">551</span>                out.append("&lt;li&gt;Each channel ends in a receiver, with specifications given by \"tp__XXX\" parameters&lt;/li&gt;");<a name="line.551"></a>
+<span class="sourceLineNo">552</span>                out.append("&lt;/ul&gt;");<a name="line.552"></a>
+<span class="sourceLineNo">553</span>                out.append("&lt;p&gt;The basic checks performed are:&lt;/p&gt;");<a name="line.553"></a>
+<span class="sourceLineNo">554</span>                out.append("&lt;ul&gt;");<a name="line.554"></a>
+<span class="sourceLineNo">555</span>                out.append("&lt;li&gt;Signal power levels are within operating ranges at the mux/demux/edfas/dcms and receivers, both when the link has one single active channel, or when all the \"channels__maxNumChannels\" are active&lt;/li&gt;");<a name="line.555"></a>
+<span class="sourceLineNo">556</span>                out.append("&lt;li&gt;Chromatic dispersion is within the operating ranges in every point of the fiber, and at the receiver.&lt;/li&gt;");<a name="line.556"></a>
+<span class="sourceLineNo">557</span>                out.append("&lt;li&gt;Optical Signal to Noise Ration (OSNR) is within the operating range at the receiver.&lt;/li&gt;");<a name="line.557"></a>
+<span class="sourceLineNo">558</span>                out.append("&lt;li&gt;Polarization mode dispersion (PMD) is within the operating range at the receiver.&lt;/li&gt;");<a name="line.558"></a>
+<span class="sourceLineNo">559</span>                out.append("&lt;/ul&gt;");<a name="line.559"></a>
+<span class="sourceLineNo">560</span><a name="line.560"></a>
+<span class="sourceLineNo">561</span>                out.append("&lt;h2&gt;Input Parameters&lt;/h2&gt;");<a name="line.561"></a>
+<span class="sourceLineNo">562</span>                out.append("&lt;table border='1'&gt;");<a name="line.562"></a>
+<span class="sourceLineNo">563</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Name&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Value&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Description&lt;/b&gt;&lt;/th&gt;");<a name="line.563"></a>
+<span class="sourceLineNo">564</span><a name="line.564"></a>
+<span class="sourceLineNo">565</span>                for (Triple&lt;String, String, String&gt; paramDef : this.getParameters())<a name="line.565"></a>
+<span class="sourceLineNo">566</span>                {<a name="line.566"></a>
+<span class="sourceLineNo">567</span>                        String name = paramDef.getFirst();<a name="line.567"></a>
+<span class="sourceLineNo">568</span>                        String description = paramDef.getThird();<a name="line.568"></a>
+<span class="sourceLineNo">569</span>                        String value = reportParameters.get(name);<a name="line.569"></a>
+<span class="sourceLineNo">570</span>                        out.append("&lt;tr&gt;&lt;td&gt;").append(name).append("&lt;/td&gt;&lt;td&gt;").append(value).append("&lt;/td&gt;&lt;td&gt;").append(description).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.570"></a>
+<span class="sourceLineNo">571</span>                }<a name="line.571"></a>
+<span class="sourceLineNo">572</span>                out.append("&lt;/table&gt;");<a name="line.572"></a>
+<span class="sourceLineNo">573</span><a name="line.573"></a>
+<span class="sourceLineNo">574</span>                out.append("&lt;h2&gt;INFORMATION SUMMARY - Signal metrics at the receiver end&lt;/h2&gt;");<a name="line.574"></a>
+<span class="sourceLineNo">575</span>                out.append("&lt;table border='1'&gt;");<a name="line.575"></a>
+<span class="sourceLineNo">576</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Link #&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Length (km)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;# EDFAs&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;# DCMs&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Chromatic Dispersion (ps/nm)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;OSNR (dB)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Power per WDM channel (dBm)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Polarization Mode Dispersion (ps)&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.576"></a>
+<span class="sourceLineNo">577</span>                for (Link link : links)<a name="line.577"></a>
+<span class="sourceLineNo">578</span>                {<a name="line.578"></a>
+<span class="sourceLineNo">579</span>                        final double d_e_thisLink = link.getLengthInKm();<a name="line.579"></a>
+<span class="sourceLineNo">580</span>                        final String st_edfaPositions_km = (link.getAttribute("edfaPositions_km") == null) ? "" : link.getAttribute("edfaPositions_km");<a name="line.580"></a>
+<span class="sourceLineNo">581</span>                        final String st_dcmPositions_km = (link.getAttribute("dcmPositions_km") == null) ? "" : link.getAttribute("dcmPositions_km");<a name="line.581"></a>
+<span class="sourceLineNo">582</span>                        final double[] edfaPositions_km = StringUtils.toDoubleArray(StringUtils.split(st_edfaPositions_km));<a name="line.582"></a>
+<span class="sourceLineNo">583</span>                        final double[] dcmPositions_km = StringUtils.toDoubleArray(StringUtils.split(st_dcmPositions_km));<a name="line.583"></a>
+<span class="sourceLineNo">584</span><a name="line.584"></a>
+<span class="sourceLineNo">585</span>                        Triple&lt;Double, String, double[]&gt; t = signalInfo.get(link.getId ()).get(signalInfo.get(link.getId ()).size() - 1);<a name="line.585"></a>
+<span class="sourceLineNo">586</span>                        out.append("&lt;tr&gt;&lt;td&gt;").append(link.getId ()).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(d_e_thisLink)).append("&lt;/td&gt;&lt;td&gt;").append(edfaPositions_km.length).append("&lt;/td&gt;&lt;td&gt;").append(dcmPositions_km.length).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(t.getThird()[0])).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(t.getThird()[1])).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(t.getThird()[2])).append("&lt;/td&gt;&lt;td&gt;").append((t.getThird()[3] == -1) ? "-" : df_2.format(t.getThird()[3])).append("&lt;/td&gt;" + "&lt;/tr&gt;");<a name="line.586"></a>
+<span class="sourceLineNo">587</span>                }<a name="line.587"></a>
+<span class="sourceLineNo">588</span><a name="line.588"></a>
+<span class="sourceLineNo">589</span>                out.append("&lt;/table&gt;");<a name="line.589"></a>
+<span class="sourceLineNo">590</span><a name="line.590"></a>
+<span class="sourceLineNo">591</span>                out.append("&lt;h2&gt;DESIGN WARNINGS&lt;/h2&gt;");<a name="line.591"></a>
+<span class="sourceLineNo">592</span>                out.append("&lt;table border='1'&gt;");<a name="line.592"></a>
+<span class="sourceLineNo">593</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Link #&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Length (km)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Warnings&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.593"></a>
+<span class="sourceLineNo">594</span>                for (Link link : links)<a name="line.594"></a>
+<span class="sourceLineNo">595</span>                {<a name="line.595"></a>
+<span class="sourceLineNo">596</span>                        final double d_e_thisLink = link.getLengthInKm();<a name="line.596"></a>
+<span class="sourceLineNo">597</span>                        out.append("&lt;tr&gt;&lt;td&gt;").append(link.getId ()).append("&lt;/td&gt;&lt;td&gt;").append(d_e_thisLink).append("&lt;/td&gt;&lt;td&gt;");<a name="line.597"></a>
+<span class="sourceLineNo">598</span>                        List&lt;Triple&lt;Double, String, String&gt;&gt; warningsThisLink = warnings.get(link.getId ());<a name="line.598"></a>
+<span class="sourceLineNo">599</span>                        if (warningsThisLink.isEmpty())<a name="line.599"></a>
+<span class="sourceLineNo">600</span>                        {<a name="line.600"></a>
+<span class="sourceLineNo">601</span>                                out.append("&lt;p&gt;None&lt;/p&gt;");<a name="line.601"></a>
+<span class="sourceLineNo">602</span>                                continue;<a name="line.602"></a>
+<span class="sourceLineNo">603</span>                        }<a name="line.603"></a>
+<span class="sourceLineNo">604</span>                        for (Triple&lt;Double, String, String&gt; w : warningsThisLink)<a name="line.604"></a>
+<span class="sourceLineNo">605</span>                        {<a name="line.605"></a>
+<span class="sourceLineNo">606</span>                                out.append("&lt;p&gt;[").append(w.getSecond()).append(" (km ").append(df_2.format(w.getFirst())).append(") - ").append(w.getThird()).append("&lt;/p&gt;");<a name="line.606"></a>
+<span class="sourceLineNo">607</span>                        }<a name="line.607"></a>
+<span class="sourceLineNo">608</span>                        out.append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.608"></a>
+<span class="sourceLineNo">609</span>                }<a name="line.609"></a>
+<span class="sourceLineNo">610</span>                out.append("&lt;/table&gt;");<a name="line.610"></a>
+<span class="sourceLineNo">611</span><a name="line.611"></a>
+<span class="sourceLineNo">612</span>                out.append("&lt;h2&gt;PER-LINK DETAILED INFORMATION &lt;/h2&gt;");<a name="line.612"></a>
+<span class="sourceLineNo">613</span>                out.append("&lt;p&gt;Number of links: ").append(d_e.size()).append("&lt;/p&gt;");<a name="line.613"></a>
+<span class="sourceLineNo">614</span><a name="line.614"></a>
+<span class="sourceLineNo">615</span>                for (Link link : links)<a name="line.615"></a>
+<span class="sourceLineNo">616</span>                {<a name="line.616"></a>
+<span class="sourceLineNo">617</span>                        final double d_e_thisLink = link.getLengthInKm();<a name="line.617"></a>
+<span class="sourceLineNo">618</span>                        List&lt;Triple&lt;Double, String, double[]&gt;&gt; signalInfoThisLinks = signalInfo.get(link.getId ());<a name="line.618"></a>
+<span class="sourceLineNo">619</span><a name="line.619"></a>
+<span class="sourceLineNo">620</span>                        final String st_edfaPositions_km = (link.getAttribute("edfaPositions_km") == null) ? "" : link.getAttribute("edfaPositions_km");<a name="line.620"></a>
+<span class="sourceLineNo">621</span>                        final String st_edfaGains_dB = (link.getAttribute("edfaGains_dB") == null) ? "" : link.getAttribute("edfaGains_dB");<a name="line.621"></a>
+<span class="sourceLineNo">622</span>                        final String st_dcmPositions_km = (link.getAttribute("dcmPositions_km") == null) ? "" : link.getAttribute("dcmPositions_km");<a name="line.622"></a>
+<span class="sourceLineNo">623</span><a name="line.623"></a>
+<span class="sourceLineNo">624</span>                        out.append("&lt;h3&gt;LINK # ").append(link.getId ()).append("&lt;/h3&gt;");<a name="line.624"></a>
+<span class="sourceLineNo">625</span>                        out.append("&lt;table border=\"1\"&gt;");<a name="line.625"></a>
+<span class="sourceLineNo">626</span>                        out.append("&lt;caption&gt;Link input information&lt;/caption&gt;");<a name="line.626"></a>
+<span class="sourceLineNo">627</span>                        out.append("&lt;tr&gt;&lt;td&gt;Link length (km)&lt;/td&gt;&lt;td&gt;").append(d_e_thisLink).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.627"></a>
+<span class="sourceLineNo">628</span>                        out.append("&lt;tr&gt;&lt;td&gt;EDFA positions (km)&lt;/td&gt;&lt;td&gt;").append(st_edfaPositions_km).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.628"></a>
+<span class="sourceLineNo">629</span>                        out.append("&lt;tr&gt;&lt;td&gt;EDFA gains (dB)&lt;/td&gt;&lt;td&gt;").append(st_edfaGains_dB).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.629"></a>
+<span class="sourceLineNo">630</span>                        out.append("&lt;tr&gt;&lt;td&gt;DCM positions (km)&lt;/td&gt;&lt;td&gt;").append(st_dcmPositions_km).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.630"></a>
+<span class="sourceLineNo">631</span>                        out.append("&lt;/table&gt;");<a name="line.631"></a>
+<span class="sourceLineNo">632</span><a name="line.632"></a>
+<span class="sourceLineNo">633</span>                        out.append("&lt;table border=\"1\"&gt;");<a name="line.633"></a>
+<span class="sourceLineNo">634</span>                        out.append("&lt;caption&gt;Signal metrics evolution&lt;/caption&gt;");<a name="line.634"></a>
+<span class="sourceLineNo">635</span>                        out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Position (km)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Position (description)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Chromatic Dispersion (ps/nm)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;OSNR (dB)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Power per WDM channel (dBm)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Polarization Mode Dispersion (ps)&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.635"></a>
+<span class="sourceLineNo">636</span>                        for (Triple&lt;Double, String, double[]&gt; t : signalInfoThisLinks)<a name="line.636"></a>
+<span class="sourceLineNo">637</span>                        {<a name="line.637"></a>
+<span class="sourceLineNo">638</span>                                out.append("&lt;tr&gt;&lt;td&gt;").append(df_2.format(t.getFirst())).append("&lt;/td&gt;&lt;td&gt;").append(t.getSecond()).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(t.getThird()[0])).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(t.getThird()[1])).append("&lt;/td&gt;&lt;td&gt;").append(df_2.format(t.getThird()[2])).append("&lt;/td&gt;&lt;td&gt;").append((t.getThird()[3] == -1) ? "-" : df_2.format(t.getThird()[3])).append("&lt;/td&gt;" + "&lt;/tr&gt;");<a name="line.638"></a>
+<span class="sourceLineNo">639</span>                        }<a name="line.639"></a>
+<span class="sourceLineNo">640</span>                        out.append("&lt;/table&gt;");<a name="line.640"></a>
+<span class="sourceLineNo">641</span>                }<a name="line.641"></a>
+<span class="sourceLineNo">642</span>                <a name="line.642"></a>
+<span class="sourceLineNo">643</span>                out.append("&lt;/body&gt;&lt;/html&gt;");<a name="line.643"></a>
+<span class="sourceLineNo">644</span>                return out.toString();<a name="line.644"></a>
+<span class="sourceLineNo">645</span>        }<a name="line.645"></a>
+<span class="sourceLineNo">646</span>}<a name="line.646"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

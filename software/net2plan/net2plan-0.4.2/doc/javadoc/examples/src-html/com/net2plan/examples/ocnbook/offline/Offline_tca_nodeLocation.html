@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span> <a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>package com.net2plan.examples.ocnbook.offline;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.util.List;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import java.util.Map;<a name="line.21"></a>
+<span class="sourceLineNo">022</span><a name="line.22"></a>
+<span class="sourceLineNo">023</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import cern.colt.matrix.tdouble.DoubleMatrix2D;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import cern.jet.math.tdouble.DoubleFunctions;<a name="line.25"></a>
+<span class="sourceLineNo">026</span><a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.jom.OptimizationProblem;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.utils.InputParameter;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.utils.Triple;<a name="line.32"></a>
+<span class="sourceLineNo">033</span><a name="line.33"></a>
+<span class="sourceLineNo">034</span>/**<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * Solves several variants of node location problem formlations.<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * @net2plan.description<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * @net2plan.keywords Topology assignment (TA), JOM<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * @net2plan.ocnbooksections Section 7.2<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * @net2plan.inputParameters <a name="line.39"></a>
+<span class="sourceLineNo">040</span> * @author Pablo Pavon-Marino<a name="line.40"></a>
+<span class="sourceLineNo">041</span> */<a name="line.41"></a>
+<span class="sourceLineNo">042</span>public class Offline_tca_nodeLocation implements IAlgorithm<a name="line.42"></a>
+<span class="sourceLineNo">043</span>{<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        private InputParameter solverName = new InputParameter ("solverName", "#select# glpk ipopt xpress cplex", "The solver name to be used by JOM. GLPK and IPOPT are free, XPRESS and CPLEX commercial. GLPK, XPRESS and CPLEX solve linear problems w/w.o integer contraints. IPOPT is can solve nonlinear problems (if convex, returns global optimum), but cannot handle integer constraints");<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        private InputParameter solverLibraryName = new InputParameter ("solverLibraryName", "", "The solver library full or relative path, to be used by JOM. Leave blank to use JOM default.");<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        private InputParameter maxSolverTimeInSeconds = new InputParameter ("maxSolverTimeInSeconds", (double) -1 , "Maximum time granted to the solver to solve the problem. If this time expires, the solver returns the best solution found so far (if a feasible solution is found)");<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        private InputParameter linkCapacities = new InputParameter ("linkCapacities", (double) 100 , "The capacities to set in the links" , 0 , true , Double.MAX_VALUE , true);<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        private InputParameter linkPropagationSpeedInKmPerSecond = new InputParameter ("linkPropagationSpeedInKmPerSecond", (double) 200000 , "The propagation speed in km per second of the deployed links" , 0 , false , Double.MAX_VALUE , true);<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private InputParameter coreNodeCost = new InputParameter ("coreNodeCost", (double) 1 , "Cost of one core node. Link cost is proportional to its distance, and normalized to the cost of the longest possible link is one" , 0 , true , Double.MAX_VALUE , true);<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        private InputParameter K_max = new InputParameter ("K_max", (int) 5 , "Maximum number of access nodes that can be connected to a core node" , (int) 1 , Integer.MAX_VALUE);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private InputParameter maxNumCoreNodesPerSite = new InputParameter ("maxNumCoreNodesPerSite", (int) 1 , "Maximum number of core nodes that can be placed in a site." , (int) 1 , Integer.MAX_VALUE);<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private InputParameter maxNumCoreNodes = new InputParameter ("maxNumCoreNodes", (int) -1 , "Maximum number of core nodes in the network. If &lt;= 0, there is no limit.");<a name="line.52"></a>
+<span class="sourceLineNo">053</span><a name="line.53"></a>
+<span class="sourceLineNo">054</span>        <a name="line.54"></a>
+<span class="sourceLineNo">055</span>        @Override<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        {<a name="line.57"></a>
+<span class="sourceLineNo">058</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.58"></a>
+<span class="sourceLineNo">059</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.59"></a>
+<span class="sourceLineNo">060</span><a name="line.60"></a>
+<span class="sourceLineNo">061</span>                /* Basic checks */<a name="line.61"></a>
+<span class="sourceLineNo">062</span>                final int N = netPlan.getNumberOfNodes();<a name="line.62"></a>
+<span class="sourceLineNo">063</span>                if (N == 0) throw new Net2PlanException("The input design must have nodes");<a name="line.63"></a>
+<span class="sourceLineNo">064</span><a name="line.64"></a>
+<span class="sourceLineNo">065</span>                final DoubleMatrix2D linkDistanceMatrix_nn = netPlan.getMatrixNode2NodeEuclideanDistance();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                final double maxDistance = linkDistanceMatrix_nn.getMaxLocation() [0];<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                final DoubleMatrix2D c_ij = linkDistanceMatrix_nn.copy ().assign (DoubleFunctions.div(maxDistance)); // normalize so the maximum possible link cost is one<a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>                /* Create the optimization problem object (JOM library) */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                OptimizationProblem op = new OptimizationProblem();<a name="line.70"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>                /* Set some input parameters */<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                op.setInputParameter("c_ij", c_ij);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                op.setInputParameter("K_max", K_max.getInt ());<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                op.setInputParameter("C", coreNodeCost.getDouble());<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                <a name="line.76"></a>
+<span class="sourceLineNo">077</span>                /* Add the decision variables to the problem */<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                op.addDecisionVariable("z_j", true, new int[] { 1, N }, 0, maxNumCoreNodesPerSite.getInt()); /* 1 if there is a node in this site */<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                op.addDecisionVariable("e_ij", true, new int[] { N, N }, 0, 1); /* 1 if site i is connected to site j */<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>                /* Sets the objective function */<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                op.setObjectiveFunction("minimize", "C * sum(z_j) + sum (e_ij .* c_ij)");<a name="line.82"></a>
+<span class="sourceLineNo">083</span><a name="line.83"></a>
+<span class="sourceLineNo">084</span>                /* Constraints */<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                op.addConstraint("sum(e_ij , 2) == 1"); /* each site is connected to a core site */<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                op.addConstraint("sum(e_ij , 1) &lt;= K_max * z_j"); /* a site is connected to other, if the second is a core site */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                if (maxNumCoreNodes.getInt() &gt; 0) op.addConstraint("sum(z_j) &lt;= " + maxNumCoreNodes.getInt()); /* limit to the total number of core nodes in the network */<a name="line.87"></a>
+<span class="sourceLineNo">088</span><a name="line.88"></a>
+<span class="sourceLineNo">089</span>                /* Call the solver to solve the problem */<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                op.solve(solverName.getString (), "solverLibraryName", solverLibraryName.getString () , "maxSolverTimeInSeconds" , maxSolverTimeInSeconds.getDouble ());<a name="line.90"></a>
+<span class="sourceLineNo">091</span><a name="line.91"></a>
+<span class="sourceLineNo">092</span>                /* If no solution is found, quit */<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                if (op.feasibleSolutionDoesNotExist()) throw new Net2PlanException("The problem has no feasible solution");<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                if (!op.solutionIsFeasible()) throw new Net2PlanException("A feasible solution was not found");<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                <a name="line.95"></a>
+<span class="sourceLineNo">096</span>                /* Retrieve the optimum solutions */<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                DoubleMatrix1D  z_j = op.getPrimalSolution("z_j").view1D();<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                DoubleMatrix2D e_ij = op.getPrimalSolution("e_ij").view2D();<a name="line.98"></a>
+<span class="sourceLineNo">099</span><a name="line.99"></a>
+<span class="sourceLineNo">100</span>                System.out.println("z_j: " + z_j);<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span>                /* Remove all previous demands, links, protection segments, routes */<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                netPlan.removeAllLinks();<a name="line.103"></a>
+<span class="sourceLineNo">104</span><a name="line.104"></a>
+<span class="sourceLineNo">105</span>                /* Save the new network links */<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                for (int n = 0; n &lt; N ; n ++)<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                        if (z_j.get(n) == 1) netPlan.getNode (n).setAttribute("hasCoreNode" , "true"); else netPlan.getNode (n).setAttribute("hasCoreNode" , "false");<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                for (int i = 0; i &lt; N ; i ++) for (int j = 0; j &lt; N ; j ++)<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                        if (e_ij.get(i,j) == 1) <a name="line.109"></a>
+<span class="sourceLineNo">110</span>                        {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                                if (z_j.get(j) == 0) throw new RuntimeException ("Bad");<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                                if (i != j) netPlan.addLink(netPlan.getNode(i), netPlan.getNode(j), linkCapacities.getDouble(),linkDistanceMatrix_nn.get(i,j), linkPropagationSpeedInKmPerSecond.getDouble() , null);<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                        }<a name="line.113"></a>
+<span class="sourceLineNo">114</span><a name="line.114"></a>
+<span class="sourceLineNo">115</span>                return "Ok! Number of core nodes: " + z_j.zSum();<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        }<a name="line.116"></a>
+<span class="sourceLineNo">117</span><a name="line.117"></a>
+<span class="sourceLineNo">118</span>        @Override<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        public String getDescription()<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        {<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                return "Given a set of access nodes, this algorithm computes the subset of access nodes which have a core node located next to it (in the same place), and the links access-to-core nodes, so that the network cost is minimized. This cost is given by a cost per core node (C) plus a cost per link, proportional to the link euclidean distance and normalized so that the maximum link cost is one. Access-core link capacities are fixed to the user-defined parameter linkCapacities. A core node cannot be connected to more than K_max access nodes, a user-defined parameter. This problem is modeled as an ILP and optimally solved using JOM.";<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        }<a name="line.122"></a>
+<span class="sourceLineNo">123</span><a name="line.123"></a>
+<span class="sourceLineNo">124</span>        @Override<a name="line.124"></a>
+<span class="sourceLineNo">125</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.125"></a>
+<span class="sourceLineNo">126</span>        {<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.128"></a>
+<span class="sourceLineNo">129</span>        }<a name="line.129"></a>
+<span class="sourceLineNo">130</span>        <a name="line.130"></a>
+<span class="sourceLineNo">131</span>        <a name="line.131"></a>
+<span class="sourceLineNo">132</span>}<a name="line.132"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span> <a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span>package com.net2plan.examples.ocnbook.reports;<a name="line.17"></a>
+<span class="sourceLineNo">018</span><a name="line.18"></a>
+<span class="sourceLineNo">019</span>import java.io.File;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.text.DecimalFormat;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import java.util.ArrayList;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import java.util.HashSet;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import java.util.List;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import java.util.Map;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import java.util.Set;<a name="line.25"></a>
+<span class="sourceLineNo">026</span><a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.interfaces.networkDesign.IReport;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.MulticastDemand;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.interfaces.networkDesign.NetworkLayer;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.interfaces.networkDesign.Node;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.interfaces.networkDesign.SharedRiskGroup;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.interfaces.simulation.IEventProcessor;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.net2plan.interfaces.simulation.SimEvent;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.net2plan.libraries.SRGUtils;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import com.net2plan.utils.ClassLoaderUtils;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import com.net2plan.utils.InputParameter;<a name="line.40"></a>
+<span class="sourceLineNo">041</span>import com.net2plan.utils.StringUtils;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>import com.net2plan.utils.Triple;<a name="line.42"></a>
+<span class="sourceLineNo">043</span><a name="line.43"></a>
+<span class="sourceLineNo">044</span>/**<a name="line.44"></a>
+<span class="sourceLineNo">045</span> * This report receives as an input a network design, the network recovery scheme algorithm, and a set of network risks (SRGs), and computes <a name="line.45"></a>
+<span class="sourceLineNo">046</span> * the availability of each network and each demand, in the no-failure state, and in each of the single-SRG failure states. <a name="line.46"></a>
+<span class="sourceLineNo">047</span> * <a name="line.47"></a>
+<span class="sourceLineNo">048</span> * @net2plan.keywords Network recovery: protection , Network recovery: restoration<a name="line.48"></a>
+<span class="sourceLineNo">049</span> * @net2plan.ocnbooksections Section 3.7.3<a name="line.49"></a>
+<span class="sourceLineNo">050</span> * @net2plan.inputParameters <a name="line.50"></a>
+<span class="sourceLineNo">051</span> * @author Pablo Pavon-Marino<a name="line.51"></a>
+<span class="sourceLineNo">052</span> */<a name="line.52"></a>
+<span class="sourceLineNo">053</span>public class Report_perSRGFailureAnalysis implements IReport<a name="line.53"></a>
+<span class="sourceLineNo">054</span>{<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        private InputParameter provisioningAlgorithm = new InputParameter ("provisioningAlgorithm" , "#eventProcessor#" , "Algorithm to process failure events");<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        private InputParameter considerTrafficInOversubscribedLinksAsLost = new InputParameter ("considerTrafficInOversubscribedLinksAsLost" , true , "If true, all the demands whose traffic (even only a fraction of it) traverses an oversubscribed link, are considered that all its treaffic is blocked, as they are supposed to fail to satisfy QoS agreements");<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        private InputParameter maximumE2ELatencyMs = new InputParameter ("maximumE2ELatencyMs", (double) -1 , "Maximum end-to-end latency of the traffic of any demand (a non-positive value means no limit). All the traffic of demands where a fraction of its traffic can exceed this value, are considered as lost, as they are supposed to fail to satisfy QoS agreements");<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        private InputParameter failureModel = new InputParameter ("failureModel" , "#select# perBidirectionalLinkBundle SRGfromNetPlan perNode perLink perDirectionalLinkBundle" , "Failure model selection: SRGfromNetPlan, perNode, perLink, perDirectionalLinkBundle, perBidirectionalLinkBundle");<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private InputParameter rootNameOfOutFiles = new InputParameter ("rootNameOfOutFiles" , "./reportPerSRGFailure" , "For each single-SRG failure state and for the no-failure state, a n2p file is produced with the result of the network in that state. The file is named XXX_srgIndex.n2p, and XXX_noFailure.n2p, where XXX is this parameter");<a name="line.59"></a>
+<span class="sourceLineNo">060</span><a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private IEventProcessor algorithm;<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        private double PRECISION_FACTOR;<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        <a name="line.63"></a>
+<span class="sourceLineNo">064</span>        @Override<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        public String executeReport(NetPlan netPlan, Map&lt;String, String&gt; reportParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.65"></a>
+<span class="sourceLineNo">066</span>        {<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, reportParameters);<a name="line.68"></a>
+<span class="sourceLineNo">069</span><a name="line.69"></a>
+<span class="sourceLineNo">070</span>                String algorithmFile = reportParameters.get("provisioningAlgorithm_file");<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                String algorithmName = reportParameters.get("provisioningAlgorithm_classname");<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                String algorithmParam = reportParameters.get("provisioningAlgorithm_parameters");<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                if (algorithmFile.isEmpty() || algorithmName.isEmpty()) throw new Net2PlanException("A provisioning algorithm must be defined");<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                this.PRECISION_FACTOR = Double.parseDouble(net2planParameters.get("precisionFactor"));<a name="line.74"></a>
+<span class="sourceLineNo">075</span><a name="line.75"></a>
+<span class="sourceLineNo">076</span>                Map&lt;String, String&gt; algorithmParameters = StringUtils.stringToMap(algorithmParam);<a name="line.76"></a>
+<span class="sourceLineNo">077</span>                switch (failureModel.getString ())<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                {<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                        case "SRGfromNetPlan":<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                                break;<a name="line.80"></a>
+<span class="sourceLineNo">081</span><a name="line.81"></a>
+<span class="sourceLineNo">082</span>                        case "perNode":<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                                SRGUtils.configureSRGs(netPlan, 1, 1 , SRGUtils.SharedRiskModel.PER_NODE, true);<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                                break;<a name="line.84"></a>
+<span class="sourceLineNo">085</span><a name="line.85"></a>
+<span class="sourceLineNo">086</span>                        case "perLink":<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                                SRGUtils.configureSRGs(netPlan, 1, 1 , SRGUtils.SharedRiskModel.PER_LINK, true);<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                                break;<a name="line.88"></a>
+<span class="sourceLineNo">089</span><a name="line.89"></a>
+<span class="sourceLineNo">090</span>                        case "perDirectionalLinkBundle":<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                                SRGUtils.configureSRGs(netPlan, 1, 1, SRGUtils.SharedRiskModel.PER_DIRECTIONAL_LINK_BUNDLE, true);<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                                break;<a name="line.92"></a>
+<span class="sourceLineNo">093</span><a name="line.93"></a>
+<span class="sourceLineNo">094</span>                        case "perBidirectionalLinkBundle":<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                                SRGUtils.configureSRGs(netPlan, 1, 1, SRGUtils.SharedRiskModel.PER_BIDIRECTIONAL_LINK_BUNDLE, true);<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                                break;<a name="line.96"></a>
+<span class="sourceLineNo">097</span><a name="line.97"></a>
+<span class="sourceLineNo">098</span>                        default:<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                                throw new Net2PlanException("Failure model not valid. Please, check algorithm parameters description");<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                }<a name="line.100"></a>
+<span class="sourceLineNo">101</span><a name="line.101"></a>
+<span class="sourceLineNo">102</span>                /* Compute the n2p for the non failure state */<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                netPlan.setAllNodesFailureState(true);<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                for (NetworkLayer layer : netPlan.getNetworkLayers ())<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                        netPlan.setAllLinksFailureState(true , layer);<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                if (!netPlan.getLinksDownAllLayers().isEmpty() || !netPlan.getNodesDown().isEmpty()) throw new RuntimeException ("Bad");<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                NetPlan npNoFailure = netPlan.copy ();<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                npNoFailure.saveToFile(new File (rootNameOfOutFiles.getString () + "_noFailure"));<a name="line.108"></a>
+<span class="sourceLineNo">109</span><a name="line.109"></a>
+<span class="sourceLineNo">110</span>                /* Initialize the provisioning algorithm */<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                NetPlan npForProducingAllFailures = netPlan.copy ();<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                Set&lt;Link&gt; npForProducingAllFailures_linksAllLayers = new HashSet&lt;Link&gt; (); for (NetworkLayer layer : npForProducingAllFailures.getNetworkLayers()) npForProducingAllFailures_linksAllLayers.addAll (npForProducingAllFailures.getLinks (layer));<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>                this.algorithm = ClassLoaderUtils.getInstance(new File(algorithmFile), algorithmName, IEventProcessor.class);<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                this.algorithm.initialize(npForProducingAllFailures , algorithmParameters , reportParameters , net2planParameters);<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>                /* Compute the other network states */<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                List&lt;NetPlan&gt; npsFailureStates = new ArrayList&lt;NetPlan&gt; (netPlan.getNumberOfSRGs());<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                for (int srgIndex = 0 ; srgIndex &lt; netPlan.getNumberOfSRGs() ; srgIndex ++)<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                {<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                        if (!npForProducingAllFailures.getLinksDownAllLayers().isEmpty() || !npForProducingAllFailures.getNodesDown().isEmpty()) throw new RuntimeException ("Bad");<a name="line.121"></a>
+<span class="sourceLineNo">122</span><a name="line.122"></a>
+<span class="sourceLineNo">123</span>                        /* Fail this SRG */<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                        final SharedRiskGroup srg = npForProducingAllFailures.getSRG(srgIndex);<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                        Set&lt;Link&gt; linksToSetAsDown = new HashSet&lt;Link&gt; ();<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                        Set&lt;Node&gt; nodesToSetAsDown = new HashSet&lt;Node&gt; ();<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                        nodesToSetAsDown.addAll (srg.getNodes ());<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                        linksToSetAsDown.addAll (srg.getLinks ());<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                        <a name="line.129"></a>
+<span class="sourceLineNo">130</span>                        /* Make the algorithm process the event of nodes and links down */<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                        SimEvent.NodesAndLinksChangeFailureState failureInfo = new SimEvent.NodesAndLinksChangeFailureState(null , nodesToSetAsDown , null , linksToSetAsDown);<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                        algorithm.processEvent(npForProducingAllFailures, new SimEvent(0, SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , failureInfo)); <a name="line.132"></a>
+<span class="sourceLineNo">133</span>                <a name="line.133"></a>
+<span class="sourceLineNo">134</span>                        /* Save a coy of the new state */<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                        npForProducingAllFailures.saveToFile(new File (rootNameOfOutFiles.getString () + "_srgIndex_" + srgIndex));<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                        npsFailureStates.add (npForProducingAllFailures.copy ());<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                        <a name="line.137"></a>
+<span class="sourceLineNo">138</span>                        /* Go back to the no failure state */<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                        SimEvent.NodesAndLinksChangeFailureState repairInfo = new SimEvent.NodesAndLinksChangeFailureState(npForProducingAllFailures.getNodes() , null , npForProducingAllFailures_linksAllLayers , null);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                        algorithm.processEvent(npForProducingAllFailures, new SimEvent(0, SimEvent.DestinationModule.EVENT_PROCESSOR , -1 , repairInfo));<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                }<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                <a name="line.142"></a>
+<span class="sourceLineNo">143</span>                return printReport(npNoFailure , npsFailureStates , reportParameters);<a name="line.143"></a>
+<span class="sourceLineNo">144</span>        }<a name="line.144"></a>
+<span class="sourceLineNo">145</span>        <a name="line.145"></a>
+<span class="sourceLineNo">146</span>        @Override<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        public String getDescription()<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        {<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                return "This report receives as an input a network design, the network recovery scheme algorithm, and a set of network risks (SRGs), and computes the availability of each network and each demand, in the no-failure state, and in each of the single-SRG failure states. ";<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        }<a name="line.150"></a>
+<span class="sourceLineNo">151</span><a name="line.151"></a>
+<span class="sourceLineNo">152</span>        @Override<a name="line.152"></a>
+<span class="sourceLineNo">153</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.153"></a>
+<span class="sourceLineNo">154</span>        {<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.156"></a>
+<span class="sourceLineNo">157</span>        }<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        <a name="line.158"></a>
+<span class="sourceLineNo">159</span><a name="line.159"></a>
+<span class="sourceLineNo">160</span>        @Override<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        public String getTitle()<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        {<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                return "Single-SRG failure analysis report";<a name="line.163"></a>
+<span class="sourceLineNo">164</span>        }<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        <a name="line.165"></a>
+<span class="sourceLineNo">166</span>        private String printReport(NetPlan npNoFailure , List&lt;NetPlan&gt; npFailureStates , Map&lt;String,String&gt; reportParameters)<a name="line.166"></a>
+<span class="sourceLineNo">167</span>        {<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                StringBuilder out = new StringBuilder();<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                DecimalFormat df_6 = new DecimalFormat("#.######");<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                out.append("&lt;html&gt;&lt;body&gt;");<a name="line.170"></a>
+<span class="sourceLineNo">171</span>                out.append("&lt;head&gt;&lt;title&gt;" + getTitle () + "&lt;/title&gt;&lt;/head&gt;");<a name="line.171"></a>
+<span class="sourceLineNo">172</span>                out.append("&lt;h1&gt;Introduction&lt;/h1&gt;");<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                out.append("&lt;p&gt;In contrast to the availability report, here only single failure states are simulated, where each " +<a name="line.173"></a>
+<span class="sourceLineNo">174</span>                                "failure state is given by a single SRG going down, and all failure states have the same probability to occur.&lt;/p&gt;" +<a name="line.174"></a>
+<span class="sourceLineNo">175</span>                                "       &lt;p&gt;Definitions and conventions about failure states, availability, and so on, are the same as for the availability report.&lt;/p&gt;");<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                out.append("&lt;p&gt;The report produces some summary information of the network, like demand blocking traffic, " +<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                                "traffic traversing oversubscribed links, or traffic with excessive latency, for each of the network states." );<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                out.append("&lt;p&gt;In addition, the report saves one N2P file for each single-SRG failing network state, and one file for the no-failure state." +<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                                " They are supposed to be used for more careful inspection of the state of the network under those situations");<a name="line.179"></a>
+<span class="sourceLineNo">180</span>                out.append("&lt;h1&gt;Global information&lt;/h1&gt;");<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                out.append("&lt;h2&gt;Input Parameters&lt;/h2&gt;");<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                out.append("&lt;table border='1'&gt;");<a name="line.182"></a>
+<span class="sourceLineNo">183</span>                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;Name&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Value&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Description&lt;/b&gt;&lt;/th&gt;");<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                for (Triple&lt;String, String, String&gt; paramDef : getParameters())<a name="line.184"></a>
+<span class="sourceLineNo">185</span>                {<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                        String name = paramDef.getFirst();<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                        String description = paramDef.getThird();<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                        String value = reportParameters.get(name);<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                        out.append("&lt;tr&gt;&lt;td&gt;").append(name).append("&lt;/td&gt;&lt;td&gt;").append(value).append("&lt;/td&gt;&lt;td&gt;").append(description).append("&lt;/td&gt;&lt;/tr&gt;");<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                }<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                out.append("&lt;tr&gt;&lt;td&gt;Number of network layers: &lt;/td&gt;&lt;td&gt;" + npNoFailure.getNumberOfLayers() + "&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;");<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                out.append("&lt;tr&gt;&lt;td&gt;Number of SRGs defined: &lt;/td&gt;&lt;td&gt;" + npNoFailure.getNumberOfSRGs() + "&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;");<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                out.append("&lt;/table&gt;");<a name="line.193"></a>
+<span class="sourceLineNo">194</span><a name="line.194"></a>
+<span class="sourceLineNo">195</span>                out.append("&lt;h1&gt;PER LAYER INFORMATION SUMMARY&lt;/h1&gt;");<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                for (int layerIndex = 0 ; layerIndex &lt; npNoFailure.getNumberOfLayers () ; layerIndex ++)<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                {<a name="line.197"></a>
+<span class="sourceLineNo">198</span>                        NetworkLayer noFailureLayer = npNoFailure.getNetworkLayer (layerIndex);<a name="line.198"></a>
+<span class="sourceLineNo">199</span><a name="line.199"></a>
+<span class="sourceLineNo">200</span>                        out.append("&lt;h2&gt;Layer " + noFailureLayer.getName () + ", index = " + noFailureLayer.getIndex () + ", id = " + noFailureLayer.getId () + "&lt;/h2&gt;");<a name="line.200"></a>
+<span class="sourceLineNo">201</span><a name="line.201"></a>
+<span class="sourceLineNo">202</span>                        if (npNoFailure.getNumberOfDemands(noFailureLayer) != 0)<a name="line.202"></a>
+<span class="sourceLineNo">203</span>                        {<a name="line.203"></a>
+<span class="sourceLineNo">204</span>                                out.append("&lt;h3&gt;Unicast traffic&lt;/h3&gt;");<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                                out.append("&lt;table border='1'&gt;");<a name="line.205"></a>
+<span class="sourceLineNo">206</span>                                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;SRG Index failed&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Offered traffic&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Blocked traffic (%)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Offered traffic traversing oversubscribed links (%)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Offered traffic of demands with excessive latency (%)&lt;/b&gt;&lt;/th&gt;&lt;b&gt;Total blocked traffic [out of contract] (%)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;% of demands fully ok&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.206"></a>
+<span class="sourceLineNo">207</span>                                printReport (npNoFailure , noFailureLayer , out , "No failure" , true);<a name="line.207"></a>
+<span class="sourceLineNo">208</span>                                for (int srgIndex = 0 ; srgIndex &lt; npNoFailure.getNumberOfSRGs() ; srgIndex ++)<a name="line.208"></a>
+<span class="sourceLineNo">209</span>                                        printReport (npFailureStates.get(srgIndex) , npFailureStates.get(srgIndex).getNetworkLayer (layerIndex) , out , "" + srgIndex , true);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>                                out.append("&lt;/table&gt;");<a name="line.210"></a>
+<span class="sourceLineNo">211</span>                        }<a name="line.211"></a>
+<span class="sourceLineNo">212</span><a name="line.212"></a>
+<span class="sourceLineNo">213</span>                        if (npNoFailure.getNumberOfMulticastDemands(noFailureLayer) != 0)<a name="line.213"></a>
+<span class="sourceLineNo">214</span>                        {<a name="line.214"></a>
+<span class="sourceLineNo">215</span>                                out.append("&lt;h3&gt;Multicast traffic&lt;/h3&gt;");<a name="line.215"></a>
+<span class="sourceLineNo">216</span>                                out.append("&lt;table border='1'&gt;");<a name="line.216"></a>
+<span class="sourceLineNo">217</span>                                out.append("&lt;tr&gt;&lt;th&gt;&lt;b&gt;SRG Index failed&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Offered traffic&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Blocked traffic (%)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Offered traffic traversing oversubscribed links (%)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;Offered traffic of demands with excessive latency (%)&lt;/b&gt;&lt;/th&gt;&lt;b&gt;Total blocked traffic [out of contract] (%)&lt;/b&gt;&lt;/th&gt;&lt;th&gt;&lt;b&gt;% of demands fully ok&lt;/b&gt;&lt;/th&gt;&lt;/tr&gt;");<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                                printReport (npNoFailure , noFailureLayer , out , "No failure" , false);<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                                for (int srgIndex = 0 ; srgIndex &lt; npNoFailure.getNumberOfSRGs() ; srgIndex ++)<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                                        printReport (npFailureStates.get(srgIndex) , npFailureStates.get(srgIndex).getNetworkLayer (layerIndex) , out , "" + srgIndex , false);<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                                out.append("&lt;/table&gt;");<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                        }<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                }<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                <a name="line.224"></a>
+<span class="sourceLineNo">225</span>                return out.toString();<a name="line.225"></a>
+<span class="sourceLineNo">226</span>        }<a name="line.226"></a>
+<span class="sourceLineNo">227</span><a name="line.227"></a>
+<span class="sourceLineNo">228</span>        private void printReport (NetPlan np , NetworkLayer layer , StringBuilder out , String rowTitle , boolean unicastDemands)<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        {<a name="line.229"></a>
+<span class="sourceLineNo">230</span>                double totalOfferedTraffic = 0;<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                double totalBlockedTraffic = 0; <a name="line.231"></a>
+<span class="sourceLineNo">232</span>                double totalTrafficOfDemandsTraversingOversubscribedLinks = 0;<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                double totalTrafficOfDemandsWithExcessiveWorseCaseLatency = 0;<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                double totalBlockedConsideringUserDefinedExtraLimitations = 0; <a name="line.234"></a>
+<span class="sourceLineNo">235</span>                int numberOfDemandsWithoutBlocking = 0;<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                if (unicastDemands)<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                {<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                        for (Demand d : np.getDemands (layer))<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                        {<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                                totalOfferedTraffic += d.getOfferedTraffic();<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                                totalBlockedTraffic += d.getBlockedTraffic();<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                                final boolean travOversuscribedLink = d.isTraversingOversubscribedLinks();<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                                final boolean hasExcessiveLatency = (maximumE2ELatencyMs.getDouble() &gt; 0) &amp;&amp; (d.getWorseCasePropagationTimeInMs() &gt; maximumE2ELatencyMs.getDouble());<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                                if (considerTrafficInOversubscribedLinksAsLost.getBoolean())<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                                        totalTrafficOfDemandsTraversingOversubscribedLinks += travOversuscribedLink? d.getOfferedTraffic() : 0;<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                                if (hasExcessiveLatency) <a name="line.246"></a>
+<span class="sourceLineNo">247</span>                                        totalTrafficOfDemandsWithExcessiveWorseCaseLatency += d.getOfferedTraffic();<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                                if (hasExcessiveLatency || (considerTrafficInOversubscribedLinksAsLost.getBoolean() &amp;&amp; travOversuscribedLink)) <a name="line.248"></a>
+<span class="sourceLineNo">249</span>                                        totalBlockedConsideringUserDefinedExtraLimitations += d.getOfferedTraffic();<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                                else<a name="line.250"></a>
+<span class="sourceLineNo">251</span>                                {<a name="line.251"></a>
+<span class="sourceLineNo">252</span>                                        totalBlockedConsideringUserDefinedExtraLimitations += d.getBlockedTraffic();<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                                        if (d.getBlockedTraffic() &lt; PRECISION_FACTOR) numberOfDemandsWithoutBlocking ++;<a name="line.253"></a>
+<span class="sourceLineNo">254</span>                                }<a name="line.254"></a>
+<span class="sourceLineNo">255</span>                        }<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                }<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                else<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                {<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                        for (MulticastDemand d : np.getMulticastDemands (layer))<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                        {<a name="line.260"></a>
+<span class="sourceLineNo">261</span>                                totalOfferedTraffic += d.getOfferedTraffic();<a name="line.261"></a>
+<span class="sourceLineNo">262</span>                                totalBlockedTraffic += d.getBlockedTraffic();<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                                final boolean travOversuscribedLink = d.isTraversingOversubscribedLinks();<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                                final boolean hasExcessiveLatency = (maximumE2ELatencyMs.getDouble() &gt; 0) &amp;&amp; (d.getWorseCasePropagationTimeInMs() &gt; maximumE2ELatencyMs.getDouble());<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                                if (considerTrafficInOversubscribedLinksAsLost.getBoolean())<a name="line.265"></a>
+<span class="sourceLineNo">266</span>                                        totalTrafficOfDemandsTraversingOversubscribedLinks += travOversuscribedLink? d.getOfferedTraffic() : 0;<a name="line.266"></a>
+<span class="sourceLineNo">267</span>                                if (hasExcessiveLatency) <a name="line.267"></a>
+<span class="sourceLineNo">268</span>                                        totalTrafficOfDemandsWithExcessiveWorseCaseLatency += d.getOfferedTraffic();<a name="line.268"></a>
+<span class="sourceLineNo">269</span>                                if (hasExcessiveLatency || (considerTrafficInOversubscribedLinksAsLost.getBoolean() &amp;&amp; travOversuscribedLink)) <a name="line.269"></a>
+<span class="sourceLineNo">270</span>                                        totalBlockedConsideringUserDefinedExtraLimitations += d.getOfferedTraffic();<a name="line.270"></a>
+<span class="sourceLineNo">271</span>                                else<a name="line.271"></a>
+<span class="sourceLineNo">272</span>                                {<a name="line.272"></a>
+<span class="sourceLineNo">273</span>                                        totalBlockedConsideringUserDefinedExtraLimitations += d.getBlockedTraffic();<a name="line.273"></a>
+<span class="sourceLineNo">274</span>                                        if (d.getBlockedTraffic() &lt; PRECISION_FACTOR) numberOfDemandsWithoutBlocking ++;<a name="line.274"></a>
+<span class="sourceLineNo">275</span>                                }<a name="line.275"></a>
+<span class="sourceLineNo">276</span>                        }<a name="line.276"></a>
+<span class="sourceLineNo">277</span>                }<a name="line.277"></a>
+<span class="sourceLineNo">278</span><a name="line.278"></a>
+<span class="sourceLineNo">279</span>                out.append("&lt;tr&gt;&lt;td&gt; " + rowTitle + <a name="line.279"></a>
+<span class="sourceLineNo">280</span>                                "&lt;/td&gt;&lt;td&gt;" + valString(totalOfferedTraffic) + <a name="line.280"></a>
+<span class="sourceLineNo">281</span>                                "&lt;/td&gt;&lt;td&gt;" + valString(totalBlockedTraffic) + percentage(totalBlockedTraffic,totalOfferedTraffic) + <a name="line.281"></a>
+<span class="sourceLineNo">282</span>                                "&lt;/td&gt;&lt;td&gt; " + valString(totalTrafficOfDemandsTraversingOversubscribedLinks) + percentage(totalTrafficOfDemandsTraversingOversubscribedLinks,totalOfferedTraffic) + <a name="line.282"></a>
+<span class="sourceLineNo">283</span>                                "&lt;/td&gt;&lt;td&gt;" + valString(totalTrafficOfDemandsWithExcessiveWorseCaseLatency) + percentage(totalTrafficOfDemandsWithExcessiveWorseCaseLatency,totalOfferedTraffic)  + <a name="line.283"></a>
+<span class="sourceLineNo">284</span>                                "&lt;/td&gt;&lt;td&gt;" + valString(totalBlockedConsideringUserDefinedExtraLimitations) + percentage(totalBlockedConsideringUserDefinedExtraLimitations,totalOfferedTraffic) + <a name="line.284"></a>
+<span class="sourceLineNo">285</span>                                "&lt;/td&gt;&lt;td&gt;" + percentage(numberOfDemandsWithoutBlocking,unicastDemands? np.getNumberOfDemands (layer) : np.getNumberOfMulticastDemands (layer)) + "&lt;/td&gt;&lt;/tr&gt;");<a name="line.285"></a>
+<span class="sourceLineNo">286</span>        }<a name="line.286"></a>
+<span class="sourceLineNo">287</span><a name="line.287"></a>
+<span class="sourceLineNo">288</span>        private String percentage (double val , double total) { double res = 100 * val/total; if (res &lt; 1e-8) res = 0; return " (" + valString(res) + " %)"; }<a name="line.288"></a>
+<span class="sourceLineNo">289</span>        private String percentage (int val , int total) { double res = 100 * ((double) val)/ ((double) total); if (res &lt; 1e-8) res = 0; return " (" + valString(res) + " %)"; }<a name="line.289"></a>
+<span class="sourceLineNo">290</span>        private String valString(double traffic) { return String.format ("%.3f" , traffic &lt; PRECISION_FACTOR? 0 : traffic); }<a name="line.290"></a>
+<span class="sourceLineNo">291</span>        <a name="line.291"></a>
+<span class="sourceLineNo">292</span>}<a name="line.292"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

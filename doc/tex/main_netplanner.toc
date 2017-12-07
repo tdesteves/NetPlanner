@@ -40,7 +40,7 @@
 \contentsline {subsubsection}{\numberline {4.3.3.2}Heuristics Results}{25}{subsubsection.4.3.3.2}
 \contentsline {subsection}{\numberline {4.3.4}Analysis and comparison of results}{25}{subsection.4.3.4}
 \contentsline {chapter}{\numberline {5}Appendices}{26}{chapter.5}
-\contentsline {section}{\numberline {5.1}Net2Plan guide}{27}{section.5.1}
-\contentsline {section}{\numberline {5.2}ILP scenarios}{56}{section.5.2}
-\contentsline {chapter}{\numberline {6}Master Dissertations}{62}{chapter.6}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{63}{section*.65}
+\contentsline {section}{\numberline {5.1}Net2Plan Guide}{27}{section.5.1}
+\contentsline {section}{\numberline {5.2}ILP scenarios}{53}{section.5.2}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{59}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{60}{section*.63}

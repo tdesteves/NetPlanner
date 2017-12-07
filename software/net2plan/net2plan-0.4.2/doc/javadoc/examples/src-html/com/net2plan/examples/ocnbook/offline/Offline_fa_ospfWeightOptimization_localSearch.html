@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span>package com.net2plan.examples.ocnbook.offline;<a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span>import java.io.File;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.util.List;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.Map;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.Random;<a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.17"></a>
+<span class="sourceLineNo">018</span><a name="line.18"></a>
+<span class="sourceLineNo">019</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import com.net2plan.utils.InputParameter;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.net2plan.utils.Pair;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.utils.TimeTrace;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.utils.Triple;<a name="line.26"></a>
+<span class="sourceLineNo">027</span><a name="line.27"></a>
+<span class="sourceLineNo">028</span>/**<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * Searches for the OSPF link weights that minimize a measure of congestion, using a local-search heuristic<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * <a name="line.30"></a>
+<span class="sourceLineNo">031</span> * The time evolution of different metrics can be stored in output files, for later processing. <a name="line.31"></a>
+<span class="sourceLineNo">032</span> * As an example, see the &lt;a href="../../../../../../graphGeneratorFiles/fig_sec12_3_ospfWeightLocalSearch.m"&gt;{@code fig_sec12_3_ospfWeightLocalSearch.m}&lt;/a&gt; MATLAB file used for generating the graph/s of the case study in the <a name="line.32"></a>
+<span class="sourceLineNo">033</span> * &lt;a href="http://eu.wiley.com/WileyCDA/WileyTitle/productCd-1119013356.html"&gt;book&lt;/a&gt; using this algorithm.<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * @net2plan.description<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * @net2plan.keywords IP/OSPF, Flow assignment (FA), Local search (LS) heuristic<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * @net2plan.ocnbooksections Section 12.3<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * @net2plan.inputParameters <a name="line.37"></a>
+<span class="sourceLineNo">038</span> * @author Pablo Pavon-Marino<a name="line.38"></a>
+<span class="sourceLineNo">039</span> */<a name="line.39"></a>
+<span class="sourceLineNo">040</span>public class Offline_fa_ospfWeightOptimization_localSearch implements IAlgorithm<a name="line.40"></a>
+<span class="sourceLineNo">041</span>{<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        private OSPFHeuristicUtils ospfEngine;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        private TimeTrace stat_objFunction;<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        private TimeTrace stat_computationTime;<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        private TimeTrace stat_numObjFuncEvaluations;<a name="line.45"></a>
+<span class="sourceLineNo">046</span><a name="line.46"></a>
+<span class="sourceLineNo">047</span>        private InputParameter algorithm_randomSeed = new InputParameter ("algorithm_randomSeed", (long) 1 , "Seed of the random number generator");<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        private InputParameter algorithm_numSamples = new InputParameter ("algorithm_numSamples", (int) 100 , "Number of repetitions, returns the last, but saves in file all of them" , 1 , Integer.MAX_VALUE);<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private InputParameter algorithm_outputFileNameRoot = new InputParameter ("algorithm_outputFileNameRoot", "ospfWeghtOptimization_ls" , "Root of the file name to be used in the output files. If blank, no output");<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        private InputParameter localSearch_initializationType = new InputParameter ("localSearch_initializationType", "#select# random" , "The type of initialization of the OSPF link weights");<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private InputParameter localSearch_type = new InputParameter ("localSearch_type", "#select# first-fit best-fit" , "The tpe of local search algorithm. First-fit, jumps to the first improving neighbor solution found, best-fit to the best improving neighbor");<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private InputParameter localSearch_differenceInWeightToBeNeighbors = new InputParameter ("localSearch_differenceInWeightToBeNeighbors", (int) 1 , "Two solutions where all the links have the same weight, but one link where the weight differs in the quantity given by this parameter, are considered neighbors");<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private InputParameter ospf_maxLinkWeight = new InputParameter ("ospf_maxLinkWeight", (int) 16 , "OSPF link weights are constrained to be integers between 1 and this parameter" , 1 , Integer.MAX_VALUE);<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        private InputParameter ospf_weightOfMaxUtilizationInObjectiveFunction = new InputParameter ("ospf_weightOfMaxUtilizationInObjectiveFunction", (double) 0.9 , "Objective function is this factor multiplied by maximum link utilization, plus 1 minus this factor by average link utilization" , 0 , true , 1 , true);<a name="line.54"></a>
+<span class="sourceLineNo">055</span><a name="line.55"></a>
+<span class="sourceLineNo">056</span>        @Override<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        {<a name="line.58"></a>
+<span class="sourceLineNo">059</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.59"></a>
+<span class="sourceLineNo">060</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.60"></a>
+<span class="sourceLineNo">061</span><a name="line.61"></a>
+<span class="sourceLineNo">062</span>                /* Basic checks */<a name="line.62"></a>
+<span class="sourceLineNo">063</span>                final int N = netPlan.getNumberOfNodes();<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                if (N == 0) throw new Net2PlanException("The input design must have nodes");<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                netPlan.removeAllUnicastRoutingInformation();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                netPlan.setRoutingType (RoutingType.HOP_BY_HOP_ROUTING);<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                <a name="line.67"></a>
+<span class="sourceLineNo">068</span>                <a name="line.68"></a>
+<span class="sourceLineNo">069</span>                /* Initialize some variables */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                final boolean isFirstFit = localSearch_type.getString ().equals ("first-fit");<a name="line.70"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>                Random rng = new Random (algorithm_randomSeed.getLong ());<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                this.ospfEngine = new OSPFHeuristicUtils(netPlan, ospf_maxLinkWeight.getInt (), ospf_weightOfMaxUtilizationInObjectiveFunction.getDouble(), rng);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                this.stat_objFunction = new TimeTrace  ();<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                this.stat_computationTime = new TimeTrace  ();<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                this.stat_numObjFuncEvaluations = new TimeTrace ();<a name="line.76"></a>
+<span class="sourceLineNo">077</span>                <a name="line.77"></a>
+<span class="sourceLineNo">078</span>                System.out.println("isFirstFit: " + isFirstFit);<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                <a name="line.79"></a>
+<span class="sourceLineNo">080</span>                for (int it = 0 ; it &lt; algorithm_numSamples.getInt () ; it ++)<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                {<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                        final long initTime = System.nanoTime();<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                        Pair&lt;DoubleMatrix1D,Double&gt; p1 = ospfEngine.getInitialSolution (localSearch_initializationType.getString());<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                        DoubleMatrix1D currentSol = p1.getFirst();<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                        double currentObjFunction = p1.getSecond();<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        <a name="line.86"></a>
+<span class="sourceLineNo">087</span>                        final Pair&lt;Double,Integer&gt; p2 = ospfEngine.localSearch (currentSol , currentObjFunction , localSearch_differenceInWeightToBeNeighbors.getInt () , isFirstFit);<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                        final double bestObjFunc = p2.getFirst();<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                        final int numObjFunctionEvaluations = p2.getSecond();<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                        final double computationTimeIbnSeconds = (System.nanoTime() - initTime)*1e-9;<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                        stat_computationTime.add(it, computationTimeIbnSeconds);<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                        stat_objFunction.add(it, bestObjFunc);<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                        stat_numObjFuncEvaluations.add(it, numObjFunctionEvaluations);<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                }<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                <a name="line.95"></a>
+<span class="sourceLineNo">096</span>                stat_objFunction.printToFile(new File (algorithm_outputFileNameRoot.getString () + "_D" + localSearch_differenceInWeightToBeNeighbors.getInt () + ((isFirstFit)? "_FF_" : "_BF_") + "objFunc.txt"));<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                stat_computationTime.printToFile(new File (algorithm_outputFileNameRoot.getString () + "_D" + localSearch_differenceInWeightToBeNeighbors.getInt () + ((isFirstFit)? "_FF_" : "_BF_") + "time.txt"));<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                stat_numObjFuncEvaluations.printToFile(new File (algorithm_outputFileNameRoot.getString () + "_D" + localSearch_differenceInWeightToBeNeighbors.getInt () + ((isFirstFit)? "_FF_" : "_BF_") + "numEvalObjFunc.txt"));<a name="line.98"></a>
+<span class="sourceLineNo">099</span><a name="line.99"></a>
+<span class="sourceLineNo">100</span>                <a name="line.100"></a>
+<span class="sourceLineNo">101</span>                double minObjectiveFunction = Double.MAX_VALUE;<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                for (Pair&lt;Double,Object&gt; element : stat_objFunction.getList())<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                        minObjectiveFunction = Math.min(minObjectiveFunction, (Double) element.getSecond());<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                return "Ok! Min OF: " + minObjectiveFunction;<a name="line.104"></a>
+<span class="sourceLineNo">105</span><a name="line.105"></a>
+<span class="sourceLineNo">106</span>        }<a name="line.106"></a>
+<span class="sourceLineNo">107</span><a name="line.107"></a>
+<span class="sourceLineNo">108</span>        @Override<a name="line.108"></a>
+<span class="sourceLineNo">109</span>        public String getDescription()<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        {<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                return "Given a set of nodes, links and offered traffic, this algorithm assumes that the nodes are IP routers running the OSPF protocol (applying ECMP rules) for routing it. The algorithm searches for the set of link weights that optimize the routing. In particular, the target is minimizing a congestion metric computed as a function of both the worst-case link utilization and the average link utilization. The algorithm is based on applying a local-search heuristic approach.";<a name="line.111"></a>
+<span class="sourceLineNo">112</span>        }<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>        @Override<a name="line.114"></a>
+<span class="sourceLineNo">115</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.115"></a>
+<span class="sourceLineNo">116</span>        {<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        }<a name="line.119"></a>
+<span class="sourceLineNo">120</span>}<a name="line.120"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
