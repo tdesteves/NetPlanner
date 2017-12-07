@@ -38,16 +38,19 @@
 \BOOKMARK [1][-]{section.5.6}{Developing new Reports}{chapter.5}% 38
 \BOOKMARK [1][-]{section.5.7}{Installing LPSOLVE for using in MatLab}{chapter.5}% 39
 \BOOKMARK [1][-]{section.5.8}{Opaque with 1+1 protection appendices}{chapter.5}% 40
-\BOOKMARK [2][-]{subsection.5.8.1}{Script using MatLab}{section.5.8}% 41
-\BOOKMARK [2][-]{subsection.5.8.2}{ILP using LPSolve}{section.5.8}% 42
-\BOOKMARK [2][-]{subsection.5.8.3}{Results using LPSolve}{section.5.8}% 43
-\BOOKMARK [1][-]{section.5.9}{Transparent with 1+1 protection appendices}{chapter.5}% 44
-\BOOKMARK [2][-]{subsection.5.9.1}{Script using MatLab}{section.5.9}% 45
-\BOOKMARK [2][-]{subsection.5.9.2}{ILP using LPSolve}{section.5.9}% 46
-\BOOKMARK [2][-]{subsection.5.9.3}{Results using LPSolve}{section.5.9}% 47
-\BOOKMARK [1][-]{section.5.10}{Translucent with 1+1 protection appendices}{chapter.5}% 48
-\BOOKMARK [2][-]{subsection.5.10.1}{Script using MatLab}{section.5.10}% 49
-\BOOKMARK [2][-]{subsection.5.10.2}{ILP using LPSolve}{section.5.10}% 50
-\BOOKMARK [2][-]{subsection.5.10.3}{Results using LPSolve}{section.5.10}% 51
-\BOOKMARK [0][-]{chapter.6}{Master Dissertations}{}% 52
-\BOOKMARK [1][-]{section*.62}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.6}% 53
+\BOOKMARK [2][-]{subsection.5.8.1}{Reference Network with Low Traffic}{section.5.8}% 41
+\BOOKMARK [2][-]{subsection.5.8.2}{Reference Network with High Traffic}{section.5.8}% 42
+\BOOKMARK [2][-]{subsection.5.8.3}{Realistic Network with Low Traffic}{section.5.8}% 43
+\BOOKMARK [2][-]{subsection.5.8.4}{Realistic Network with High Traffic}{section.5.8}% 44
+\BOOKMARK [1][-]{section.5.9}{Transparent with 1+1 protection appendices}{chapter.5}% 45
+\BOOKMARK [2][-]{subsection.5.9.1}{Reference Network with Low Traffic}{section.5.9}% 46
+\BOOKMARK [2][-]{subsection.5.9.2}{Reference Network with High Traffic}{section.5.9}% 47
+\BOOKMARK [2][-]{subsection.5.9.3}{Realistic Network with Low Traffic}{section.5.9}% 48
+\BOOKMARK [2][-]{subsection.5.9.4}{Realistic Network with High Traffic}{section.5.9}% 49
+\BOOKMARK [1][-]{section.5.10}{Translucent with 1+1 protection appendices}{chapter.5}% 50
+\BOOKMARK [2][-]{subsection.5.10.1}{Reference Network with Low Traffic}{section.5.10}% 51
+\BOOKMARK [2][-]{subsection.5.10.2}{Reference Network with High Traffic}{section.5.10}% 52
+\BOOKMARK [2][-]{subsection.5.10.3}{Realistic Network with Low Traffic}{section.5.10}% 53
+\BOOKMARK [2][-]{subsection.5.10.4}{Realistic Network with High Traffic}{section.5.10}% 54
+\BOOKMARK [0][-]{chapter.6}{Master Dissertations}{}% 55
+\BOOKMARK [1][-]{section*.62}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.6}% 56

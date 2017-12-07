@@ -59,31 +59,43 @@
 \contentsline {section}{\numberline {5.6}Developing new Reports}{75}{section.5.6}
 \contentsline {section}{\numberline {5.7}Installing LPSOLVE for using in MatLab}{77}{section.5.7}
 \contentsline {section}{\numberline {5.8}Opaque with 1+1 protection appendices}{78}{section.5.8}
-\contentsline {subsection}{\numberline {5.8.1}Script using MatLab}{78}{subsection.5.8.1}
-\contentsline {subsubsection}{\numberline {5.8.1.1}Scenario 1}{78}{subsubsection.5.8.1.1}
-\contentsline {subsubsection}{\numberline {5.8.1.2}Scenario 2}{80}{subsubsection.5.8.1.2}
-\contentsline {subsubsection}{\numberline {5.8.1.3}Scenario 3}{83}{subsubsection.5.8.1.3}
-\contentsline {subsubsection}{\numberline {5.8.1.4}Scenario 4}{83}{subsubsection.5.8.1.4}
-\contentsline {subsection}{\numberline {5.8.2}ILP using LPSolve}{83}{subsection.5.8.2}
-\contentsline {subsubsection}{\numberline {5.8.2.1}Scenario 1}{83}{subsubsection.5.8.2.1}
-\contentsline {subsubsection}{\numberline {5.8.2.2}Scenario 2}{91}{subsubsection.5.8.2.2}
-\contentsline {subsection}{\numberline {5.8.3}Results using LPSolve}{100}{subsection.5.8.3}
+\contentsline {subsection}{\numberline {5.8.1}Reference Network with Low Traffic}{78}{subsection.5.8.1}
+\contentsline {subsubsection}{\numberline {5.8.1.1}ILP using LPSolve}{78}{subsubsection.5.8.1.1}
+\contentsline {subsubsection}{\numberline {5.8.1.2}Result through Script using MatLab}{86}{subsubsection.5.8.1.2}
+\contentsline {subsection}{\numberline {5.8.2}Reference Network with High Traffic}{89}{subsection.5.8.2}
+\contentsline {subsubsection}{\numberline {5.8.2.1}ILP using LPSolve}{89}{subsubsection.5.8.2.1}
+\contentsline {subsubsection}{\numberline {5.8.2.2}Result through Script using MatLab}{97}{subsubsection.5.8.2.2}
+\contentsline {subsection}{\numberline {5.8.3}Realistic Network with Low Traffic}{100}{subsection.5.8.3}
+\contentsline {subsubsection}{\numberline {5.8.3.1}ILP using LPSolve}{100}{subsubsection.5.8.3.1}
+\contentsline {subsubsection}{\numberline {5.8.3.2}Result through Script using MatLab}{100}{subsubsection.5.8.3.2}
+\contentsline {subsection}{\numberline {5.8.4}Realistic Network with High Traffic}{100}{subsection.5.8.4}
+\contentsline {subsubsection}{\numberline {5.8.4.1}ILP using LPSolve}{100}{subsubsection.5.8.4.1}
+\contentsline {subsubsection}{\numberline {5.8.4.2}Result through Script using MatLab}{100}{subsubsection.5.8.4.2}
 \contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{101}{section.5.9}
-\contentsline {subsection}{\numberline {5.9.1}Script using MatLab}{101}{subsection.5.9.1}
-\contentsline {subsubsection}{\numberline {5.9.1.1}Scenario 1}{101}{subsubsection.5.9.1.1}
-\contentsline {subsubsection}{\numberline {5.9.1.2}Scenario 2}{103}{subsubsection.5.9.1.2}
-\contentsline {subsubsection}{\numberline {5.9.1.3}Scenario 3}{103}{subsubsection.5.9.1.3}
-\contentsline {subsubsection}{\numberline {5.9.1.4}Scenario 4}{103}{subsubsection.5.9.1.4}
-\contentsline {subsection}{\numberline {5.9.2}ILP using LPSolve}{103}{subsection.5.9.2}
-\contentsline {subsubsection}{\numberline {5.9.2.1}Scenario 1}{103}{subsubsection.5.9.2.1}
-\contentsline {subsection}{\numberline {5.9.3}Results using LPSolve}{111}{subsection.5.9.3}
+\contentsline {subsection}{\numberline {5.9.1}Reference Network with Low Traffic}{101}{subsection.5.9.1}
+\contentsline {subsubsection}{\numberline {5.9.1.1}ILP using LPSolve}{101}{subsubsection.5.9.1.1}
+\contentsline {subsubsection}{\numberline {5.9.1.2}Result through Script using MatLab}{108}{subsubsection.5.9.1.2}
+\contentsline {subsection}{\numberline {5.9.2}Reference Network with High Traffic}{111}{subsection.5.9.2}
+\contentsline {subsubsection}{\numberline {5.9.2.1}ILP using LPSolve}{111}{subsubsection.5.9.2.1}
+\contentsline {subsubsection}{\numberline {5.9.2.2}Result through Script using MatLab}{111}{subsubsection.5.9.2.2}
+\contentsline {subsection}{\numberline {5.9.3}Realistic Network with Low Traffic}{111}{subsection.5.9.3}
+\contentsline {subsubsection}{\numberline {5.9.3.1}ILP using LPSolve}{111}{subsubsection.5.9.3.1}
+\contentsline {subsubsection}{\numberline {5.9.3.2}Result through Script using MatLab}{111}{subsubsection.5.9.3.2}
+\contentsline {subsection}{\numberline {5.9.4}Realistic Network with High Traffic}{111}{subsection.5.9.4}
+\contentsline {subsubsection}{\numberline {5.9.4.1}ILP using LPSolve}{111}{subsubsection.5.9.4.1}
+\contentsline {subsubsection}{\numberline {5.9.4.2}Result through Script using MatLab}{111}{subsubsection.5.9.4.2}
 \contentsline {section}{\numberline {5.10}Translucent with 1+1 protection appendices}{112}{section.5.10}
-\contentsline {subsection}{\numberline {5.10.1}Script using MatLab}{112}{subsection.5.10.1}
-\contentsline {subsubsection}{\numberline {5.10.1.1}Scenario 1}{112}{subsubsection.5.10.1.1}
-\contentsline {subsubsection}{\numberline {5.10.1.2}Scenario 2}{112}{subsubsection.5.10.1.2}
-\contentsline {subsubsection}{\numberline {5.10.1.3}Scenario 3}{112}{subsubsection.5.10.1.3}
-\contentsline {subsubsection}{\numberline {5.10.1.4}Scenario 4}{112}{subsubsection.5.10.1.4}
-\contentsline {subsection}{\numberline {5.10.2}ILP using LPSolve}{112}{subsection.5.10.2}
-\contentsline {subsection}{\numberline {5.10.3}Results using LPSolve}{112}{subsection.5.10.3}
+\contentsline {subsection}{\numberline {5.10.1}Reference Network with Low Traffic}{112}{subsection.5.10.1}
+\contentsline {subsubsection}{\numberline {5.10.1.1}ILP using LPSolve}{112}{subsubsection.5.10.1.1}
+\contentsline {subsubsection}{\numberline {5.10.1.2}Result through Script using MatLab}{112}{subsubsection.5.10.1.2}
+\contentsline {subsection}{\numberline {5.10.2}Reference Network with High Traffic}{112}{subsection.5.10.2}
+\contentsline {subsubsection}{\numberline {5.10.2.1}ILP using LPSolve}{112}{subsubsection.5.10.2.1}
+\contentsline {subsubsection}{\numberline {5.10.2.2}Result through Script using MatLab}{112}{subsubsection.5.10.2.2}
+\contentsline {subsection}{\numberline {5.10.3}Realistic Network with Low Traffic}{112}{subsection.5.10.3}
+\contentsline {subsubsection}{\numberline {5.10.3.1}ILP using LPSolve}{112}{subsubsection.5.10.3.1}
+\contentsline {subsubsection}{\numberline {5.10.3.2}Result through Script using MatLab}{112}{subsubsection.5.10.3.2}
+\contentsline {subsection}{\numberline {5.10.4}Realistic Network with High Traffic}{112}{subsection.5.10.4}
+\contentsline {subsubsection}{\numberline {5.10.4.1}ILP using LPSolve}{112}{subsubsection.5.10.4.1}
+\contentsline {subsubsection}{\numberline {5.10.4.2}Result through Script using MatLab}{112}{subsubsection.5.10.4.2}
 \contentsline {chapter}{\numberline {6}Master Dissertations}{113}{chapter.6}
 \contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{114}{section*.62}
