@@ -252,7 +252,7 @@ ODU0=
     1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
     1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
     1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-    1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 
+    1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
   \end{bmatrix}
 \]
 
@@ -387,7 +387,6 @@ Again, we can thus conclude that the total traffic for the two scenarios is as f
 \end{itemize}
 
 
-
 \subsection{Dimensioning using ILP}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
@@ -396,96 +395,17 @@ Again, we can thus conclude that the total traffic for the two scenarios is as f
 \end{tabular}
 \end{tcolorbox}
 
-\subsubsection{ILP models}\label{ILP_models_OP}
-
-For a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all the variables and their description. \\
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ |p{1cm}||p{13cm}|}
- \hline
- \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
- \hline
- \hline
- $i$ & index for start node of a physical link \\
- $j$ & index for end node of a physical link \\
- $o$ & index for node that is origin of a demand \\
- $d$ & index for node that is destination of a demand \\
- $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
- $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
- $c$ & index for bit rate of the client signal \\
- $C$ & set of the client signal \\
- $f_{ij}^{od}$ & binary variable indicating if link between the nodes $i$ and $j$ is used in the path between nodes $o$ and $d$ \\
- $W_{ij}$ & number of optical channels between the nodes $i$ and $j$\\
- $B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
- $D_{odc}$ & client demands with bit rate $c$ between nodes $o$ and $d$ \\
- $G$ & network topology in form of adjacency matrix \\
- \hline
-\end{tabular}
-\caption{Table with description of variables}
-\label{description_opaque}
-\end{table}
 \vspace{11pt}
 
-The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i,j) for all demand pairs (o,d) and total number of optical channels in each link (i,j).
-\vspace{11pt}
+In this section we will do the dimensioning of the two networks mentioned in the previous section to calculate the value of your CAPEX, for this we will use the ILP model so we can get the best possible solution.
+In the initial subsection will be described the network cost where all the formulas and calculations necessary to obtain the CAPEX of the network will be mentioned.
+In the following subsection we will explain the ILP model used to obtain the best possible solution based on the previous formulas.
+Finally, in the last subsection, the results obtained through the model described above will be presented.
 
-\begin{equation}
-minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} W_{ij}
-\label{ILPOpaque}
-\end{equation}
+\subsubsection{Network costs}
 
-\newpage
-$subject$ $to$
-\begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i = o
-\label{ILPOpaque1}
-\end{equation}
-
-\vspace{-5pt}
-\begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i \neq o,d
-\label{ILPOpaque2}
-\end{equation}
-
-\begin{equation}
-\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i = d
-\label{ILPOpaque3}
-\end{equation}
-
-\begin{equation}
-\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{cod}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad \qquad
-\forall(i,j) : i < j
-\label{ILPOpaque4}
-\end{equation}
-
-\begin{equation}
-W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
-\label{ILPOpaque5}
-\end{equation}
-
-\begin{equation}
-f_{ij}^{od} , f_{ji}^{od} \in \{0,2\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(i,j) : i < j, \forall(o,d) : o < d
-\label{ILPOpaque6}
-\end{equation}
-
-\begin{equation}
-W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(i,j) : i < j\label{ILPOpaque7}
-\end{equation}
-
-\vspace{10pt}
-
-The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
-
-\subsubsection{ILP Results}
-
-In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network and the realistic network.
-The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table below.
+In this phase the results will be presented to calculate the CAPEX of the reference network and the realistic network.
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table below.\\
 
 \begin{table}[h!]
 \centering
@@ -520,6 +440,7 @@ The other parameters of this equation are:
 \item{$span$		$\rightarrow$ Distance between amplifiers}	
 \end{itemize}	
 
+
 To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.
 To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the value of the optical cost is zero only needing to know the electric cost of the nodes that is given by equation \ref{electricalCostOpaque}.
 
@@ -538,6 +459,8 @@ C_{exc} = \left(\gamma_{e0}\times N\right) + \gamma_{e1} \times \left(T_1 + \lef
 \item{$\tau$		$\rightarrow$	Traffic per port}
 \end{itemize}
 
+\vspace{11pt}
+
 To calculate the cost of the Links we will use the equation \ref{linkCosts}.
 
 \begin{equation}
@@ -555,10 +478,98 @@ C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{O
 \item{$c^R$				$\rightarrow$	Optical amplifiers cost in euros}
 \end{itemize}
 
+
+\subsubsection{ILP models}\label{ILP_models_OP}
+
+For a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all the variables and their description. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{1cm}||p{13cm}|}
+ \hline
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $c$ & index for bit rate of the client signal \\
+ $C$ & set of the client signal \\
+ $f_{ij}^{od}$ & binary variable indicating if link between the nodes $i$ and $j$ is used in the path between nodes $o$ and $d$ \\
+ $W_{ij}$ & number of optical channels between the nodes $i$ and $j$\\
+ $B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ $D_{odc}$ & client demands with bit rate $c$ between nodes $o$ and $d$ \\
+ $G$ & network topology in form of adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_opaque}
+\end{table}
+
+
+The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i,j) for all demand pairs (o,d) and total number of optical channels in each link (i,j).
 \vspace{11pt}
+
+\begin{equation}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} W_{ij}
+\label{ILPOpaque}
+\end{equation}
+
+$subject$ $to$
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPOpaque1}
+\end{equation}
+
+\vspace{-5pt}
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPOpaque2}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPOpaque3}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{odc}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPOpaque4}
+\end{equation}
+
+\begin{equation}
+W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+\label{ILPOpaque5}
+\end{equation}
+
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} \in \{0,2\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPOpaque6}
+\end{equation}
+
+\begin{equation}
+W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j\label{ILPOpaque7}
+\end{equation}
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+
+
+\subsubsection{ILP Results}
+
 To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
 
-\textbf{Scenario 1: Test Network Low Traffic} \label{Scenario1_opaque} \\
+\textbf{Scenario 1: Reference Network Low Traffic} \label{Scenario1_opaque} \\
 In this scenario we used the table \ref{table:1}. In the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value. \\
 
 \begin{table}[h!]
@@ -594,7 +605,7 @@ $CAPEX$ = 23 336 000 + 5 660 000 = \textbf{28 996 000\euro}\\
 
 
 \vspace{11pt}
-\textbf{Scenario 2: Test Network High Traffic} \label{Scenario2_opaque} \\
+\textbf{Scenario 2: Reference Network High Traffic} \label{Scenario2_opaque} \\
 In this scenario we used again the table \ref{table:1}. In the table \ref{result_ILP2} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value. \\
 
 \begin{table}[h!]

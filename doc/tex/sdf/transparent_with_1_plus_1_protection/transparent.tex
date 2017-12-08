@@ -386,7 +386,6 @@ Again, through the ODU's we can calculate the total traffic for both scenarios b
 \end{itemize}
 
 
-
 \subsection{Dimensioning using ILP}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
@@ -394,6 +393,77 @@ Again, through the ODU's we can calculate the total traffic for both scenarios b
 \textbf{Goal}          &:& Implement the dimensioning of optical networks in the transparent transport mode.
 \end{tabular}
 \end{tcolorbox}
+
+\vspace{11pt}
+
+In this section we will do the dimensioning of the two networks mentioned in the previous section to calculate the value of your CAPEX, for this we will use the ILP model so we can get the best possible solution.
+In the initial subsection will be described the network cost where all the formulas and calculations necessary to obtain the CAPEX of the network will be mentioned.
+In the following subsection we will explain the ILP model used to obtain the best possible solution based on the previous formulas.
+Finally, in the last subsection, the results obtained through the model described above will be presented.
+
+\subsubsection{Network costs}
+
+In this phase the results will be presented to calculate the CAPEX of the reference network and the realistic network.
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table below. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Equipment & Cost \\
+ \hline\hline
+ OLT without transponders & 15000 \euro \\
+ Transponder & 5000 \euro/Gb \\
+ Optical Amplifier & 4000 \euro \\
+ EXC & 10000 \euro \\
+ OXC & 20000 \euro \\
+ EXC Port & 1000 \euro /Gb/s\\
+ OXC Port & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost2}
+\end{table}
+
+In addition to the equipment costs we will also use the parameter "span", which in this case will have a value of 100, because this value is used to calculate the number of optical amplifiers required in the network using Equation \ref{amplifiersTransp}.
+
+\begin{equation}
+N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
+\label{amplifiersTransp}
+\end{equation} \\
+
+To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.
+
+To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the optical cost is given by equation \ref{opticalCost} and the electrical cost by the equation \ref{electricalCostTransp}.
+
+
+\begin{equation}
+C_{oxc} = \left(\gamma_{o0} \times N \right) + \gamma_{o1} \times  \left(P_{LINE} + P_{ADD}\right)
+\label{opticalCost}
+\end{equation}	
+	
+\begin{itemize}
+\item{$C_{oxc}$		$\rightarrow$	Optical Ports Cost}
+\item{$\gamma_{o0}$	$\rightarrow$	OXC cost in Euros}
+\item{$\gamma_{o1}$	$\rightarrow$	OXC port cost in Euros}
+\item{$P_{TRIB}	$	$\rightarrow$	Number of tributary ports}
+\item{$P_{ADD} $	$\rightarrow$	Number of adding ports}
+\end{itemize}
+
+\begin{equation}
+C_{exc} = \left(\gamma_{e0}\times N\right) + \gamma_{e1} \times \left(2 \times T_1 \right)		\label{electricalCostTransp}
+\end{equation}
+
+\vspace{10pt}
+
+To calculate the cost of the Links we will use the equation \ref{linkCostsTransp}.
+
+\begin{equation}
+C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
+\label{linkCostsTransp}
+\end{equation}
+
+
 
 \subsubsection{ILP Models} \label{ILP_models_Transp}
 
@@ -472,70 +542,10 @@ The objective function, to be minimized, is the expression \ref{ILPTransp}. The 
 
 \subsubsection{ILP Results}
 
-In this initial phase the results will be presented using ILP to calculate the CAPEX of the reference network and the realistic network.
-The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table below.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|| c | c||}
- \hline
- Equipment & Cost \\
- \hline\hline
- OLT without transponders & 15000 \euro \\
- Transponder & 5000 \euro/Gb \\
- Optical Amplifier & 4000 \euro \\
- EXC & 10000 \euro \\
- OXC & 20000 \euro \\
- EXC Port & 1000 \euro /Gb/s\\
- OXC Port & 2500 \euro /porto \\
- \hline
-\end{tabular}
-\caption{Table with costs}
-\label{table_cost2}
-\end{table}
-
-In addition to the equipment costs we will also use the parameter "span", which in this case will have a value of 100, because this value is used to calculate the number of optical amplifiers required in the network using Equation \ref{amplifiersTransp}.
-
-\begin{equation}
-N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
-\label{amplifiersTransp}
-\end{equation} \\
-
-To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.
-
-To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the optical cost is given by equation \ref{opticalCost} and the electrical cost by the equation \ref{electricalCostTransp}.
-
-
-\begin{equation}
-C_{oxc} = \left(\gamma_{o0} \times N \right) + \gamma_{o1} \times  \left(P_{LINE} + P_{ADD}\right)
-\label{opticalCost}
-\end{equation}	
-	
-\begin{itemize}
-\item{$C_{oxc}$		$\rightarrow$	Optical Ports Cost}
-\item{$\gamma_{o0}$	$\rightarrow$	OXC cost in Euros}
-\item{$\gamma_{o1}$	$\rightarrow$	OXC port cost in Euros}
-\item{$P_{TRIB}	$	$\rightarrow$	Number of tributary ports}
-\item{$P_{ADD} $	$\rightarrow$	Number of adding ports}
-\end{itemize}
-
-\begin{equation}
-C_{exc} = \left(\gamma_{e0}\times N\right) + \gamma_{e1} \times \left(2 \times T_1 \right)		\label{electricalCostTransp}
-\end{equation}
-
-\vspace{10pt}
-
-To calculate the cost of the Links we will use the equation \ref{linkCostsTransp}.
-
-\begin{equation}
-C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
-\label{linkCostsTransp}
-\end{equation} \\
-	
 \vspace{11pt}
 To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
 
-\textbf{Scenario 1: Test Network Low Traffic} \label{Scenario1_transp} \\
+\textbf{Scenario 1: Reference Network Low Traffic} \label{Scenario1_transp} \\
 In this scenario we used the table \ref{table:3}. In the table \ref{result_ILP1_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
 \newpage
 \begin{table}[h!]
@@ -573,7 +583,7 @@ $C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{2 210 000 \euro} \\
 
 $CAPEX$ = 28 336 000 + 2 210 000 = \textbf{30 546 000 \euro}\\
 
-\textbf{Scenario 2: Test Network High Traffic} \label{Scenario2_transp} \\
+\textbf{Scenario 2: Reference Network High Traffic} \label{Scenario2_transp} \\
 In this scenario we used again the table \ref{table:3} In the table \ref{result_ILP2_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value.
 
 \begin{table}[h!]
