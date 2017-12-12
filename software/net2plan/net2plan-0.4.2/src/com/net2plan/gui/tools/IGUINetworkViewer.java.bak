@@ -1,0 +1,4428 @@
+/*******************************************************************************
+ * Copyright (c) 2013-2015 Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * Contributors:
+ *     Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza - initial API and implementation
+ ******************************************************************************/
+package com.net2plan.gui.tools;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
+import java.awt.event.InputEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.io.Closeable;
+import java.io.File;
+import java.util.Comparator;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.swing.AbstractAction;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultRowSorter;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.RowFilter;
+import javax.swing.ScrollPaneLayout;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
+import net.miginfocom.swing.MigLayout;
+import cern.colt.matrix.tdouble.DoubleFactory1D;
+import cern.colt.matrix.tdouble.DoubleMatrix1D;
+
+import com.net2plan.gui.utils.AdvancedJTable;
+import com.net2plan.gui.utils.CellRenderers;
+import com.net2plan.gui.utils.CellRenderers.NumberCellRenderer;
+import com.net2plan.gui.utils.ClassAwareTableModel;
+import com.net2plan.gui.utils.ColumnHeaderToolTips;
+import com.net2plan.gui.utils.CurrentAndPlannedStateTableSorter;
+import com.net2plan.gui.utils.CurrentAndPlannedStateTableSorter.CurrentAndPlannedStateTableCellValue;
+import com.net2plan.gui.utils.FixedColumnDecorator;
+import com.net2plan.gui.utils.FullScrollPaneLayout;
+import com.net2plan.gui.utils.ParamValueTable;
+import com.net2plan.gui.utils.ParameterValueDescriptionPanel;
+import com.net2plan.gui.utils.PopupMenuNetPlan;
+import com.net2plan.gui.utils.ProportionalResizeJSplitPaneListener;
+import com.net2plan.gui.utils.ReportBrowser;
+import com.net2plan.gui.utils.RunnableSelector;
+import com.net2plan.gui.utils.TabIcon;
+import com.net2plan.gui.utils.TableCursorNavigation;
+import com.net2plan.gui.utils.ThreadExecutionController;
+import com.net2plan.gui.utils.WrapLayout;
+import com.net2plan.gui.utils.topology.INetworkCallback;
+import com.net2plan.gui.utils.topology.ITopologyCanvasPlugin;
+import com.net2plan.gui.utils.topology.MoveNodePlugin;
+import com.net2plan.gui.utils.topology.PanGraphPlugin;
+import com.net2plan.gui.utils.topology.PopupMenuPlugin;
+import com.net2plan.gui.utils.topology.TopologyPanel;
+import com.net2plan.gui.utils.topology.jung.AddLinkGraphPlugin;
+import com.net2plan.gui.utils.topology.jung.JUNGCanvas;
+import com.net2plan.interfaces.networkDesign.Configuration;
+import com.net2plan.interfaces.networkDesign.Demand;
+import com.net2plan.interfaces.networkDesign.IReport;
+import com.net2plan.interfaces.networkDesign.Link;
+import com.net2plan.interfaces.networkDesign.MulticastDemand;
+import com.net2plan.interfaces.networkDesign.MulticastTree;
+import com.net2plan.interfaces.networkDesign.Net2PlanException;
+import com.net2plan.interfaces.networkDesign.NetPlan;
+import com.net2plan.interfaces.networkDesign.NetworkLayer;
+import com.net2plan.interfaces.networkDesign.Node;
+import com.net2plan.interfaces.networkDesign.ProtectionSegment;
+import com.net2plan.interfaces.networkDesign.Route;
+import com.net2plan.interfaces.networkDesign.SharedRiskGroup;
+import com.net2plan.internal.Constants;
+import com.net2plan.internal.Constants.NetworkElementType;
+import com.net2plan.internal.ErrorHandling;
+import com.net2plan.internal.SystemUtils;
+import com.net2plan.internal.plugins.IGUIModule;
+import com.net2plan.internal.plugins.ITopologyCanvas;
+import com.net2plan.internal.plugins.PluginSystem;
+import com.net2plan.libraries.GraphTheoryMetrics;
+import com.net2plan.libraries.GraphUtils;
+import com.net2plan.libraries.NetworkPerformanceMetrics;
+import com.net2plan.libraries.SRGUtils;
+import com.net2plan.libraries.TrafficComputationEngine;
+import com.net2plan.utils.ClassLoaderUtils;
+import com.net2plan.utils.CollectionUtils;
+import com.net2plan.utils.Constants.RoutingCycleType;
+import com.net2plan.utils.Constants.RoutingType;
+import com.net2plan.utils.DoubleUtils;
+import com.net2plan.utils.Pair;
+import com.net2plan.utils.StringUtils;
+import com.net2plan.utils.Triple;
+
+/**
+ * Template for any tool requiring network visualization.
+ *
+ * @author Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza
+ * @since 0.3.0
+ */
+public abstract class IGUINetworkViewer extends IGUIModule implements INetworkCallback, ThreadExecutionController.IThreadExecutionHandler
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Reference to the topology panel.
+	 * 
+	 * @since 0.3.0
+	 */
+	protected TopologyPanel topologyPanel;
+	
+	/**
+	 * Reference to the popup menu in the topology panel.
+	 * 
+	 * @since 0.3.0
+	 */
+	protected ITopologyCanvasPlugin popupPlugin;
+	
+	private JPanel leftPane;
+	private JSplitPane reportPane;
+	private JTabbedPane rightPane, netPlanView, reportContainer;
+	private RunnableSelector reportSelector;
+	private ThreadExecutionController reportController;
+	private int viewNetPlanTabIndex;
+	private JButton forceUpdate, closeAllReports;
+	private JRadioButton sourceRoutingActivated, hopByHopRoutingActivated;
+	private ButtonGroup routingSchemes;
+
+	private JPanel layerMetricsInfo;
+	private ParamValueTable[] layerSummaryTables;
+	private Map<NetworkElementType, JTable> netPlanViewTable;
+	private Map<NetworkElementType, FixedColumnDecorator> netPlanViewTableDecorator;
+	private Map<NetworkElementType, JComponent> netPlanViewTableComponent;
+
+	private JTextField txt_layerName, txt_networkName, txt_layerLinkCapacityUnits, txt_layerDemandTrafficUnits, txt_numLayers, txt_numNodes, txt_numSRGs;
+	private JTextArea txt_layerDescription, txt_networkDescription;
+	private JCheckBox showInitialPlan;
+
+	private final static Map<NetworkElementType, String> netPlanViewTabName;
+	private final static Map<NetworkElementType, String[]> netPlanViewTableHeader;
+	private final static Map<NetworkElementType, String[]> netPlanViewTableTips;
+	private final static String[] layerSummaryTableHeader = StringUtils.arrayOf("Metric", "Value");
+	
+	private final static String[] attributeTableHeader = StringUtils.arrayOf("Attribute", "Value");
+	private final static String[] attributeTableTips = attributeTableHeader;
+	private JTable networkAttributeTable, layerAttributeTable;
+	private boolean allowDocumentUpdate;
+	
+	private NetPlan currentNetPlan, initialNetPlan;
+	
+	static
+	{
+		netPlanViewTabName = new EnumMap<NetworkElementType, String>(NetworkElementType.class);
+		netPlanViewTabName.put(NetworkElementType.NODE, "Nodes");
+		netPlanViewTabName.put(NetworkElementType.LINK, "Links");
+		netPlanViewTabName.put(NetworkElementType.DEMAND, "Demands");
+		netPlanViewTabName.put(NetworkElementType.MULTICAST_DEMAND, "Multicast demands");
+		netPlanViewTabName.put(NetworkElementType.ROUTE, "Routes");
+		netPlanViewTabName.put(NetworkElementType.MULTICAST_TREE, "Multicast trees");
+		netPlanViewTabName.put(NetworkElementType.FORWARDING_RULE, "Forwarding rules");
+		netPlanViewTabName.put(NetworkElementType.PROTECTION_SEGMENT, "Protection segments");
+		netPlanViewTabName.put(NetworkElementType.SRG, "Shared-risk groups");
+		netPlanViewTabName.put(NetworkElementType.NETWORK, "Network");
+		netPlanViewTabName.put(NetworkElementType.LAYER, "Layer");
+		
+		netPlanViewTableHeader = new EnumMap<NetworkElementType, String[]>(NetworkElementType.class);
+		netPlanViewTableHeader.put(NetworkElementType.NODE, StringUtils.arrayOf("Unique identifier" , "Index", "Show/Hide", "Name", "State", "xCoord", "yCoord", "Outgoing links", "Incoming links", "Ingress traffic", "Egress traffic", "Ingress traffic (multicast)" , "Egress traffic (multicast)" , "SRGs", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.LINK, StringUtils.arrayOf("Unique identifier" , "Index", "Show/Hide", "Origin node", "Destination node", "State", "Capacity", "Carried traffic", "Reserved for protection", "Utilization", "Utilization (w.o. protection)", "Is bottleneck?", "Length (km)", "Propagation speed (km/s)", "Propagation delay (ms)", "# Routes", "# Segments", "# Forwarding rules", "# Multicast trees", "SRGs", "Coupled to demand", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.DEMAND, StringUtils.arrayOf("Unique identifier" , "Index", "Ingress node", "Egress node", "Coupled to link", "Offered traffic", "Carried traffic", "% Lost traffic", "Routing cycles", "Bifurcated", "# Routes", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.MULTICAST_DEMAND, StringUtils.arrayOf("Unique identifier" , "Index", "Ingress node", "Egress nodes", "Coupled to links", "Offered traffic", "Carried traffic", "% Lost traffic", "Routing cycles", "Bifurcated", "# Multicast trees", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.ROUTE, StringUtils.arrayOf("Unique identifier" , "Index", "Demand", "Ingress node", "Egress node", "Demand offered traffic", "Carried traffic", "Occupied capacity", "Sequence of links", "Sequence of nodes", "Number of hops", "Length (km)", "Propagation delay (ms)", "Bottleneck utilization", "Backup segments", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.MULTICAST_TREE, StringUtils.arrayOf("Unique identifier" , "Index", "Multicast demand", "Ingress node", "Egress nodes", "Demand offered traffic", "Carried traffic", "Occupied capacity", "Set of links" , "Number of links", "Set of nodes" , "Worse case number of hops", "Worse case length (km)", "Worse case propagation delay (ms)" , "Bottleneck utilization", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.FORWARDING_RULE, StringUtils.arrayOf("Node" , "Demand", "Outgoing link", "Splitting ratio", "Carried traffic"));
+		netPlanViewTableHeader.put(NetworkElementType.PROTECTION_SEGMENT, StringUtils.arrayOf("Unique identifier" , "Index", "Origin node", "Destination node", "Reserved capacity", "Carried traffic", "Sequence of links", "Sequence of nodes", "Number of hops", "Length (km)", "Propagation delay (ms)", "Dedicated/Shared", "# Routes", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.SRG, StringUtils.arrayOf("Unique identifier" , "Index", "MTTF (hours)", "MTTR (hours)", "Availability", "Nodes", "Links", "Links (other layers)", "# Affected routes", "# Affected protection segments", "# Affected multicast trees", "Attributes"));
+		netPlanViewTableHeader.put(NetworkElementType.NETWORK, StringUtils.arrayOf("Unique identifier" , "Index", "Value"));
+		netPlanViewTableHeader.put(NetworkElementType.LAYER, StringUtils.arrayOf("Unique identifier" , "Index", "Name", "Routing type", "Number of links", "Number of demands", "Number of multicast demands", "Number of routes", "Number of forwarding rules", "Number of protection segments", "Number of multicast trees" , "Description", "Link capacity units name", "Demand traffic units name", "Attributes"));
+		
+		netPlanViewTableTips = new EnumMap<NetworkElementType, String[]>(NetworkElementType.class);
+		netPlanViewTableTips.put(NetworkElementType.NODE, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Indicates whether or not the node is visible in the topology canvas", "Node name", "Indicates whether the node is in up/down state", "Coordinate along x-axis (i.e. longitude)", "Coordinate along y-axis (i.e. latitude)", "Outgoing links", "Incoming links", "Total UNICAST traffic entering to the network from this node", "Total UNICAST traffic leaving the network from this node", "UNICAST traffic entering the node, but not targeted to it", "Total MULTICAST traffic entering to the network from this node", "Total MULTICAST traffic leaving the network from this node", "SRGs including this node", "Node-specific attributes"));
+		netPlanViewTableTips.put(NetworkElementType.LINK, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Indicates whether or not the link is visible in the topology canvas (if some of the end-nodes is hidden, this link will become hidden, even though the link is set as visible)", "Origin node", "Destination node", "Indicates whether the link is in up/down state", "Capacity", "Carried traffic (summing unicast and multicast)", "Reserved for protection", "Utilization (carried traffic plus reserved bandwidth, divided by link capacity)", "Utilization excluding reserved capacity for protection (link carried traffic divided by link capacity)", "Indicates whether this link has the highest utilization in the network", "Length (km)", "Propagation speed (km/s)", "Propagation delay (ms)", "Number of routes traversing the link", "Number of protection segments traversing the link", "Number of forwarding rules for this link", "Number of multicast trees traversing the link" , "SRGs including this link", "Indicates the coupled lower layer demand, if any, or empty", "Link-specific attributes"));
+		netPlanViewTableTips.put(NetworkElementType.DEMAND, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Ingress node", "Egress node", "Indicates the coupled upper layer link, if any, or empty", "Offered traffic by the demand", "Carried traffic by routes carrying traffic from the demand", "Percentage of lost traffic from the offered", "Indicates whether there are routing cycles: loopless (no cycle in some route), open cycles (traffic reaches egress node after some cycles in some route), closed cycles (traffic does not reach the egress node in some route)", "Indicates whether the demand has more than one associated route carrying traffic", "Number of associated routes", "Demand-specific attributes"));
+		netPlanViewTableTips.put(NetworkElementType.MULTICAST_DEMAND, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Ingress node", "Egress nodes", "Indicates the coupled upper layer links, if any, or empty", "Offered traffic by the multicast demand", "Carried traffic by multicast trees carrying demand traffic", "Percentage of lost traffic from the offered", "Indicates whether there are routing cycles: always loopless since we always deal with multicast trees", "Indicates whether the demand has more than one associated multicast tree carrying traffic", "Number of associated multicast trees", "Multicast demand-specific attributes"));
+		netPlanViewTableTips.put(NetworkElementType.ROUTE, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Demand", "Ingress node", "Egress node", "Demand offered traffic", "Carried traffic", "Occupied capacity", "Sequence of links", "Sequence of nodes", "Number of hops", "Total route length", "Propagation delay (ms)", "Highest utilization among all traversed links", "Candidate protection segments for this route", "Route-specific attributes"));
+		netPlanViewTableTips.put(NetworkElementType.MULTICAST_TREE, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Multicast demand", "Ingress node", "Egress nodes", "Multicast demand offered traffic", "This multicast tree carried traffic", "Capacity occupied in the links (typically same as the carried traffic)", "Set of links in the tree", "Number of links in the tree (equal to the number of traversed nodes minus one)", "Set of traversed nodes (including ingress and egress ndoes)", "Number of hops of the longest path (in number of hops) to any egress node" , "Length (km) of the longest path (in km) to any egress node", "Propagation demay (ms) of the longest path (in ms) to any egress node",  "Highest utilization among all traversed links", "Multicast tree specific attributes"));
+		netPlanViewTableTips.put(NetworkElementType.FORWARDING_RULE, StringUtils.arrayOf("Node where the forwarding rule is installed", "Demand", "Outgoing link", "Percentage of the traffic entering the node going through the outgoing link", "Carried traffic in this link for the demand"));
+		netPlanViewTableTips.put(NetworkElementType.PROTECTION_SEGMENT, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Origin node", "Destination node", "Reserved capacity for the segment", "Carried traffic by this segment", "Sequence of links", "Sequence of nodes", "Number of hops", "Length (km)", "Propagation delay (ms)", "Dedicated/Shared", "# Routes", "Attributes"));
+		netPlanViewTableTips.put(NetworkElementType.SRG, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Mean time to fail", "Mean time to repair", "Expected availability", "Nodes included into the shared-risk group", "Links (in this layer) included into the shared-risk group", "Links (in other layers) included into the shared-risk group", "# Affected routes", "# Affected protection segments", "# Affected multicast trees" , "Attributes"));
+		netPlanViewTableTips.put(NetworkElementType.NETWORK, StringUtils.arrayOf("Attribute", "Value"));
+		netPlanViewTableTips.put(NetworkElementType.LAYER, StringUtils.arrayOf("Index (consecutive integer starting in zero)", "Unique identifier (never repeated in the same netPlan object, never changes, long)", "Name", "Routing type", "Number of links", "Number of demands", "Number of multicast demands" , "Number of routes", "Number of forwarding rules", "Number of protection segments", "Number of multicast trees" , "Description", "Link capacity units name", "Demand traffic units name", "Attributes"));
+	}
+
+	/**
+	 * Constructor that allows set a title for the tool in the top section of the panel.
+	 * 
+	 * @param title Title of the tool (null or empty means no title)
+	 * @since 0.3.0
+	 */
+	public IGUINetworkViewer(String title)
+	{
+		super(title);
+	}
+	
+	@Override
+	public long addLink(long originNode, long destinationNode)
+	{
+		long layer = getDesign().getNetworkLayerDefault().getId ();
+		return addLink(layer, originNode, destinationNode);
+	}
+
+	@Override
+	public long addLink(long layer , long originNode , long destinationNode)
+	{
+		if (!isEditable()) throw new UnsupportedOperationException("Not supported");
+		
+		NetPlan netPlan = getDesign();
+		Link link = netPlan.addLink(netPlan.getNodeFromId (originNode) , netPlan.getNodeFromId (destinationNode) , 0, 0, 200000 , null , netPlan.getNetworkLayerFromId (layer));
+		
+		if (layer == netPlan.getNetworkLayerDefault().getId ())
+		{
+			getTopologyPanel().getCanvas().addLink(link.getId (), originNode, destinationNode);
+			getTopologyPanel().getCanvas().refresh();
+		}
+		
+		updateNetPlanView();
+		return link.getId ();
+	}
+
+	@Override
+	public Pair<Long, Long> addLinkBidirectional(long originNode , long destinationNode)
+	{
+		return addLinkBidirectional(getDesign().getNetworkLayerDefault().getId () , originNode , destinationNode);
+	}
+
+	@Override
+	public Pair<Long, Long> addLinkBidirectional(long layer , long originNode , long destinationNode)
+	{
+		if (!isEditable()) throw new UnsupportedOperationException("Not supported");
+		
+		NetPlan netPlan = getDesign();
+		Pair<Link, Link> links = netPlan.addLinkBidirectional(netPlan.getNodeFromId(originNode) , netPlan.getNodeFromId(destinationNode) , 0, 0, 200000 , null , netPlan.getNetworkLayerFromId(layer));
+		if (layer == netPlan.getNetworkLayerDefault().getId ())
+		{
+			getTopologyPanel().getCanvas().addLink(links.getFirst().getId (), originNode, destinationNode);
+			getTopologyPanel().getCanvas().addLink(links.getSecond().getId (), destinationNode, originNode);
+			getTopologyPanel().getCanvas().refresh();
+		}
+		
+		updateNetPlanView();
+		return Pair.of (links.getFirst ().getId() , links.getSecond ().getId ());
+	}
+
+	@Override
+	public void addNode(Point2D pos)
+	{
+		if (!isEditable()) throw new UnsupportedOperationException("Not supported");
+		
+		NetPlan netPlan = getDesign();
+		long nodeId = netPlan.getNetworkElementNextId();
+		Node node = netPlan.addNode(pos.getX(), pos.getY(), "Node " + nodeId, null);
+		getTopologyPanel().getCanvas().addNode(node.getId () , pos, null);
+		getTopologyPanel().getCanvas().refresh();
+		updateNetPlanView();
+	}
+	
+	@Override
+	public void configure(JPanel contentPane)
+	{
+		Class<? extends ITopologyCanvas> topologyCanvasClass = (Class<? extends ITopologyCanvas>) PluginSystem.getPlugins(ITopologyCanvas.class).iterator().next();
+		try { topologyCanvasClass = (Class<? extends ITopologyCanvas>) Class.forName(Configuration.getOption("topologyViewer")); }
+		catch(Throwable e) { }
+		
+		topologyPanel = new TopologyPanel(this, topologyCanvasClass);
+		configureTopologyPanel();
+		topologyPanel.setBorder(BorderFactory.createTitledBorder(new LineBorder(Color.BLACK), "Network topology"));
+		topologyPanel.setAllowLoadTrafficDemand(allowLoadTrafficDemands());
+
+		addKeyCombinationAction("Load design", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getTopologyPanel().loadDesign();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+
+		addKeyCombinationAction("Save design", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getTopologyPanel().saveDesign();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
+
+		addKeyCombinationAction("Zoom in", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getTopologyPanel().zoomIn();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_ADD, InputEvent.CTRL_DOWN_MASK), KeyStroke.getKeyStroke(KeyEvent.VK_PLUS, InputEvent.CTRL_DOWN_MASK));
+
+		addKeyCombinationAction("Zoom out", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getTopologyPanel().zoomOut();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_SUBTRACT, InputEvent.CTRL_DOWN_MASK), KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, InputEvent.CTRL_DOWN_MASK));
+
+		addKeyCombinationAction("Zoom all", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getTopologyPanel().zoomAll();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_MULTIPLY, InputEvent.CTRL_DOWN_MASK));
+
+		addKeyCombinationAction("Take snapshot", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				getTopologyPanel().takeSnapshot();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_F12, InputEvent.CTRL_DOWN_MASK));
+
+		if (allowLoadTrafficDemands())
+		{
+			addKeyCombinationAction("Load traffic demands", new AbstractAction()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					getTopologyPanel().loadTrafficDemands();
+				}
+			}, KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_DOWN_MASK));
+		}
+
+		leftPane = new JPanel(new BorderLayout());
+		JPanel logSection = configureLeftBottomPanel();
+		if (logSection == null)
+		{
+			leftPane.add(topologyPanel, BorderLayout.CENTER);
+		}
+		else
+		{
+			JSplitPane splitPaneTopology = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+			splitPaneTopology.setTopComponent(topologyPanel);
+			splitPaneTopology.setBottomComponent(logSection);
+			splitPaneTopology.setResizeWeight(0.8);
+			splitPaneTopology.addPropertyChangeListener(new ProportionalResizeJSplitPaneListener());
+			splitPaneTopology.setBorder(new LineBorder(contentPane.getBackground()));
+			leftPane.add(splitPaneTopology, BorderLayout.CENTER);
+		}
+		
+		rightPane = new JTabbedPane();
+
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+		splitPane.setLeftComponent(leftPane);
+		splitPane.setRightComponent(rightPane);
+		splitPane.setResizeWeight(0.5);
+		splitPane.addPropertyChangeListener(new ProportionalResizeJSplitPaneListener());
+
+		splitPane.setBorder(BorderFactory.createEmptyBorder());
+		contentPane.add(splitPane, "grow");
+		
+		configureNetPlanView();
+		configureReportPane();
+		loadDesign(new NetPlan());
+		
+		addKeyCombinationAction("Resets the tool", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				reset();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_DOWN_MASK));
+
+		addKeyCombinationAction("Outputs current design to console", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println(getDesign().toString());
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_F11, InputEvent.CTRL_DOWN_MASK));
+		
+		for(int tabId = 0; tabId <= 8; tabId++)
+		{
+			final int key;
+			switch(tabId)
+			{
+				case 0:
+					key = KeyEvent.VK_1;
+					break;
+
+				case 1:
+					key = KeyEvent.VK_2;
+					break;
+
+				case 2:
+					key = KeyEvent.VK_3;
+					break;
+
+				case 3:
+					key = KeyEvent.VK_4;
+					break;
+
+				case 4:
+					key = KeyEvent.VK_5;
+					break;
+
+				case 5:
+					key = KeyEvent.VK_6;
+					break;
+
+				case 6:
+					key = KeyEvent.VK_7;
+					break;
+
+				case 7:
+					key = KeyEvent.VK_8;
+					break;
+
+				case 8:
+					key = KeyEvent.VK_9;
+					break;
+
+				default:
+					throw new RuntimeException("Bad");
+			}
+	
+			addKeyCombinationAction("Open right tab " + tabId, new SwitchTabAction(tabId), KeyStroke.getKeyStroke(key, InputEvent.CTRL_DOWN_MASK));
+		}		
+	}
+	
+	@Override
+	public Object execute(ThreadExecutionController controller)
+	{
+		if (controller == reportController)
+		{
+			Triple<File, String, Class> report = reportSelector.getRunnable();
+			Map<String, String> reportParameters = reportSelector.getRunnableParameters();
+			Map<String, String> net2planParameters = Configuration.getNet2PlanOptions();
+			IReport instance = ClassLoaderUtils.getInstance(report.getFirst(), report.getSecond(), IReport.class);
+			String title = null;
+			try { title = instance.getTitle(); }
+			catch(UnsupportedOperationException ex) { }
+			if (title == null) title = "Untitled";
+			
+			Pair<String, ? extends JPanel> aux = Pair.of(title, new ReportBrowser(instance.executeReport(getDesign().copy(), reportParameters, net2planParameters)));
+			try { ((Closeable) instance.getClass().getClassLoader()).close(); }
+			catch (Throwable e) { }
+
+			return aux;
+		}
+		else
+		{
+			throw new RuntimeException("Bad");
+		}
+	}
+
+	@Override
+	public void executionFailed(ThreadExecutionController controller)
+	{
+		if (controller == reportController)
+		{
+			ErrorHandling.showErrorDialog("Error executing report");
+		}
+		else
+		{
+			ErrorHandling.showErrorDialog("Bad");
+		}
+	}
+
+	@Override
+	public void executionFinished(ThreadExecutionController controller, Object out)
+	{
+		if (controller == reportController)
+		{
+			Pair<String, ? extends JPanel> aux = (Pair<String, ? extends JPanel>) out;
+			reportContainer.addTab(aux.getFirst(), new TabIcon(TabIcon.IconType.TIMES_SIGN), aux.getSecond());
+			reportContainer.setSelectedIndex(reportContainer.getTabCount() - 1);
+		}
+		else
+		{
+			ErrorHandling.showErrorDialog("Bad");
+		}
+	}
+	
+	@Override
+	public NetPlan getDesign()
+	{
+		return currentNetPlan;
+	}
+	
+	@Override
+	public NetPlan getInitialDesign()
+	{
+		return initialNetPlan;
+	}
+
+	@Override
+	public List<JComponent> getCanvasActions(Point2D pos)
+	{
+		List<JComponent> actions = new LinkedList<JComponent>();
+		
+		if (isEditable())
+			actions.add(new JMenuItem(new AddNodeAction("Add node here", pos)));
+		
+		return actions;
+	}
+	
+	@Override
+	public List<JComponent> getLinkActions(long link , Point2D pos)
+	{
+		List<JComponent> actions = new LinkedList<JComponent>();
+		
+		if (isEditable())
+			actions.add(new JMenuItem(new RemoveLinkAction("Remove link", link)));
+		
+		return actions;
+	}
+	
+	@Override
+	public List<JComponent> getNodeActions(long nodeId , Point2D pos)
+	{
+		List<JComponent> actions = new LinkedList<JComponent>();
+		
+		if (isEditable())
+		{
+			actions.add(new JMenuItem(new RemoveNodeAction("Remove node", nodeId)));
+			
+			NetPlan netPlan = getDesign();
+			Node node = netPlan.getNodeFromId (nodeId);
+			if (netPlan.getNumberOfNodes() > 1)
+			{
+				actions.add(new JPopupMenu.Separator());
+				JMenu unidirectionalMenu = new JMenu("Create unidirectional link");
+				JMenu bidirectionalMenu = new JMenu("Create bidirectional link");
+				
+				String nodeName = node.getName ();
+				String nodeString = Long.toString(nodeId) + (nodeName.isEmpty() ? "" : " (" + nodeName + ")");
+				
+				long layer = netPlan.getNetworkLayerDefault().getId ();
+				for (Node auxNode : netPlan.getNodes ())
+				{
+					if (auxNode.equals (nodeId)) continue;
+					
+					String auxNodeName = auxNode.getName ();
+					String auxNodeString = Long.toString(auxNode.getId ()) + (auxNodeName.isEmpty() ? "" : " (" + auxNodeName + ")");
+					
+					AbstractAction unidirectionalAction = new AddLinkAction(nodeString + " => " + auxNodeString, layer , nodeId , auxNode.getId ());
+					unidirectionalMenu.add(unidirectionalAction);
+
+					AbstractAction bidirectionalAction = new AddLinkBidirectionalAction(nodeString + " <=> " + auxNodeString, layer, nodeId, auxNode.getId ());
+					bidirectionalMenu.add(bidirectionalAction);
+				}
+
+				actions.add(unidirectionalMenu);
+				actions.add(bidirectionalMenu);
+			}
+		}
+			
+		return actions;
+	}
+	
+	@Override
+	public boolean isEditable()
+	{
+		return false;
+	}
+	
+	@Override
+	public void layerChanged(long layer)
+	{
+	}
+
+	@Override
+	public void loadDesign(NetPlan netPlan)
+	{
+		netPlan.checkCachesConsistency();
+		setNetPlan(netPlan);
+		netPlan.checkCachesConsistency();
+		topologyPanel.updateLayerChooser();
+		topologyPanel.getCanvas().zoomAll();
+		resetView();
+	}
+
+	@Override
+	public void loadTrafficDemands(NetPlan demands)
+	{
+		if (!demands.hasDemands() && !demands.hasMulticastDemands ()) throw new Net2PlanException("Selected file doesn't contain a demand set");
+		
+		NetPlan netPlan = getDesign();
+		if (netPlan.hasDemands() || netPlan.hasMulticastDemands())
+		{
+			int result = JOptionPane.showConfirmDialog(null, "Current network structure contains a demand set. Overwrite?", "Loading demand set", JOptionPane.YES_NO_OPTION);
+			if (result != JOptionPane.YES_OPTION) return;
+		}
+
+		NetPlan aux_netPlan = netPlan.copy();
+		try
+		{
+			netPlan.removeAllDemands();
+			for(Demand demand : demands.getDemands())
+				netPlan.addDemand(netPlan.getNode (demand.getIngressNode ().getIndex ()), netPlan.getNode (demand.getEgressNode ().getIndex ()), demand.getOfferedTraffic(), demand.getAttributes());
+
+			netPlan.removeAllMulticastDemands();
+			for(MulticastDemand demand : demands.getMulticastDemands())
+			{
+				Set<Node> egressNodesThisNetPlan = new HashSet<Node> (); for (Node n : demand.getEgressNodes()) egressNodesThisNetPlan.add (netPlan.getNode (n.getIndex ()));
+				netPlan.addMulticastDemand(netPlan.getNode (demand.getIngressNode ().getIndex()) , egressNodesThisNetPlan , demand.getOfferedTraffic(), demand.getAttributes());
+			}
+
+			updateNetPlanView();
+		}
+		catch (Throwable ex)
+		{
+			getDesign().assignFrom(aux_netPlan);
+			throw new RuntimeException(ex);
+		}
+	}
+	
+	@Override
+	public void moveNode(long node , Point2D pos)
+	{
+		if (!isEditable()) throw new UnsupportedOperationException("Not supported");
+		
+		TableModel nodeTableModel = netPlanViewTable.get(NetworkElementType.NODE).getModel();
+		int numRows = nodeTableModel.getRowCount();
+		for(int row = 0; row < numRows; row++)
+		{
+			if ((long) nodeTableModel.getValueAt(row, 0) == node)
+			{
+				nodeTableModel.setValueAt(pos.getX(), row, 4);
+				nodeTableModel.setValueAt(pos.getY(), row, 5);
+			}
+		}
+	}
+
+	@Override
+	public void removeLink(long link)
+	{
+		if (!isEditable()) throw new UnsupportedOperationException("Not supported");
+		
+		NetPlan netPlan = getDesign();
+		netPlan.getLinkFromId (link).remove ();
+		if (netPlan.getLinkFromId (link).getLayer().equals(getDesign().getNetworkLayerDefault()))
+		{
+			getTopologyPanel().getCanvas().removeLink(link);
+			getTopologyPanel().getCanvas().refresh();
+		}
+		
+		updateNetPlanView();
+	}
+
+	@Override
+	public void removeNode(long node)
+	{
+		if (!isEditable()) throw new UnsupportedOperationException("Not supported");
+		
+		NetPlan netPlan = getDesign();
+		netPlan.getNodeFromId (node).remove();
+		getTopologyPanel().getCanvas().removeNode(node);
+		getTopologyPanel().getCanvas().refresh();
+		updateNetPlanView();
+	}
+
+	@Override
+	public void reset()
+	{
+		try
+		{
+			boolean reset = askForReset();
+			if (!reset) return;
+
+			reset_internal();
+			reportSelector.reset();
+			reportContainer.removeAll();
+		}
+		catch (Throwable ex)
+		{
+			ErrorHandling.addErrorOrException(ex, IGUINetworkViewer.class);
+			ErrorHandling.showErrorDialog("Unable to reset");
+		}
+	}
+	
+	@Override
+	public void resetView()
+	{
+		topologyPanel.getCanvas().resetPickedState();
+		for (Entry<NetworkElementType, JTable> entry : netPlanViewTable.entrySet())
+		{
+			switch(entry.getKey())
+			{
+				case DEMAND:
+					clearDemandSelection();
+					break;
+					
+				case MULTICAST_DEMAND:
+					clearMulticastDemandSelection();
+					break;
+					
+				case FORWARDING_RULE:
+					clearForwardingRuleSelection();
+					break;
+					
+				case LINK:
+					clearLinkSelection();
+					break;
+					
+				case NODE:
+					clearNodeSelection();
+					break;
+					
+				case PROTECTION_SEGMENT:
+					clearProtectionSegmentSelection();
+					break;
+					
+				case ROUTE:
+					clearRouteSelection();
+					break;
+					
+				case MULTICAST_TREE:
+					clearMulticastTreeSelection();
+					break;
+					
+				case SRG:
+					clearSRGSelection();
+					break;
+					
+				default:
+					break;
+			}
+		}
+	}
+	
+	public void showDemand(long demandId)
+	{	
+		NetPlan netPlan = getDesign();
+		NetworkLayer layer = netPlan.getDemandFromId(demandId).getLayer ();
+		selectNetPlanViewItem(layer.getId () , NetworkElementType.DEMAND, demandId);
+		Demand demand = netPlan.getDemandFromId (demandId);
+		
+		List<Pair<Long,Color>> nodes = new LinkedList<Pair<Long,Color>>();
+		nodes.add(Pair.of (demand.getIngressNode().getId () , Color.GREEN));
+		nodes.add(Pair.of (demand.getEgressNode().getId () , Color.CYAN));
+		Set<Pair<Long,Color>> links = new LinkedHashSet<Pair<Long,Color>>();
+		
+		DoubleMatrix1D x_e = netPlan.getMatrixDemand2LinkTrafficCarried(layer).viewRow(demand.getIndex ()).copy ();
+		for (int e = 0 ; e < x_e.size () ; e ++)
+			if (x_e.get (e) > 0) 
+			{ 
+				links.add (Pair.of(netPlan.getLink (e , layer).getId () , Color.BLUE));
+			}
+		topologyPanel.getCanvas().showNodesAndLinks(nodes, links);
+		topologyPanel.getCanvas().refresh();
+	}
+	
+	@Override
+	public void showMulticastDemand(long demandId)
+	{	
+		NetPlan netPlan = getDesign();
+		MulticastDemand demand = netPlan.getMulticastDemandFromId(demandId);
+		NetworkLayer layer = demand.getLayer ();
+		selectNetPlanViewItem(layer.getId () , NetworkElementType.MULTICAST_DEMAND, demandId);
+		
+		List<Pair<Long,Color>> nodes = new LinkedList<Pair<Long,Color>>();
+		nodes.add(Pair.of (demand.getIngressNode().getId () , Color.GREEN));
+		for (Node n : demand.getEgressNodes()) nodes.add(Pair.of (n.getId () , Color.CYAN));
+		Set<Pair<Long,Color>> links = new LinkedHashSet<Pair<Long,Color>>();
+
+		DoubleMatrix1D x_e = netPlan.getMatrixMulticastDemand2LinkTrafficCarried(layer).viewRow(demand.getIndex ()).copy ();
+		for (int e = 0 ; e < x_e.size () ; e ++)
+			if (x_e.get (e) > 0) links.add (Pair.of(netPlan.getLinkFromId (e).getId () , Color.BLUE));
+		topologyPanel.getCanvas().showNodesAndLinks(nodes, links);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public void showForwardingRule(Pair<Long,Long> demandLink)
+	{
+		long demandId = demandLink.getFirst();
+		long linkId = demandLink.getSecond();
+		NetPlan netPlan = getDesign();
+		Demand demand = netPlan.getDemandFromId (demandId);
+		Link link = netPlan.getLinkFromId (linkId);
+		NetworkLayer layer = demand.getLayer();
+		selectNetPlanViewItem(layer.getId (), NetworkElementType.FORWARDING_RULE, Pair.of(demandId,linkId));
+		
+		List<Pair<Long,Color>> nodes = new LinkedList<Pair<Long,Color>>();
+		nodes.add(Pair.of (demand.getIngressNode().getId () , Color.GREEN));
+		nodes.add(Pair.of (demand.getEgressNode().getId () , Color.CYAN));
+		Set<Pair<Long,Color>> links = new LinkedHashSet<Pair<Long,Color>>();
+		links.add(Pair.of(link.getId () , Color.BLUE));
+		
+		topologyPanel.getCanvas().showNodesAndLinks(nodes, links);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public void showLink(long linkId)
+	{
+		NetPlan netPlan = getDesign();
+		Link link = netPlan.getLinkFromId (linkId);
+		selectNetPlanViewItem(link.getLayer ().getId (), NetworkElementType.LINK, linkId);
+		
+		topologyPanel.getCanvas().showLink(linkId,Color.BLUE);
+//		topologyPanel.getCanvas().showLink(linkId,color);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public void showNode(long nodeId)
+	{
+		selectNetPlanViewItem(getDesign ().getNetworkLayerDefault().getId (), NetworkElementType.NODE, nodeId);
+		
+		topologyPanel.getCanvas().showNode(nodeId , Color.CYAN);
+		topologyPanel.getCanvas().refresh();
+	}
+	
+	@Override
+	public void showProtectionSegment(long segmentId)
+	{
+		NetPlan netPlan = getDesign();
+		ProtectionSegment segment = netPlan.getProtectionSegmentFromId(segmentId);
+		selectNetPlanViewItem(segment.getLayer().getId (), NetworkElementType.PROTECTION_SEGMENT, segmentId);
+		List<Pair<Long,Color>> res = new LinkedList<Pair<Long,Color>> ();
+		for (Link e : segment.getSeqLinks()) res.add (Pair.of (e.getId () , Color.BLUE));
+		
+		topologyPanel.getCanvas().showRoute(res);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public void showRoute(long routeId)
+	{
+		NetPlan netPlan = getDesign();
+		Route route = netPlan.getRouteFromId (routeId);
+		NetworkLayer layer = route.getLayer ();
+		selectNetPlanViewItem(layer.getId (), NetworkElementType.ROUTE, routeId);
+		
+		NetPlan currentState = getDesign();
+		NetPlan initialState = getInitialDesign();
+		Set<Pair<Long,Color>> pri_seqLinks = new LinkedHashSet<Pair<Long,Color>>();
+		Set<Pair<Long,Color>> sec_seqLinks = new LinkedHashSet<Pair<Long,Color>>();
+		for (Link e : route.getSeqLinksRealPath()) pri_seqLinks.add (Pair.of (e.getId () , Color.BLUE));
+		
+		if (allowShowInitialNetPlan())
+		{
+			Route initialRoute = initialState.getRouteFromId(route.getId ());
+			if (initialRoute != null)
+				for (Link e : initialRoute.getSeqLinksRealPath()) sec_seqLinks.add (Pair.of (e.getId () , Color.BLUE));
+			
+			Iterator<Pair<Long,Color>> linkIt = sec_seqLinks.iterator();
+			while(linkIt.hasNext())
+			{
+				Pair<Long,Color> linkColorInitialState = linkIt.next();
+				Link linkInitialState = netPlan.getLinkFromId (linkColorInitialState.getFirst ());
+				Link linkCurrentState = currentState.getLinkFromId (linkInitialState.getId());
+				if (linkCurrentState == null)
+					linkIt.remove();
+			}
+		}
+		
+		topologyPanel.getCanvas().showRoutes(pri_seqLinks, sec_seqLinks);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public void showMulticastTree (long treeId)
+	{
+		NetPlan netPlan = getDesign();
+		MulticastTree tree = netPlan.getMulticastTreeFromId (treeId);
+		NetworkLayer layer = tree.getLayer ();
+		selectNetPlanViewItem(layer.getId (), NetworkElementType.MULTICAST_TREE, treeId);
+		
+		NetPlan currentState = getDesign();
+		NetPlan initialState = getInitialDesign();
+		Set<Pair<Long,Color>> pri_seqLinks = new LinkedHashSet<Pair<Long,Color>>(); 
+		Set<Pair<Long,Color>> sec_seqLinks = new LinkedHashSet<Pair<Long,Color>>();
+		for (Link e : tree.getLinkSet()) pri_seqLinks.add (Pair.of(e.getId () , Color.BLUE));
+
+		if (allowShowInitialNetPlan())
+		{
+			MulticastTree initialTree = initialState.getMulticastTreeFromId(treeId);
+			if (initialTree != null)
+				for (Link e : initialTree.getLinkSet()) sec_seqLinks.add (Pair.of (e.getId () , Color.BLUE));
+			
+			Iterator<Pair<Long,Color>> linkIt = sec_seqLinks.iterator();
+			while(linkIt.hasNext())
+			{
+				Pair<Long,Color> initialLinkColor = linkIt.next();
+				if (currentState.getLinkFromId (initialLinkColor.getFirst ()) == null) linkIt.remove();
+			}
+		}
+		
+		topologyPanel.getCanvas().showRoutes(pri_seqLinks, sec_seqLinks);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public void showSRG(long srg)
+	{
+		showSRG(getDesign().getNetworkLayerDefault().getId (), srg);
+	}
+	
+	@Override
+	public void showSRG(long layer , long srg)
+	{
+		NetPlan netPlan = getDesign();
+		selectNetPlanViewItem(layer , NetworkElementType.SRG, srg);
+		
+		Set<Node> nodeIds_thisSRG = netPlan.getSRGFromId (srg).getNodes();
+		Set<Link> linkIds_thisSRG_thisLayer = netPlan.getSRGFromId (srg).getLinks(netPlan.getNetworkLayerFromId (layer));
+		List<Pair<Long,Color>> nodeColors = new LinkedList<Pair<Long,Color>> ();
+		List<Pair<Long,Color>> linkColors = new LinkedList<Pair<Long,Color>> ();
+		for (Node n : nodeIds_thisSRG) nodeColors.add (Pair.of (n.getId () , Color.ORANGE));
+		for (Link e : linkIds_thisSRG_thisLayer) linkColors.add (Pair.of (e.getId () , Color.ORANGE));
+		
+		topologyPanel.getCanvas().showNodesAndLinks(nodeColors , linkColors);
+		topologyPanel.getCanvas().refresh();
+	}
+
+	@Override
+	public synchronized void updateNetPlanView()
+	{
+		updateWarnings();
+		
+		/* Load current network state */
+		NetPlan currentState = getDesign();
+		NetworkLayer layer = currentState.getNetworkLayerDefault();
+		
+		currentState.checkCachesConsistency();
+		
+		
+		for (Entry<NetworkElementType, JTable> entry : netPlanViewTable.entrySet())
+		{
+			NetworkElementType elementType = entry.getKey();
+			JTable table = entry.getValue();
+			table.setEnabled(false);
+
+			String[] header = netPlanViewTableHeader.get(elementType);
+			((DefaultTableModel) table.getModel()).setDataVector(new Object[1][header.length], header);
+		}
+		
+		RoutingType routingType = currentState.getRoutingType();
+
+		Component selectedTab = netPlanView.getSelectedComponent();
+		netPlanView.removeAll();
+		for(NetworkElementType elementType : Constants.NetworkElementType.values())
+		{
+			if (routingType == RoutingType.SOURCE_ROUTING && elementType == NetworkElementType.FORWARDING_RULE) continue;
+			if (routingType == RoutingType.HOP_BY_HOP_ROUTING && (elementType == NetworkElementType.PROTECTION_SEGMENT || elementType == NetworkElementType.ROUTE)) continue;
+			netPlanView.addTab(netPlanViewTabName.get(elementType), netPlanViewTableComponent.get(elementType));
+		}
+		
+		for(int tabId = 0; tabId < netPlanView.getTabCount(); tabId++)
+		{
+			if (netPlanView.getComponentAt(tabId).equals(selectedTab))
+			{
+				netPlanView.setSelectedIndex(tabId);
+				break;
+			}
+		}
+		
+		networkAttributeTable.setEnabled(false);
+		((DefaultTableModel) networkAttributeTable.getModel()).setDataVector(new Object[1][attributeTableHeader.length], attributeTableHeader);
+
+		layerAttributeTable.setEnabled(false);
+		((DefaultTableModel) layerAttributeTable.getModel()).setDataVector(new Object[1][attributeTableHeader.length], attributeTableHeader);
+
+		EnumMap<NetworkElementType, Object[][]> networkElementInfo = new EnumMap<NetworkElementType, Object[][]>(NetworkElementType.class);
+
+		NetPlan initialState = null;
+		if (showInitialPlan != null && getInitialDesign().getNetworkLayerFromId (layer.getId ()) != null)
+			initialState = getInitialDesign();
+
+		RoutingType routingType_initialNetPlan = initialState == null ? null : initialState.getRoutingType();
+		
+		Map<String, String> net2planParameters = Configuration.getNet2PlanOptions();
+		double PRECISION_FACTOR = Double.parseDouble(net2planParameters.get("precisionFactor"));
+
+		List<Node> nodes = currentState.getNodes();
+		List<Link> links = currentState.getLinks();
+		List<Demand> demands = currentState.getDemands();
+		List<MulticastDemand> multicastDemands = currentState.getMulticastDemands();
+		List<SharedRiskGroup> srgs = currentState.getSRGs();
+
+		currentState.checkCachesConsistency();
+		
+
+		if (!nodes.isEmpty())
+		{
+			String[] nodeTableHeader = netPlanViewTableHeader.get(NetworkElementType.NODE);
+
+			List<Object[]> allNodeData = new LinkedList<Object[]>();
+
+			for(Node node : nodes)
+			{
+				Set<Link> outgoingLinks = node.getOutgoingLinks();
+				Set<Link> incomingLinks = node.getIncomingLinks();
+
+				Object[] nodeData = new Object[nodeTableHeader.length];
+				nodeData[0] = node.getId ();
+				nodeData[1] = node.getIndex ();
+				nodeData[2] = topologyPanel.getCanvas().isNodeVisible(node.getId ());
+				nodeData[3] = node.getName ();
+				nodeData[4] = node.isUp();
+				nodeData[5] = node.getXYPositionMap().getX();
+				nodeData[6] = node.getXYPositionMap().getY();
+				nodeData[7] = outgoingLinks.isEmpty() ? "none" : outgoingLinks.size() + " (" + CollectionUtils.join(outgoingLinks, ", ") + ")";
+				nodeData[8] = incomingLinks.isEmpty() ? "none" : incomingLinks.size() + " (" + CollectionUtils.join(incomingLinks, ", ") + ")";
+				nodeData[9] = node.getIngressOfferedTraffic();
+				nodeData[10] = node.getEgressOfferedTraffic();
+				nodeData[11] = node.getIngressOfferedMulticastTraffic();
+				nodeData[12] = node.getEgressOfferedMulticastTraffic();
+				nodeData[13] = node.getSRGs().isEmpty() ? "none" : node.getSRGs().size() + " (" + CollectionUtils.join(currentState.getIds(node.getSRGs()), ", ") + ")";
+				nodeData[14] = StringUtils.mapToString(node.getAttributes());
+				allNodeData.add(nodeData);
+
+				if (showInitialPlan != null && initialState != null && initialState.getNodeFromId (node.getId ()) != null)
+				{
+					node = initialState.getNodeFromId (node.getId ());
+					outgoingLinks = node.getOutgoingLinks();
+					incomingLinks = node.getIncomingLinks();
+
+					Object[] nodeData_initialNetPlan = new Object[nodeTableHeader.length];
+					nodeData_initialNetPlan[0] = null;
+					nodeData_initialNetPlan[1] = null;
+					nodeData_initialNetPlan[2] = null;
+					nodeData_initialNetPlan[3] = node.getName ();
+					nodeData_initialNetPlan[4] = node.isUp();
+					nodeData_initialNetPlan[5] = node.getXYPositionMap().getX();
+					nodeData_initialNetPlan[6] = node.getXYPositionMap().getY();
+					nodeData_initialNetPlan[7] = outgoingLinks.isEmpty() ? "none" : outgoingLinks.size() + " (" + CollectionUtils.join(outgoingLinks, ", ") + ")";
+					nodeData_initialNetPlan[8] = incomingLinks.isEmpty() ? "none" : incomingLinks.size() + " (" + CollectionUtils.join(incomingLinks, ", ") + ")";
+					nodeData_initialNetPlan[9] = node.getIngressOfferedTraffic();
+					nodeData_initialNetPlan[10] = node.getEgressOfferedTraffic();
+					nodeData_initialNetPlan[11] = node.getIngressOfferedMulticastTraffic();
+					nodeData_initialNetPlan[12] = node.getEgressOfferedMulticastTraffic();
+					nodeData_initialNetPlan[13] = node.getSRGs().isEmpty() ? "none" : node.getSRGs().size() + " (" + CollectionUtils.join(currentState.getIds(node.getSRGs()), ", ") + ")";
+					nodeData_initialNetPlan[14] = StringUtils.mapToString(node.getAttributes());
+					allNodeData.add(nodeData_initialNetPlan);
+				}
+			}
+
+			networkElementInfo.put(NetworkElementType.NODE, allNodeData.toArray(new Object[allNodeData.size()][nodeTableHeader.length]));
+		}
+
+		
+		if (!links.isEmpty())
+		{
+			String[] linkTableHeader = netPlanViewTableHeader.get(NetworkElementType.LINK);
+
+			double max_rho_e = 0; for (Link link : links) max_rho_e = Math.max (max_rho_e , link.getOccupiedCapacityIncludingProtectionSegments() / link.getCapacity());
+			double max_rho_e_initialNetPlan = -1; if (initialState != null)  for (Link link : links) max_rho_e_initialNetPlan = Math.max (max_rho_e_initialNetPlan , link.getOccupiedCapacityIncludingProtectionSegments() / link.getCapacity());
+
+			List<Object[]> allLinkData = new LinkedList<Object[]>();
+			for (Link link : links)
+			{
+				Set<SharedRiskGroup> srgIds_thisLink = link.getSrgs();
+				Set<Route> traversingRoutes = routingType == RoutingType.SOURCE_ROUTING ? link.getTraversingRoutes() : new LinkedHashSet<Route>();
+				Set<ProtectionSegment> traversingSegments = routingType == RoutingType.SOURCE_ROUTING ? link.getTraversingProtectionSegments() : new LinkedHashSet<ProtectionSegment>();
+				Set<MulticastTree> traversingMulticastTrees = link.getTraversingTrees();
+				DoubleMatrix1D forwardingRules = routingType == RoutingType.HOP_BY_HOP_ROUTING ? currentState.getMatrixDemandBasedForwardingRules().viewColumn(link.getIndex()).copy ()  : DoubleFactory1D.sparse.make(demands.size (),0);
+				int numRoutes = traversingRoutes.size();
+				int numSegments = traversingSegments.size();
+				int numForwardingRules = 0; for (int d = 0; d < forwardingRules.size() ; d ++) if (forwardingRules.get(d) != 0) numForwardingRules ++;
+				int numMulticastTrees = traversingMulticastTrees.size();
+				
+				String routesString = numRoutes + (numRoutes > 0 ? " (" + CollectionUtils.join(NetPlan.getIds (traversingRoutes), ", ") + ")" : "");
+				String segmentsString = numSegments + (numSegments > 0 ? " (" + CollectionUtils.join(NetPlan.getIds (traversingSegments), ", ") + ")" : "");
+				String multicastTreesString = numMulticastTrees + (numMulticastTrees > 0 ? " (" + CollectionUtils.join(NetPlan.getIds (traversingMulticastTrees), ", ") + ")" : "");
+				StringBuilder forwardingRulesString = new StringBuilder(Integer.toString(numForwardingRules));
+				
+				Demand coupledDemand = link.getCoupledDemand();
+				MulticastDemand coupledMulticastDemand = link.getCoupledMulticastDemand();
+				
+				Node originNode = link.getOriginNode();
+				Node destinationNode = link.getDestinationNode();
+				String originNodeName = originNode.getName ();
+				String destinationNodeName = destinationNode.getName ();
+
+				double rho_e = link.getOccupiedCapacityIncludingProtectionSegments() / link.getCapacity();
+				Object[] linkData = new Object[linkTableHeader.length];
+				linkData[0] = link.getId ();
+				linkData[1] = link.getIndex ();
+				linkData[2] = topologyPanel.getCanvas().isLinkVisible(link.getId ());
+				linkData[3] = originNode.getId() + (originNodeName.isEmpty() ? "" : " (" + originNodeName + ")");
+				linkData[4] = destinationNode.getId () + (destinationNodeName.isEmpty() ? "" : " (" + destinationNodeName + ")");
+				linkData[5] = !link.isDown();
+				linkData[6] = link.getCapacity();
+				linkData[7] = link.getCarriedTrafficIncludingProtectionSegments();
+				linkData[8] = link.getReservedCapacityForProtection();
+				linkData[9] = rho_e;
+				linkData[10] = link.getOccupiedCapacityNotIncludingProtectionSegments() / (link.getCapacity() - link.getReservedCapacityForProtection());
+				linkData[11] = DoubleUtils.isEqualWithinRelativeTolerance(max_rho_e, rho_e, PRECISION_FACTOR);
+				linkData[12] = link.getLengthInKm();
+				linkData[13] = link.getPropagationSpeedInKmPerSecond();
+				linkData[14] = 1000 * link.getPropagationDelayInSeconds();
+				linkData[15] = routesString;
+				linkData[16] = segmentsString;
+				linkData[17] = forwardingRulesString.toString();
+				linkData[18] = multicastTreesString.toString();
+				linkData[19] = srgIds_thisLink.isEmpty() ? "none" : srgIds_thisLink.size() + " (" + CollectionUtils.join(NetPlan.getIds (srgIds_thisLink), ", ") + ")";
+				linkData[20] = coupledDemand != null ? "d" + coupledDemand.getId () + " (layer " + coupledDemand.getLayer() + ")" : (coupledMulticastDemand == null? "" : "d" + coupledMulticastDemand.getId () + " (layer " + coupledMulticastDemand.getLayer() + ")");
+				linkData[21] = StringUtils.mapToString(link.getAttributes());
+				allLinkData.add(linkData);
+
+				if (showInitialPlan != null && initialState != null && initialState.getLinkFromId (link.getId()) != null)
+				{
+					link = initialState.getLinkFromId (link.getId ());
+					srgIds_thisLink = link.getSrgs();
+					traversingRoutes = routingType == RoutingType.SOURCE_ROUTING ? link.getTraversingRoutes() : new LinkedHashSet<Route>();
+					traversingSegments = routingType == RoutingType.SOURCE_ROUTING ? link.getTraversingProtectionSegments() : new LinkedHashSet<ProtectionSegment>();
+					traversingMulticastTrees = link.getTraversingTrees();
+					forwardingRules = routingType == RoutingType.HOP_BY_HOP_ROUTING ? currentState.getMatrixDemandBasedForwardingRules().viewColumn(link.getIndex()).copy ()  : DoubleFactory1D.sparse.make(demands.size (),0);
+					numRoutes = traversingRoutes.size();
+					numSegments = traversingSegments.size();
+					numForwardingRules = 0; for (int d = 0; d < forwardingRules.size() ; d ++) if (forwardingRules.get(d) != 0) numForwardingRules ++;
+					numMulticastTrees = traversingMulticastTrees.size();
+					
+					routesString = numRoutes + (numRoutes > 0 ? " (" + CollectionUtils.join(NetPlan.getIds (traversingRoutes), ", ") + ")" : "");
+					segmentsString = numSegments + (numSegments > 0 ? " (" + CollectionUtils.join(NetPlan.getIds (traversingSegments), ", ") + ")" : "");
+					multicastTreesString = numMulticastTrees + (numMulticastTrees > 0 ? " (" + CollectionUtils.join(NetPlan.getIds (traversingMulticastTrees), ", ") + ")" : "");
+					forwardingRulesString = new StringBuilder(Integer.toString(numForwardingRules));
+					
+					coupledDemand = link.getCoupledDemand();
+					coupledMulticastDemand = link.getCoupledMulticastDemand();
+					
+					originNode = link.getOriginNode();
+					destinationNode = link.getDestinationNode();
+					originNodeName = originNode.getName ();
+					destinationNodeName = destinationNode.getName ();
+
+					rho_e = link.getOccupiedCapacityIncludingProtectionSegments() / link.getCapacity();
+					
+					Object[] linkData_initialNetPlan = new Object[linkTableHeader.length];
+					linkData_initialNetPlan[0] = null;
+					linkData_initialNetPlan[1] = null;
+					linkData_initialNetPlan[2] = null;
+					linkData_initialNetPlan[3] = null;
+					linkData_initialNetPlan[4] = null;
+					linkData_initialNetPlan[5] = !link.isDown();
+					linkData_initialNetPlan[6] = link.getCapacity();
+					linkData_initialNetPlan[7] = link.getCarriedTrafficIncludingProtectionSegments();
+					linkData_initialNetPlan[8] = link.getReservedCapacityForProtection();
+					linkData_initialNetPlan[9] = rho_e;
+					linkData_initialNetPlan[10] = link.getOccupiedCapacityNotIncludingProtectionSegments() / (link.getCapacity() - link.getReservedCapacityForProtection());
+					linkData_initialNetPlan[11] = DoubleUtils.isEqualWithinRelativeTolerance(max_rho_e, rho_e, PRECISION_FACTOR);
+					linkData_initialNetPlan[12] = link.getLengthInKm();
+					linkData_initialNetPlan[13] = link.getPropagationSpeedInKmPerSecond();
+					linkData_initialNetPlan[14] = 1000 * link.getPropagationDelayInSeconds();
+					linkData_initialNetPlan[15] = routesString;
+					linkData_initialNetPlan[16] = segmentsString;
+					linkData_initialNetPlan[17] = forwardingRulesString.toString();
+					linkData_initialNetPlan[18] = multicastTreesString.toString();
+					linkData_initialNetPlan[19] = srgIds_thisLink.isEmpty() ? "none" : srgIds_thisLink.size() + " (" + CollectionUtils.join(NetPlan.getIds (srgIds_thisLink), ", ") + ")";
+					linkData_initialNetPlan[20] = coupledDemand != null ? "d" + coupledDemand.getId () + " (layer " + coupledDemand.getLayer() + ")" : (coupledMulticastDemand == null? "" : "d" + coupledMulticastDemand.getId () + " (layer " + coupledMulticastDemand.getLayer() + ")");
+					linkData_initialNetPlan[21] = StringUtils.mapToString(link.getAttributes());
+					allLinkData.add(linkData_initialNetPlan);
+				}
+			}
+
+			networkElementInfo.put(NetworkElementType.LINK, allLinkData.toArray(new Object[allLinkData.size()][linkTableHeader.length]));
+		}
+
+		if (!demands.isEmpty())
+		{
+			String[] demandTableHeader = netPlanViewTableHeader.get(NetworkElementType.DEMAND);
+
+			List<Object[]> allDemandData = new LinkedList<Object[]>();
+			for(Demand demand : demands)
+			{
+				Set<Route> routeIds_thisDemand = routingType == RoutingType.SOURCE_ROUTING ? demand.getRoutes() : new LinkedHashSet<Route>();
+				Link coupledLink = demand.getCoupledLink();
+				Node ingressNode = demand.getIngressNode();
+				Node egressNode = demand.getEgressNode();
+				double h_d = demand.getOfferedTraffic();
+				double lostTraffic_d = demand.getBlockedTraffic();
+				Object[] demandData = new Object[demandTableHeader.length];
+				demandData[0] = demand.getId ();
+				demandData[1] = demand.getIndex () ;
+				demandData[2] = ingressNode.getId () + (ingressNode.getName ().isEmpty() ? "" : " (" + ingressNode.getName () + ")");
+				demandData[3] = egressNode.getId () + (egressNode.getName ().isEmpty() ? "" : " (" + egressNode.getName () + ")");
+				demandData[4] = coupledLink == null ? "" : "e" + coupledLink.getId () + " (layer " + coupledLink.getLayer() + ")";
+				demandData[5] = h_d;
+				demandData[6] = demand.getCarriedTraffic();
+				demandData[7] = h_d == 0 ? 0 : 100 * lostTraffic_d / h_d;
+				demandData[8] = demand.getRoutingCycleType();
+				demandData[9] = routingType == RoutingType.HOP_BY_HOP_ROUTING ? "-" : (demand.isBifurcated()) ? String.format("Yes (%d)", demand.getRoutes().size ()) : "No";
+				demandData[10] = routeIds_thisDemand.isEmpty() ? "none" : routeIds_thisDemand.size() + " (" + CollectionUtils.join(NetPlan.getIds (routeIds_thisDemand), ",") + ")";
+				demandData[11] = StringUtils.mapToString(demand.getAttributes());
+				allDemandData.add(demandData);
+
+				if (showInitialPlan != null && initialState != null && initialState.getDemandFromId (demand.getId ()) != null)
+				{
+					routeIds_thisDemand = routingType == RoutingType.SOURCE_ROUTING ? demand.getRoutes() : new LinkedHashSet<Route>();
+					coupledLink = demand.getCoupledLink();
+					ingressNode = demand.getIngressNode();
+					egressNode = demand.getEgressNode();
+					h_d = demand.getOfferedTraffic();
+					
+					Object[] demandData_initialNetPlan = new Object[demandTableHeader.length];
+					demandData_initialNetPlan[0] = null;
+					demandData_initialNetPlan[1] = null;
+					demandData_initialNetPlan[2] = null;
+					demandData_initialNetPlan[3] = null;
+					demandData_initialNetPlan[4] = coupledLink == null ? "" : "e" + coupledLink.getId () + " (layer " + coupledLink.getLayer() + ")";
+					demandData_initialNetPlan[5] = h_d;
+					demandData_initialNetPlan[6] = demand.getCarriedTraffic();
+					demandData_initialNetPlan[7] = h_d == 0 ? 0 : 100 * lostTraffic_d / h_d;
+					demandData_initialNetPlan[8] = demand.getRoutingCycleType();
+					demandData_initialNetPlan[9] = routingType == RoutingType.HOP_BY_HOP_ROUTING ? "-" : (demand.isBifurcated()) ? String.format("Yes (%d)", demand.getRoutes().size ()) : "No";
+					demandData_initialNetPlan[10] = routeIds_thisDemand.isEmpty() ? "none" : routeIds_thisDemand.size() + " (" + CollectionUtils.join(NetPlan.getIds (routeIds_thisDemand), ",") + ")";
+					demandData_initialNetPlan[11] = StringUtils.mapToString(demand.getAttributes());
+					allDemandData.add(demandData_initialNetPlan);
+				}
+			}
+
+			networkElementInfo.put(NetworkElementType.DEMAND, allDemandData.toArray(new Object[allDemandData.size()][demandTableHeader.length]));
+		}
+		
+		if (!multicastDemands.isEmpty())
+		{
+			String[] demandTableHeader = netPlanViewTableHeader.get(NetworkElementType.MULTICAST_DEMAND);
+
+			List<Object[]> allDemandData = new LinkedList<Object[]>();
+			for(MulticastDemand demand : multicastDemands)
+			{
+				Set<MulticastTree> multicastTreeIds_thisDemand = demand.getMulticastTrees();
+				Set<Link> coupledLinks = demand.getCoupledLinks();
+				Node ingressNode = demand.getIngressNode();
+				Set<Node> egressNodes = demand.getEgressNodes();
+				String ingressNodeName = ingressNode.getName ();
+				String egressNodesString = ""; for (Node n : egressNodes) egressNodesString += n.getId () + "(" + n.getName ()  + ") "; 
+
+				double h_d = demand.getOfferedTraffic();
+				double lostTraffic_d = demand.getBlockedTraffic();
+				Object[] demandData = new Object[demandTableHeader.length];
+				demandData[0] = demand.getIndex ();
+				demandData[1] = demand.getIndex ();
+				demandData[2] = ingressNode.getId() + (ingressNodeName.isEmpty() ? "" : " (" + ingressNodeName + ")");
+				demandData[3] = egressNodesString;
+				demandData[4] = coupledLinks.isEmpty() ? "" : "link ids " + CollectionUtils.join(NetPlan.getIds (coupledLinks), ",") + " layer " + coupledLinks.iterator().next().getLayer().getId () + "";
+				demandData[5] = h_d;
+				demandData[6] = demand.getCarriedTraffic();
+				demandData[7] = h_d == 0 ? 0 : 100 * lostTraffic_d / h_d;
+				demandData[8] = "Loopless by definition";
+				demandData[9] = demand.isBifurcated() ? String.format("Yes (%d)", demand.getMulticastTrees().size ()) : "No";
+				demandData[10] = multicastTreeIds_thisDemand.isEmpty() ? "none" : multicastTreeIds_thisDemand.size() + " (" + CollectionUtils.join(NetPlan.getIds (multicastTreeIds_thisDemand), ",") + ")";
+				demandData[11] = StringUtils.mapToString(demand.getAttributes());
+				allDemandData.add(demandData);
+
+				if (showInitialPlan != null && initialState != null && initialState.getMulticastDemandFromId (demand.getId ()) != null)
+				{
+					multicastTreeIds_thisDemand = demand.getMulticastTrees();
+					coupledLinks = demand.getCoupledLinks();
+					ingressNode = demand.getIngressNode();
+					egressNodes = demand.getEgressNodes();
+					ingressNodeName = ingressNode.getName ();
+					egressNodesString = ""; for (Node n : egressNodes) egressNodesString += n.getId () + "(" + n.getName ()  + ") "; 
+
+					h_d = demand.getOfferedTraffic();
+					lostTraffic_d = demand.getBlockedTraffic();
+					
+					Object[] demandData_initialNetPlan = new Object[demandTableHeader.length];
+					demandData_initialNetPlan[0] = null;
+					demandData_initialNetPlan[1] = null;
+					demandData_initialNetPlan[2] = null;
+					demandData_initialNetPlan[3] = null;
+					demandData_initialNetPlan[4] = coupledLinks.isEmpty() ? "" : "link ids " + CollectionUtils.join(NetPlan.getIds (coupledLinks), ",") + " layer " + coupledLinks.iterator().next().getLayer().getId () + "";
+					demandData_initialNetPlan[5] = h_d;
+					demandData_initialNetPlan[6] = demand.getCarriedTraffic();
+					demandData_initialNetPlan[7] = h_d == 0 ? 0 : 100 * lostTraffic_d / h_d;
+					demandData_initialNetPlan[8] = "Loopless by definition";
+					demandData_initialNetPlan[9] = demand.isBifurcated() ? String.format("Yes (%d)", demand.getMulticastTrees().size ()) : "No";
+					demandData_initialNetPlan[10] = multicastTreeIds_thisDemand.isEmpty() ? "none" : multicastTreeIds_thisDemand.size() + " (" + CollectionUtils.join(NetPlan.getIds (multicastTreeIds_thisDemand), ",") + ")";
+					demandData_initialNetPlan[11] = StringUtils.mapToString(demand.getAttributes());
+					allDemandData.add(demandData_initialNetPlan);
+				}
+			}
+
+			networkElementInfo.put(NetworkElementType.MULTICAST_DEMAND, allDemandData.toArray(new Object[allDemandData.size()][demandTableHeader.length]));
+		}
+
+		List<MulticastTree> trees = currentState.getMulticastTrees();
+		if (!trees.isEmpty())
+		{
+			String[] treeTableHeader = netPlanViewTableHeader.get(NetworkElementType.MULTICAST_TREE);
+
+			List<Object[]> allTreeData = new LinkedList<Object[]>();
+			for(MulticastTree tree : trees)
+			{
+				MulticastDemand demand = tree.getMulticastDemand();
+				double maxUtilization = 0; for (Link e : tree.getLinkSet()) maxUtilization = Math.max (maxUtilization , e.getOccupiedCapacityIncludingProtectionSegments() / e.getCapacity());
+				Node ingressNode = tree.getIngressNode();
+				Set<Node> egressNodes = tree.getEgressNodes();
+				String ingressNodeName = ingressNode.getName ();
+				String egressNodesString = ""; for (Node n : egressNodes) egressNodesString += n + "(" + (n.getName ().isEmpty()? "" : n.getName ())  + ") "; 
+
+				Object[] treeData = new Object[treeTableHeader.length];
+				treeData[0] = tree.getId ();
+				treeData[1] = tree.getIndex ();
+				treeData[2] = demand.getId ();
+				treeData[3] = ingressNode.getId () + (ingressNodeName.isEmpty() ? "" : " (" + ingressNodeName + ")");
+				treeData[4] = egressNodesString;
+				treeData[5] = demand.getOfferedTraffic();
+				treeData[6] = demand.getCarriedTraffic();
+				treeData[7] = tree.getOccupiedLinkCapacity();
+				treeData[8] = CollectionUtils.join(NetPlan.getIds (tree.getLinkSet()), " ; ");
+				treeData[9] = tree.getLinkSet().size ();
+				treeData[10] = CollectionUtils.join(NetPlan.getIds (tree.getNodeSet()), " ; ");
+				treeData[11] = tree.getTreeMaximumPathLengthInHops();
+				treeData[12] = tree.getTreeMaximumPathLengthInKm ();
+				treeData[13] = tree.getTreeMaximumPropagationDelayInMs();
+				treeData[14] = maxUtilization;
+				treeData[15] = StringUtils.mapToString(tree.getAttributes());
+				allTreeData.add(treeData);
+
+				if (showInitialPlan != null && initialState != null && initialState.getMulticastTreeFromId (tree.getId()) != null)
+				{
+					tree = initialState.getMulticastTreeFromId (tree.getId());
+					demand = tree.getMulticastDemand();
+					maxUtilization = 0; for (Link e : tree.getLinkSet()) maxUtilization = Math.max (maxUtilization , e.getOccupiedCapacityIncludingProtectionSegments() / e.getCapacity());
+					ingressNode = tree.getIngressNode();
+					egressNodes = tree.getEgressNodes();
+					ingressNodeName = ingressNode.getName ();
+					egressNodesString = ""; for (Node n : egressNodes) egressNodesString += n + "(" + (n.getName ().isEmpty()? "" : n.getName ())  + ") "; 
+
+					Object[] treeData_initialNetPlan = new Object[treeTableHeader.length];
+					treeData_initialNetPlan[0] = null;
+					treeData_initialNetPlan[1] = null;
+					treeData_initialNetPlan[2] = null;
+					treeData_initialNetPlan[3] = null;
+					treeData_initialNetPlan[4] = null;
+					treeData_initialNetPlan[5] = demand.getOfferedTraffic();
+					treeData_initialNetPlan[6] = demand.getCarriedTraffic();
+					treeData_initialNetPlan[7] = tree.getOccupiedLinkCapacity();
+					treeData_initialNetPlan[8] = CollectionUtils.join(NetPlan.getIds (tree.getLinkSet()), " ; ");
+					treeData_initialNetPlan[9] = tree.getLinkSet().size ();
+					treeData_initialNetPlan[10] = CollectionUtils.join(NetPlan.getIds (tree.getNodeSet()), " ; ");
+					treeData_initialNetPlan[11] = tree.getTreeMaximumPathLengthInHops();
+					treeData_initialNetPlan[12] = tree.getTreeMaximumPathLengthInKm ();
+					treeData_initialNetPlan[13] = tree.getTreeMaximumPropagationDelayInMs();
+					treeData_initialNetPlan[14] = maxUtilization;
+					treeData_initialNetPlan[15] = StringUtils.mapToString(tree.getAttributes());
+					allTreeData.add(treeData_initialNetPlan);
+				}
+			}
+
+			networkElementInfo.put(NetworkElementType.MULTICAST_TREE, allTreeData.toArray(new Object[allTreeData.size()][treeTableHeader.length]));
+
+			JTable treeTable = netPlanViewTable.get(NetworkElementType.MULTICAST_TREE);
+			Object[][] treeTableData = networkElementInfo.get(NetworkElementType.MULTICAST_TREE);
+			treeTable.setEnabled(true);
+			((DefaultTableModel) treeTable.getModel()).setDataVector(treeTableData, treeTableHeader);
+		}
+
+		boolean sameRoutingType = initialState != null && initialState.getRoutingType() == routingType;
+
+		switch(routingType)
+		{
+			case HOP_BY_HOP_ROUTING:
+			{
+				hopByHopRoutingActivated.setSelected(true);
+				
+				Map<Pair<Demand, Link>,Double> forwardingRules = currentState.getForwardingRules();
+				Set<Pair<Demand, Link>> demandLinkPairs = forwardingRules.keySet();
+				if (!demandLinkPairs.isEmpty())
+				{
+					String[] forwardingRuleTableHeader = netPlanViewTableHeader.get(NetworkElementType.FORWARDING_RULE);
+
+					List<Object[]> allForwardingRuleData = new LinkedList<Object[]>();
+					for(Pair<Demand, Link> demandLinkPair : demandLinkPairs)
+					{
+						Demand demand = demandLinkPair.getFirst();
+						Node ingressNode = demand.getIngressNode();
+						Node egressNode = demand.getEgressNode();
+						String ingressNodeName = ingressNode.getName ();
+						String egressNodeName = egressNode.getName ();
+
+						Link link = demandLinkPair.getSecond();
+						Node originNode = link.getOriginNode();
+						Node destinationNode = link.getDestinationNode();
+						String originNodeName = originNode.getName ();
+						String destinationNodeName = destinationNode.getName ();
+
+						Object[] forwardingRuleData = new Object[forwardingRuleTableHeader.length];
+						forwardingRuleData[0] = originNode.getId () + (originNodeName.isEmpty() ? "" : " (" + originNodeName + ")");
+						forwardingRuleData[1] = demand.getId () + " (" + ingressNode.getId () + (ingressNodeName.isEmpty() ? "" : " (" + ingressNodeName + ")") + " -> " + egressNode.getId () + (egressNodeName.isEmpty() ? "" : " (" + egressNodeName + ")") + ")";
+						forwardingRuleData[2] = link.getId () + " (" + originNode.getId () + (originNodeName.isEmpty() ? "" : " (" + originNodeName + ")") + " -> " + destinationNode.getId () + (destinationNodeName.isEmpty() ? "" : " (" + destinationNodeName + ")") + ")";
+						forwardingRuleData[3] = currentState.getForwardingRuleSplittingFactor (demand,link);
+						forwardingRuleData[4] = currentState.getForwardingRuleCarriedTraffic(demand,link);
+						allForwardingRuleData.add(forwardingRuleData);
+
+						if (showInitialPlan != null && initialState != null && sameRoutingType && initialState.getDemandFromId(demand.getId ()) != null && initialState.getLinkFromId(link.getId ()) != null)
+						{
+							demand = initialState.getDemandFromId(demand.getId ());
+							link = initialState.getLinkFromId(link.getId ());
+							ingressNode = demand.getIngressNode();
+							egressNode = demand.getEgressNode();
+							ingressNodeName = ingressNode.getName ();
+							egressNodeName = egressNode.getName ();
+							originNode = link.getOriginNode();
+							destinationNode = link.getDestinationNode();
+							originNodeName = originNode.getName ();
+							
+							Object[] forwardingRuleData_initialNetPlan = new Object[forwardingRuleTableHeader.length];
+							forwardingRuleData_initialNetPlan[0] = null;
+							forwardingRuleData_initialNetPlan[1] = null;
+							forwardingRuleData_initialNetPlan[2] = null;
+							forwardingRuleData_initialNetPlan[3] = currentState.getForwardingRuleSplittingFactor (demand,link);
+							forwardingRuleData_initialNetPlan[4] = currentState.getForwardingRuleCarriedTraffic(demand,link);
+							allForwardingRuleData.add(forwardingRuleData_initialNetPlan);
+						}
+					}
+
+					networkElementInfo.put(NetworkElementType.FORWARDING_RULE, allForwardingRuleData.toArray(new Object[allForwardingRuleData.size()][forwardingRuleTableHeader.length]));
+
+					JTable forwardingRuleTable = netPlanViewTable.get(NetworkElementType.FORWARDING_RULE);
+					Object[][] forwardingRuleTableData = networkElementInfo.get(NetworkElementType.FORWARDING_RULE);
+					forwardingRuleTable.setEnabled(true);
+					((DefaultTableModel) forwardingRuleTable.getModel()).setDataVector(forwardingRuleTableData, forwardingRuleTableHeader);
+				}
+
+				break;
+			}	
+			
+			case SOURCE_ROUTING:
+			{
+				sourceRoutingActivated.setSelected(true);
+				
+				List<Route> routes = currentState.getRoutes();
+				if (!routes.isEmpty())
+				{
+					String[] routeTableHeader = netPlanViewTableHeader.get(NetworkElementType.ROUTE);
+
+					List<Object[]> allRouteData = new LinkedList<Object[]>();
+					for(Route route : routes)
+					{
+						Demand demand = route.getDemand();
+						double maxUtilization = 0; for (Link e : route.getSeqLinksRealPath()) maxUtilization = Math.max (maxUtilization , e.getOccupiedCapacityIncludingProtectionSegments() / e.getCapacity());
+						Node ingressNode = route.getDemand ().getIngressNode();
+						Node egressNode = route.getDemand ().getEgressNode();
+						String ingressNodeName = ingressNode.getName ();
+						String egressNodeName = egressNode.getName ();
+
+						Object[] routeData = new Object[routeTableHeader.length];
+						routeData[0] = route.getId ();
+						routeData[1] = route.getIndex ();
+						routeData[2] = demand.getId ();
+						routeData[3] = ingressNode.getId () + (ingressNodeName.isEmpty() ? "" : " (" + ingressNodeName + ")");
+						routeData[4] = egressNode.getId () + (egressNodeName.isEmpty() ? "" : " (" + egressNodeName + ")");
+						routeData[5] = demand.getOfferedTraffic();
+						routeData[6] = route.getCarriedTraffic();
+						routeData[7] = route.getOccupiedCapacity();
+						routeData[8] = CollectionUtils.join(NetPlan.getIds (route.getSeqLinksRealPath()), " => ");
+						routeData[9] = CollectionUtils.join(NetPlan.getIds (route.getSeqNodesRealPath()), " => ");
+						routeData[10] = route.getNumberOfHops();
+						routeData[11] = route.getLengthInKm();
+						routeData[12] = 1000 * route.getPropagationDelayInSeconds();
+						routeData[13] = maxUtilization;
+						routeData[14] = CollectionUtils.join(NetPlan.getIds (route.getPotentialBackupProtectionSegments()), ", ");
+						routeData[15] = StringUtils.mapToString(route.getAttributes());
+						allRouteData.add(routeData);
+
+						if (showInitialPlan != null && initialState != null && sameRoutingType && initialState.getRouteFromId (route.getId ()) != null)
+						{
+							route = initialState.getRouteFromId (route.getId ());
+							demand = route.getDemand();
+							maxUtilization = 0; for (Link e : route.getSeqLinksRealPath()) maxUtilization = Math.max (maxUtilization , e.getOccupiedCapacityIncludingProtectionSegments() / e.getCapacity());
+							ingressNode = route.getDemand ().getIngressNode();
+							egressNode = route.getDemand ().getEgressNode();
+							ingressNodeName = ingressNode.getName ();
+							egressNodeName = egressNode.getName ();
+
+							Object[] routeData_initialNetPlan = new Object[routeTableHeader.length];
+							routeData_initialNetPlan[0] = null;
+							routeData_initialNetPlan[1] = null;
+							routeData_initialNetPlan[2] = null;
+							routeData_initialNetPlan[3] = null;
+							routeData_initialNetPlan[4] = null;
+							routeData_initialNetPlan[5] = demand.getOfferedTraffic();
+							routeData_initialNetPlan[6] = route.getCarriedTraffic();
+							routeData_initialNetPlan[7] = route.getOccupiedCapacity();
+							routeData_initialNetPlan[8] = CollectionUtils.join(NetPlan.getIds (route.getSeqLinksRealPath()), " => ");
+							routeData_initialNetPlan[9] = CollectionUtils.join(NetPlan.getIds (route.getSeqNodesRealPath()), " => ");
+							routeData_initialNetPlan[10] = route.getNumberOfHops();
+							routeData_initialNetPlan[11] = route.getLengthInKm();
+							routeData_initialNetPlan[12] = 1000 * route.getPropagationDelayInSeconds();
+							routeData_initialNetPlan[13] = maxUtilization;
+							routeData_initialNetPlan[14] = CollectionUtils.join(NetPlan.getIds (route.getPotentialBackupProtectionSegments()), ", ");
+							routeData_initialNetPlan[15] = StringUtils.mapToString(route.getAttributes());
+							allRouteData.add(routeData_initialNetPlan);
+						}
+					}
+
+					networkElementInfo.put(NetworkElementType.ROUTE, allRouteData.toArray(new Object[allRouteData.size()][routeTableHeader.length]));
+
+					JTable routeTable = netPlanViewTable.get(NetworkElementType.ROUTE);
+					Object[][] routeTableData = networkElementInfo.get(NetworkElementType.ROUTE);
+					routeTable.setEnabled(true);
+					((DefaultTableModel) routeTable.getModel()).setDataVector(routeTableData, routeTableHeader);
+				}
+				
+				List<ProtectionSegment> segments = currentState.getProtectionSegments();
+				if (!segments.isEmpty())
+				{
+					String[] segmentTableHeader = netPlanViewTableHeader.get(NetworkElementType.PROTECTION_SEGMENT);
+
+					List<Object[]> allSegmentData = new LinkedList<Object[]>();
+					for(ProtectionSegment segment : segments)
+					{
+						List<Link> seqLinks = segment.getSeqLinks();
+						List<Node> seqNodes = segment.getSeqNodes();
+						Set<Route> routeIds_thisSegment = segment.getAssociatedRoutesToWhichIsBackup();
+						int numRoutes = routeIds_thisSegment.size();
+						
+						Node originNode = segment.getOriginNode();
+						Node destinationNode = segment.getDestinationNode();
+						String originNodeName = originNode.getName ();
+						String destinationNodeName = destinationNode.getName ();
+
+						Object[] segmentData = new Object[segmentTableHeader.length];
+						segmentData[0] = segment.getId ();
+						segmentData[1] = segment.getIndex ();
+						segmentData[2] = originNode.getId() + (originNodeName.isEmpty() ? "" : " (" + originNodeName + ")");
+						segmentData[3] = destinationNode.getId() + (destinationNodeName.isEmpty() ? "" : " (" + destinationNodeName + ")");
+						segmentData[4] = segment.getReservedCapacityForProtection();
+						segmentData[5] = segment.getCarriedTraffic();
+						segmentData[6] = CollectionUtils.join(NetPlan.getIds (seqLinks), " => ");
+						segmentData[7] = CollectionUtils.join(NetPlan.getIds (seqNodes), " => ");
+						segmentData[8] = segment.getNumberOfHops();
+						segmentData[9] = segment.getLengthInKm();
+						segmentData[10] = 1000 * segment.getPropagationDelayInSeconds();
+						segmentData[11] = numRoutes > 1 ? "Shared" : (numRoutes == 0 ? "Not used" : "Dedicated");
+						segmentData[12] = numRoutes == 0 ? "none" : numRoutes  + " (" + CollectionUtils.join(routeIds_thisSegment, ", ") + ")";
+						segmentData[13] = StringUtils.mapToString(segment.getAttributes());
+						allSegmentData.add(segmentData);
+
+						if (showInitialPlan != null && initialState != null && sameRoutingType && initialState.getProtectionSegmentFromId (segment.getId ()) != null)
+						{
+							segment = initialState.getProtectionSegmentFromId (segment.getId ());
+							seqLinks = segment.getSeqLinks();
+							seqNodes = segment.getSeqNodes();
+							routeIds_thisSegment = segment.getAssociatedRoutesToWhichIsBackup();
+							numRoutes = routeIds_thisSegment.size();
+							
+							originNode = segment.getOriginNode();
+							destinationNode = segment.getDestinationNode();
+							originNodeName = originNode.getName ();
+							destinationNodeName = destinationNode.getName ();
+
+							Object[] segmentData_initialNetPlan = new Object[segmentTableHeader.length];
+							segmentData_initialNetPlan[0] = null;
+							segmentData_initialNetPlan[1] = null;
+							segmentData_initialNetPlan[2] = null;
+							segmentData_initialNetPlan[3] = null;
+							segmentData_initialNetPlan[4] = segment.getReservedCapacityForProtection();
+							segmentData_initialNetPlan[5] = segment.getCarriedTraffic();
+							segmentData_initialNetPlan[6] = CollectionUtils.join(NetPlan.getIds (seqLinks), " => ");
+							segmentData_initialNetPlan[7] = CollectionUtils.join(NetPlan.getIds (seqNodes), " => ");
+							segmentData_initialNetPlan[8] = segment.getNumberOfHops();
+							segmentData_initialNetPlan[9] = segment.getLengthInKm();
+							segmentData_initialNetPlan[10] = 1000 * segment.getPropagationDelayInSeconds();
+							segmentData_initialNetPlan[11] = numRoutes > 1 ? "Shared" : (numRoutes == 0 ? "Not used" : "Dedicated");
+							segmentData_initialNetPlan[12] = numRoutes == 0 ? "none" : numRoutes  + " (" + CollectionUtils.join(routeIds_thisSegment, ", ") + ")";
+							segmentData_initialNetPlan[13] = StringUtils.mapToString(segment.getAttributes());
+							allSegmentData.add(segmentData_initialNetPlan);
+						}
+
+					}
+
+					networkElementInfo.put(NetworkElementType.PROTECTION_SEGMENT, allSegmentData.toArray(new Object[allSegmentData.size()][segmentTableHeader.length]));
+
+					JTable segmentTable = netPlanViewTable.get(NetworkElementType.PROTECTION_SEGMENT);
+					Object[][] segmentTableData = networkElementInfo.get(NetworkElementType.PROTECTION_SEGMENT);
+					segmentTable.setEnabled(true);
+					((DefaultTableModel) segmentTable.getModel()).setDataVector(segmentTableData, segmentTableHeader);
+				}
+
+				break;
+			}
+			
+			default:
+				throw new RuntimeException("Bad");
+		}
+
+		if (!srgs.isEmpty())
+		{
+			String[] srgTableHeader = netPlanViewTableHeader.get(NetworkElementType.SRG);
+
+			List<Object[]> allSRGData = new LinkedList<Object[]>();
+			for(SharedRiskGroup srg : srgs)
+			{
+				Set<Route> routeIds_thisSRG = routingType == RoutingType.SOURCE_ROUTING ? srg.getAffectedRoutes(layer) : new LinkedHashSet<Route>();
+				Set<ProtectionSegment> segmentIds_thisSRG = routingType == RoutingType.SOURCE_ROUTING ? srg.getAffectedProtectionSegments(layer) : new LinkedHashSet<ProtectionSegment>();
+				Set<MulticastTree> treeIds_thisSRG = routingType == RoutingType.SOURCE_ROUTING ? srg.getAffectedMulticastTrees(layer) : new LinkedHashSet<MulticastTree>();
+				int numRoutes = routeIds_thisSRG.size();
+				int numSegments = segmentIds_thisSRG.size();
+				int numMulticastTrees = treeIds_thisSRG.size();
+				Set<Node> nodeIds_thisSRG = srg.getNodes ();
+				Set<Link> linkIds_thisSRG = srg.getLinks (layer);
+
+				Object[] srgData = new Object[srgTableHeader.length];
+				srgData[0] = srg.getId ();
+				srgData[1] = srg.getIndex ();
+				srgData[2] = srg.getMeanTimeToFailInHours();
+				srgData[3] = srg.getMeanTimeToRepairInHours();
+				srgData[4] = srg.getAvailability();
+				srgData[5] = nodeIds_thisSRG.isEmpty() ? "none" : CollectionUtils.join(NetPlan.getIds (nodeIds_thisSRG), ", ");
+				srgData[6] = linkIds_thisSRG.isEmpty() ? "none" : CollectionUtils.join(NetPlan.getIds (srg.getLinks ()), ", ");
+				srgData[7] = srg.getLinks (layer).isEmpty() ? "none" : CollectionUtils.join(NetPlan.getIds (srg.getLinks (layer)), ", ");
+				srgData[8] = numRoutes == 0 ? "none" : numRoutes + " (" + CollectionUtils.join(NetPlan.getIds (routeIds_thisSRG), ", ") + ")";
+				srgData[9] = numSegments == 0 ? "none" : numSegments + " (" + CollectionUtils.join(NetPlan.getIds (segmentIds_thisSRG), ", ") + ")";
+				srgData[10] = numMulticastTrees == 0 ? "none" : numMulticastTrees + " (" + CollectionUtils.join(NetPlan.getIds (treeIds_thisSRG), ", ") + ")";
+				srgData[11] = StringUtils.mapToString(srg.getAttributes());
+				allSRGData.add(srgData);
+
+				if (showInitialPlan != null && initialState != null && initialState.getSRGFromId (srg.getId ()) != null)
+				{
+					srg = initialState.getSRGFromId (srg.getId ());
+					routeIds_thisSRG = routingType == RoutingType.SOURCE_ROUTING ? srg.getAffectedRoutes(layer) : new LinkedHashSet<Route>();
+					segmentIds_thisSRG = routingType == RoutingType.SOURCE_ROUTING ? srg.getAffectedProtectionSegments(layer) : new LinkedHashSet<ProtectionSegment>();
+					treeIds_thisSRG = routingType == RoutingType.SOURCE_ROUTING ? srg.getAffectedMulticastTrees(layer) : new LinkedHashSet<MulticastTree>();
+					numRoutes = routeIds_thisSRG.size();
+					numSegments = segmentIds_thisSRG.size();
+					numMulticastTrees = treeIds_thisSRG.size();
+					nodeIds_thisSRG = srg.getNodes ();
+					linkIds_thisSRG = srg.getLinks (layer);
+					
+	
+					Object[] srgData_initialNetPlan = new Object[srgTableHeader.length];
+					srgData_initialNetPlan[0] = null;
+					srgData_initialNetPlan[1] = null;
+					srgData_initialNetPlan[2] = srg.getMeanTimeToFailInHours();
+					srgData_initialNetPlan[3] = srg.getMeanTimeToRepairInHours();
+					srgData_initialNetPlan[4] = srg.getAvailability();
+					srgData_initialNetPlan[5] = nodeIds_thisSRG.isEmpty() ? "none" : CollectionUtils.join(NetPlan.getIds (nodeIds_thisSRG), ", ");
+					srgData_initialNetPlan[6] = linkIds_thisSRG.isEmpty() ? "none" : CollectionUtils.join(NetPlan.getIds (srg.getLinks ()), ", ");
+					srgData_initialNetPlan[7] = srg.getLinks (layer).isEmpty() ? "none" : CollectionUtils.join(NetPlan.getIds (srg.getLinks (layer)), ", ");
+					srgData_initialNetPlan[8] = numRoutes == 0 ? "none" : numRoutes + " (" + CollectionUtils.join(NetPlan.getIds (routeIds_thisSRG), ", ") + ")";
+					srgData_initialNetPlan[9] = numSegments == 0 ? "none" : numSegments + " (" + CollectionUtils.join(NetPlan.getIds (segmentIds_thisSRG), ", ") + ")";
+					srgData_initialNetPlan[10] = numMulticastTrees == 0 ? "none" : numMulticastTrees + " (" + CollectionUtils.join(NetPlan.getIds (treeIds_thisSRG), ", ") + ")";
+					srgData_initialNetPlan[11] = StringUtils.mapToString(srg.getAttributes());
+					allSRGData.add(srgData_initialNetPlan);
+				}
+			}
+
+			networkElementInfo.put(NetworkElementType.SRG, allSRGData.toArray(new Object[allSRGData.size()][srgTableHeader.length]));
+		}
+		
+		initialState = getInitialDesign();
+		List<NetworkLayer> layers = currentState.getNetworkLayers();
+		String[] layerTableHeader = netPlanViewTableHeader.get(NetworkElementType.LAYER);
+		List<Object[]> allLayerData = new LinkedList<Object[]>();
+		for(NetworkLayer auxLayer : layers)
+		{
+			RoutingType routingType_thisLayer = currentState.getRoutingType(auxLayer);
+			Object[] layerData = new Object[layerTableHeader.length];
+			layerData[0] = auxLayer.getId ();
+			layerData[1] = auxLayer.getIndex ();
+			layerData[2] = auxLayer.getName ();
+			layerData[3] = currentState.getRoutingType(auxLayer);
+			layerData[4] = currentState.getNumberOfLinks(auxLayer);
+			layerData[5] = currentState.getNumberOfDemands(auxLayer);
+			layerData[6] = currentState.getNumberOfMulticastDemands(auxLayer);
+			layerData[7] = routingType_thisLayer == RoutingType.SOURCE_ROUTING ? currentState.getNumberOfRoutes(auxLayer) : 0;
+			layerData[8] = routingType_thisLayer == RoutingType.HOP_BY_HOP_ROUTING ? currentState.getNumberOfForwardingRules(auxLayer) : 0;
+			layerData[9] = routingType_thisLayer == RoutingType.SOURCE_ROUTING ? currentState.getNumberOfProtectionSegments(auxLayer) : 0;
+			layerData[10] = currentState.getNumberOfMulticastTrees(auxLayer);
+			layerData[11] = auxLayer.getDescription();
+			layerData[12] = currentState.getLinkCapacityUnitsName(auxLayer);
+			layerData[13] = currentState.getDemandTrafficUnitsName(auxLayer);
+			layerData[14] = StringUtils.mapToString(auxLayer.getAttributes());
+			allLayerData.add(layerData);
+
+			if (showInitialPlan != null && initialState != null && initialState.getNetworkLayerFromId (auxLayer.getId ()) != null)
+			{
+				auxLayer = initialState.getNetworkLayerFromId (auxLayer.getId ());
+				RoutingType routingType_thisLayer_initialNetPlan = initialState.getRoutingType(auxLayer);
+				Object[] layerData_initialNetPlan = new Object[layerTableHeader.length];
+				layerData_initialNetPlan[0] = null;
+				layerData_initialNetPlan[1] = null;
+				layerData_initialNetPlan[2] = auxLayer.getName ();
+				layerData_initialNetPlan[3] = initialState.getRoutingType(auxLayer);
+				layerData_initialNetPlan[4] = initialState.getNumberOfLinks(auxLayer);
+				layerData_initialNetPlan[5] = initialState.getNumberOfDemands(auxLayer);
+				layerData_initialNetPlan[6] = initialState.getNumberOfMulticastDemands(auxLayer);
+				layerData_initialNetPlan[7] = routingType_thisLayer_initialNetPlan == RoutingType.SOURCE_ROUTING ? initialState.getNumberOfRoutes(auxLayer) : 0;
+				layerData_initialNetPlan[8] = routingType_thisLayer_initialNetPlan == RoutingType.HOP_BY_HOP_ROUTING ? initialState.getNumberOfForwardingRules(auxLayer) : 0;
+				layerData_initialNetPlan[9] = routingType_thisLayer_initialNetPlan == RoutingType.SOURCE_ROUTING ? initialState.getNumberOfProtectionSegments(auxLayer) : 0;
+				layerData_initialNetPlan[10] = initialState.getNumberOfMulticastTrees(auxLayer);
+				layerData_initialNetPlan[11] = auxLayer.getDescription();
+				layerData_initialNetPlan[12] = initialState.getLinkCapacityUnitsName(auxLayer);
+				layerData_initialNetPlan[13] = initialState.getDemandTrafficUnitsName(auxLayer);
+				layerData_initialNetPlan[14] = StringUtils.mapToString(auxLayer.getAttributes());
+				allLayerData.add(layerData_initialNetPlan);
+			}
+
+			networkElementInfo.put(NetworkElementType.LAYER, allLayerData.toArray(new Object[allLayerData.size()][layerTableHeader.length]));
+		}
+		
+		if (currentState.hasNodes())
+		{
+			JTable nodeTable = netPlanViewTable.get(NetworkElementType.NODE);
+			String[] nodeTableHeader = netPlanViewTableHeader.get(NetworkElementType.NODE);
+			Object[][] nodeTableData = networkElementInfo.get(NetworkElementType.NODE);
+			nodeTable.setEnabled(true);
+			((DefaultTableModel) nodeTable.getModel()).setDataVector(nodeTableData, nodeTableHeader);
+		}
+
+		if (currentState.hasLinks())
+		{
+			JTable linkTable = netPlanViewTable.get(NetworkElementType.LINK);
+			String[] linkTableHeader = netPlanViewTableHeader.get(NetworkElementType.LINK);
+			Object[][] linkTableData = networkElementInfo.get(NetworkElementType.LINK);
+			linkTable.setEnabled(true);
+			((DefaultTableModel) linkTable.getModel()).setDataVector(linkTableData, linkTableHeader);
+		}
+
+		if (currentState.hasDemands())
+		{
+			JTable demandTable = netPlanViewTable.get(NetworkElementType.DEMAND);
+			String[] demandTableHeader = netPlanViewTableHeader.get(NetworkElementType.DEMAND);
+			Object[][] demandTableData = networkElementInfo.get(NetworkElementType.DEMAND);
+			demandTable.setEnabled(true);
+			((DefaultTableModel) demandTable.getModel()).setDataVector(demandTableData, demandTableHeader);
+		}
+
+		if (currentState.hasMulticastDemands())
+		{
+			JTable demandTable = netPlanViewTable.get(NetworkElementType.MULTICAST_DEMAND);
+			String[] demandTableHeader = netPlanViewTableHeader.get(NetworkElementType.MULTICAST_DEMAND);
+			Object[][] demandTableData = networkElementInfo.get(NetworkElementType.MULTICAST_DEMAND);
+			demandTable.setEnabled(true);
+			((DefaultTableModel) demandTable.getModel()).setDataVector(demandTableData, demandTableHeader);
+		}
+
+		if (currentState.hasSRGs())
+		{
+			JTable srgTable = netPlanViewTable.get(NetworkElementType.SRG);
+			String[] srgTableHeader = netPlanViewTableHeader.get(NetworkElementType.SRG);
+			Object[][] srgTableData = networkElementInfo.get(NetworkElementType.SRG);
+			srgTable.setEnabled(true);
+			((DefaultTableModel) srgTable.getModel()).setDataVector(srgTableData, srgTableHeader);
+		}
+
+		txt_numLayers.setText(Integer.toString(currentState.getNumberOfLayers()));
+		txt_numNodes.setText(Integer.toString(currentState.getNumberOfNodes()));
+		txt_numSRGs.setText(Integer.toString(currentState.getNumberOfSRGs()));
+
+		JTable layerTable = netPlanViewTable.get(NetworkElementType.LAYER);
+		Object[][] layerTableData = networkElementInfo.get(NetworkElementType.LAYER);
+		layerTable.setEnabled(true);
+		((DefaultTableModel) layerTable.getModel()).setDataVector(layerTableData, layerTableHeader);
+
+		Map<String, String> layerAttributes = layer.getAttributes();
+		if (!layerAttributes.isEmpty())
+		{
+			int layerAttributeId = 0;
+			Object[][] layerData = new Object[layerAttributes.size()][2];
+			for (Map.Entry<String, String> entry : layerAttributes.entrySet())
+			{
+				layerData[layerAttributeId][0] = entry.getKey();
+				layerData[layerAttributeId][1] = entry.getValue();
+				layerAttributeId++;
+			}
+
+			((DefaultTableModel) layerAttributeTable.getModel()).setDataVector(layerData, attributeTableHeader);
+		}
+
+		Map<String, String> networkAttributes = currentState.getAttributes();
+		System.out.println ("-----**-- networkAttributes: " + networkAttributes);
+		if (!networkAttributes.isEmpty())
+		{
+			int networkAttributeId = 0;
+			Object[][] networkData = new Object[networkAttributes.size()][2];
+			for (Map.Entry<String, String> entry : networkAttributes.entrySet())
+			{
+				networkData[networkAttributeId][0] = entry.getKey();
+				networkData[networkAttributeId][1] = entry.getValue();
+				networkAttributeId++;
+			}
+
+			((DefaultTableModel) networkAttributeTable.getModel()).setDataVector(networkData, attributeTableHeader);
+		}
+
+		allowDocumentUpdate = false;
+		txt_networkName.setText(currentState.getNetworkName());
+		txt_networkDescription.setText(currentState.getNetworkDescription()); txt_networkDescription.setCaretPosition(0);
+		txt_layerName.setText(layer.getName());
+		txt_layerDescription.setText(layer.getDescription()); txt_layerDescription.setCaretPosition(0);
+		txt_layerLinkCapacityUnits.setText(currentState.getLinkCapacityUnitsName());
+		txt_layerDemandTrafficUnits.setText(currentState.getDemandTrafficUnitsName());
+		allowDocumentUpdate = isEditable();
+
+		boolean hardComputations = currentState.getNumberOfNodes() <= 100;
+		updateLayerMetrics(currentState, hardComputations);
+		
+		for (Entry<NetworkElementType, JTable> entry : netPlanViewTable.entrySet())
+		{
+			NetworkElementType elementType = entry.getKey();
+			JTable table = entry.getValue();
+			
+			switch(elementType)
+			{
+				case NODE:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(7, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(8, new ColumnComparator());
+					break;
+
+				case LINK:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(3, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(4, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(6, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(16, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(17, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(18, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(19, new ColumnComparator());
+					break;
+
+				case DEMAND:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(3, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(4, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(5, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(9, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(10, new ColumnComparator());
+					break;
+
+				case MULTICAST_DEMAND:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(3, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(4, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(5, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(9, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(10, new ColumnComparator());
+					break;
+
+				case PROTECTION_SEGMENT:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(12, new ColumnComparator());
+					break;
+
+				case FORWARDING_RULE:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(0, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(1, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(2, new ColumnComparator());
+					break;
+
+				case SRG:
+					((DefaultRowSorter) table.getRowSorter()).setComparator(8, new ColumnComparator());
+					((DefaultRowSorter) table.getRowSorter()).setComparator(9, new ColumnComparator());
+					break;
+					
+				default:
+					break;
+			}
+		}
+	}	
+	
+	@Override
+	public void updateWarnings()
+	{
+		Map<String, String> net2planParameters = Configuration.getNet2PlanOptions();
+		List<String> warnings = NetworkPerformanceMetrics.checkNetworkState(getDesign(), net2planParameters);
+		String warningMsg = warnings.isEmpty() ? "Design is successfully completed!" : StringUtils.join(warnings, StringUtils.getLineSeparator());
+		updateLog(warningMsg);
+	}
+	
+	/**
+	 * Adds a new tab in the right panel at the last position.
+	 * 
+	 * @param name Tab name
+	 * @param tab Tab component
+	 * @return Tab position
+	 * @since 0.3.0
+	 */
+	protected final int addTab(String name, JComponent tab)
+	{
+		return addTab(name, tab, -1);
+	}
+	
+	/**
+	 * Adds a new tab in the right panel at the given position.
+	 * 
+	 * @param name Tab name
+	 * @param tab Tab component
+	 * @param tabIndex Tab position (-1 means last position)
+	 * @return Tab position
+	 * @since 0.3.0
+	 */
+	protected final int addTab(String name, JComponent tab, int tabIndex)
+	{
+		int numTabs = rightPane.getTabCount();
+		if (numTabs == 9) throw new RuntimeException("A maximum of 9 tabs are allowed");
+		
+		if (tabIndex == -1) tabIndex = numTabs;
+		rightPane.insertTab(name, null, tab, null, tabIndex);
+		
+		if (tabIndex <= viewNetPlanTabIndex) viewNetPlanTabIndex++;
+		return tabIndex;
+	}
+	
+	/**
+	 * Indicates whether or not traffic demands can be added to the current design 
+	 * from an external file.
+	 *
+	 * @return {@code true} if it is allowed to load traffic demands. Otherwise, {@code false}.
+	 * @since 0.3.0
+	 */
+	protected boolean allowLoadTrafficDemands()
+	{
+		return false;
+	}
+	
+	/**
+	 * Indicates whether or not the initial {@code NetPlan} object is stored to be 
+	 * compared with the current one (i.e. after some simulation steps).
+	 *
+	 * @return {@code true} if the initial {@code NetPlan} object is stored. Otherwise, {@code false}.
+	 * @since 0.3.0
+	 */
+	protected boolean allowShowInitialNetPlan()
+	{
+		return false;
+	}
+	
+	/**
+	 * Asks user to confirm plugin reset.
+	 * 
+	 * @return {@code true} if user confirms to reset the plugin, or {@code false} otherwise
+	 * @since 0.2.3
+	 */
+	protected static boolean askForReset()
+	{
+		int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to reset? This will remove all unsaved data", "Reset", JOptionPane.YES_NO_OPTION);
+
+		return result == JOptionPane.YES_OPTION;
+	}
+
+	/**
+	 * Clears the current demand selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearDemandSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.DEMAND);
+		table.clearSelection();
+	}
+
+	/**
+	 * Clears the current multicast demand selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearMulticastDemandSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.MULTICAST_DEMAND);
+		table.clearSelection();
+	}
+
+	/**
+	 * Clears the current forwarding rule selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearForwardingRuleSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.FORWARDING_RULE);
+		table.clearSelection();
+	}
+
+	/**
+	 * Clears the current link selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearLinkSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.LINK);
+		table.clearSelection();
+	}
+	
+	/**
+	 * Clears the current node selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearNodeSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.NODE);
+		table.clearSelection();
+	}
+	
+	/**
+	 * Clears the current proctection segment selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearProtectionSegmentSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.PROTECTION_SEGMENT);
+		table.clearSelection();
+	}
+	
+	/**
+	 * Clears the current route selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearRouteSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.ROUTE);
+		table.clearSelection();
+	}
+	
+	/**
+	 * Clears the current multicast tree selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearMulticastTreeSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.MULTICAST_TREE);
+		table.clearSelection();
+	}
+	
+	/**
+	 * Clears the current SRG selection in the network state view.
+	 * 
+	 * <p><b>Important</b>: Always call the parent method.</p>
+	 * 
+	 * @since 0.3.1
+	 */
+	protected void clearSRGSelection()
+	{
+		JTable table = netPlanViewTable.get(NetworkElementType.SRG);
+		table.clearSelection();
+	}
+
+	/**
+	 * Allows customizing the 'demand' tab in the network state viewer.
+	 * 
+	 * @param demandTableView Table with per-demand information
+	 * @return Component to be included in the 'demand' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureDemandTabView(JScrollPane demandTableView)
+	{
+		return demandTableView;
+	}
+	
+	/**
+	 * Allows customizing the 'multicast demand' tab in the network state viewer.
+	 * 
+	 * @param demandTableView Table with per-multicast demand information
+	 * @return Component to be included in the 'multicast demand' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureMulticastDemandTabView(JScrollPane multicastDemandTableView)
+	{
+		return multicastDemandTableView;
+	}
+	
+	/**
+	 * Allows customizing the 'forwarding rule' tab in the network state viewer.
+	 * 
+	 * @param forwadingRuleTableView Table with per-forwarding rule information
+	 * @return Component to be included in the 'forwarding rule' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureForwardingRuleTabView(JScrollPane forwadingRuleTableView)
+	{
+		return forwadingRuleTableView;
+	}
+	
+	/**
+	 * Allows to include a custom panel in the left-bottom corner of the window, 
+	 * just below the topologyPanel panel.
+	 * 
+	 * @return A panel to be included in the left-bottom corner of the window
+	 * @since 0.3.0
+	 */
+	protected JPanel configureLeftBottomPanel()
+	{
+		return null;
+	}
+	
+	/**
+	 * Allows customizing the 'link' tab in the network state viewer.
+	 * 
+	 * @param linkTableView Table with per-link information
+	 * @return Component to be included in the 'link' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureLinkTabView(JScrollPane linkTableView)
+	{
+		return linkTableView;
+	}
+	
+	private void configureNetPlanView()
+	{
+		netPlanViewTable = new EnumMap<NetworkElementType, JTable>(NetworkElementType.class);
+		netPlanViewTableDecorator = new EnumMap<NetworkElementType, FixedColumnDecorator>(NetworkElementType.class);
+		netPlanViewTableComponent = new EnumMap<NetworkElementType, JComponent>(NetworkElementType.class);
+		
+		txt_layerName = new JTextField();
+		txt_layerDescription = new JTextArea();
+		txt_layerDescription.setFont(new JLabel().getFont());
+		txt_layerDescription.setLineWrap(true);
+		txt_layerDescription.setWrapStyleWord(true);
+		txt_layerDemandTrafficUnits = new JTextField();
+		txt_layerLinkCapacityUnits = new JTextField();
+		txt_numLayers = new JTextField(); txt_numLayers.setEditable(false);
+		txt_numNodes = new JTextField(); txt_numNodes.setEditable(false);
+		txt_numSRGs = new JTextField(); txt_numSRGs.setEditable(false);
+		
+		sourceRoutingActivated = new JRadioButton("Source routing", false);
+		sourceRoutingActivated.setEnabled(isEditable());
+		hopByHopRoutingActivated = new JRadioButton("Hop-by-hop routing", false);
+		hopByHopRoutingActivated.setEnabled(isEditable());
+		
+		if (isEditable())
+		{
+			ItemListener itemRoutingTypeListener = new ItemListener()
+			{
+				@Override
+				public void itemStateChanged(ItemEvent event)
+				{
+					JRadioButton button = (JRadioButton) event.getSource();
+					int state = event.getStateChange();
+
+					NetPlan netPlan = getDesign();
+					RoutingType previousRoutingType = netPlan.getRoutingType();
+					
+					if (button == sourceRoutingActivated && state == ItemEvent.SELECTED)
+					{
+						netPlan.setRoutingType(RoutingType.SOURCE_ROUTING);
+						if (previousRoutingType != RoutingType.SOURCE_ROUTING)
+							updateNetPlanView();
+					}
+						
+					if (button == hopByHopRoutingActivated && state == ItemEvent.SELECTED)
+					{
+						netPlan.setRoutingType(RoutingType.HOP_BY_HOP_ROUTING);
+						if (previousRoutingType != RoutingType.HOP_BY_HOP_ROUTING)
+							updateNetPlanView();
+					}
+				}
+			};		
+
+			sourceRoutingActivated.addItemListener(itemRoutingTypeListener);
+			hopByHopRoutingActivated.addItemListener(itemRoutingTypeListener);
+		}
+
+		routingSchemes = new ButtonGroup();
+		routingSchemes.add(sourceRoutingActivated);
+		routingSchemes.add(hopByHopRoutingActivated);
+		
+		txt_networkName = new JTextField();
+		txt_networkDescription = new JTextArea();
+		txt_networkDescription.setFont(new JLabel().getFont());
+		txt_networkDescription.setLineWrap(true);
+		txt_networkDescription.setWrapStyleWord(true);
+		
+		allowDocumentUpdate = isEditable();
+		
+		txt_layerName.setEditable(allowDocumentUpdate);
+		txt_layerDescription.setEditable(allowDocumentUpdate);
+		txt_layerDemandTrafficUnits.setEditable(allowDocumentUpdate);
+		txt_layerLinkCapacityUnits.setEditable(allowDocumentUpdate);
+		txt_networkName.setEditable(allowDocumentUpdate);
+		txt_networkDescription.setEditable(allowDocumentUpdate);
+		
+		if (isEditable())
+		{
+			txt_networkName.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				@Override
+				protected void updateInfo(String text)
+				{
+					getDesign().setNetworkName(text);
+				}
+			});
+
+			txt_networkDescription.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				@Override
+				protected void updateInfo(String text)
+				{
+					getDesign().setNetworkDescription(text);
+				}
+			});
+
+			txt_layerName.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				@Override
+				protected void updateInfo(String text)
+				{
+					allowDocumentUpdate = false;
+					
+					NetworkLayer layer = getDesign().getNetworkLayerDefault();
+					JTable table = netPlanViewTable.get(NetworkElementType.LAYER);
+					TableModel model = table.getModel();
+					int numRows = model.getRowCount();
+					for(int row = 0; row < numRows; row++)
+						if ((Long) model.getValueAt(row, 0) == layer.getId ())
+							model.setValueAt(text, row, 2);
+					
+					allowDocumentUpdate = isEditable();
+				}
+			});
+
+			txt_layerLinkCapacityUnits.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				@Override
+				protected void updateInfo(String text)
+				{
+					allowDocumentUpdate = false;
+					
+					NetworkLayer layer = getDesign().getNetworkLayerDefault();
+					JTable table = netPlanViewTable.get(NetworkElementType.LAYER);
+					TableModel model = table.getModel();
+					int numRows = model.getRowCount();
+					for(int row = 0; row < numRows; row++)
+					{
+						if ((Long) model.getValueAt(row, 0) == layer.getId ())
+						{
+							final String previousValue = model.getValueAt(row, 12).toString();
+							model.setValueAt(text, row, 12);
+							if (!text.equals(model.getValueAt(row, 12).toString()))
+							{
+								final DocumentListener me = this;
+								
+								SwingUtilities.invokeLater(new Runnable()
+								{
+									@Override
+									public void run()
+									{
+										txt_layerLinkCapacityUnits.getDocument().removeDocumentListener(me);
+										txt_layerLinkCapacityUnits.setText(previousValue);
+										txt_layerLinkCapacityUnits.getDocument().addDocumentListener(me);
+									}
+								});
+							}
+						}
+					}
+					
+					allowDocumentUpdate = isEditable();
+				}
+			});
+			
+			txt_layerDemandTrafficUnits.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				@Override
+				protected void updateInfo(String text)
+				{
+					allowDocumentUpdate = false;
+					
+					NetworkLayer layer = getDesign().getNetworkLayerDefault();
+					JTable table = netPlanViewTable.get(NetworkElementType.LAYER);
+					TableModel model = table.getModel();
+					int numRows = model.getRowCount();
+					for(int row = 0; row < numRows; row++)
+					{
+						if ((Long) model.getValueAt(row, 0) == layer.getId ())
+						{
+							final String previousValue = model.getValueAt(row, 13).toString();
+							model.setValueAt(text, row, 13);
+							if (!text.equals(model.getValueAt(row, 13).toString()))
+							{
+								final DocumentListener me = this;
+								
+								SwingUtilities.invokeLater(new Runnable()
+								{
+									@Override
+									public void run()
+									{
+										txt_layerDemandTrafficUnits.getDocument().removeDocumentListener(me);
+										txt_layerDemandTrafficUnits.setText(previousValue);
+										txt_layerDemandTrafficUnits.getDocument().addDocumentListener(me);
+									}
+								});
+							}
+						}
+					}
+					
+					allowDocumentUpdate = isEditable();
+				}
+			});
+
+			txt_layerDescription.getDocument().addDocumentListener(new DocumentAdapter()
+			{
+				@Override
+				protected void updateInfo(String text)
+				{
+					allowDocumentUpdate = false;
+					
+					NetworkLayer layer = getDesign().getNetworkLayerDefault();
+					JTable table = netPlanViewTable.get(NetworkElementType.LAYER);
+					TableModel model = table.getModel();
+					int numRows = model.getRowCount();
+					for(int row = 0; row < numRows; row++)
+						if ((Long) model.getValueAt(row, 0) == layer.getId ())
+							model.setValueAt(text, row, 11);
+					
+					allowDocumentUpdate = isEditable();
+				}
+			});
+		}
+
+		String[] nodeTableHeader = netPlanViewTableHeader.get(NetworkElementType.NODE);
+		TableModel nodeTableModel = new ClassAwareTableModel(new Object[1][nodeTableHeader.length], nodeTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				
+				if (columnIndex == 2) return true;
+				if (!isEditable()) return false;
+				
+				return columnIndex >= 3 && columnIndex <= 6;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				/* If value doesn't change, exit from function */
+				if (newValue != null && newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long nodeId = (Long) getValueAt(row, 0);
+				final Node node = netPlan.getNodeFromId (nodeId);
+								/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 2:
+							if (newValue == null) return;
+							boolean visible = (Boolean) newValue;
+							topologyPanel.getCanvas().setNodeVisible(node.getId (), visible);
+							break;
+							
+						case 3:
+							netPlan.getNodeFromId (nodeId).setName (newValue.toString());
+							topologyPanel.getCanvas().setNodeName(node.getId (), node.getName ());
+							break;
+							
+						case 4:
+							boolean isNodeUp = (Boolean) newValue;
+							if (isNodeUp)
+							{
+								node.setFailureState(true);
+								topologyPanel.getCanvas().setNodeUp(node.getId ());
+							}
+							else
+							{
+								node.setFailureState(false);
+								topologyPanel.getCanvas().setNodeDown(node.getId ());
+							}
+
+							updateNetPlanView();
+							break;
+
+						case 5:
+						case 6:
+							Point2D newPosition = column == 5 ? new Point2D.Double(Double.parseDouble(newValue.toString()), node.getXYPositionMap().getY()) : new Point2D.Double(node.getXYPositionMap().getX(), Double.parseDouble(newValue.toString()));
+							node.setXYPositionMap(newPosition);
+							topologyPanel.getCanvas().setNodeXYPosition(node.getId (), newPosition);
+							topologyPanel.getCanvas().refresh();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying node");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		String[] linkTableHeader = netPlanViewTableHeader.get(NetworkElementType.LINK);
+		TableModel linkTableModel = new ClassAwareTableModel(new Object[1][linkTableHeader.length], linkTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (columnIndex == 2) return true;
+				if (!isEditable()) return false;
+				
+				switch(columnIndex)
+				{
+					case 5:
+					case 12:
+					case 13:
+						return true;
+						
+					case 6:
+						NetPlan netPlan = getDesign();
+
+						if (getValueAt(rowIndex, 0) == null) rowIndex = rowIndex - 1;
+						final long linkId = (Long) getValueAt(rowIndex, 0);
+						final Link link = netPlan.getLinkFromId (linkId);
+						if (link.isCoupled()) return false;
+						else return true;
+						
+					default:
+						return false;
+				}
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				/* If value doesn't change, exit from function */
+				if (newValue != null && newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long linkId = (Long) getValueAt(row, 0);
+				final Link link = netPlan.getLinkFromId (linkId);
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 2:
+							if (newValue == null) return;
+							boolean visible = (Boolean) newValue;
+							topologyPanel.getCanvas().setLinkVisible(link.getId (), visible);
+							break;
+
+						case 5:
+							boolean isLinkUp = (Boolean) newValue;
+							if (isLinkUp)
+							{
+								link.setFailureState(true);
+								topologyPanel.getCanvas().setLinkUp(link.getId ());
+							}
+							else
+							{
+								link.setFailureState(false);
+								topologyPanel.getCanvas().setLinkDown(link.getId ());
+							}
+							
+							updateNetPlanView();
+							break;
+
+						case 6:
+							String text = newValue.toString();
+							link.setCapacity(text.equalsIgnoreCase("inf") ? Double.MAX_VALUE : Double.parseDouble(text));
+							newValue = link.getCapacity();
+							updateNetPlanView();
+							break;
+
+						case 12:
+							link.setLengthInKm(Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						case 13:
+							link.setPropagationSpeedInKmPerSecond(Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying link");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		String[] demandTableHeader = netPlanViewTableHeader.get(NetworkElementType.DEMAND);
+		TableModel demandTableModel = new ClassAwareTableModel(new Object[1][demandTableHeader.length], demandTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+
+				return columnIndex == 5;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				/* If value doesn't change, exit from function */
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long demandId = (Long) getValueAt(row, 0);
+				final Demand demand = netPlan.getDemandFromId (demandId);
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 5:
+							demand.setOfferedTraffic(Double.parseDouble(newValue.toString()));
+
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying demand");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		String[] multicastDemandTableHeader = netPlanViewTableHeader.get(NetworkElementType.MULTICAST_DEMAND);
+		TableModel multicastDemandTableModel = new ClassAwareTableModel(new Object[1][multicastDemandTableHeader.length], multicastDemandTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+
+				return columnIndex == 5;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				/* If value doesn't change, exit from function */
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long demandId = (Long) getValueAt(row, 0);
+				final MulticastDemand demand = netPlan.getMulticastDemandFromId (demandId);
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 5:
+							demand.setOfferedTraffic(Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying multicast demand");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+		
+		String[] routeTableHeader = netPlanViewTableHeader.get(NetworkElementType.ROUTE);
+		TableModel routeTableModel = new ClassAwareTableModel(new Object[1][routeTableHeader.length], routeTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+				
+				return columnIndex == 6 || columnIndex == 7;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long routeId = (Long) getValueAt(row, 0);
+				final Route route = netPlan.getRouteFromId (routeId);
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 6:
+							route.setCarriedTraffic(Double.parseDouble(newValue.toString()) , route.getOccupiedCapacity());
+							updateNetPlanView();
+							break;
+
+						case 7:
+							route.setCarriedTraffic(route.getCarriedTraffic() , Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying route");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		String[] treeTableHeader = netPlanViewTableHeader.get(NetworkElementType.MULTICAST_TREE);
+		TableModel treeTableModel = new ClassAwareTableModel(new Object[1][treeTableHeader.length], treeTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+				
+				return columnIndex == 6 || columnIndex == 7;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long treeId = (Long) getValueAt(row, 0);
+				final MulticastTree tree = netPlan.getMulticastTreeFromId(treeId);
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 6:
+							tree.setCarriedTraffic(Double.parseDouble(newValue.toString()) , tree.getOccupiedLinkCapacity());
+							updateNetPlanView();
+							break;
+
+						case 7:
+							tree.setCarriedTraffic(tree.getCarriedTraffic() , Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying route");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+
+		String[] segmentTableHeader = netPlanViewTableHeader.get(NetworkElementType.PROTECTION_SEGMENT);
+		TableModel segmentTableModel = new ClassAwareTableModel(new Object[1][segmentTableHeader.length], segmentTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+				
+				return columnIndex == 4;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long segmentId = (Long) getValueAt(row, 0);
+				final ProtectionSegment segment = netPlan.getProtectionSegmentFromId(segmentId);
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 4:
+							segment.setReservedCapacity(Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying protection segment");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		
+		
+		String[] forwardingRuleTableHeader = netPlanViewTableHeader.get(NetworkElementType.FORWARDING_RULE);
+		TableModel forwardingRuleTableModel = new ClassAwareTableModel(new Object[1][forwardingRuleTableHeader.length], forwardingRuleTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+				
+				return columnIndex == 3;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final Pair<Long, Long> forwardingRule = Pair.of((Long) getValueAt(row, 1), (Long) getValueAt(row, 2));
+				final Demand demand = netPlan.getDemandFromId (forwardingRule.getFirst ());
+				final Link link = netPlan.getLinkFromId (forwardingRule.getSecond ());
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 3:
+							netPlan.setForwardingRule (demand, link , Double.parseDouble(newValue.toString()));
+							updateNetPlanView();
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying forwarding rule");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		String[] srgTableHeader = netPlanViewTableHeader.get(NetworkElementType.SRG);
+		TableModel srgTableModel = new ClassAwareTableModel(new Object[1][srgTableHeader.length], srgTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+				
+				return columnIndex == 2 || columnIndex == 3;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				if (newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+				NetPlan aux_netPlan = netPlan.copy();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long srgId = (Long) getValueAt(row, 0);
+				final SharedRiskGroup srg = netPlan.getSRGFromId (srgId);
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 2:
+							srg.setMeanTimeToFailInHours(Double.parseDouble(newValue.toString()));
+							super.setValueAt(srg.getAvailability() , row, 4);
+							break;
+
+						case 3:
+							srg.setMeanTimeToRepairInHours(Double.parseDouble(newValue.toString()));
+							super.setValueAt(srg.getAvailability(), row, 4);
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					getDesign().assignFrom(aux_netPlan);
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying SRG");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+
+		String[] layerTableHeader = netPlanViewTableHeader.get(NetworkElementType.LAYER);
+		TableModel layerTableModel = new ClassAwareTableModel(new Object[1][layerTableHeader.length], layerTableHeader)
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(int rowIndex, int columnIndex)
+			{
+				if (getValueAt(rowIndex, columnIndex) == null) return false;
+				if (!isEditable()) return false;
+				
+				return columnIndex == 2 || columnIndex == 11 || columnIndex == 12 || columnIndex == 13;
+			}
+
+			@Override
+			public void setValueAt(Object newValue, int row, int column)
+			{
+				Object oldValue = getValueAt(row, column);
+
+				/* If value doesn't change, exit from function */
+				if (newValue != null && newValue.equals(oldValue)) return;
+
+				NetPlan netPlan = getDesign();
+
+				if (getValueAt(row, 0) == null) row = row - 1;
+				final long layerId = (Long) getValueAt(row, 0);
+				final NetworkLayer layer = netPlan.getNetworkLayerFromId (layerId);
+				
+				/* Perform checks, if needed */
+				try
+				{
+					switch (column)
+					{
+						case 2:
+							layer.setName (newValue.toString());
+							topologyPanel.refreshLayerName(layerId);
+							break;
+							
+						case 11:
+							layer.setDescription(newValue.toString());
+							break;
+
+						case 12:
+							netPlan.setLinkCapacityUnitsName(newValue.toString() , layer);
+							break;
+
+						case 13:
+							netPlan.setDemandTrafficUnitsName(newValue.toString() , layer);
+							break;
+
+						default:
+							break;
+					}
+				}
+				catch (Throwable ex)
+				{
+					ErrorHandling.showErrorDialog(ex.getMessage(), "Error modifying layer");
+					return;
+				}
+
+				/* Set new value */
+				super.setValueAt(newValue, row, column);
+			}
+		};
+		
+		TableModel networkAttributeTableModel = new ClassAwareTableModel(new Object[1][attributeTableHeader.length], attributeTableHeader);
+		TableModel layerAttributeTableModel = new ClassAwareTableModel(new Object[1][attributeTableHeader.length], attributeTableHeader);
+		
+		netPlanViewTable.put(NetworkElementType.NODE, new AdvancedJTable(nodeTableModel));
+		netPlanViewTable.put(NetworkElementType.LINK, new AdvancedJTable(linkTableModel));
+		netPlanViewTable.put(NetworkElementType.DEMAND, new AdvancedJTable(demandTableModel));
+		netPlanViewTable.put(NetworkElementType.ROUTE, new AdvancedJTable(routeTableModel));
+		netPlanViewTable.put(NetworkElementType.PROTECTION_SEGMENT, new AdvancedJTable(segmentTableModel));
+		netPlanViewTable.put(NetworkElementType.FORWARDING_RULE, new AdvancedJTable(forwardingRuleTableModel));
+		netPlanViewTable.put(NetworkElementType.MULTICAST_DEMAND, new AdvancedJTable(multicastDemandTableModel));
+		netPlanViewTable.put(NetworkElementType.MULTICAST_TREE, new AdvancedJTable(treeTableModel));
+		netPlanViewTable.put(NetworkElementType.SRG, new AdvancedJTable(srgTableModel));
+		netPlanViewTable.put(NetworkElementType.LAYER, new AdvancedJTable(layerTableModel));
+		
+		networkAttributeTable = new AdvancedJTable(networkAttributeTableModel);
+		layerAttributeTable = new AdvancedJTable(layerAttributeTableModel);
+		
+		if (isEditable())
+		{
+			networkAttributeTable.addMouseListener(new SingleElementAttributeEditor(this, NetworkElementType.NETWORK));
+			layerAttributeTable.addMouseListener(new SingleElementAttributeEditor(this, NetworkElementType.LAYER));
+		}
+		
+		for(Entry<NetworkElementType, JTable> entry : netPlanViewTable.entrySet())
+		{
+			NetworkElementType type = entry.getKey();
+			JTable table = entry.getValue();
+			
+			table.setDefaultRenderer(Boolean.class, new CellRenderers.CheckBoxRenderer());
+			table.setDefaultRenderer(Double.class, new NumberCellRenderer());
+			table.setDefaultRenderer(Object.class, new CellRenderers.NonEditableCellRenderer());
+			table.setDefaultRenderer(Float.class, new NumberCellRenderer());
+			table.setDefaultRenderer(Long.class, new CellRenderers.NumberCellRenderer());
+			table.setDefaultRenderer(Integer.class, new CellRenderers.NumberCellRenderer());
+			table.setDefaultRenderer(String.class, new CellRenderers.NonEditableCellRenderer());
+			
+			if (table == netPlanViewTable.get(NetworkElementType.DEMAND))
+			{
+				table.getColumnModel().getColumn(table.convertColumnIndexToView(7)).setCellRenderer(new CellRenderers.LostTrafficCellRenderer(5));
+			}
+			if (table == netPlanViewTable.get(NetworkElementType.MULTICAST_DEMAND))
+			{
+				table.getColumnModel().getColumn(table.convertColumnIndexToView(7)).setCellRenderer(new CellRenderers.LostTrafficCellRenderer(5));
+			}
+			if (table == netPlanViewTable.get(NetworkElementType.SRG))
+			{
+				table.getColumnModel().getColumn(table.convertColumnIndexToView(4)).setCellRenderer(new CellRenderers.NumberCellRenderer(7));
+			}
+			else if (table == netPlanViewTable.get(NetworkElementType.LINK))
+			{
+				table.getColumnModel().getColumn(table.convertColumnIndexToView(7)).setCellEditor(new LinkCapacityCellEditor(new JTextField()));
+				
+				table.setDefaultRenderer(Boolean.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(Boolean.class), this));
+				table.setDefaultRenderer(Double.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(Double.class), this));
+				table.setDefaultRenderer(Object.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(Object.class), this));
+				table.setDefaultRenderer(Float.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(Float.class), this));
+				table.setDefaultRenderer(Long.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(Long.class), this));
+				table.setDefaultRenderer(Integer.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(Integer.class), this));
+				table.setDefaultRenderer(String.class, new CellRenderers.LinkRenderer(table.getDefaultRenderer(String.class), this));
+			}
+			else if (table == netPlanViewTable.get(NetworkElementType.ROUTE))
+			{
+				table.setDefaultRenderer(Boolean.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(Boolean.class), this));
+				table.setDefaultRenderer(Double.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(Double.class), this));
+				table.setDefaultRenderer(Object.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(Object.class), this));
+				table.setDefaultRenderer(Float.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(Float.class), this));
+				table.setDefaultRenderer(Long.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(Long.class), this));
+				table.setDefaultRenderer(Integer.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(Integer.class), this));
+				table.setDefaultRenderer(String.class, new CellRenderers.RouteRenderer(table.getDefaultRenderer(String.class), this));
+			}
+			else if (table == netPlanViewTable.get(NetworkElementType.MULTICAST_TREE))
+			{
+				table.setDefaultRenderer(Boolean.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(Boolean.class), this));
+				table.setDefaultRenderer(Double.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(Double.class), this));
+				table.setDefaultRenderer(Object.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(Object.class), this));
+				table.setDefaultRenderer(Float.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(Float.class), this));
+				table.setDefaultRenderer(Long.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(Long.class), this));
+				table.setDefaultRenderer(Integer.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(Integer.class), this));
+				table.setDefaultRenderer(String.class, new CellRenderers.MulticastTreeRenderer(table.getDefaultRenderer(String.class), this));
+			}
+			else if (table == netPlanViewTable.get(NetworkElementType.FORWARDING_RULE))
+			{
+				table.setDefaultRenderer(Boolean.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(Boolean.class), this));
+				table.setDefaultRenderer(Double.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(Double.class), this));
+				table.setDefaultRenderer(Object.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(Object.class), this));
+				table.setDefaultRenderer(Float.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(Float.class), this));
+				table.setDefaultRenderer(Long.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(Long.class), this));
+				table.setDefaultRenderer(Integer.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(Integer.class), this));
+				table.setDefaultRenderer(String.class, new CellRenderers.ForwardingRuleRenderer(table.getDefaultRenderer(String.class), this));
+			}
+			else if (table == netPlanViewTable.get(NetworkElementType.NODE) || table == netPlanViewTable.get(NetworkElementType.PROTECTION_SEGMENT))
+			{
+				table.setDefaultRenderer(Boolean.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(Boolean.class), this, type));
+				table.setDefaultRenderer(Double.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(Double.class), this, type));
+				table.setDefaultRenderer(Object.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(Object.class), this, type));
+				table.setDefaultRenderer(Float.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(Float.class), this, type));
+				table.setDefaultRenderer(Long.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(Long.class), this, type));
+				table.setDefaultRenderer(Integer.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(Integer.class), this, type));
+				table.setDefaultRenderer(String.class, new CellRenderers.UpDownRenderer(table.getDefaultRenderer(String.class), this, type));
+			}
+		}
+		
+		netPlanView = new JTabbedPane();
+
+		KeyListener cursorNavigation = new TableCursorNavigation();
+		
+		for(NetworkElementType elementType : Constants.NetworkElementType.values())
+		{
+			if (elementType == NetworkElementType.NETWORK)
+			{
+				String[] columnTips = attributeTableTips;
+				String[] columnHeader = attributeTableHeader;
+
+				ColumnHeaderToolTips tips = new ColumnHeaderToolTips();
+				for (int c = 0; c < columnHeader.length; c++)
+				{
+					TableColumn col = networkAttributeTable.getColumnModel().getColumn(c);
+					tips.setToolTip(col, columnTips[c]);
+				}
+
+				networkAttributeTable.getTableHeader().addMouseMotionListener(tips);
+				networkAttributeTable.setAutoCreateRowSorter(true);
+				
+				JScrollPane scrollPane = new JScrollPane(networkAttributeTable);
+				ScrollPaneLayout layout = new FullScrollPaneLayout();
+				scrollPane.setLayout(layout);
+				scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				
+				JTable layerTable = netPlanViewTable.get(NetworkElementType.LAYER);
+				String[] columnTips1 = netPlanViewTableTips.get(NetworkElementType.LAYER);
+				String[] columnHeader1 = netPlanViewTableHeader.get(NetworkElementType.LAYER);
+
+				ColumnHeaderToolTips tips1 = new ColumnHeaderToolTips();
+				for (int c = 0; c < columnHeader1.length; c++)
+				{
+					TableColumn col = layerTable.getColumnModel().getColumn(c);
+					tips1.setToolTip(col, columnTips1[c]);
+				}
+
+				layerTable.getTableHeader().addMouseMotionListener(tips1);
+
+				if (allowShowInitialNetPlan()) layerTable.setRowSorter(new CurrentAndPlannedStateTableSorter(layerTable.getModel()));
+				else layerTable.setAutoCreateRowSorter(true);
+				
+				JScrollPane scrollPane1 = new JScrollPane(layerTable);
+				ScrollPaneLayout layout1 = new FullScrollPaneLayout();
+				scrollPane1.setLayout(layout1);
+				scrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				
+				MouseAdapter tableAdapter = new PopupMenuNetPlan(this, topologyPanel, layerTable.getModel(), NetworkElementType.LAYER, isEditable());
+				layerTable.addMouseListener(tableAdapter);
+
+				FixedColumnDecorator decorator = new FixedColumnDecorator(scrollPane1, 1);
+				decorator.getFixedTable().getColumnModel().getColumn(0).setMinWidth(50);
+
+				netPlanViewTableDecorator.put(NetworkElementType.LAYER, decorator);
+				netPlanViewTableComponent.put(NetworkElementType.LAYER, scrollPane1);
+				
+				JPanel networkPane = new JPanel(new MigLayout("", "[][grow]", "[][][grow][][][][][grow]"));
+				networkPane.add(new JLabel("Name"));
+				networkPane.add(txt_networkName, "grow, wrap");
+				networkPane.add(new JLabel("Description"), "aligny top");
+				networkPane.add(new JScrollPane(txt_networkDescription), "grow, wrap, height 100::");
+				networkPane.add(scrollPane, "grow, spanx 2, wrap");
+				networkPane.add(new JLabel("Number of layers"), "grow");
+				networkPane.add(txt_numLayers, "grow, wrap");
+				networkPane.add(new JLabel("Number of nodes"), "grow");
+				networkPane.add(txt_numNodes, "grow, wrap");
+				networkPane.add(new JLabel("Number of SRGs"), "grow");
+				networkPane.add(txt_numSRGs, "grow, wrap");
+				networkPane.add(new JLabel("Layer information"), "grow, spanx2, wrap");
+				networkPane.add(scrollPane1, "grow, spanx 2");
+				netPlanViewTableComponent.put(elementType, networkPane);
+				networkAttributeTable.addKeyListener(cursorNavigation);
+			}
+			else
+			{
+				JTable table = elementType == NetworkElementType.LAYER ? layerAttributeTable : netPlanViewTable.get(elementType);
+				String[] columnTips = elementType == NetworkElementType.LAYER ? attributeTableTips : netPlanViewTableTips.get(elementType);
+				String[] columnHeader = elementType == NetworkElementType.LAYER ? attributeTableHeader : netPlanViewTableHeader.get(elementType);
+
+				ColumnHeaderToolTips tips = new ColumnHeaderToolTips();
+				for (int c = 0; c < columnHeader.length; c++)
+				{
+					TableColumn col = table.getColumnModel().getColumn(c);
+					tips.setToolTip(col, columnTips[c]);
+				}
+
+				table.getTableHeader().addMouseMotionListener(tips);
+
+				JScrollPane scrollPane = new JScrollPane(table);
+				ScrollPaneLayout layout = new FullScrollPaneLayout();
+				scrollPane.setLayout(layout);
+				scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				
+				switch(elementType)
+				{
+					case NETWORK:
+						break;
+
+					case LAYER:
+						layerSummaryTables = new ParamValueTable[4];
+						for (int i = 0; i < layerSummaryTables.length; i++)
+						{
+							layerSummaryTables[i] = new ParamValueTable(layerSummaryTableHeader);
+							layerSummaryTables[i].setAutoCreateRowSorter(true);
+							layerSummaryTables[i].addKeyListener(cursorNavigation);
+						}
+
+						table.addKeyListener(cursorNavigation);
+
+						layerMetricsInfo = new JPanel();
+						layerMetricsInfo.setLayout(new MigLayout("insets 0 0 0 0", "[grow]"));
+						layerMetricsInfo.add(new JLabel("Topology and link capacities"), "growx, wrap");
+						layerMetricsInfo.add(new JScrollPane(layerSummaryTables[0]), "growx, wrap");
+						layerMetricsInfo.add(new JLabel("Traffic"), "growx, wrap");
+						layerMetricsInfo.add(new JScrollPane(layerSummaryTables[1]), "growx, wrap");
+						layerMetricsInfo.add(new JLabel("Routing"), "growx, wrap");
+						layerMetricsInfo.add(new JScrollPane(layerSummaryTables[2]), "growx, wrap");
+						layerMetricsInfo.add(new JLabel("Resilience information"), "growx, wrap");
+						layerMetricsInfo.add(new JScrollPane(layerSummaryTables[3]), "growx");
+
+						JPanel layerPane = new JPanel(new MigLayout("", "[][grow]", "[][][][][][grow]"));
+						layerPane.add(new JLabel("Name"));
+						layerPane.add(txt_layerName, "grow, wrap");
+						layerPane.add(new JLabel("Description"), "aligny top");
+						layerPane.add(new JScrollPane(txt_layerDescription), "grow, wrap, height 100::");
+						layerPane.add(new JLabel("Link capacity units"));
+						layerPane.add(txt_layerLinkCapacityUnits, "grow, wrap");
+						layerPane.add(new JLabel("Demand traffic units"));
+						layerPane.add(txt_layerDemandTrafficUnits, "grow, wrap");
+						layerPane.add(new JLabel("Routing type"));
+						
+						JPanel radioPanel = new JPanel(new GridLayout(0, 1));
+				        radioPanel.add(sourceRoutingActivated);
+						radioPanel.add(hopByHopRoutingActivated);
+						layerPane.add(radioPanel, "grow, wrap");
+						
+						layerPane.add(scrollPane, "grow, spanx 2");
+						JScrollPane layerInfoScrollPane = new JScrollPane(layerMetricsInfo);
+						layerInfoScrollPane.setBorder(BorderFactory.createEmptyBorder());
+						
+						forceUpdate = new JButton("Update all metrics");
+						forceUpdate.addActionListener(new ActionListener()
+						{
+							@Override
+							public void actionPerformed(ActionEvent e)
+							{
+								updateLayerMetrics(getDesign(), true);
+							}
+						});
+						
+						forceUpdate.setToolTipText("Use this button to update non-computed metrics due to hard computations");
+						forceUpdate.setVisible(false);
+
+						JPanel layerInfoPane = new JPanel(new BorderLayout());
+						layerInfoPane.add(forceUpdate, BorderLayout.NORTH);
+						layerInfoPane.add(layerInfoScrollPane, BorderLayout.CENTER);
+
+						JSplitPane splitPaneTopology = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+						splitPaneTopology.setTopComponent(layerPane);
+						splitPaneTopology.setBottomComponent(layerInfoPane);
+						splitPaneTopology.setResizeWeight(0.3);
+						splitPaneTopology.addPropertyChangeListener(new ProportionalResizeJSplitPaneListener());
+						netPlanViewTableComponent.put(elementType, splitPaneTopology);
+						break;
+						
+					default:
+						MouseAdapter tableAdapter = new PopupMenuNetPlan(this, topologyPanel, table.getModel(), elementType, isEditable());
+						table.addMouseListener(tableAdapter);
+
+						if (allowShowInitialNetPlan()) table.setRowSorter(new CurrentAndPlannedStateTableSorter(table.getModel()));
+						else table.setAutoCreateRowSorter(true);
+						
+						int numColumns;
+						switch(elementType)
+						{
+							case NODE:
+								numColumns = 4;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(6, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(7, new ColumnComparator());
+								break;
+								
+							case LINK:
+								numColumns = 5;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(2, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(3, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(5, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(15, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(16, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(17, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(18, new ColumnComparator());
+								break;
+								
+							case DEMAND:
+								numColumns = 4;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(2, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(3, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(4, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(8, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(9, new ColumnComparator());
+								break;
+								
+							case MULTICAST_DEMAND:
+								numColumns = 4;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(2, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(3, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(4, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(8, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(9, new ColumnComparator());
+								break;
+								
+							case ROUTE:
+								numColumns = 3;
+								break;
+								
+							case MULTICAST_TREE:
+								numColumns = 3;
+								break;
+								
+							case PROTECTION_SEGMENT:
+								numColumns = 4;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(11, new ColumnComparator());
+								break;
+								
+							case FORWARDING_RULE:
+								numColumns = 3;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(0, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(1, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(2, new ColumnComparator());
+								break;
+								
+							case SRG:
+								numColumns = 2;
+								((DefaultRowSorter) table.getRowSorter()).setComparator(7, new ColumnComparator());
+								((DefaultRowSorter) table.getRowSorter()).setComparator(8, new ColumnComparator());
+								break;
+								
+							default:
+								throw new RuntimeException("Bad");
+						}
+
+						FixedColumnDecorator decorator = new FixedColumnDecorator(scrollPane, numColumns);
+						decorator.getFixedTable().getColumnModel().getColumn(0).setMinWidth(50);
+						netPlanViewTableDecorator.put(elementType, decorator);
+						
+						switch(elementType)
+						{
+							case DEMAND:
+								netPlanViewTableComponent.put(elementType, configureDemandTabView(scrollPane));
+								break;
+								
+							case MULTICAST_DEMAND:
+								netPlanViewTableComponent.put(elementType, configureMulticastDemandTabView(scrollPane));
+								break;
+								
+							case FORWARDING_RULE:
+								netPlanViewTableComponent.put(elementType, configureForwardingRuleTabView(scrollPane));
+								break;
+								
+							case LINK:
+								netPlanViewTableComponent.put(elementType, configureLinkTabView(scrollPane));
+								break;
+								
+							case NODE:
+								netPlanViewTableComponent.put(elementType, configureNodeTabView(scrollPane));
+								break;
+								
+							case PROTECTION_SEGMENT:
+								netPlanViewTableComponent.put(elementType, configureProtectionSegmentTabView(scrollPane));
+								break;
+								
+							case ROUTE:
+								netPlanViewTableComponent.put(elementType, configureRouteTabView(scrollPane));
+								break;
+								
+							case MULTICAST_TREE:
+								netPlanViewTableComponent.put(elementType, configureMulticastTreeTabView(scrollPane));
+								break;
+								
+							case SRG:
+								netPlanViewTableComponent.put(elementType, configureSRGTabView(scrollPane));
+								break;
+								
+							default:
+								break;
+						}
+						
+						break;
+				}
+			}
+		}
+
+		JPanel pane = new JPanel(new BorderLayout());
+		pane.add(netPlanView, BorderLayout.CENTER);
+		
+		if (allowShowInitialNetPlan())
+		{
+			showInitialPlan = new JCheckBox("Toggle show/hide planning information", true);
+			showInitialPlan.addItemListener(new ItemListener()
+			{
+				@Override
+				public void itemStateChanged(ItemEvent e)
+				{
+					RowFilter<TableModel, Integer> rowFilter = e.getStateChange() == ItemEvent.SELECTED ? null : new RowFilter<TableModel, Integer>()
+					{
+						@Override
+						public boolean include(RowFilter.Entry<? extends TableModel, ? extends Integer> entry)
+						{
+							if (entry.getIdentifier() == 0) return true;
+							
+							if (entry.getValue(0) instanceof CurrentAndPlannedStateTableCellValue)
+								return ((CurrentAndPlannedStateTableCellValue) entry.getValue(0)).value != null;
+							else
+								return entry.getValue(0) != null;
+						}
+					};
+					
+					for (NetworkElementType elementType : Constants.NetworkElementType.values())
+					{
+						if (elementType == NetworkElementType.NETWORK) continue;
+						
+						((TableRowSorter) netPlanViewTable.get(elementType).getRowSorter()).setRowFilter(rowFilter);
+					}
+				}
+			});
+
+			showInitialPlan.setSelected(false);
+			pane.add(showInitialPlan, BorderLayout.NORTH);
+		}
+
+		addTab(isEditable() ? "View/edit network state" : "View network state", pane);
+		viewNetPlanTabIndex = 0;
+	}
+	
+	/**
+	 * Allows customizing the 'node' tab in the network state viewer.
+	 * 
+	 * @param nodeTableView Table with per-node information
+	 * @return Component to be included in the 'node' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureNodeTabView(JScrollPane nodeTableView)
+	{
+		return nodeTableView;
+	}
+	
+	/**
+	 * Allows customizing the 'protection segment' tab in the network state viewer.
+	 * 
+	 * @param segmentTableView Table with per-protection-segment information
+	 * @return Component to be included in the 'protection segment' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureProtectionSegmentTabView(JScrollPane segmentTableView)
+	{
+		return segmentTableView;
+	}
+	
+	private void configureReportPane()
+	{
+		reportController = new ThreadExecutionController(this);
+
+		File REPORTS_DIRECTORY = new File(CURRENT_DIR + SystemUtils.getDirectorySeparator() + "workspace");
+		REPORTS_DIRECTORY = REPORTS_DIRECTORY.isDirectory() ? REPORTS_DIRECTORY : CURRENT_DIR;
+		ParameterValueDescriptionPanel reportParameters = new ParameterValueDescriptionPanel();
+		reportSelector = new RunnableSelector("Report", null, IReport.class, REPORTS_DIRECTORY, reportParameters);
+		reportPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+		reportContainer = new JTabbedPane();
+
+		final JPanel pnl_buttons = new JPanel(new WrapLayout());
+
+		reportContainer.setVisible(false);
+		
+		addKeyCombinationAction("Close selected report", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				int tab = reportContainer.getSelectedIndex();
+				if (tab == -1) return;
+
+				reportContainer.remove(tab);
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK));
+		
+		addKeyCombinationAction("Close all reports", new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				reportContainer.removeAll();
+			}
+		}, KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK));
+		
+		reportContainer.addContainerListener(new ContainerListener()
+		{
+			@Override
+			public void componentAdded(ContainerEvent e)
+			{
+				reportContainer.setVisible(true);
+				reportPane.setDividerLocation(0.5);
+				
+				for(Component component : pnl_buttons.getComponents())
+					if (component == closeAllReports)
+						return;
+				
+				pnl_buttons.add(closeAllReports);
+			}
+
+			@Override
+			public void componentRemoved(ContainerEvent e)
+			{
+				if (reportContainer.getTabCount() == 0)
+				{
+					reportContainer.setVisible(false);
+					
+					for(Component component : pnl_buttons.getComponents())
+						if (component == closeAllReports)
+							pnl_buttons.remove(closeAllReports);
+				}
+			}
+		});
+
+		JButton btn_show = new JButton("Show");
+		btn_show.setToolTipText("Show the report");
+		btn_show.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				reportController.execute();
+			}
+		});
+		
+		closeAllReports = new JButton("Close all");
+		closeAllReports.setToolTipText("Close all reports");
+		closeAllReports.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				reportContainer.removeAll();
+			}
+		});
+		
+		reportContainer.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				int tabNumber = reportContainer.getUI().tabForCoordinate(reportContainer, e.getX(), e.getY());
+
+				if (tabNumber >= 0)
+				{
+					Rectangle rect = ((TabIcon) reportContainer.getIconAt(tabNumber)).getBounds();
+					if (rect.contains(e.getX(), e.getY())) reportContainer.removeTabAt(tabNumber);
+				}
+			}
+		});
+
+		pnl_buttons.add(btn_show);
+
+		JPanel pane = new JPanel(new BorderLayout());
+		pane.add(reportSelector, BorderLayout.CENTER);
+		pane.add(pnl_buttons, BorderLayout.SOUTH);
+		reportPane.setTopComponent(pane);
+
+		reportPane.setBottomComponent(reportContainer);
+		reportPane.addPropertyChangeListener(new ProportionalResizeJSplitPaneListener());
+		reportPane.setResizeWeight(0.5);
+		
+		addTab("View reports", reportPane);
+	}
+	
+	/**
+	 * Allows customizing the 'route' tab in the network state viewer.
+	 * 
+	 * @param routeTableView Table with per-route information
+	 * @return Component to be included in the 'route' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureRouteTabView(JScrollPane routeTableView)
+	{
+		return routeTableView;
+	}
+
+	/**
+	 * Allows customizing the 'multicast tree' tab in the network state viewer.
+	 * 
+	 * @param multicastTreeTableView Table with per-route information
+	 * @return Component to be included in the 'multicast tree' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureMulticastTreeTabView(JScrollPane multicastTreeTableView)
+	{
+		return multicastTreeTableView;
+	}
+
+	/**
+	 * Allows customizing the 'srg' tab in the network state viewer.
+	 * 
+	 * @param srgTableView Table with per-SRG information
+	 * @return Component to be included in the 'srg' tab
+	 * @since 0.3.1
+	 */
+	protected JComponent configureSRGTabView(JScrollPane srgTableView)
+	{
+		return srgTableView;
+	}
+	
+	/**
+	 * Allows to include custom code after initializing the topologyPanel panel (i.e. add new plugins).
+	 * 
+	 * @since 0.3.0
+	 */
+	protected void configureTopologyPanel()
+	{
+		popupPlugin = new PopupMenuPlugin(this);
+		
+		getTopologyPanel().addPlugin(new PanGraphPlugin(this, MouseEvent.BUTTON1_MASK));
+		if (isEditable() && getTopologyPanel().getCanvas() instanceof JUNGCanvas) getTopologyPanel().addPlugin(new AddLinkGraphPlugin(this, MouseEvent.BUTTON1_MASK, MouseEvent.BUTTON1_MASK | MouseEvent.SHIFT_MASK));
+		getTopologyPanel().addPlugin(popupPlugin);
+		if (isEditable()) getTopologyPanel().addPlugin(new MoveNodePlugin(this, MouseEvent.BUTTON1_MASK | MouseEvent.CTRL_MASK));
+	}
+	
+	/**
+	 * Returns a reference to the topologyPanel panel.
+	 * 
+	 * @return Reference to the topologyPanel panel
+	 * @since 0.3.0
+	 */
+	protected final TopologyPanel getTopologyPanel()
+	{
+		return topologyPanel;
+	}
+	
+	/**
+	 * Allows to include custom code after resetting the topologyPanel panel.
+	 * 
+	 * @since 0.3.0
+	 */
+	protected void reset_internal()
+	{
+		loadDesign(new NetPlan());
+	}
+	
+	/**
+	 * Shows the tab corresponding associated to a network element.
+	 * 
+	 * @param type Network element type
+	 * @param itemId Item identifier (if null, it will just show the tab)
+	 * @since 0.3.0
+	 */
+	protected void selectNetPlanViewItem(NetworkElementType type, Object itemId)
+	{
+		selectNetPlanViewItem(getDesign().getNetworkLayerDefault().getId (), type, itemId);
+	}
+	
+	/**
+	 * Shows the tab corresponding associated to a network element.
+	 * 
+	 * @param layerId Layer identifier
+	 * @param type Network element type
+	 * @param itemId Item identifier (if null, it will just show the tab)
+	 * @since 0.3.0
+	 */
+	protected void selectNetPlanViewItem(long layer , NetworkElementType type, Object itemId)
+	{
+		topologyPanel.selectLayer(layer);
+		showTab(viewNetPlanTabIndex);
+		
+		JTable table = netPlanViewTable.get(type);
+		int tabIndex = netPlanView.getSelectedIndex();
+		int col = 0;
+		if (netPlanView.getTitleAt(tabIndex).equals(netPlanViewTabName.get(type)))
+		{
+			col = table.getSelectedColumn();
+			if (col == -1) col = 0;
+		}
+		else
+		{
+			netPlanView.setSelectedComponent(netPlanViewTableComponent.get(type));
+		}
+		
+		if (itemId == null)
+		{
+			table.clearSelection();
+			return;
+		}
+
+		TableModel model = table.getModel();
+		int numRows = model.getRowCount();
+		for(int row = 0; row < numRows; row++)
+		{
+			Object obj = model.getValueAt(row, 0);
+			if (obj == null) continue;
+
+			if (type == NetworkElementType.FORWARDING_RULE)
+			{
+				obj = Pair.of(Long.parseLong(model.getValueAt(row, 1).toString().split(" ")[0]), Long.parseLong(model.getValueAt(row, 2).toString().split(" ")[0]));
+				if (!obj.equals(itemId)) continue;
+			}
+			else if ((long) obj != (long) itemId)
+			{
+				continue;
+			}
+
+			row = table.convertRowIndexToView(row);
+			table.changeSelection(row, col, false, true);
+			return;
+		}
+		
+		throw new RuntimeException(type + " " + itemId + " does not exist");
+	}
+	
+	/**
+	 * Allows to include actions when a {@code NetPlan} object is loaded.
+	 * 
+	 * @param netPlan {@code NetPlan} object
+	 * @since 0.3.0
+	 */
+	protected void setNetPlan(NetPlan netPlan)
+	{
+		currentNetPlan = netPlan;
+		if (allowShowInitialNetPlan()) 
+		{ 
+			initialNetPlan = currentNetPlan.copy();
+		}
+	}
+
+	/**
+	 * Shows the {@code NetPlan} view, moving to the corresponding tab.
+	 * 
+	 * @since 0.3.0
+	 */
+	protected final void showNetPlanView()
+	{
+		netPlanView.setSelectedIndex(0);
+		showTab(viewNetPlanTabIndex);
+	}
+	
+	/**
+	 * Shows the desired tab in {@code NetPlan} view.
+	 * 
+	 * @param tabIndex Tab index
+	 * @since 0.3.0
+	 */
+	protected final void showTab(int tabIndex)
+	{
+		if (tabIndex < rightPane.getTabCount() && rightPane.getSelectedIndex() != tabIndex) 		
+		{
+			rightPane.setSelectedIndex(tabIndex);
+			rightPane.requestFocusInWindow();
+		}
+	}
+	
+	private void updateLayerMetrics(NetPlan netPlan, boolean applyHardComputations)
+	{
+		List<Node> nodes = netPlan.getNodes();
+		List<Link> links = netPlan.getLinks();
+		int N = netPlan.getNumberOfNodes();
+		int E = netPlan.getNumberOfLinks();
+		int D = netPlan.getNumberOfDemands();
+		int MD = netPlan.getNumberOfMulticastDemands();
+		int numSRGs = netPlan.getNumberOfSRGs();
+		double U_e = netPlan.getVectorLinkCapacity().zSum();
+		double H_d = netPlan.getDemandTotalOfferedTraffic();
+		double u_e_avg = E == 0 ? 0 : U_e / E;
+
+		int E_limitedCapacityLinks = 0;
+		double totalCapacityInstalled_limitedCapacityLinks = 0;
+		for(Link link : links)
+		{
+			double u_e = link.getCapacity();
+			if (u_e < Double.MAX_VALUE)
+			{
+				E_limitedCapacityLinks++;
+				totalCapacityInstalled_limitedCapacityLinks += u_e;
+			}
+		}
+
+		double averageTotalCapacityInstalled_limitedCapacityLinks = E_limitedCapacityLinks == 0 ? 0 : totalCapacityInstalled_limitedCapacityLinks / E_limitedCapacityLinks;
+
+		GraphTheoryMetrics metrics = new GraphTheoryMetrics(nodes, links, null);
+		DoubleMatrix1D nodeOutDegree = metrics.getOutNodeDegree();
+		int[] maxMinOutDegree = new int [2];
+		maxMinOutDegree [0] = nodeOutDegree.size () == 0? 0 : (int) nodeOutDegree.getMaxLocation() [0];
+		maxMinOutDegree [1] = nodeOutDegree.size () == 0? 0 : (int) nodeOutDegree.getMinLocation() [0];
+		double avgOutDegree = metrics.getAverageOutNodeDegree();
+		
+		Map<String, Object> topologyData = new LinkedHashMap<String, Object>();
+		topologyData.put("Number of nodes", N);
+		topologyData.put("Number of links", E);
+		topologyData.put("Node out-degree (max, min, avg)", String.format("%d, %d, %.3f", maxMinOutDegree[0], maxMinOutDegree[1], avgOutDegree));
+		topologyData.put("All links are bidirectional (yes/no)", GraphUtils.isBidirectional(nodes , links) ? "Yes" : "No");
+		
+		if (applyHardComputations)
+		{
+			int networkDiameter_hops = (int) metrics.getDiameter();
+			metrics.configureLinkCostMap((Map<Link,Double>) CollectionUtils.toMap(links , netPlan.getVectorLinkLengthInKm()));
+			double networkDiameter_km = metrics.getDiameter();
+			metrics.configureLinkCostMap((Map<Link,Double>) CollectionUtils.toMap(links , netPlan.getVectorLinkPropagationDelayInMiliseconds()));
+			double networkDiameter_ms = metrics.getDiameter();
+
+			topologyData.put("Layer diameter (hops, km, ms)", String.format("%d, %.3f, %.3g", networkDiameter_hops, networkDiameter_km, networkDiameter_ms));
+		}
+		else
+		{
+			topologyData.put("Layer diameter (hops, km, ms)", "- (use 'Update all metrics' button)");
+		}
+		
+		topologyData.put("Capacity installed: total", String.format("%.3f", U_e));
+		topologyData.put("Capacity installed: average per link", String.format("%.3f", u_e_avg));
+		topologyData.put("Capacity installed (limited capacity links): total", String.format("%.3f", totalCapacityInstalled_limitedCapacityLinks));
+		topologyData.put("Capacity installed (limited capacity links): average per link", String.format("%.3f", averageTotalCapacityInstalled_limitedCapacityLinks));
+
+		List<Map<String, Object>> layerSummaryInfo = new LinkedList<Map<String, Object>>();
+		layerSummaryInfo.add(topologyData);
+		
+		boolean isTrafficSymmetric = GraphUtils.isWeightedBidirectional(netPlan.getNodes () , netPlan.getDemands (), netPlan.getVectorDemandOfferedTraffic());
+		double averageNodePairOfferedTraffic = H_d / (N*(N-1));
+		double blockedTrafficPercentage = H_d == 0 ? 0 : 100 * (netPlan.getDemandTotalBlockedTraffic() / H_d);
+
+		Map<String, Object> trafficData = new LinkedHashMap<String, Object>();
+		trafficData.put("Number of UNICAST demands", D);
+		trafficData.put("Offered UNICAST traffic: total", String.format("%.3f", H_d));
+		trafficData.put("Offered UNICAST traffic: average per node pair", String.format("%.3f", averageNodePairOfferedTraffic));
+		trafficData.put("Blocked UNICAST traffic (%)", String.format("%.3f", blockedTrafficPercentage));
+		trafficData.put("Symmetric offered UNICAST traffic?", isTrafficSymmetric ? "Yes" : "No");
+		trafficData.put("Number of MULTICAST demands", MD);
+		trafficData.put("Offered MULTICAST traffic: total", String.format("%.3f", netPlan.getMulticastDemandTotalOfferedTraffic()));
+		trafficData.put("Blocked MULTICAST traffic (%)", String.format("%.3f", netPlan.getMulticastDemandTotalBlockedTraffic()));
+
+		layerSummaryInfo.add(trafficData);
+		
+		DoubleMatrix1D vector_rhoe = netPlan.getVectorLinkUtilizationIncludingProtectionSegments();
+		double max_rho_e = vector_rhoe.size () == 0? 0 : vector_rhoe.getMaxLocation() [0];
+		RoutingType routingType = netPlan.getRoutingType();
+		if (routingType == RoutingType.SOURCE_ROUTING)
+		{
+			DoubleMatrix1D vector_rho_e_noProtection = netPlan.getVectorLinkUtilizationNotIncludingProtectionSegments();
+			double max_rho_e_noProtection = vector_rho_e_noProtection.size () == 0? 0 : vector_rho_e_noProtection.getMaxLocation() [0];
+			
+			int R = netPlan.getNumberOfRoutes();
+			int S = netPlan.getNumberOfProtectionSegments();
+			boolean isUnicastRoutingBifurcated = netPlan.isUnicastRoutingBifurcated();
+			boolean hasUnicastRoutingLoops = netPlan.hasUnicastRoutingLoops();
+
+			double averageRouteLength_hops = TrafficComputationEngine.getRouteAverageLength(netPlan.getRoutes(), null);
+			double averageRouteLength_km = TrafficComputationEngine.getRouteAverageLength(netPlan.getRoutes(), netPlan.getVectorLinkLengthInKm());
+			double averageRouteLength_ms = TrafficComputationEngine.getRouteAverageLength(netPlan.getRoutes(), netPlan.getVectorLinkPropagationDelayInMiliseconds());
+
+			Map<String, Object> routingData = new LinkedHashMap<String, Object>();
+			routingData.put("Number of routes", R);
+			routingData.put("Unicast routing is bifurcated?", isUnicastRoutingBifurcated ? "Yes" : "No");
+			routingData.put("Network congestion - bottleneck utilization (w. reserved bw, w.o. reserved bw)", String.format("%.3f, %.3f", max_rho_e, max_rho_e_noProtection));
+			routingData.put("Average (unicast) route length (hops, km, ms)", String.format("%.3f, %.3f, %.3g", averageRouteLength_hops, averageRouteLength_km, averageRouteLength_ms));
+			routingData.put("Unicast routing has loops?", hasUnicastRoutingLoops ? "Yes" : "No");
+			routingData.put("Number of multicast trees", netPlan.getNumberOfMulticastTrees ());
+			routingData.put("Multicast routing is bifurcated?", netPlan.isMulticastRoutingBifurcated () ? "Yes" : "No");
+			Pair<Double,Double> stats = TrafficComputationEngine.getAverageHopsAndLengthOfMulticastTrees(netPlan.getMulticastTrees());
+			routingData.put("Average multicast tree size (hops, km)", String.format("%.3f, %.3f", stats.getFirst() , stats.getSecond ()));
+
+			layerSummaryInfo.add(routingData);
+
+			DoubleMatrix1D reservedCapacityMap = netPlan.getVectorLinkCapacityReservedForProtection();
+			double u_e_reservedForProtection_avg = S == 0 ? 0 : reservedCapacityMap.zSum() / S;
+			double percentageReserved = 0;
+			for(Link link : netPlan.getLinks())
+				percentageReserved += Math.max(0, reservedCapacityMap.get(link.getIndex ()) / link.getCapacity());
+
+			if (E != 0) percentageReserved *= 100.0 / E;
+
+			Triple<Double, Double, Double> protectionPercentage = TrafficComputationEngine.getTrafficProtectionDegree(netPlan);
+			double percentageUnprotected = protectionPercentage.getFirst();
+			double percentageDedicated = protectionPercentage.getSecond();
+			double percentageShared = protectionPercentage.getThird();
+			Pair<Double, Double> srgDisjointnessPercentage = SRGUtils.getSRGDisjointnessPercentage(netPlan);
+			String srgModel = SRGUtils.getSRGModel(netPlan);
+
+			Map<String, Object> protectionData = new LinkedHashMap<String, Object>();
+			protectionData.put("Number of protection segments in this layer", S);
+			protectionData.put("Average link capacity reserved for protection (absolute, %)", String.format("%.3f, %.3f", u_e_reservedForProtection_avg, percentageReserved));
+			protectionData.put("% of carried traffic unprotected", String.format("%.3f", percentageUnprotected));
+			protectionData.put("% of carried traffic complete and dedicated protection", String.format("%.3f", percentageDedicated));
+			protectionData.put("% of carried traffic partial and/or shared protection", String.format("%.3f", percentageShared));
+			protectionData.put("Number of SRGs in the network", numSRGs);
+			protectionData.put("SRG definition characteristic", srgModel);
+			protectionData.put("% routes protected with SRG disjoint segments (w. end nodes, w.o. end nodes)", String.format("%.3f, %.3f", srgDisjointnessPercentage.getFirst(), srgDisjointnessPercentage.getSecond()));
+
+			layerSummaryInfo.add(protectionData);
+		}
+		else
+		{
+			Map<String, Object> routingData = new LinkedHashMap<String, Object>();
+			routingData.put("Network congestion - bottleneck utilization", String.format("%.3f", max_rho_e));
+			
+			RoutingCycleType routingCycleType = RoutingCycleType.LOOPLESS;
+			for(Demand demand : netPlan.getDemands())
+			{
+				if (demand.getRoutingCycleType() != RoutingCycleType.LOOPLESS) routingCycleType = demand.getRoutingCycleType();
+				if (routingCycleType == RoutingCycleType.CLOSED_CYCLES) break;
+			}
+			routingData.put("Routing has loops?", routingCycleType);
+			layerSummaryInfo.add(routingData);
+		}
+		
+		ListIterator<Map<String, Object>> it = layerSummaryInfo.listIterator();
+		while(it.hasNext())
+		{
+			int tableId = it.nextIndex();
+			layerSummaryTables[tableId].setData(it.next());
+
+			AdvancedJTable.setVisibleRowCount(layerSummaryTables[tableId], layerSummaryTables[tableId].getRowCount());
+			AdvancedJTable.setWidthAsPercentages(layerSummaryTables[tableId], 0.7, 0.3);
+		}
+
+		layerSummaryTables[0].setToolTipText(0, 0, "Indicates the number of defined nodes in the network");
+		layerSummaryTables[0].setToolTipText(1, 0, "Indicates the number of defined links in this layer");
+		layerSummaryTables[0].setToolTipText(2, 0, "Indicates the maximum/minimum/average value for the out-degree, that is, the number of outgoing links per node");
+		layerSummaryTables[0].setToolTipText(3, 0, "Indicates whether all links are bidirectional, that is, if there are the same number of links between each node pair in both directions (irrespective of the respective capacities)");
+		layerSummaryTables[0].setToolTipText(4, 0, "Indicates the layer diameter, that is, the length of the largest shortest-path in this layer");
+		layerSummaryTables[0].setToolTipText(5, 0, "Indicates the total capacity installed in this layer");
+		layerSummaryTables[0].setToolTipText(6, 0, "Indicates the average capacity installed per link");
+		layerSummaryTables[0].setToolTipText(7, 0, "Indicates the total capacity installed in this layer for links whose capacity is not infinite");
+		layerSummaryTables[0].setToolTipText(8, 0, "Indicates the average capacity installed in this layer for links whose capacity is not infinite");
+		layerSummaryTables[1].setToolTipText(0, 0, "Indicates the number of defined demands in this layer");
+		layerSummaryTables[1].setToolTipText(1, 0, "Indicates the total offered unicast traffic to the network in this layer");
+		layerSummaryTables[1].setToolTipText(2, 0, "Indicates the total offered unicast traffic to the network per each node pair in this layer");
+		layerSummaryTables[1].setToolTipText(3, 0, "Indicates the percentage of blocked unicast traffic from the total offered to the network in this layer");
+		layerSummaryTables[1].setToolTipText(4, 0, "Indicates whether the unicast offered traffic is symmetric, that is, if there are the same number of demands with the same offered traffic between each node pair in both directions");
+		layerSummaryTables[1].setToolTipText(5, 0, "Indicates the number of defined multicast demands in this layer");
+		layerSummaryTables[1].setToolTipText(6, 0, "Indicates the total offered multicast traffic to the network in this layer");
+		layerSummaryTables[1].setToolTipText(7, 0, "Indicates the percentage of blocked multicast traffic from the total offered to the network in this layer");
+
+		layerMetricsInfo.removeAll();
+		layerMetricsInfo.add(new JLabel("Topology and link capacities"), "growx, wrap");
+		layerMetricsInfo.add(new JScrollPane(layerSummaryTables[0]), "growx, wrap");
+		layerMetricsInfo.add(new JLabel("Traffic"), "growx, wrap");
+		layerMetricsInfo.add(new JScrollPane(layerSummaryTables[1]), "growx, wrap");
+		
+		if (routingType == RoutingType.SOURCE_ROUTING)
+		{
+			layerSummaryTables[2].setToolTipText(0, 0, "Indicates the number of defined routes");
+			layerSummaryTables[2].setToolTipText(1, 0, "<html>Indicates whether the unicast routing is bifurcated, that is, if at least there are more than one active (up) route <u>carrying</u> traffic from any demand</html>");
+			layerSummaryTables[2].setToolTipText(2, 0, "Indicates the network congestion, that is, the utilization of the busiest link");
+			layerSummaryTables[2].setToolTipText(3, 0, "Indicates the average route length (unicast traffic)");
+			layerSummaryTables[2].setToolTipText(4, 0, "Indicates whether the unicast routing has loops, that is, if at least a route visits a node more than once");
+			layerSummaryTables[2].setToolTipText(5, 0, "Indicates the number of defined multicast trees");
+			layerSummaryTables[2].setToolTipText(6, 0, "<html>Indicates whether the multicast routing is bifurcated, that is, if for at least one multicast demand is carried by more than one up multicast trees</html>");
+			layerSummaryTables[2].setToolTipText(7, 0, "Indicates the average number of links and average total length (summing all the links) of the multicast trees in the network");
+			layerSummaryTables[3].setToolTipText(0, 0, "Indicates the number of defined protection segments");
+			layerSummaryTables[3].setToolTipText(1, 0, "Indicates the average reserved bandwidth per protection segment");
+			layerSummaryTables[3].setToolTipText(2, 0, "Indicates the percentage of traffic (from the total) which is not protected by any segment");
+			layerSummaryTables[3].setToolTipText(3, 0, "Indicates the percentage of traffic (from the total) which is protected by dedicated segments reservating so the total traffic can be carried from origin to destination through currently unused and dedicated segments");
+			layerSummaryTables[3].setToolTipText(4, 0, "Indicates the percentage of traffic (from the total) which is neither unprotected nor full-and-dedicated protected");
+			layerSummaryTables[3].setToolTipText(5, 0, "Indicates the number of defined SRGs");
+			layerSummaryTables[3].setToolTipText(6, 0, "Indicates whether SRG definition follows one of the predefined models (per node, per link...), or 'Mixed' otherwise (or 'None' if no SRGs are defined)");
+			layerSummaryTables[3].setToolTipText(7, 0, "Indicates the percentage of routes from the total which have all protection segments SRG-disjoint, without taking into account the carried traffic per route");
+
+			layerMetricsInfo.add(new JLabel("Routing"), "growx, wrap");
+			layerMetricsInfo.add(new JScrollPane(layerSummaryTables[2]), "growx, wrap");
+			layerMetricsInfo.add(new JLabel("Resilience information"), "growx, wrap");
+			layerMetricsInfo.add(new JScrollPane(layerSummaryTables[3]), "growx");
+		}
+		else
+		{
+			layerSummaryTables[2].setToolTipText(0, 0, "Indicates the network congestion, that is, the utilization of the busiest link");
+			layerSummaryTables[2].setToolTipText(1, 0, "Indicates whether the routing has loops, that is, if at least a route visits a node more than once");
+
+			layerMetricsInfo.add(new JLabel("Routing"), "growx, wrap");
+			layerMetricsInfo.add(new JScrollPane(layerSummaryTables[2]), "growx, wrap");
+		}
+		
+		forceUpdate.setVisible(!applyHardComputations);
+	}
+	
+	/**
+	 * Allows to show some custom log messages.
+	 * 
+	 * @param text Log message
+	 * @since 0.3.0
+	 */
+	protected void updateLog(String text)
+	{
+	}
+	
+	private class AddLinkAction extends AbstractAction
+	{
+		private final long layer;
+		private final long originNode;
+		private final long destinationNode;
+
+		public AddLinkAction(String name, long layer , long originNode, long destinationNode)
+		{
+			super(name);
+			this.layer = layer;
+			this.originNode = originNode;
+			this.destinationNode = destinationNode;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			addLink(layer, originNode, destinationNode);
+		}
+	}
+
+	private class AddLinkBidirectionalAction extends AbstractAction
+	{
+		private final long layer;
+		private final long originNode;
+		private final long destinationNode;
+
+		public AddLinkBidirectionalAction(String name, long layer, long originNode, long destinationNode)
+		{
+			super(name);
+			this.layer = layer;
+			this.originNode = originNode;
+			this.destinationNode = destinationNode;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			addLinkBidirectional(layer, originNode, destinationNode);
+		}
+	}
+
+	private class AddNodeAction extends AbstractAction
+	{
+		private final Point2D pos;
+
+		public AddNodeAction(String name, Point2D pos)
+		{
+			super(name);
+			this.pos = pos;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			addNode(pos);
+		}
+	}
+
+	private static class ColumnComparator implements Comparator<String>
+	{
+		@Override
+		public int compare(String o1, String o2)
+		{
+			String oo1 = o1;
+			String oo2 = o2;
+			
+			int pos1 = oo1.indexOf(" (");
+			if (pos1 != -1) oo1 = oo1.substring(0, pos1);
+
+			int pos2 = oo2.indexOf(" (");
+			if (pos2 != -1) oo2 = oo2.substring(0, pos2);
+			
+			double d1 = Double.MAX_VALUE;
+			try { d1 = Double.parseDouble(oo1); }
+			catch(Throwable e) { }
+
+			double d2 = Double.MAX_VALUE;
+			try { d2 = Double.parseDouble(oo2); }
+			catch(Throwable e) { }
+			
+			if (d1 != Double.MAX_VALUE && d2 != Double.MAX_VALUE)
+			{
+				int out = Double.compare(d1, d2);
+				if (out != 0) return out;
+			}
+			
+			return o1.compareTo(o2);
+		}
+	}
+	
+	private abstract class DocumentAdapter implements DocumentListener
+	{
+		@Override
+		public void changedUpdate(DocumentEvent e)
+		{
+			processEvent(e);
+		}
+
+		@Override
+		public void insertUpdate(DocumentEvent e)
+		{
+			processEvent(e);
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e)
+		{
+			processEvent(e);
+		}
+		
+		private void processEvent(DocumentEvent e)
+		{
+			if (!allowDocumentUpdate) return;
+			
+			Document doc = e.getDocument();
+			try { updateInfo(doc.getText(0, doc.getLength())); }
+			catch(BadLocationException ex) { }
+		}
+
+		protected abstract void updateInfo(String text);
+	}
+
+    private static class LinkCapacityCellEditor extends DefaultCellEditor
+	{
+		private static final Border black = new LineBorder(Color.black);
+		private static final Border red = new LineBorder(Color.red);
+		private final JTextField textField;
+
+		public LinkCapacityCellEditor(JTextField textField)
+		{
+			super(textField);
+			this.textField = textField;
+			this.textField.setHorizontalAlignment(JTextField.RIGHT);
+		}
+
+		@Override
+		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
+		{
+			textField.setBorder(black);
+			return super.getTableCellEditorComponent(table, value, isSelected, row, column);
+		}
+
+		@Override
+		public boolean stopCellEditing()
+		{
+			try
+			{
+				String text = textField.getText();
+				if (!text.equalsIgnoreCase("inf"))
+				{
+					double v = Double.valueOf(textField.getText());
+					if (v < 0) throw new NumberFormatException();
+				}			
+			}
+			catch (NumberFormatException e)
+			{
+				textField.setBorder(red);
+				return false;
+			}
+			
+			return super.stopCellEditing();
+		}
+	}	
+	
+	private class RemoveLinkAction extends AbstractAction
+	{
+		private final long link;
+
+		public RemoveLinkAction(String name, long link)
+		{
+			super(name);
+			this.link = link;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			removeLink(link);
+		}
+	}
+
+	private class RemoveNodeAction extends AbstractAction
+	{
+		private final long node;
+
+		public RemoveNodeAction(String name, long node)
+		{
+			super(name);
+			this.node = node;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			removeNode(node);
+		}
+	}
+	
+	private static class SingleElementAttributeEditor extends MouseAdapter
+	{
+		private final INetworkCallback callback;
+		private final NetworkElementType type;
+				
+		public SingleElementAttributeEditor(final INetworkCallback callback, final NetworkElementType type)
+		{
+			this.callback = callback;
+			this.type = type;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e)
+		{
+			if (SwingUtilities.isRightMouseButton(e))
+			{
+				final JTable table = (JTable) e.getSource();
+				final NetPlan netPlan = callback.getDesign();
+
+				JPopupMenu popup = new JPopupMenu();
+
+				JMenuItem addAttribute = new JMenuItem("Add/edit attribute");
+				addAttribute.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						JTextField txt_key = new JTextField(20);
+						JTextField txt_value = new JTextField(20);
+
+						JPanel pane = new JPanel();
+						pane.add(new JLabel("Attribute: "));
+						pane.add(txt_key);
+						pane.add(Box.createHorizontalStrut(15));
+						pane.add(new JLabel("Value: "));
+						pane.add(txt_value);
+
+						while (true)
+						{
+							int result = JOptionPane.showConfirmDialog(null, pane, "Please enter an attribute name and its value", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+							if (result != JOptionPane.OK_OPTION) return;
+
+							try
+							{
+								if (txt_key.getText().isEmpty()) throw new Exception("Please, insert an attribute name");
+								
+								switch(type)
+								{
+									case NETWORK:
+										netPlan.setAttribute(txt_key.getText(), txt_value.getText());
+										break;
+
+									case LAYER:
+										netPlan.getNetworkLayerDefault().setAttribute(txt_key.getText(), txt_value.getText());
+										break;
+
+									default:
+										ErrorHandling.showErrorDialog("Bad", "Internal error");
+										return;
+								}
+								
+								callback.updateNetPlanView();
+								return;
+							}
+							catch (Exception ex)
+							{
+								ErrorHandling.showErrorDialog(ex.getMessage(), "Error adding/editing attribute");
+							}
+						}
+					}
+				});
+
+				popup.add(addAttribute);
+				
+				int numAttributes;
+				switch(type)
+				{
+					case NETWORK:
+						numAttributes = netPlan.getAttributes().size();
+						break;
+						
+					case LAYER:
+						numAttributes = netPlan.getNetworkLayerDefault().getAttributes().size();
+						break;
+						
+					default:
+						ErrorHandling.showErrorDialog("Bad", "Internal error");
+						return;
+				}
+				
+				if (numAttributes > 0)
+				{
+					JMenuItem removeAttribute = new JMenuItem("Remove attribute");
+
+					removeAttribute.addActionListener(new ActionListener()
+					{
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							try
+							{
+								String[] attributeList;
+
+								switch(type)
+								{
+									case NETWORK:
+										attributeList = StringUtils.toArray(netPlan.getAttributes().keySet());
+										break;
+
+									case LAYER:
+										attributeList = StringUtils.toArray(netPlan.getNetworkLayerDefault().getAttributes().keySet());
+										break;
+
+									default:
+										ErrorHandling.showErrorDialog("Bad", "Internal error");
+										return;
+								}
+								
+								if (attributeList.length == 0) throw new Exception("No attribute to remove");
+
+								Object out = JOptionPane.showInputDialog(null, "Please, select an attribute to remove", "Remove attribute", JOptionPane.QUESTION_MESSAGE, null, attributeList, attributeList[0]);
+								if (out == null) return;
+
+								String attributeToRemove = out.toString();
+								
+								switch(type)
+								{
+									case NETWORK:
+										netPlan.removeAttribute(attributeToRemove);
+										break;
+
+									case LAYER:
+										netPlan.getNetworkLayerDefault().removeAttribute(attributeToRemove);
+										break;
+
+									default:
+										ErrorHandling.showErrorDialog("Bad", "Internal error");
+										return;
+								}
+								
+								callback.updateNetPlanView();
+							}
+							catch (Exception ex)
+							{
+								ErrorHandling.showErrorDialog(ex.getMessage(), "Error removing attribute");
+							}
+						}
+					});
+
+					popup.add(removeAttribute);
+
+					JMenuItem removeAttributes = new JMenuItem("Remove all attributes");
+
+					removeAttributes.addActionListener(new ActionListener()
+					{
+						@Override
+						public void actionPerformed(ActionEvent e)
+						{
+							try
+							{
+								switch(type)
+								{
+									case NETWORK:
+										netPlan.setAttributeMap(new HashMap<String, String>());
+										break;
+
+									case LAYER:
+										netPlan.getNetworkLayerDefault().setAttributeMap(new HashMap<String, String>());
+										break;
+
+									default:
+										ErrorHandling.showErrorDialog("Bad", "Internal error");
+										return;
+								}
+								
+								callback.updateNetPlanView();
+							}
+							catch (Exception ex)
+							{
+								ErrorHandling.showErrorDialog(ex.getMessage(), "Error removing attributes");
+							}
+						}
+					});
+
+					popup.add(removeAttributes);
+				}
+
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		}
+	}
+	
+	private class SwitchTabAction extends AbstractAction
+	{
+		private final int tabId;
+		
+		public SwitchTabAction(int tabId)
+		{
+			this.tabId = tabId;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			showTab(tabId);
+		}
+	}
+}
