@@ -36,6 +36,9 @@ import cern.colt.matrix.tdouble.DoubleMatrix1D;
 /**
  * @author Vasco Braz, Adolfo Oliveira
  * @version 2.0, May 2015
+ * 
+ * @author Armando Nolasco Pinto
+ * @version December 12, 2017
  */
 public class Grooming implements IAlgorithm
 {
@@ -54,7 +57,7 @@ public class Grooming implements IAlgorithm
     		lowerLayer=netPlan.getNetworkLayer(0);
     		upperLayer=netPlan.getNetworkLayer(1);
     		
-    		/* Initialise some variables */
+    		/* Initialisation */
     		int N = netPlan.getNumberOfNodes();
     		int E = netPlan.getNumberOfLinks(lowerLayer);
     		int D = netPlan.getNumberOfDemands(lowerLayer);
@@ -72,6 +75,7 @@ public class Grooming implements IAlgorithm
 
     		String shortestPathType = algorithmParameters.get("shortestPathType");
     		String numberOfRoutes = algorithmParameters.get("numberofroutes");
+    		String strProtection = algorithmParameters.get("protection");
     		
     		if (!shortestPathType.equalsIgnoreCase("hops") && !shortestPathType.equalsIgnoreCase("km")) 
     		{
@@ -87,17 +91,22 @@ public class Grooming implements IAlgorithm
     		ArrayList<Long> linkIds = netPlan.getLinkIds(lowerLayer);
     		final DoubleMatrix1D linkCostVector = shortestPathType.equalsIgnoreCase("hops")? DoubleFactory1D.dense.make (E , 1.0) : netPlan.getVectorLinkLengthInKm();
     		long wavelengthCapacity = Long.parseLong(algorithmParameters.get("wavelengthCapacity"));
+    		boolean protection = strProtection.equalsIgnoreCase("yes")? true : false; 
+    		
+    		System.out.println("PROTECTION: " + protection);
+    		
     		Route save=null;
     		String type = upperLayer.getName();	
     		
-    		if(type != "Logical Topology Opaque" && type != "Logical Topology Transparent" && type != "Logical Topology Translucent")
-    		throw new Net2PlanException ("Logical Topology Algorithm Required");	
+    		if(type != "Logical Topology Opaque" && type != "Logical Topology Transparent" && type != "Logical Topology Translucent") 
+    		{
+    			throw new Net2PlanException ("Logical Topology Algorithm Required");	
+    		}
     		
     		netPlan.addRoutesFromCandidatePathList(linkCostVector.toArray(),"K", numberOfRoutes); 
     		System.out.println("Number of Routes: " + netPlan.getNumberOfRoutes());
     		
-    		for(long links:linkIds)
-			{
+    		for(long links:linkIds)	{
 				netPlan.getLinkFromId(links).removeAllAttributes();
 				netPlan.getLinkFromId(links).setCapacity(0);
 			}
@@ -107,80 +116,71 @@ public class Grooming implements IAlgorithm
     		{
     			// Opaque Transport Mode
     		
-    			case "Logical Topology Opaque":   for (Demand d : netPlan.getDemands(lowerLayer))
-    							{
+    			case "Logical Topology Opaque":   
+    					for (Demand d : netPlan.getDemands(lowerLayer))	{	
+    						boolean odd=true;
+    						int counter=0;
     								
-    								boolean odd=true;
-    								int counter=0;
-    								
-    								Set<Route> droutes = d.getRoutes();
-    								System.out.println("droutes: " + droutes.size());
+    						Set<Route> droutes = d.getRoutes();
+    						System.out.println("droutes: " + droutes.size());
 
-    								for(Route c: droutes)
-    									
-    								{
-    								counter++;	
-    								boolean jump=false;
+    						for(Route c: droutes) {
+    							counter++;	
+    							boolean jump=false;
     								
-    									if(odd)
-    									{
-    										c.setCarriedTraffic(d.getOfferedTraffic(), d.getOfferedTraffic());
-    										save=c;
-    										odd=false;
-    										System.out.println("Roots");
-    									}else
-    									{
-    										List<Link>  workingpath = save.getSeqLinksRealPath();
-    										System.out.println("Protection");
+    							if(odd)	{
+    								c.setCarriedTraffic(d.getOfferedTraffic(), d.getOfferedTraffic());
+    								save=c;
+    								odd=false;
+    								System.out.println("Roots");
+    							} 
+    							else {
+    								if (protection) {
+    									List<Link>  workingpath = save.getSeqLinksRealPath();
+    									System.out.println("Protection");
     										
-    										for(Link t:workingpath)
-    										{
-    											if(c.getSeqLinksRealPath().contains(t))	
-    											{
-    												jump=true;
-    												break;
-    											}
+    									for(Link t:workingpath) {
+    										if(c.getSeqLinksRealPath().contains(t))	{
+    											jump=true;
+    											break;
     										}
-
-    										if(jump==false)
-    											{
-    												ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
-    												save.addProtectionSegment(segment);
-    												odd=true;
-    												break;
-    											}
-
-    										if(jump==true && counter == droutes.size())
-    											{
-    												ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
-    												save.addProtectionSegment(segment);
-    												odd=true;
-    												throw new Net2PlanException ("Number of routes is not enough");
-    											}
-
     									}
-    							
+
+    									if(jump==false)	{
+    										ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
+    										save.addProtectionSegment(segment);
+    										odd=true;
+    										break;
+    									}
+
+    									if(jump==true && counter == droutes.size()) {
+    										ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
+    										save.addProtectionSegment(segment);
+    										odd=true;
+    										throw new Net2PlanException ("Number of routes is not enough");
+    									}
     								}
+								}			
+    					 }
 
     									
     								//primaryPaths.add(primaryPath);
     								//if (c.getNumberOfHops() == 0) throw new Net2PlanException ("The network is not connected");
     								
-    							}
-    							netPlan.removeAllRoutesUnused(1);
+    					}
+    					netPlan.removeAllRoutesUnused(1);
     							
-    							Link p;
-    							for(long e:linkIds)
-    							{
-    								p=netPlan.getLinkFromId(e);
-    								double sumTraffic = p.getCarriedTrafficNotIncludingProtectionSegments()+p.getReservedCapacityForProtection();
-    								int nw = (int) Math.ceil(sumTraffic/wavelengthCapacity);
-    								String numberWavelengths = String.valueOf(nw);
-    								p.setCapacity(nw*wavelengthCapacity);
-    								p.setAttribute("nW", numberWavelengths);
+    					Link p;
+    					for(long e:linkIds) {
+    						p=netPlan.getLinkFromId(e);
+    						double sumTraffic = p.getCarriedTrafficNotIncludingProtectionSegments()+p.getReservedCapacityForProtection();
+    						int nw = (int) Math.ceil(sumTraffic/wavelengthCapacity);
+    						String numberWavelengths = String.valueOf(nw);
+    						p.setCapacity(nw*wavelengthCapacity);
+    						p.setAttribute("nW", numberWavelengths);
     								
-    							}
-    							break;
+    					}
+    					break;
     						
     			case "Logical Topology Transparent":   for (Demand d : netPlan.getDemands(lowerLayer))
 				{
@@ -399,6 +399,7 @@ public class Grooming implements IAlgorithm
 		parameters.add(Triple.of("shortestPathType", "hops", "Each demand is routed according to the shortest path according to this type. Can be 'km' or 'hops'"));
 		parameters.add(Triple.of("wavelengthCapacity", "80", "ODU0 Capacity per Wavelength"));
 		parameters.add(Triple.of("numberofroutes", "10", "total number of routes per demand"));
+		parameters.add(Triple.of("protection", "yes", "1+1 protection (yes/no)"));
 		return parameters;
 	}
 
