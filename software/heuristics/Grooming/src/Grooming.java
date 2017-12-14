@@ -246,16 +246,9 @@ public class Grooming implements IAlgorithm
 				List<Link> path;
 				int nW=0;
 				
-				
-				
-				
-				for (long tNodeId : tNodeIds)
-				{
-					
-					in = netPlan.getNodeFromId(tNodeId);
-					
-					for (long tNodeId1 : tNodeIds)
-					{
+				for (long tNodeId : tNodeIds)	{
+					in = netPlan.getNodeFromId(tNodeId);		
+					for (long tNodeId1 : tNodeIds)	{
 						
 						if(tNodeId==tNodeId1)continue;
 						
