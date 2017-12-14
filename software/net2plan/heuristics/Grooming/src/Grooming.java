@@ -182,70 +182,50 @@ public class Grooming implements IAlgorithm
     					}
     					break;
     						
-    			case "Logical Topology Transparent":   for (Demand d : netPlan.getDemands(lowerLayer))
-				{
+    			case "Logical Topology Transparent":
+    				for (Demand d : netPlan.getDemands(lowerLayer)) {
+						boolean odd=true;
+						int counter=0;
 					
-					boolean odd=true;
-					int counter=0;
+						//Pair<Set<Route>,Double> primaryPaths = d.computeShortestPathRoutes(linkCostVector.toArray());
+						//System.out.println(primaryPaths.getFirst().size());
 					
+						Set<Route> droutes = d.getRoutes();
+						System.out.println(droutes.size());
 					
-					
-					//Pair<Set<Route>,Double> primaryPaths = d.computeShortestPathRoutes(linkCostVector.toArray());
-					//System.out.println(primaryPaths.getFirst().size());
-					
-					Set<Route> droutes = d.getRoutes();
-					System.out.println(droutes.size());
-					
-					
-					for(Route c: droutes)
-						
-					{
-					
-					counter++;	
-					boolean jump=false;
-					
-						if(odd)
-						{
-							c.setCarriedTraffic(d.getOfferedTraffic(), d.getOfferedTraffic());
-							//netPlan.addRoute(d , d.getOfferedTraffic() , d.getOfferedTraffic() , c.getSeqLinksRealPath(), null); 
-							save=c;
-							odd=false;
-							System.out.println("Roots");
-						}else
-						{
-							List<Link>  workingpath = save.getSeqLinksRealPath();
-							System.out.println("Protection");
-							for(Link t:workingpath)
-							{
-							
-							if(c.getSeqLinksRealPath().contains(t))	
-							{
-								jump=true;
-								break;
+						for(Route c: droutes) {
+							counter++;	
+							boolean jump=false;
+							if(odd)	{
+								c.setCarriedTraffic(d.getOfferedTraffic(), d.getOfferedTraffic());
+								//netPlan.addRoute(d , d.getOfferedTraffic() , d.getOfferedTraffic() , c.getSeqLinksRealPath(), null); 
+								save=c;
+								odd=false;
+								System.out.println("Roots");
+							} else	{
+							if (protection) {
+								List<Link>  workingpath = save.getSeqLinksRealPath();
+								System.out.println("Protection-Transparent");
+								for(Link t:workingpath)	{
+									if(c.getSeqLinksRealPath().contains(t))	{
+										jump=true;
+										break;
+									}		
+								}
+								if(jump==false)	{
+									ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
+									save.addProtectionSegment(segment);
+									odd=true;
+									break;
+								}
+								if(jump==true && counter == droutes.size()) {
+									ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
+									save.addProtectionSegment(segment);
+									odd=true;
+									throw new Net2PlanException ("Number of routes is not enough");
+								}
 							}
-							
-							}
-							
-						
-							
-							if(jump==false)
-							{
-							ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
-							save.addProtectionSegment(segment);
-							odd=true;
-							break;
-							}
-
-							if(jump==true && counter == droutes.size())
-							{
-							ProtectionSegment segment=netPlan.addProtectionSegment(c.getSeqLinksRealPath() , d.getOfferedTraffic() , null);
-							save.addProtectionSegment(segment);
-							odd=true;
-							throw new Net2PlanException ("Number of routes is not enough");
-							}
-
 						}
-				
 					}
 
 						
@@ -253,9 +233,9 @@ public class Grooming implements IAlgorithm
 					//if (c.getNumberOfHops() == 0) throw new Net2PlanException ("The network is not connected");
 					
 				}
+    				
 				netPlan.removeAllRoutesUnused(1);
-				
-				
+								
 				ArrayList<Long> tNodeIds = netPlan.getNodeIds(); 
 				Node in;
 				Node out;
@@ -288,7 +268,6 @@ public class Grooming implements IAlgorithm
 						
 						
 				
-						
 						for(Route d:groomRoute)
 						{
 							totaltraffic = totaltraffic + d.getCarriedTraffic();
@@ -298,8 +277,7 @@ public class Grooming implements IAlgorithm
 						
 							path=compare.getSeqLinksRealPath();
 							
-							
-							
+								
 							for (Link link:path)
 							{
 								String nw = link.getAttribute("nW");
@@ -325,43 +303,29 @@ public class Grooming implements IAlgorithm
 								
 							}
 							
-							
-							
 							//Protection Segments
 							totaltraffic=0;
-							
-							for(ProtectionSegment protect:protectRoutes)
-							{
-								
+							System.out.println("POINT5");
+							for(ProtectionSegment protect:protectRoutes) {
 						    	totaltraffic = totaltraffic + protect.getReservedCapacityForProtection();
 						    	compare1 = protect;
-						        
-						     			    	
 							}
-							
-								path=compare1.getSeqLinks();
-								
-								for (Link link:path)
-								{
-									String nw = link.getAttribute("nW");
-									
-									if(nw!=null)
-									{
-										
+							System.out.println("POINT5B");
+							if (protection)	path=compare1.getSeqLinks();
+							System.out.println("POINT6");
+							for (Link link:path) {
+								String nw = link.getAttribute("nW");
+								if(nw!=null) {
 										nW=Integer.parseInt(nw);
 										nW =(int) (nW+Math.ceil(totaltraffic/wavelengthCapacity));
 										link.setAttribute("nW",String.valueOf(nW));
-									}else
-									{
+								} 
+								else {
 										nW=(int)Math.ceil(totaltraffic/wavelengthCapacity);
 										link.setAttribute("nW",String.valueOf(nW));
-									}
-									
-									
-									
-									
 								}
-						
+							}
+													
 											
 						
 						
@@ -369,8 +333,6 @@ public class Grooming implements IAlgorithm
 					
 	
 				}
-    		
-				
 				for(long e:linkIds)
 				{
 					p=netPlan.getLinkFromId(e);
