@@ -25,80 +25,80 @@
 \contentsline {subsection}{\numberline {4.2.2}Dimensioning using ILP}{32}{subsection.4.2.2}
 \contentsline {subsubsection}{\numberline {4.2.2.1}Network costs}{32}{subsubsection.4.2.2.1}
 \contentsline {subsubsection}{\numberline {4.2.2.2}ILP Models}{33}{subsubsection.4.2.2.2}
-\contentsline {subsubsection}{\numberline {4.2.2.3}ILP Results}{34}{subsubsection.4.2.2.3}
-\contentsline {subsection}{\numberline {4.2.3}Dimensioning using Heuristics}{40}{subsection.4.2.3}
-\contentsline {subsubsection}{\numberline {4.2.3.1}Heuristics Models}{40}{subsubsection.4.2.3.1}
-\contentsline {subsubsection}{\numberline {4.2.3.2}Heuristics Results}{40}{subsubsection.4.2.3.2}
-\contentsline {subsection}{\numberline {4.2.4}Comparative Analysis}{40}{subsection.4.2.4}
-\contentsline {section}{\numberline {4.3}Translucent with 1+1 Protection}{41}{section.4.3}
-\contentsline {subsection}{\numberline {4.3.1}Physical Network Topology}{41}{subsection.4.3.1}
-\contentsline {subsubsection}{\numberline {4.3.1.1}Reference Network}{41}{subsubsection.4.3.1.1}
-\contentsline {subsubsection}{\numberline {4.3.1.2}Realistic Network}{43}{subsubsection.4.3.1.2}
-\contentsline {subsection}{\numberline {4.3.2}Dimensioning using ILP}{49}{subsection.4.3.2}
-\contentsline {subsubsection}{\numberline {4.3.2.1}Network costs}{49}{subsubsection.4.3.2.1}
-\contentsline {subsubsection}{\numberline {4.3.2.2}ILP models}{50}{subsubsection.4.3.2.2}
-\contentsline {subsubsection}{\numberline {4.3.2.3}ILP Results}{51}{subsubsection.4.3.2.3}
-\contentsline {subsection}{\numberline {4.3.3}Dimensioning using Analytical solution}{52}{subsection.4.3.3}
-\contentsline {subsubsection}{\numberline {4.3.3.1}Analytical Models}{52}{subsubsection.4.3.3.1}
-\contentsline {subsubsection}{\numberline {4.3.3.2}Analytical Results}{52}{subsubsection.4.3.3.2}
-\contentsline {subsection}{\numberline {4.3.4}Dimensioning using Heuristics}{53}{subsection.4.3.4}
-\contentsline {subsubsection}{\numberline {4.3.4.1}Heuristics Models}{53}{subsubsection.4.3.4.1}
-\contentsline {subsubsection}{\numberline {4.3.4.2}Heuristics Results}{53}{subsubsection.4.3.4.2}
-\contentsline {subsection}{\numberline {4.3.5}Comparative Analysis}{53}{subsection.4.3.5}
-\contentsline {chapter}{\numberline {5}Appendices}{54}{chapter.5}
-\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{55}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{55}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{55}{subsection.5.1.2}
-\contentsline {section}{\numberline {5.2}Net2Plan Tools}{58}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{58}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{61}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{68}{subsection.5.2.3}
-\contentsline {subsection}{\numberline {5.2.4}Reports}{69}{subsection.5.2.4}
-\contentsline {section}{\numberline {5.3}Results}{72}{section.5.3}
-\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{73}{subsection.5.3.1}
-\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{75}{subsection.5.3.2}
-\contentsline {section}{\numberline {5.4}Simulations}{78}{section.5.4}
-\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{79}{section.5.5}
-\contentsline {section}{\numberline {5.6}Developing new Reports}{82}{section.5.6}
-\contentsline {section}{\numberline {5.7}Installing LPSOLVE for using in MatLab}{84}{section.5.7}
-\contentsline {section}{\numberline {5.8}Opaque with 1+1 protection appendices}{85}{section.5.8}
-\contentsline {subsection}{\numberline {5.8.1}Reference Network with Low Traffic}{85}{subsection.5.8.1}
-\contentsline {subsubsection}{\numberline {5.8.1.1}ILP using LPSolve}{85}{subsubsection.5.8.1.1}
-\contentsline {subsubsection}{\numberline {5.8.1.2}Result through Script using MatLab}{93}{subsubsection.5.8.1.2}
-\contentsline {subsection}{\numberline {5.8.2}Reference Network with High Traffic}{96}{subsection.5.8.2}
-\contentsline {subsubsection}{\numberline {5.8.2.1}ILP using LPSolve}{96}{subsubsection.5.8.2.1}
-\contentsline {subsubsection}{\numberline {5.8.2.2}Result through Script using MatLab}{104}{subsubsection.5.8.2.2}
-\contentsline {subsection}{\numberline {5.8.3}Realistic Network with Low Traffic}{107}{subsection.5.8.3}
-\contentsline {subsubsection}{\numberline {5.8.3.1}ILP using LPSolve}{107}{subsubsection.5.8.3.1}
-\contentsline {subsubsection}{\numberline {5.8.3.2}Result through Script using MatLab}{107}{subsubsection.5.8.3.2}
-\contentsline {subsection}{\numberline {5.8.4}Realistic Network with High Traffic}{107}{subsection.5.8.4}
-\contentsline {subsubsection}{\numberline {5.8.4.1}ILP using LPSolve}{107}{subsubsection.5.8.4.1}
-\contentsline {subsubsection}{\numberline {5.8.4.2}Result through Script using MatLab}{107}{subsubsection.5.8.4.2}
-\contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{108}{section.5.9}
-\contentsline {subsection}{\numberline {5.9.1}Reference Network with Low Traffic}{108}{subsection.5.9.1}
-\contentsline {subsubsection}{\numberline {5.9.1.1}ILP using LPSolve}{108}{subsubsection.5.9.1.1}
-\contentsline {subsubsection}{\numberline {5.9.1.2}Result through Script using MatLab}{115}{subsubsection.5.9.1.2}
-\contentsline {subsection}{\numberline {5.9.2}Reference Network with High Traffic}{118}{subsection.5.9.2}
-\contentsline {subsubsection}{\numberline {5.9.2.1}ILP using LPSolve}{118}{subsubsection.5.9.2.1}
-\contentsline {subsubsection}{\numberline {5.9.2.2}Result through Script using MatLab}{118}{subsubsection.5.9.2.2}
-\contentsline {subsection}{\numberline {5.9.3}Realistic Network with Low Traffic}{118}{subsection.5.9.3}
-\contentsline {subsubsection}{\numberline {5.9.3.1}ILP using LPSolve}{118}{subsubsection.5.9.3.1}
-\contentsline {subsubsection}{\numberline {5.9.3.2}Result through Script using MatLab}{118}{subsubsection.5.9.3.2}
-\contentsline {subsection}{\numberline {5.9.4}Realistic Network with High Traffic}{118}{subsection.5.9.4}
-\contentsline {subsubsection}{\numberline {5.9.4.1}ILP using LPSolve}{118}{subsubsection.5.9.4.1}
-\contentsline {subsubsection}{\numberline {5.9.4.2}Result through Script using MatLab}{118}{subsubsection.5.9.4.2}
-\contentsline {section}{\numberline {5.10}Translucent with 1+1 protection appendices}{119}{section.5.10}
-\contentsline {subsection}{\numberline {5.10.1}Reference Network with Low Traffic}{119}{subsection.5.10.1}
-\contentsline {subsubsection}{\numberline {5.10.1.1}ILP using LPSolve}{119}{subsubsection.5.10.1.1}
-\contentsline {subsubsection}{\numberline {5.10.1.2}Result through Script using MatLab}{119}{subsubsection.5.10.1.2}
-\contentsline {subsection}{\numberline {5.10.2}Reference Network with High Traffic}{119}{subsection.5.10.2}
-\contentsline {subsubsection}{\numberline {5.10.2.1}ILP using LPSolve}{119}{subsubsection.5.10.2.1}
-\contentsline {subsubsection}{\numberline {5.10.2.2}Result through Script using MatLab}{119}{subsubsection.5.10.2.2}
-\contentsline {subsection}{\numberline {5.10.3}Realistic Network with Low Traffic}{119}{subsection.5.10.3}
-\contentsline {subsubsection}{\numberline {5.10.3.1}ILP using LPSolve}{119}{subsubsection.5.10.3.1}
-\contentsline {subsubsection}{\numberline {5.10.3.2}Result through Script using MatLab}{119}{subsubsection.5.10.3.2}
-\contentsline {subsection}{\numberline {5.10.4}Realistic Network with High Traffic}{119}{subsection.5.10.4}
-\contentsline {subsubsection}{\numberline {5.10.4.1}ILP using LPSolve}{119}{subsubsection.5.10.4.1}
-\contentsline {subsubsection}{\numberline {5.10.4.2}Result through Script using MatLab}{119}{subsubsection.5.10.4.2}
-\contentsline {chapter}{\numberline {6}Master Dissertations}{120}{chapter.6}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{121}{section*.64}
+\contentsline {subsubsection}{\numberline {4.2.2.3}ILP Results}{35}{subsubsection.4.2.2.3}
+\contentsline {subsection}{\numberline {4.2.3}Dimensioning using Heuristics}{41}{subsection.4.2.3}
+\contentsline {subsubsection}{\numberline {4.2.3.1}Heuristics Models}{41}{subsubsection.4.2.3.1}
+\contentsline {subsubsection}{\numberline {4.2.3.2}Heuristics Results}{41}{subsubsection.4.2.3.2}
+\contentsline {subsection}{\numberline {4.2.4}Comparative Analysis}{41}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}Translucent with 1+1 Protection}{42}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Physical Network Topology}{42}{subsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.1.1}Reference Network}{42}{subsubsection.4.3.1.1}
+\contentsline {subsubsection}{\numberline {4.3.1.2}Realistic Network}{44}{subsubsection.4.3.1.2}
+\contentsline {subsection}{\numberline {4.3.2}Dimensioning using ILP}{50}{subsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.2.1}Network costs}{50}{subsubsection.4.3.2.1}
+\contentsline {subsubsection}{\numberline {4.3.2.2}ILP models}{51}{subsubsection.4.3.2.2}
+\contentsline {subsubsection}{\numberline {4.3.2.3}ILP Results}{52}{subsubsection.4.3.2.3}
+\contentsline {subsection}{\numberline {4.3.3}Dimensioning using Analytical solution}{53}{subsection.4.3.3}
+\contentsline {subsubsection}{\numberline {4.3.3.1}Analytical Models}{53}{subsubsection.4.3.3.1}
+\contentsline {subsubsection}{\numberline {4.3.3.2}Analytical Results}{53}{subsubsection.4.3.3.2}
+\contentsline {subsection}{\numberline {4.3.4}Dimensioning using Heuristics}{54}{subsection.4.3.4}
+\contentsline {subsubsection}{\numberline {4.3.4.1}Heuristics Models}{54}{subsubsection.4.3.4.1}
+\contentsline {subsubsection}{\numberline {4.3.4.2}Heuristics Results}{54}{subsubsection.4.3.4.2}
+\contentsline {subsection}{\numberline {4.3.5}Comparative Analysis}{54}{subsection.4.3.5}
+\contentsline {chapter}{\numberline {5}Appendices}{55}{chapter.5}
+\contentsline {section}{\numberline {5.1}Installing Net2Plan and its main options}{56}{section.5.1}
+\contentsline {subsection}{\numberline {5.1.1}Net2Plan download and installation}{56}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Net2Plan Options and installing solvers}{56}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.2}Net2Plan Tools}{59}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Creating Traffic Matrices}{59}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Creating the Network topologies}{62}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Routing and Grooming}{69}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.4}Reports}{70}{subsection.5.2.4}
+\contentsline {section}{\numberline {5.3}Results}{73}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Opaque with 1+1 protection}{74}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Transparent with 1+1 protection}{76}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Simulations}{79}{section.5.4}
+\contentsline {section}{\numberline {5.5}Implementing new algorithms on Net2Plan}{80}{section.5.5}
+\contentsline {section}{\numberline {5.6}Developing new Reports}{83}{section.5.6}
+\contentsline {section}{\numberline {5.7}Installing LPSOLVE for using in MatLab}{85}{section.5.7}
+\contentsline {section}{\numberline {5.8}Opaque with 1+1 protection appendices}{86}{section.5.8}
+\contentsline {subsection}{\numberline {5.8.1}Reference Network with Low Traffic}{86}{subsection.5.8.1}
+\contentsline {subsubsection}{\numberline {5.8.1.1}ILP using LPSolve}{86}{subsubsection.5.8.1.1}
+\contentsline {subsubsection}{\numberline {5.8.1.2}Result through Script using MatLab}{94}{subsubsection.5.8.1.2}
+\contentsline {subsection}{\numberline {5.8.2}Reference Network with High Traffic}{97}{subsection.5.8.2}
+\contentsline {subsubsection}{\numberline {5.8.2.1}ILP using LPSolve}{97}{subsubsection.5.8.2.1}
+\contentsline {subsubsection}{\numberline {5.8.2.2}Result through Script using MatLab}{105}{subsubsection.5.8.2.2}
+\contentsline {subsection}{\numberline {5.8.3}Realistic Network with Low Traffic}{108}{subsection.5.8.3}
+\contentsline {subsubsection}{\numberline {5.8.3.1}ILP using LPSolve}{108}{subsubsection.5.8.3.1}
+\contentsline {subsubsection}{\numberline {5.8.3.2}Result through Script using MatLab}{245}{subsubsection.5.8.3.2}
+\contentsline {subsection}{\numberline {5.8.4}Realistic Network with High Traffic}{271}{subsection.5.8.4}
+\contentsline {subsubsection}{\numberline {5.8.4.1}ILP using LPSolve}{271}{subsubsection.5.8.4.1}
+\contentsline {subsubsection}{\numberline {5.8.4.2}Result through Script using MatLab}{409}{subsubsection.5.8.4.2}
+\contentsline {section}{\numberline {5.9}Transparent with 1+1 protection appendices}{436}{section.5.9}
+\contentsline {subsection}{\numberline {5.9.1}Reference Network with Low Traffic}{436}{subsection.5.9.1}
+\contentsline {subsubsection}{\numberline {5.9.1.1}ILP using LPSolve}{436}{subsubsection.5.9.1.1}
+\contentsline {subsubsection}{\numberline {5.9.1.2}Result through Script using MatLab}{443}{subsubsection.5.9.1.2}
+\contentsline {subsection}{\numberline {5.9.2}Reference Network with High Traffic}{445}{subsection.5.9.2}
+\contentsline {subsubsection}{\numberline {5.9.2.1}ILP using LPSolve}{445}{subsubsection.5.9.2.1}
+\contentsline {subsubsection}{\numberline {5.9.2.2}Result through Script using MatLab}{452}{subsubsection.5.9.2.2}
+\contentsline {subsection}{\numberline {5.9.3}Realistic Network with Low Traffic}{454}{subsection.5.9.3}
+\contentsline {subsubsection}{\numberline {5.9.3.1}ILP using LPSolve}{454}{subsubsection.5.9.3.1}
+\contentsline {subsubsection}{\numberline {5.9.3.2}Result through Script using MatLab}{736}{subsubsection.5.9.3.2}
+\contentsline {subsection}{\numberline {5.9.4}Realistic Network with High Traffic}{748}{subsection.5.9.4}
+\contentsline {subsubsection}{\numberline {5.9.4.1}ILP using LPSolve}{748}{subsubsection.5.9.4.1}
+\contentsline {subsubsection}{\numberline {5.9.4.2}Result through Script using MatLab}{1029}{subsubsection.5.9.4.2}
+\contentsline {section}{\numberline {5.10}Translucent with 1+1 protection appendices}{1041}{section.5.10}
+\contentsline {subsection}{\numberline {5.10.1}Reference Network with Low Traffic}{1041}{subsection.5.10.1}
+\contentsline {subsubsection}{\numberline {5.10.1.1}ILP using LPSolve}{1041}{subsubsection.5.10.1.1}
+\contentsline {subsubsection}{\numberline {5.10.1.2}Result through Script using MatLab}{1041}{subsubsection.5.10.1.2}
+\contentsline {subsection}{\numberline {5.10.2}Reference Network with High Traffic}{1041}{subsection.5.10.2}
+\contentsline {subsubsection}{\numberline {5.10.2.1}ILP using LPSolve}{1041}{subsubsection.5.10.2.1}
+\contentsline {subsubsection}{\numberline {5.10.2.2}Result through Script using MatLab}{1041}{subsubsection.5.10.2.2}
+\contentsline {subsection}{\numberline {5.10.3}Realistic Network with Low Traffic}{1041}{subsection.5.10.3}
+\contentsline {subsubsection}{\numberline {5.10.3.1}ILP using LPSolve}{1041}{subsubsection.5.10.3.1}
+\contentsline {subsubsection}{\numberline {5.10.3.2}Result through Script using MatLab}{1041}{subsubsection.5.10.3.2}
+\contentsline {subsection}{\numberline {5.10.4}Realistic Network with High Traffic}{1041}{subsection.5.10.4}
+\contentsline {subsubsection}{\numberline {5.10.4.1}ILP using LPSolve}{1041}{subsubsection.5.10.4.1}
+\contentsline {subsubsection}{\numberline {5.10.4.2}Result through Script using MatLab}{1041}{subsubsection.5.10.4.2}
+\contentsline {chapter}{\numberline {6}Master Dissertations}{1042}{chapter.6}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{1043}{section*.64}

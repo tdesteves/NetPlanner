@@ -550,7 +550,7 @@ W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 \end{equation}
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} \in \{0,2\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPOpaque6}
 \end{equation}
@@ -562,7 +562,7 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 
 \vspace{10pt}
 
-The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or two if considering working and protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or one if considering working or protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
 
 
 \subsubsection{ILP Results}
@@ -570,7 +570,8 @@ The objective function, to be minimized, is the expression \ref{ILPOpaque}. The 
 To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
 
 \textbf{Scenario 1: Reference Network Low Traffic} \label{Scenario1_opaque} \\
-In this scenario we used the table \ref{table:1}. In the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value. \\
+
+In this scenario we used the table \ref{table:1}. In the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value.
 
 \begin{table}[h!]
 \centering
@@ -592,11 +593,11 @@ In this scenario we used the table \ref{table:1}. In the table \ref{result_ILP1}
 \label{result_ILP1}
 \end{table}
 
-
 Using equation \ref{linkCosts} : \\
 $C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 23$)$ + $($24 * 4 000$)$ \\
 $C_L$ = \textbf{23 336 000\euro} \\
-\newpage
+
+
 Using equation \ref{electricalCostOpaque} : \\
 $C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($1 000 + $($2 * 23 * 100$)$ $)$ \\
 $C_N$ = $C_{exc}$ = \textbf{5 660 000\euro} \\
@@ -604,9 +605,9 @@ $C_N$ = $C_{exc}$ = \textbf{5 660 000\euro} \\
 $CAPEX$ = 23 336 000 + 5 660 000 = \textbf{28 996 000\euro}\\
 
 
-\vspace{11pt}
 \textbf{Scenario 2: Reference Network High Traffic} \label{Scenario2_opaque} \\
-In this scenario we used again the table \ref{table:1}. In the table \ref{result_ILP2} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value. \\
+
+In this scenario we used again the table \ref{table:1}. In the table \ref{result_ILP2} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value.
 
 \begin{table}[h!]
 \centering
@@ -634,31 +635,60 @@ $C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 199$)$ + $($24 * 4 000$)$ \\
 $C_L$ = \textbf{199 336 000\euro} \\
 
 Using equation \ref{electricalCostOpaque} : \\
-$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($1 000 + $($2 * 199 * 100$)$ $)$ \\
-$C_N$ = $C_{exc}$ = \textbf{40 860 000\euro} \\
+$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($10 000 + $($2 * 199 * 100$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{49 860 000\euro} \\
 
-$CAPEX$ = 199 336 000 + 40 860 000 = \textbf{240 196 000\euro}\\
+$CAPEX$ = 199 336 000 + 49 860 000 = \textbf{249 196 000\euro}\\
 
 
-\vspace{11pt}
 \textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_opaque} \\
-In this scenario we used the table \ref{table:2}. In the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost3} we can finally calculate the CAPEX value. \\
-\newpage
+
+This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:2} and in the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost3} we can finally calculate the CAPEX value.
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c||}
  \hline
  Number of optical channels & Value \\
  \hline\hline
- in the link (1,2) &  \\
- in the link (1,3) &  \\
- in the link (2,3) &  \\
- in the link (2,4) &  \\
- in the link (3,5) &  \\
- in the link (4,5) &  \\
- in the link (4,6) &  \\
- in the link (5,6) &  \\
- \hline
+in link (1,2) & 4 \\
+in link (1,4) & 4 \\
+in link (1,15) & 2 \\
+in link (2,3) & 3 \\
+in link (2,4) & 5 \\
+in link (2,5) & 5 \\
+in link (3,5) & 3 \\
+in link (4,14) & 2 \\
+in link (5,6) & 3 \\
+in link (5,7) & 6 \\
+in link (5,11) & 3 \\
+in link (5,14) & 1 \\
+in link (5,15) & 4 \\
+in link (6,7) & 3 \\
+in link (6,11) & 2 \\
+in link (6,12) & 1 \\
+in link (6,14) & 2 \\
+in link (7,8) & 4 \\
+in link (8,9) & 2 \\
+in link (8,10) & 2 \\
+in link (8,11) & 3 \\
+in link (9,10) & 2 \\
+in link (10,11) & 2 \\
+in link (11,12) & 1 \\
+in link (11,17) & 4 \\
+in link (12,13) & 2 \\
+in link (12,17) & 2 \\
+in link (13,14) & 1 \\
+in link (13,15) & 1 \\
+in link (13,17) & 2 \\
+in link (14,15) & 1 \\
+in link (15,16) & 2 \\
+in link (15,17) & 4 \\
+in link (15,19) & 7 \\
+in link (16,17) & 2 \\
+in link (17,18) & 7 \\
+in link (18,19) & 7 \\
+\hline
 \end{tabular}
 \caption{Table with results}
 \label{result_ILP3}
@@ -666,19 +696,19 @@ In this scenario we used the table \ref{table:2}. In the table \ref{result_ILP1}
 
 
 Using equation \ref{linkCosts} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{ \euro} \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 111 $)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{112 206 000\euro} \\
 
 Using equation \ref{electricalCostOpaque} : \\
-$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($1 000 + $($2 *  * 100$)$ $)$ \\
-$C_N$ = $C_{exc}$ = \textbf{ \euro} \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($4 000 + $($2 * 111 * 100$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{26 390 000 \euro} \\
 
-$CAPEX$ =  +  = \textbf{ \euro}\\
+$CAPEX$ = 112 206 000 + 26 390 000 = \textbf{138 596 000 \euro}\\
 
 
-\vspace{11pt}
 \textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_opaque} \\
-In this scenario we used again the table \ref{table:2}. In the table \ref{result_ILP4} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value. \\
+
+This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used again the table \ref{table:2} and in the table \ref{result_ILP4} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value. \\
 
 \begin{table}[h!]
 \centering
@@ -686,15 +716,44 @@ In this scenario we used again the table \ref{table:2}. In the table \ref{result
  \hline
  Number of optical channels & Value \\
  \hline\hline
- in the link (1,2) &  \\
- in the link (1,3) &  \\
- in the link (2,3) &  \\
- in the link (2,4) &  \\
- in the link (3,5) &  \\
- in the link (4,5) &  \\
- in the link (4,6) &  \\
- in the link (5,6) &  \\
- \hline
+ in link (1,2) & 80 \\
+in link (1,4) & 80 \\
+in link (1,15) & 80 \\
+in link (2,3) & 50 \\
+in link (2,4) & 49 \\
+in link (2,5) & 69 \\
+in link (3,5) & 32 \\
+in link (4,14) & 15 \\
+in link (5,6) & 80 \\
+in link (5,7) & 80 \\
+in link (5,11) & 45 \\
+in link (5,14) & 24 \\
+in link (5,15) & 27 \\
+in link (6,7) & 80 \\
+in link (6,11) & 80 \\
+in link (6,12) & 55 \\
+in link (6,14) & 39 \\
+in link (7,8) & 45 \\
+in link (8,9) & 20 \\
+in link (8,10) & 28 \\
+in link (8,11) & 36 \\
+in link (9,10) & 20 \\
+in link (10,11) & 13 \\
+in link (11,12) & 8 \\
+in link (11,17) & 35 \\
+in link (12,13) & 19 \\
+in link (12,17) & 28 \\
+in link (13,14) & 27 \\
+in link (13,15) & 3 \\
+in link (13,17) & 6 \\
+in link (14,15) & 41 \\
+in link (15,16) & 17 \\
+in link (15,17) & 18 \\
+in link (15,19) & 64 \\
+in link (16,17) & 17 \\
+in link (17,18) & 64 \\
+in link (18,19) & 64 \\
+\hline
 \end{tabular}
 \caption{Table with results}
 \label{result_ILP4}
@@ -702,14 +761,14 @@ In this scenario we used again the table \ref{table:2}. In the table \ref{result
 
 
 Using equation \ref{linkCosts} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{ \euro} \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 1538$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{1 539 206 000 \euro} \\
 
 Using equation \ref{electricalCostOpaque} : \\
-$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($1 000 + $($2 * 100 * $)$ $)$ \\
-$C_N$ = $C_{exc}$ = \textbf{\euro} \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($40 000 + $($2 * 100 * 1538$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{347 790 000\euro} \\
 
-$CAPEX$ =  +  = \textbf{\euro}\\
+$CAPEX$ = 1 539 206 000 + 347 790 000 = \textbf{1 886 996 000\euro}\\
 
 \newpage
 

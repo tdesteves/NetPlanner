@@ -467,7 +467,7 @@ C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{O
 
 \subsubsection{ILP Models} \label{ILP_models_Transp}
 
-Again, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transp} will be created with all the variables and their description. \\
+Again, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transp} will be created with all the variables and their description.
 
 \begin{table}[h!]
 \centering
@@ -483,6 +483,7 @@ Again, for a better understanding of the functions and variables used in the ILP
  $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
  $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
  $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $fp_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows with protection) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
  $W_{od}$ & number of optical channels between the nodes $o$ and $d$\\
  G & Network topology in form of adjacency matrix \\
  \hline
@@ -491,63 +492,86 @@ Again, for a better understanding of the functions and variables used in the ILP
 \label{description_transp}
 \end{table}
 
-
 The optimization model suggested for transparent transport mode with dedicated path protection intends to minimize the total number of flows crossing link (i, j) for all demand pairs (o, d). The mathematical model described below also minimizes the total number of optical channels between each demand end nodes $W_{od}$, instead of minimizing the number of optical link-by-link channels as in the previous model.
 
 \vspace{10pt}
 \begin{equation}
-minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(o,d)} W_{od}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} \sum_{(o,d)} fp_{ij}^{od} + \sum_{(o,d)} W_{od}
 \label{ILPTransp}
 \end{equation}
 
 $subject$ $to$
 \begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+100 W_{od} \geq \sum_{c\in C} B\left(c\right) D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d
+\label{ILPTransp0}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = W_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPTransp1}
 \end{equation}
 
 \begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPTransp2}
 \end{equation}
 
 \begin{equation}
-\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = W_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPTransp3}
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) W_{od} \leq 80 G_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = W_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTransp1p}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \sum_{j\textbackslash \{d\}} fp_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTransp2p}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} fp_{ji}^{od} = W_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTransp3p}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od}  + fp_{ij}^{od}\right) \leq W_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d), (i,j)
+\label{ILPTransp4p}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od}\right) W_{od} \leq 80 G_{ij} \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPTransp4}
 \end{equation}
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} \in \{0,2\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+f_{ij}^{od} , f_{ji}^{od} , fp_{ij}^{od} , fp_{ji}^{od} , W_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPTransp5}
 \end{equation}
 
-\begin{equation}
-W_{od} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d
-\label{ILPTransp6}
-\end{equation}
 
-
-The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and share the same mathematical description of opaque model. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last two constraints define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
+The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and by equations \ref{ILPTransp1p}, \ref{ILPTransp2p} and \ref{ILPTransp3p} for the protection case. The constraints \ref{ILPTransp1} and \ref{ILPTransp1p} ensures that, for all demand pairs (o,d), is equal to number of optical channels between this demand for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPTransp3} and \ref{ILPTransp3p} is based on the same idea of \ref{ILPTransp1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPTransp2} and \ref{ILPTransp2p}. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last constraint define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
 
 \subsubsection{ILP Results}
 
-\vspace{11pt}
 To perform the calculations using the implementation of the models described in section \ref{ILP_models_OP} it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
 
 \textbf{Scenario 1: Reference Network Low Traffic} \label{Scenario1_transp} \\
+
 In this scenario we used the table \ref{table:3}. In the table \ref{result_ILP1_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
-\newpage
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c || c | c || c | c ||}
@@ -556,34 +580,36 @@ In this scenario we used the table \ref{table:3}. In the table \ref{result_ILP1_
  \hline\hline
  in the link (1,2) & 3 & Node 1 & 5 & Node 1 & 5 \\
  in the link (1,3) & 2 & Node 2 & 6 & Node 2 & 12 \\
- in the link (2,3) & 4 & Node 3 & 5 & Node 3 & 11 \\
- in the link (2,4) & 5 & Node 4 & 5 & Node 4 & 11 \\
- in the link (3,5) & 5 & Node 5 & 6 & Node 5 & 10 \\
- in the link (4,5) & 2 & Node 6 & 7 & Node 6 & 7 \\
+ in the link (2,3) & 3 & Node 3 & 5 & Node 3 & 9 \\
+ in the link (2,4) & 6 & Node 4 & 5 & Node 4 & 11 \\
+ in the link (3,5) & 4 & Node 5 & 6 & Node 5 & 8 \\
+ in the link (4,5) & 1 & Node 6 & 7 & Node 6 & 7 \\
  in the link (4,6) & 4 & & & & \\
  in the link (5,6) & 3 & & & & \\
  \hline
 \end{tabular}
-\caption{Table with results}
+\caption{Table with results for scenario 1}
 \label{result_ILP1_T}
 \end{table}
 
 Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 28 $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{28 336 000 \euro} \\
+$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 26 $)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{26 336 000 \euro} \\
 
 Using equation \ref{electricalCostTransp} : \\
 $C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($2 * 1 000$)$ \\
 $C_{exc}$ = \textbf{2 060 000\euro} \\
 
 Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($ 34 + 56 $)$ \\
-$C_{oxc}$ = \textbf{150 000 \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{2 210 000 \euro} \\
+$C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($ 34 + 52 $)$ \\
+$C_{oxc}$ = \textbf{146 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{2 206 000 \euro} \\
 
-$CAPEX$ = 28 336 000 + 2 210 000 = \textbf{30 546 000 \euro}\\
+$CAPEX$ = 26 336 000 + 2 206 000 = \textbf{28 542 000 \euro}\\
+
 
 \textbf{Scenario 2: Reference Network High Traffic} \label{Scenario2_transp} \\
+
 In this scenario we used again the table \ref{table:3} In the table \ref{result_ILP2_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value.
 
 \begin{table}[h!]
@@ -592,40 +618,40 @@ In this scenario we used again the table \ref{table:3} In the table \ref{result_
  \hline
  Number of optical channels & Value & ADD PORTS & Value & LINE PORTS & Value \\
  \hline\hline
- in the link (1,2) & 3 & Node 1 & 5 & Node 1 & 5 \\
- in the link (1,3) & 2 & Node 2 & 6 & Node 2 & 12 \\
- in the link (2,3) & 4 & Node 3 & 5 & Node 3 & 11 \\
- in the link (2,4) & 5 & Node 4 & 5 & Node 4 & 11 \\
- in the link (3,5) & 5 & Node 5 & 6 & Node 5 & 10 \\
- in the link (4,5) & 2 & Node 6 & 7 & Node 6 & 7 \\
- in the link (4,6) & 4 & & & & \\
- in the link (5,6) & 3 & & & & \\
+ in the link (1,2) & 7 & Node 1 & 11 & Node 1 & 11 \\
+ in the link (1,3) & 4 & Node 2 & 25 & Node 2 & 37 \\
+ in the link (2,3) & 8 & Node 3 & 16 & Node 3 & 22 \\
+ in the link (2,4) & 22 & Node 4 & 8 & Node 4 & 42 \\
+ in the link (3,5) & 10 & Node 5 & 23 & Node 5 & 25 \\
+ in the link (4,5) & 2 & Node 6 & 31 & Node 6 & 31 \\
+ in the link (4,6) & 18 & & & & \\
+ in the link (5,6) & 13 & & & & \\
  \hline
 \end{tabular}
-\caption{Table with results}
+\caption{Table with results for scenario 2}
 \label{result_ILP2_T}
 \end{table}
 
 
 Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{ \euro} \\
+$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 84 $)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{84 240 000 \euro} \\
 
 Using equation \ref{electricalCostTransp} : \\
-$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($2 * 2 000$)$ \\
-$C_{exc}$ = \textbf{4 060 000 \euro} \\
+$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($2 * 10 000$)$ \\
+$C_{exc}$ = \textbf{20 060 000 \euro} \\
 
 Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($ + $)$ \\
-$C_{oxc}$ = \textbf{ \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{ \euro} \\
+$C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($114 + 168$)$ \\
+$C_{oxc}$ = \textbf{342 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{20 402 000 \euro} \\
 
-$CAPEX$ =  +  = \textbf{ \euro}\\
+$CAPEX$ = 84 240 000 + 20 402 000 = \textbf{104 642 000 \euro}\\
 
 
-\vspace{11pt}
 \textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_transp} \\
-In this scenario we used the table \ref{table:4} In the table \ref{result_ILP3_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
+
+This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:4} In the next page we can see the table \ref{result_ILP3_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
 
 \begin{table}[h!]
 \centering
@@ -633,100 +659,132 @@ In this scenario we used the table \ref{table:4} In the table \ref{result_ILP3_T
  \hline
  Number of optical channels & Value & ADD PORTS & Value & LINE PORTS & Value \\
  \hline\hline
- in the link (1,2) & 3 & Node 1 & 5 & Node 1 & 5 \\
- in the link (1,3) & 2 & Node 2 & 6 & Node 2 & 12 \\
- in the link (2,3) & 4 & Node 3 & 5 & Node 3 & 11 \\
- in the link (2,4) & 5 & Node 4 & 5 & Node 4 & 11 \\
- in the link (3,5) & 5 & Node 5 & 6 & Node 5 & 10 \\
- in the link (4,5) & 2 & Node 6 & 7 & Node 6 & 7 \\
- in the link (4,6) & 4 & & & & \\
- in the link (5,6) & 3 & & & & \\
- \hline
+in link (1,2): & 15& Node 1 & 19 & Node 1 & 37 \\
+in link (1,4): & 6& Node 2 & 19 & Node 2 & 51 \\
+in link (1,15): & 16& Node 3 & 19 & Node 3 & 19 \\
+in link (2,3): & 4& Node 4 & 19 & Node 4 & 23 \\
+in link (2,4): & 10& Node 5 & 19 & Node 5 & 173 \\
+in link (2,5): & 22& Node 6 & 19 & Node 6 & 29 \\
+in link (3,5): & 15& Node 7 & 19 & Node 7 & 103 \\
+in link (4,14): & 7& Node 8 & 19 & Node 8 & 43 \\
+in link (5,6): & 10& Node 9 & 14 & Node 9 & 14 \\
+in link (5,7): & 80& Node 10 & 11 & Node 10 & 11 \\
+in link (5,11): & 22& Node 11 & 10 & Node 11 & 60 \\
+in link (5,14): & 7& Node 12 & 11 & Node 12 & 17 \\
+in link (5,15): & 17& Node 13 & 11 & Node 13 & 17 \\
+in link (6,7): & 5& Node 14 & 9 & Node 14 & 23 \\
+in link (6,11): & 4& Node 15 & 10 & Node 15 & 70 \\
+in link (6,12): & 7& Node 16 & 10 & Node 16 & 10 \\
+in link (6,14): & 3& Node 17 & 9 & Node 17 & 27 \\
+in link (7,8): & 18& Node 18 & 10 & Node 18 & 10 \\
+in link (8,9): & 12& Node 19 & 19 & Node 19 & 19 \\
+in link (8,10): & 2& & & & \\
+in link (8,11): & 11& & & & \\
+in link (9,10): & 2& & & & \\
+in link (10,11): & 7& & & & \\
+in link (11,12): & 4& & & & \\
+in link (11,17): & 12& & & & \\
+in link (12,13): & 6& & & & \\
+in link (12,17): & 0& & & & \\
+in link (13,14): & 5& & & & \\
+in link (13,15): & 5& & & & \\
+in link (13,17): & 1& & & & \\
+in link (14,15): & 1& & & & \\
+in link (15,16): & 9& & & & \\
+in link (15,17): & 5& & & & \\
+in link (15,19): & 17& & & & \\
+in link (16,17): & 1& & & & \\
+in link (17,18): & 8& & & & \\
+in link (18,19): & 2& & & & \\
+\hline
 \end{tabular}
-\caption{Table with results}
+\caption{Table with results  for scenario 3}
 \label{result_ILP3_T}
 \end{table}
 
 Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{ \euro} \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 378$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{379 206 000 \euro} \\
 
 Using equation \ref{electricalCostTransp} : \\
 $C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($2 * 4 000$)$ \\
 $C_{exc}$ = \textbf{8 190 000\euro} \\
 
 Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($ + $)$ \\
-$C_{oxc}$ = \textbf{ \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{ \euro} \\
+$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($276 + 756$)$ \\
+$C_{oxc}$ = \textbf{1 222 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{9 412 000 \euro} \\
 
-$CAPEX$ =  +  = \textbf{ \euro}\\
+$CAPEX$ = 379 206 000 + 9 412 000 = \textbf{388 618 000 \euro}\\
 
 
-\vspace{11pt}
 \textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_transp} \\
-In this scenario we used again the table \ref{table:4} In the table \ref{result_ILP4_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
+
+One more time, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used again the table \ref{table:4} In the next page we can see the table \ref{result_ILP4_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{| c | c |}
+\begin{tabular}{|| c | c || c | c || c | c ||}
  \hline
- Number of optical channels & Value \\
+ Number of optical channels & Value & ADD PORTS & Value & LINE PORTS & Value \\
  \hline\hline
- in the link (1,2) & 3 \\
- in the link (1,3) & 2 \\
- in the link (2,3) & 4 \\
- in the link (2,4) & 5 \\
- in the link (3,5) & 5 \\
- in the link (4,5) & 2 \\
- in the link (4,6) & 4 \\
- in the link (5,6) & 3 \\
+in link (1,2): & 28& Node 1 & 34 & Node 1 & 52 \\
+in link (1,4): & 8& Node 2 & 37 & Node 2 & 105 \\
+in link (1,15): & 16& Node 3 & 37 & Node 3 & 37 \\
+in link (2,3): & 18& Node 4 & 40 & Node 4 & 44 \\
+in link (2,4): & 27& Node 5 & 36 & Node 5 & 182 \\
+in link (2,5): & 32& Node 6 & 40 & Node 6 & 50 \\
+in link (3,5): & 19& Node 7 & 36 & Node 7 & 106 \\
+in link (4,14): & 9& Node 8 & 32 & Node 8 & 66 \\
+in link (5,6): & 14& Node 9 & 28 & Node 9 & 28 \\
+in link (5,7): & 50& Node 10 & 25 & Node 10 & 25 \\
+in link (5,11): & 26& Node 11 & 13 & Node 11 & 69 \\
+in link (5,14): & 7& Node 12 & 23 & Node 12 & 29 \\
+in link (5,15): & 34& Node 13 & 23 & Node 13 & 35 \\
+in link (6,7): & 18& Node 14 & 12 & Node 14 & 30 \\
+in link (6,11): & 6& Node 15 & 22 & Node 15 & 146 \\
+in link (6,12): & 7 &Node 16 & 22 & Node 16 & 22 \\
+in link (6,14): & 5& Node 17 & 12 & Node 17 & 30 \\
+in link (7,8): & 38& Node 18 & 22 & Node 18 & 22 \\
+in link (8,9): & 17& Node 19 & 66 & Node 19 & 66 \\
+in link (8,10): & 2& & & & \\
+in link (8,11): & 9& & & & \\
+in link (9,10): & 11& & & & \\
+in link (10,11): & 12& & & & \\
+in link (11,12): & 4& & & & \\
+in link (11,17): & 12& & & & \\
+in link (12,13): & 18& & & & \\
+in link (12,17): & 0& & & & \\
+in link (13,14): & 5& & & & \\
+in link (13,15): & 11& & & & \\
+in link (13,17): & 1& & & & \\
+in link (14,15): & 4& & & & \\
+in link (15,16): & 21& & & & \\
+in link (15,17): & 8& & & & \\
+in link (15,19): & 52& & & & \\
+in link (16,17): & 1& & & & \\
+in link (17,18): & 8& & & & \\
+in link (18,19): & 14& & & & \\
  \hline
 \end{tabular}
-\quad
-\begin{tabular}{| c | c |}
- \hline
- ADD PORTS & Value \\
- \hline\hline
- Node 1 & 5 \\
- Node 2 & 6 \\
- Node 3 & 5 \\
- Node 4 & 5 \\
- Node 5 & 6 \\
- Node 6 & 7 \\
- \hline
-\end{tabular}
-\quad
-\begin{tabular}{| c | c |}
- \hline
- LINE PORTS & Value \\
- \hline\hline
- Node 1 & 5 \\
- Node 2 & 12 \\
- Node 3 & 11 \\
- Node 4 & 11 \\
- Node 5 & 10 \\
- Node 6 & 7 \\
- \hline
-\end{tabular}
-\caption{Table with results}
+\caption{Table with results for scenario 4}
 \label{result_ILP4_T}
 \end{table}
 
 Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{ \euro} \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 572$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{573 206 000 \euro} \\
 
 Using equation \ref{electricalCostTransp} : \\
 $C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($2 * 40 000$)$ \\
 $C_{exc}$ = \textbf{80 190 000\euro} \\
 
 Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($ + $)$ \\
-$C_{oxc}$ = \textbf{ \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{ \euro} \\
+$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($560 + 1 144$)$ \\
+$C_{oxc}$ = \textbf{1 894 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{82 084 000 \euro} \\
 
-$CAPEX$ =  +  = \textbf{ \euro}\\
+$CAPEX$ = 573 206 000 + 82 084 000 = \textbf{655 290 000 \euro}\\
 
 \newpage
 
