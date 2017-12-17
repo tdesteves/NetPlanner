@@ -239,9 +239,6 @@ end
 
 
 
-
-
-
 %INTEGER VARIABLES DEFINITION
 for i=1:total_var
     mxlpsolve('set_int', ilp, i, 1);

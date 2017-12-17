@@ -8,7 +8,8 @@ clc
 % j - link destination node
 % G - topology adjancency matrix
 % D - demand matrix in tributary bit-rates (1.25, 2.5, 10, 40, 100 Gbps)
-% f^{od}_{ij} - binary variable indicating if link ij is used to suppor od
+% f^{od}_{ij} - binary variable indicating if link ij is used to suppor the demand od
+% 
 % W_{ij} - number of bidirectional optical channel between node ij
 
 % Inputs
@@ -22,15 +23,17 @@ D(:,:,3)=[0,0,0,0;0,0,0,0;0,0,0,0;0,0,0,0];         % ODU2 matrix, 10 Gbps
 D(:,:,4)=[0,0,0,0;0,0,0,0;0,0,0,0;0,0,0,0];         % ODU3 matrix, 40 Gbps
 D(:,:,5)=[0,1,1,1;1,0,1,1;1,1,0,1;1,1,1,0];         % ODU4 matrix, 100 Gbps
 
+DD = 1.25 * D(:,:,1) + 2.5 * D(:,:,2) + 10 * D(:,:,3) + 40 * D(:,:,4) + 100 * D(:,:,5);
+
 N=length(G);                                % number of nodes
 
 number_flows = (N * (N-1))/2;               % number of possible bidirectional demands, i.e. number of possible od pairs
 
-var_f = number_flows * (N * (N-1));         % number f^{od}_{ij} variables (unidiretional)
+var_f = number_flows * (N * (N-1));         % number f^{od}_{ij} variables (unidiretional links)
 var_W = number_flows;                       % number W_{ij} variables (bidirectional)
 
 % total number of variables
-total_var = 2*var_f+var_W;
+total_var = 2 * var_f + var_W;
 
 % this function is going to create a new ILP with total_var variables
 ilp=mxlpsolve('make_lp', 0, total_var);
@@ -44,7 +47,7 @@ mxlpsolve('set_obj_fn', ilp, f_row);
 for o=1:N   
     for d=o+1:N
         for i=1:N 
-            %ORIGIN NODES
+            %ORIGIN NODES, 
             if(i==o)
                 %sum over all i
                 index_sum = [];
@@ -56,7 +59,7 @@ for o=1:N
                   end
                 end
                 f_row(index_sum)=1;
-                mxlpsolve('add_constraint', ilp, f_row, 3, 1);
+                mxlpsolve('add_constraint', ilp, f_row, 3, 1); % \sum_{j=1, j \neq i}^N f_{ij}^{od}=1, for any o, d > o, and i = o
             
              %INTERMEDIATE NODES
              elseif (i ~=o && i ~=d)
@@ -80,7 +83,7 @@ for o=1:N
                   end
                 end
                 f_row(index_sum)=-1;
-                mxlpsolve('add_constraint', ilp, f_row, 3, 0);
+                mxlpsolve('add_constraint', ilp, f_row, 3, 0); %\sum_{j=1}^N f_{ij}^{od} - \sum_{j=1}^N f_{ji}^{od}, for any o, d > o, i \neq o, i \neq d
                  
             %DESTINATION NODES    
             elseif (i==d)
@@ -93,7 +96,7 @@ for o=1:N
                   end
                 end
                 f_row(index_sum)=1;
-                mxlpsolve('add_constraint', ilp, f_row, 3, 1);     
+                mxlpsolve('add_constraint', ilp, f_row, 3, 1); % \sum_{j=1, j \neq i}^N f_{ij}^{od}=1, for any o, d > o, and i = d    
             end
         end
     end
@@ -101,7 +104,7 @@ end
 
 
 %Protection Segments
-%fp^od_ij
+
 
 %FLOW CONSERVATION CONSTRAINTS
 for o=1:N   
@@ -163,7 +166,7 @@ for o=1:N
 end
 
 
-%%f^od_ij != fp^od_ij
+%%f^{od}_ij != fp^{od,p}_ij - disjunts working and protection paths
 
 for o=1:N  
     for d=o+1:N      
@@ -275,9 +278,8 @@ fprintf('PATHS\n');
 fprintf('---------------------------------------------------\n');
 for o=1:N
    for d=o+1:N
-       bandwidth = 1.25 * D(o,d,1) + 2.5 * D(o,d,2) + 10 * D(o,d,3) + 40 * D(o,d,4) + 100 * D(o,d,5);
-       if bandwidth~=0
-            fprintf('Bidirectional demands between (%d,%d) (%6.2f Gbps)--\n', o, d, bandwidth);
+       if DD(o,d)~=0
+            fprintf('Bidirectional demands between (%d,%d) (%6.2f Gbps)--\n', o, d, DD(o,d));
             fprintf('---------------------------------------------------\n');
             fprintf('Working Path\n');
             for i=1:N
