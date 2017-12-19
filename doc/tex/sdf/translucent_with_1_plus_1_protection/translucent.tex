@@ -434,12 +434,27 @@ N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right
 \end{equation} \\
 
 
-To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.
-To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made.
+To know the value of CAPEX it is necessary to know the value of the cost of the links and the cost of the nodes.\\
+To calculate the cost of the Links we will use the equation \ref{linkCostsTranslucid}.
 
+\begin{equation}
+C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{OLT} \times \tau \times W\right) + \left(N^R \times c^R\right)
+\label{linkCostsTranslucid}
+\end{equation}
 
-To calculate the cost of the Links we will use the equation .
+\vspace{10pt}
+To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the optical cost is given by equation \ref{opticalCostTranlucid} and the electrical cost by the equation \ref{electricalCostTranslucid}.
 
+\begin{equation}
+C_{oxc} =
+\label{opticalCostTranlucid}
+\end{equation}	
+	
+
+\begin{equation}
+C_{exc} =
+ \label{electricalCostTranslucid}
+\end{equation}
 
 
 \subsubsection{ILP models} \label{ILP_models_Transluc}

@@ -496,7 +496,7 @@ The optimization model suggested for transparent transport mode with dedicated p
 
 \vspace{10pt}
 \begin{equation}
-minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} \sum_{(o,d)} fp_{ij}^{od} + \sum_{(o,d)} W_{od}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} \sum_{(o,d)} fp_{ij}^{od} + 3 \times 4000 \times \sum_{(i,j)} L_{ij} + 2 \times 5000 \times \sum_{(o,d)} W_{od}
 \label{ILPTransp}
 \end{equation}
 
@@ -538,6 +538,12 @@ $subject$ $to$
 \end{equation}
 
 \begin{equation}
+\sum_{(o,d)} f_{ij}^{op} + f_{ji}^{op} + fp_{ij}^{op} + fp_{ji}^{op}  <= 80 \times L_{ij} \qquad \qquad \qquad \qquad
+\forall (i,j)
+\label{ILPTranspL}
+\end{equation}
+
+\begin{equation}
 \sum_{j\textbackslash \{d\}} fp_{ji}^{od} = W_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPTransp3p}
@@ -561,6 +567,11 @@ f_{ij}^{od} , f_{ji}^{od} , fp_{ij}^{od} , fp_{ji}^{od} , W_{od} \in \mathbb{N} 
 \label{ILPTransp5}
 \end{equation}
 
+\begin{equation}
+L_{i,j} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j)
+\label{ILPTranspL1}
+\end{equation}
 
 The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and by equations \ref{ILPTransp1p}, \ref{ILPTransp2p} and \ref{ILPTransp3p} for the protection case. The constraints \ref{ILPTransp1} and \ref{ILPTransp1p} ensures that, for all demand pairs (o,d), is equal to number of optical channels between this demand for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPTransp3} and \ref{ILPTransp3p} is based on the same idea of \ref{ILPTransp1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPTransp2} and \ref{ILPTransp2p}. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last constraint define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
 
@@ -646,12 +657,10 @@ $C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($114 + 168$)$ \\
 $C_{oxc}$ = \textbf{342 000 \euro} \\
 $C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{20 402 000 \euro} \\
 
-$CAPEX$ = 84 240 000 + 20 402 000 = \textbf{104 642 000 \euro}\\
-
+$CAPEX$ = 84 240 000 + 20 402 000 = \textbf{104 642 000 \euro}
+\newpage
 
 \textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_transp} \\
-
-This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:4} In the next page we can see the table \ref{result_ILP3_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
 
 \begin{table}[h!]
 \centering
@@ -702,6 +711,8 @@ in link (18,19): & 2& & & & \\
 \label{result_ILP3_T}
 \end{table}
 
+This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:4} In the previous page we can see the table \ref{result_ILP3_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
+
 Using equation \ref{linkCostsTransp} : \\
 $C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 378$)$ + $($24 * 4 000$)$ \\
 $C_L$ = \textbf{379 206 000 \euro} \\
@@ -720,7 +731,22 @@ $CAPEX$ = 379 206 000 + 9 412 000 = \textbf{388 618 000 \euro}\\
 
 \textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_transp} \\
 
-One more time, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used again the table \ref{table:4} In the next page we can see the table \ref{result_ILP4_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
+This scenario is identical to the previous one, therefore, the execution time was the same. In this scenario we used again the table \ref{table:4} In the next page we can see the table \ref{result_ILP4_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
+
+Using equation \ref{linkCostsTransp} : \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 572$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{573 206 000 \euro} \\
+
+Using equation \ref{electricalCostTransp} : \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($2 * 40 000$)$ \\
+$C_{exc}$ = \textbf{80 190 000\euro} \\
+
+Using equation \ref{opticalCost} : \\
+$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($560 + 1 144$)$ \\
+$C_{oxc}$ = \textbf{1 894 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{82 084 000 \euro} \\
+
+$CAPEX$ = 573 206 000 + 82 084 000 = \textbf{655 290 000 \euro}\\
 
 \begin{table}[h!]
 \centering
@@ -770,21 +796,6 @@ in link (18,19): & 14& & & & \\
 \caption{Table with results for scenario 4}
 \label{result_ILP4_T}
 \end{table}
-
-Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 572$)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{573 206 000 \euro} \\
-
-Using equation \ref{electricalCostTransp} : \\
-$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($2 * 40 000$)$ \\
-$C_{exc}$ = \textbf{80 190 000\euro} \\
-
-Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($560 + 1 144$)$ \\
-$C_{oxc}$ = \textbf{1 894 000 \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{82 084 000 \euro} \\
-
-$CAPEX$ = 573 206 000 + 82 084 000 = \textbf{655 290 000 \euro}\\
 
 \newpage
 
