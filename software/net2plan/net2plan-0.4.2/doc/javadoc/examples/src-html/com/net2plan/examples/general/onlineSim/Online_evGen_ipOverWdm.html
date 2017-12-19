@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package com.net2plan.examples.general.onlineSim;<a name="line.1"></a>
+<span class="sourceLineNo">002</span>/*******************************************************************************<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * All rights reserved. This program and the accompanying materials<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * which accompanies this distribution, and is available at<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.7"></a>
+<span class="sourceLineNo">008</span> ******************************************************************************/<a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span>import java.text.SimpleDateFormat;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import java.util.Calendar;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.util.HashMap;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.List;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.Map;<a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span>import com.net2plan.examples.ocnbook.onlineSim.Online_evGen_generalGenerator;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import com.net2plan.interfaces.networkDesign.NetworkLayer;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.net2plan.interfaces.simulation.IEventGenerator;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.net2plan.interfaces.simulation.SimEvent;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import com.net2plan.libraries.SRGUtils;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.net2plan.utils.InputParameter;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.utils.Triple;<a name="line.25"></a>
+<span class="sourceLineNo">026</span><a name="line.26"></a>
+<span class="sourceLineNo">027</span><a name="line.27"></a>
+<span class="sourceLineNo">028</span><a name="line.28"></a>
+<span class="sourceLineNo">029</span>/** <a name="line.29"></a>
+<span class="sourceLineNo">030</span> * Generates events for an IP over WDM multilayer network, with an IP/OSPF layer on top of a WDM layer where lightpaths are carried in a fixed grid of wavelengths<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * <a name="line.31"></a>
+<span class="sourceLineNo">032</span> * This class extends the {@code Online_evGen_generalGenerator} generator (see its Javadoc for further details), and is basically used to:<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * &lt;ul&gt;<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * &lt;li&gt;Send events to the IP layer to create used-defined IP traffic fluctuations (fast/slow), according to the general operation of the {@code Online_evGen_generalGenerator} module.&lt;/li&gt;<a name="line.34"></a>
+<span class="sourceLineNo">035</span> * &lt;li&gt;Send events related to node/link failures and repairs, also according to how the {@code Online_evGen_generalGenerator} module operates.&lt;/li&gt;<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * &lt;/ul&gt;<a name="line.36"></a>
+<span class="sourceLineNo">037</span> *  <a name="line.37"></a>
+<span class="sourceLineNo">038</span> * See the technology conventions used in Net2Plan built-in algorithms and libraries to represent IP and WDM networks. <a name="line.38"></a>
+<span class="sourceLineNo">039</span> * @net2plan.keywords IP/OSPF, WDM, Multilayer, Network recovery: protection, Network recovery: restoration, Multihour optimization<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * @net2plan.inputParameters <a name="line.40"></a>
+<span class="sourceLineNo">041</span> * @author Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza<a name="line.41"></a>
+<span class="sourceLineNo">042</span> */<a name="line.42"></a>
+<span class="sourceLineNo">043</span>public class Online_evGen_ipOverWdm extends Online_evGen_generalGenerator<a name="line.43"></a>
+<span class="sourceLineNo">044</span>{<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        private final static String DATE_FORMAT = "MM/dd/YY HH:mm:ss";<a name="line.45"></a>
+<span class="sourceLineNo">046</span><a name="line.46"></a>
+<span class="sourceLineNo">047</span>        private InputParameter ipLayerIndex = new InputParameter ("ipLayerIndex", (int) 1 , "Index of the layer containing IP network (-1 means default layer)");<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        private InputParameter wdmLayerIndex = new InputParameter ("wdmLayerIndex", (int) 0 , "Index of the WDM layer (-1 means default layer)");<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private InputParameter ipOverWdmFailureModel = new InputParameter ("ipOverWdmFailureModel", "#select# perBidirectionalLinkBundle none SRGfromNetPlan perNode perLink perDirectionalLinkBundle" , "Failure model selection: SRGfromNetPlan, perNode, perLink, perDirectionalLinkBundle, perBidirectionalLinkBundle");<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        private InputParameter ipOverWdmFailureDefaultMTTFInHours = new InputParameter ("ipOverWdmFailureDefaultMTTFInHours", (double) 10 , "Default value for Mean Time To Fail (hours) (unused when failureModel=SRGfromNetPlan)" , 0 , false , Double.MAX_VALUE , true);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private InputParameter ipOverWdmFailureDefaultMTTRInHours = new InputParameter ("ipOverWdmFailureDefaultMTTRInHours", (double) 12 , "Default value for Mean Time To Repair (hours) (unused when failureModel=SRGfromNetPlan)" , 0 , false , Double.MAX_VALUE , true);<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private InputParameter ipOverWDmFailureStatisticalPattern = new InputParameter ("ipOverWDmFailureStatisticalPattern", "#select# exponential-iid" , "Type of failure and repair statistical pattern");<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private InputParameter randomSeed = new InputParameter ("randomSeed", (long) 1 , "Seed for the random generator (-1 means random)");<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        private InputParameter ipTFFastFluctuationType = new InputParameter ("ipTFFastFluctuationType", "#select# none random-truncated-gaussian" , "");<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        private InputParameter ipTFFastTimeBetweenDemandFluctuationsHours = new InputParameter ("ipTFFastTimeBetweenDemandFluctuationsHours", (double) 0.1 , "Average time between two changes of demand offered traffic in a demand (demands behave independently)" , 0 , false , Double.MAX_VALUE , true);<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        private InputParameter ipTFFastFluctuationCoefficientOfVariation = new InputParameter ("ipTFFastFluctuationCoefficientOfVariation", (double) 1.0 , "Average time between two changes of demand offered traffic in a demand (demands behave independently)" , 0 , false , Double.MAX_VALUE , true);<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        private InputParameter ipTFFastMaximumFluctuationRelativeFactor = new InputParameter ("ipTFFastMaximumFluctuationRelativeFactor", (double) 1.0 , "The fluctuation of a demand cannot exceed this percentage from the media" , 0 , true , Double.MAX_VALUE , true);<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        private InputParameter ipTFSlowStartDate = new InputParameter ("ipTFSlowStartDate", new SimpleDateFormat(DATE_FORMAT).format(Calendar.getInstance().getTime()) , "Initial date and time of the simulation");<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private InputParameter ipTFSlowTimeBetweenDemandFluctuationsHours = new InputParameter ("ipTFSlowTimeBetweenDemandFluctuationsHours", (double) 1.0 , "Average time between two changes of demand offered traffic in a demand (demands behave independently)" , 0 , false , Double.MAX_VALUE , true);<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        private InputParameter ipTFSlowDefaultTimezone = new InputParameter ("ipTFSlowDefaultTimezone", (int) 0 , "Default timezone with respect to UTC (in range [-12, 12])" , -12 , 12);<a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private InputParameter ipTFSlowFluctuationType = new InputParameter ("ipTFSlowFluctuationType", "#select# none time-zone-based" , "");<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span>        @Override<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        public String getDescription()<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        {<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                return "Generates events for an IP over WDM multilayer network, with an IP/OSPF layer on top of a WDM layer where lightpaths are carried in a fixed grid of wavelengths";<a name="line.66"></a>
+<span class="sourceLineNo">067</span>        }<a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>        @Override<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        {<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        }<a name="line.74"></a>
+<span class="sourceLineNo">075</span><a name="line.75"></a>
+<span class="sourceLineNo">076</span>        @Override<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        public void initialize(NetPlan initialNetPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; simulationParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        {<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.80"></a>
+<span class="sourceLineNo">081</span><a name="line.81"></a>
+<span class="sourceLineNo">082</span>                NetworkLayer ipLayer = ipLayerIndex.getInt () == -1? initialNetPlan.getNetworkLayerDefault () : initialNetPlan.getNetworkLayer(ipLayerIndex.getInt ());<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                NetworkLayer wdmLayer = wdmLayerIndex.getInt () == -1? initialNetPlan.getNetworkLayerDefault () : initialNetPlan.getNetworkLayer(wdmLayerIndex.getInt ());<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                if ((ipLayer == wdmLayer) || (initialNetPlan.getNumberOfLayers() != 2)) throw new Net2PlanException ("Wrong layer Ids (or the design does not have two layers)");<a name="line.84"></a>
+<span class="sourceLineNo">085</span><a name="line.85"></a>
+<span class="sourceLineNo">086</span>                /* Initialize slow changing traffic */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                if (!ipOverWdmFailureModel.getString ().equalsIgnoreCase("none"))<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                {<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                        switch (ipOverWdmFailureModel.getString ())<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                        {<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                                case "SRGfromNetPlan":<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                                        break;<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                                case "perNode":<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                                        SRGUtils.configureSRGs(initialNetPlan, ipOverWdmFailureDefaultMTTFInHours.getDouble(), ipOverWdmFailureDefaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_NODE, true , wdmLayer);<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                                        break;<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                                case "perLink":<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                                        SRGUtils.configureSRGs(initialNetPlan, ipOverWdmFailureDefaultMTTFInHours.getDouble(), ipOverWdmFailureDefaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_LINK, true , wdmLayer);<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                                        break;<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                                case "perDirectionalLinkBundle":<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                                        SRGUtils.configureSRGs(initialNetPlan, ipOverWdmFailureDefaultMTTFInHours.getDouble(), ipOverWdmFailureDefaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_DIRECTIONAL_LINK_BUNDLE, true , wdmLayer);<a name="line.100"></a>
+<span class="sourceLineNo">101</span>                                        break;<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                                case "perBidirectionalLinkBundle":<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                                        SRGUtils.configureSRGs(initialNetPlan, ipOverWdmFailureDefaultMTTFInHours.getDouble(), ipOverWdmFailureDefaultMTTRInHours.getDouble(), SRGUtils.SharedRiskModel.PER_BIDIRECTIONAL_LINK_BUNDLE, true , wdmLayer);<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                                        break;<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                                default:<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                                        throw new Net2PlanException("Failure model not valid. Please, check algorithm parameters description");<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                        }<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                }<a name="line.108"></a>
+<span class="sourceLineNo">109</span><a name="line.109"></a>
+<span class="sourceLineNo">110</span>                Map&lt;String,String&gt; generalEventGeneratorParam = new HashMap&lt;String,String&gt; ();<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                generalEventGeneratorParam.put ("_fail_failureModel" , ipOverWdmFailureModel.getString ().equalsIgnoreCase("none")? "none" : "SRGfromNetPlan"); // I create the SRGs here<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                generalEventGeneratorParam.put ("_tfFast_fluctuationType" , ipTFFastFluctuationType.getString ()); <a name="line.112"></a>
+<span class="sourceLineNo">113</span>                generalEventGeneratorParam.put ("_trafficType" , "non-connection-based"); <a name="line.113"></a>
+<span class="sourceLineNo">114</span>                generalEventGeneratorParam.put ("_tfSlow_fluctuationType" , ipTFSlowFluctuationType.getString ()); <a name="line.114"></a>
+<span class="sourceLineNo">115</span>                generalEventGeneratorParam.put ("_tfFast_fluctuationType" , ipTFFastFluctuationType.getString ()); <a name="line.115"></a>
+<span class="sourceLineNo">116</span>                generalEventGeneratorParam.put ("cac_arrivalsPattern" , "deterministic"); <a name="line.116"></a>
+<span class="sourceLineNo">117</span>                generalEventGeneratorParam.put ("trafficLayerId" , "" + ipLayer.getId ()); <a name="line.117"></a>
+<span class="sourceLineNo">118</span>                generalEventGeneratorParam.put ("randomSeed" , "" + randomSeed.getLong()); <a name="line.118"></a>
+<span class="sourceLineNo">119</span>                generalEventGeneratorParam.put ("cac_avHoldingTimeHours" , "" + 1.0); <a name="line.119"></a>
+<span class="sourceLineNo">120</span>                generalEventGeneratorParam.put ("cac_defaultConnectionSizeTrafficUnits" , "" + 1.0); <a name="line.120"></a>
+<span class="sourceLineNo">121</span>                generalEventGeneratorParam.put ("tfFast_timeBetweenDemandFluctuationsHours" , "" + ipTFFastTimeBetweenDemandFluctuationsHours.getDouble()); <a name="line.121"></a>
+<span class="sourceLineNo">122</span>                generalEventGeneratorParam.put ("tfFast_fluctuationCoefficientOfVariation" , "" + ipTFFastFluctuationCoefficientOfVariation.getDouble()); <a name="line.122"></a>
+<span class="sourceLineNo">123</span>                generalEventGeneratorParam.put ("tfFast_maximumFluctuationRelativeFactor" , "" + ipTFFastMaximumFluctuationRelativeFactor.getDouble()); <a name="line.123"></a>
+<span class="sourceLineNo">124</span>                generalEventGeneratorParam.put ("tfSlow_startDate" , ipTFSlowStartDate.getString()); <a name="line.124"></a>
+<span class="sourceLineNo">125</span>                generalEventGeneratorParam.put ("tfSlow_timeBetweenDemandFluctuationsHours" , "" + ipTFSlowTimeBetweenDemandFluctuationsHours.getDouble()); <a name="line.125"></a>
+<span class="sourceLineNo">126</span>                generalEventGeneratorParam.put ("tfSlow_defaultTimezone" , "" + ipTFSlowDefaultTimezone.getInt()); <a name="line.126"></a>
+<span class="sourceLineNo">127</span>                generalEventGeneratorParam.put ("fail_defaultMTTFInHours" , "" + ipOverWdmFailureDefaultMTTFInHours.getDouble()); <a name="line.127"></a>
+<span class="sourceLineNo">128</span>                generalEventGeneratorParam.put ("fail_defaultMTTRInHours" , "" + ipOverWdmFailureDefaultMTTRInHours.getDouble()); <a name="line.128"></a>
+<span class="sourceLineNo">129</span>                generalEventGeneratorParam.put ("fail_statisticalPattern" , ipOverWDmFailureStatisticalPattern.getString ()); <a name="line.129"></a>
+<span class="sourceLineNo">130</span>                super.initialize(initialNetPlan , generalEventGeneratorParam , simulationParameters , net2planParameters);<a name="line.130"></a>
+<span class="sourceLineNo">131</span><a name="line.131"></a>
+<span class="sourceLineNo">132</span><a name="line.132"></a>
+<span class="sourceLineNo">133</span>        <a name="line.133"></a>
+<span class="sourceLineNo">134</span>        }<a name="line.134"></a>
+<span class="sourceLineNo">135</span><a name="line.135"></a>
+<span class="sourceLineNo">136</span>        @Override<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        public void processEvent(NetPlan currentNetPlan, SimEvent event)<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        {<a name="line.138"></a>
+<span class="sourceLineNo">139</span>//              this.generalEventGenerator.processEvent(currentNetPlan , event);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                super.processEvent(currentNetPlan , event);<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        }<a name="line.141"></a>
+<span class="sourceLineNo">142</span><a name="line.142"></a>
+<span class="sourceLineNo">143</span>}<a name="line.143"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

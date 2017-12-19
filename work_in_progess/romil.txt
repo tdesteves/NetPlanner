@@ -1,3 +1,13 @@
+2017-12-05
+TO BE DONE
+	- to finish the appendice related with net2plan (single appendice)
+	- place the presentation in github
+	- delete the doc/tex/net2plan folder
+
+	- test the software so that we can run it together
+
+
+
 2017-11-17
 TO BE DONE
 	- to prepare the document

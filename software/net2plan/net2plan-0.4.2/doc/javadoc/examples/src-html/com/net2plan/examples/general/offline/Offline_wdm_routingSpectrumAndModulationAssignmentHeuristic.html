@@ -1,0 +1,468 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package com.net2plan.examples.general.offline;<a name="line.1"></a>
+<span class="sourceLineNo">002</span>/*******************************************************************************<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * Copyright (c) 2015 Pablo Pavon Mariño.<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * All rights reserved. This program and the accompanying materials<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * which accompanies this distribution, and is available at<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.7"></a>
+<span class="sourceLineNo">008</span> * <a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Contributors:<a name="line.9"></a>
+<span class="sourceLineNo">010</span> *     Pablo Pavon Mariño - initial API and implementation<a name="line.10"></a>
+<span class="sourceLineNo">011</span> ******************************************************************************/<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.ArrayList;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import java.util.Collection;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import java.util.HashMap;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import java.util.HashSet;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import java.util.LinkedList;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.util.List;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import java.util.Map;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import java.util.Set;<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.NetworkLayer;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.ProtectionSegment;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.interfaces.networkDesign.Route;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.interfaces.networkDesign.SharedRiskGroup;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.libraries.WDMUtils;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.utils.Constants.OrderingType;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.utils.DoubleUtils;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.net2plan.utils.InputParameter;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.net2plan.utils.IntUtils;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import com.net2plan.utils.Pair;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>import com.net2plan.utils.Triple;<a name="line.40"></a>
+<span class="sourceLineNo">041</span><a name="line.41"></a>
+<span class="sourceLineNo">042</span>import cern.colt.matrix.tdouble.DoubleFactory2D;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>import cern.colt.matrix.tdouble.DoubleMatrix2D;<a name="line.43"></a>
+<span class="sourceLineNo">044</span><a name="line.44"></a>
+<span class="sourceLineNo">045</span>/**<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * Algorithm based on an heuristic solving the Routing, Spectrum, Modulation Assignment (RSMA) problem with regenerator placement, in flexi (elastic) or fixed grid optical WDM networks, with or without fault tolerance and/or latency requisites.<a name="line.46"></a>
+<span class="sourceLineNo">047</span> * <a name="line.47"></a>
+<span class="sourceLineNo">048</span> * &lt;p&gt;The input design is assumed to have a WDM layer compatible with {@link com.net2plan.libraries.WDMUtils WDMUtils} Net2Plan <a name="line.48"></a>
+<span class="sourceLineNo">049</span> * library usual assumptions:&lt;/p&gt;<a name="line.49"></a>
+<span class="sourceLineNo">050</span> * &lt;ul&gt;<a name="line.50"></a>
+<span class="sourceLineNo">051</span> * &lt;li&gt;Each network node is assumed to be an Optical Add/Drop Multiplexer WDM node&lt;/li&gt;<a name="line.51"></a>
+<span class="sourceLineNo">052</span> * &lt;li&gt;Each network link at WDM layer is assumed to be an optical fiber.&lt;/li&gt;<a name="line.52"></a>
+<span class="sourceLineNo">053</span> * &lt;li&gt;The spectrum in the fibers is assumed to be composed of a number of frequency slots. <a name="line.53"></a>
+<span class="sourceLineNo">054</span> * In fixed-grid network, each frequency slot would correspond to a wavelength channel. <a name="line.54"></a>
+<span class="sourceLineNo">055</span> * In flexi-grid networks, it is just a frequency slot, and lightpaths can occupy more than one. In any case, <a name="line.55"></a>
+<span class="sourceLineNo">056</span> * two lightpaths that use overlapping frequency slots cannot traverse the same fiber, since their signals would mix.&lt;/li&gt;<a name="line.56"></a>
+<span class="sourceLineNo">057</span> * &lt;li&gt;Each traffic demand is a need to transmit an amount of Gbps between two nodes. <a name="line.57"></a>
+<span class="sourceLineNo">058</span> * A demand traffic can be carried using one or more lightpaths.&lt;/li&gt;<a name="line.58"></a>
+<span class="sourceLineNo">059</span> * &lt;/ul&gt;<a name="line.59"></a>
+<span class="sourceLineNo">060</span> * <a name="line.60"></a>
+<span class="sourceLineNo">061</span> * &lt;p&gt;Each lightpath produced by the design is returned as a {@code Route} object. Protection lightpaths in 1+1 case <a name="line.61"></a>
+<span class="sourceLineNo">062</span> * are returned as ProtectionSegment objects attached to the {@code Route}. They represent a set of reserved frequency slots in <a name="line.62"></a>
+<span class="sourceLineNo">063</span> * a set of fibers, to be used to protect other lightpaths.&lt;/p&gt;<a name="line.63"></a>
+<span class="sourceLineNo">064</span> * <a name="line.64"></a>
+<span class="sourceLineNo">065</span> * &lt;p&gt;Each lightpath starts and ends in a transponder. The user is able to define a set of available transpoder types, so <a name="line.65"></a>
+<span class="sourceLineNo">066</span> * the design can create lightpaths using any combination of them. The information user-defined per transponder is:&lt;/p&gt;<a name="line.66"></a>
+<span class="sourceLineNo">067</span> * &lt;ul&gt;<a name="line.67"></a>
+<span class="sourceLineNo">068</span> * &lt;li&gt;Line rate in Gbps (typically 10, 40, 100 in fixed-grid cases, and other multiples in flexi-grid networks).&lt;/li&gt; <a name="line.68"></a>
+<span class="sourceLineNo">069</span> * &lt;li&gt;Cost&lt;/li&gt; <a name="line.69"></a>
+<span class="sourceLineNo">070</span> * &lt;li&gt;Number of frequency slots occupied (for a given line rate, this depends on the modulation the transponder uses)&lt;/li&gt; <a name="line.70"></a>
+<span class="sourceLineNo">071</span> * &lt;li&gt;Optical reach in km: Maximum allowed length in km of the lightpaths with this transponder. <a name="line.71"></a>
+<span class="sourceLineNo">072</span> * Higher distances can be reached using signal regenerators.&lt;/li&gt; <a name="line.72"></a>
+<span class="sourceLineNo">073</span> * &lt;li&gt;Cost of a regenerator for this transponder. Regenerators can be placed at intermdiate nodes of the lightpath route, <a name="line.73"></a>
+<span class="sourceLineNo">074</span> * regenerate its optical signal, and then permit extending its reach. We consider that regenerators cannot change the <a name="line.74"></a>
+<span class="sourceLineNo">075</span> * frequency slots occupied by the lightpath (that is, they are not capable of wavelength conversion)&lt;/li&gt; <a name="line.75"></a>
+<span class="sourceLineNo">076</span> * &lt;/ul&gt;<a name="line.76"></a>
+<span class="sourceLineNo">077</span> * <a name="line.77"></a>
+<span class="sourceLineNo">078</span> * &lt;p&gt;We assume that all the fibers use the same wavelength grid, composed of a user-defined number of frequency slots. <a name="line.78"></a>
+<span class="sourceLineNo">079</span> * The user can also select a limit in the maximum propagation delay of a lightpath. &lt;/p&gt;<a name="line.79"></a>
+<span class="sourceLineNo">080</span> * &lt;p&gt;The output design consists in the set of lightpaths to establish, in the 1+1 case also with a 1+1 lightpath each. <a name="line.80"></a>
+<span class="sourceLineNo">081</span> * Each lightpath is characterized by the transponder type used (which sets its line rate and number of occupied slots in the <a name="line.81"></a>
+<span class="sourceLineNo">082</span> * traversed fibers), the particular set of contiguous frequency slots occupied, and the set of signal regeneration points (if any). <a name="line.82"></a>
+<span class="sourceLineNo">083</span> * This information is stored in the {@code Route} and {@code ProtectionSegment} object using the regular methods in WDMUTils, <a name="line.83"></a>
+<span class="sourceLineNo">084</span> * and can be retrieved in the same form (e.g. by a report showing the WDM network information). <a name="line.84"></a>
+<span class="sourceLineNo">085</span> * If a feasible solution is not found (one where all the demands are satisfied with the given constraints), a message is shown.&lt;/p&gt;.  <a name="line.85"></a>
+<span class="sourceLineNo">086</span> * <a name="line.86"></a>
+<span class="sourceLineNo">087</span> * &lt;h2&gt;Failure tolerance&lt;/h2&gt;<a name="line.87"></a>
+<span class="sourceLineNo">088</span> * &lt;p&gt;The user can choose among three possibilities for designing the network:&lt;/p&gt;<a name="line.88"></a>
+<span class="sourceLineNo">089</span> * &lt;ul&gt;<a name="line.89"></a>
+<span class="sourceLineNo">090</span> * &lt;li&gt;No failure tolerant: The lightpaths established should be enough to carry the traffic of all the demands when no failure <a name="line.90"></a>
+<span class="sourceLineNo">091</span> * occurs in the network, but any losses are accepted if the network suffers failures in links or nodes.&lt;/li&gt;<a name="line.91"></a>
+<span class="sourceLineNo">092</span> * &lt;li&gt;Tolerant to single-SRG (Shared Risk Group) failures with static lightpaths: All the traffic demands should be satisfied using <a name="line.92"></a>
+<span class="sourceLineNo">093</span> * lightpaths, so that under any single-SRG failure (SRGs are taken from the input design), the surviving lightpaths are enough <a name="line.93"></a>
+<span class="sourceLineNo">094</span> * to carry the 100% of the traffic. Note that lightpaths are static, in the sense that they are not rerouted when affected by a <a name="line.94"></a>
+<span class="sourceLineNo">095</span> * failure (they just also fail), and the design should just overprovision the number of lightpaths to establish with that in mind.&lt;/li&gt;<a name="line.95"></a>
+<span class="sourceLineNo">096</span> * &lt;li&gt;1+1 SRG-disjoint protection: This is another form to provide single-SRG failure tolerance. Each lightpath is backed up by <a name="line.96"></a>
+<span class="sourceLineNo">097</span> * a SRG-disjoint lightpath (returned as a {@code ProtectionSegment} object). The backup lightpath uses the same type of transponder <a name="line.97"></a>
+<span class="sourceLineNo">098</span> * as the primary (and thus the same line rate, an occupies the same number of slots), its path is SRG-disjoint, and the particular <a name="line.98"></a>
+<span class="sourceLineNo">099</span> * set of slots occupied can be different. &lt;/li&gt;<a name="line.99"></a>
+<span class="sourceLineNo">100</span> * &lt;/ul&gt;<a name="line.100"></a>
+<span class="sourceLineNo">101</span> * &lt;h2&gt;Use cases&lt;/h2&gt;<a name="line.101"></a>
+<span class="sourceLineNo">102</span> * &lt;p&gt;This algorithm is quite general, and fits a number of use cases designing WDM networks, for instance:&lt;/p&gt;<a name="line.102"></a>
+<span class="sourceLineNo">103</span> * &lt;ul&gt;<a name="line.103"></a>
+<span class="sourceLineNo">104</span> * &lt;li&gt;Single line rate, fixed grid networks: Then, one single type of transponder will be available, which occupies one frequency slot&lt;/li&gt;<a name="line.104"></a>
+<span class="sourceLineNo">105</span> * &lt;li&gt;Mixed-Line Rate fixed-grid networks: In this case, several transponders can be available at different line rates and with different optical <a name="line.105"></a>
+<span class="sourceLineNo">106</span> * reaches. However, all of them occupy one slot (one wavelength channel)&lt;/li&gt;<a name="line.106"></a>
+<span class="sourceLineNo">107</span> * &lt;li&gt;Single line rate, flexi-grid networks using varying-modulation transponders: Several transponders are available (or the same <a name="line.107"></a>
+<span class="sourceLineNo">108</span> * transponder with varying configurations), all of them with the same line rate, but thanks to the different usable modulations <a name="line.108"></a>
+<span class="sourceLineNo">109</span> * they can have different optical reaches and/or number of occupied slots.&lt;/li&gt;<a name="line.109"></a>
+<span class="sourceLineNo">110</span> * &lt;li&gt;Multiple line rate, flexi-grid networks using Bandwidth Variable Transponders: Here, it is possible to use different transponders <a name="line.110"></a>
+<span class="sourceLineNo">111</span> * with different line rates, e.g. to reflect more sophisticated transponders which can have different configurations, varying its line rate, <a name="line.111"></a>
+<span class="sourceLineNo">112</span> * optical reach, and number of occupied slots.&lt;/li&gt;<a name="line.112"></a>
+<span class="sourceLineNo">113</span> * &lt;li&gt;...&lt;/li&gt;<a name="line.113"></a>
+<span class="sourceLineNo">114</span> * &lt;/ul&gt;<a name="line.114"></a>
+<span class="sourceLineNo">115</span> * &lt;h2&gt;Some details of the algorithm&lt;/h2&gt;<a name="line.115"></a>
+<span class="sourceLineNo">116</span> * &lt;p&gt;The algorithm is based on a heuristic. Initially, at most {@code k} paths are selected for each demand and transponder type. <a name="line.116"></a>
+<span class="sourceLineNo">117</span> * Then, in each iteration, the algorithm first orders the demands in descending order according to the traffic pending <a name="line.117"></a>
+<span class="sourceLineNo">118</span> * to be carried (if single-SRG failure tolerance is chosen, this is the average among all the <a name="line.118"></a>
+<span class="sourceLineNo">119</span> * states -no failure and single SRG failure). Then, all the transponder types and possible routes (or SRG-disjoint 1+1 pairs in the <a name="line.119"></a>
+<span class="sourceLineNo">120</span> * 1+1 case) are attempted for that demand, using a first-fit approach for the slots. If an RSA is found for more than one <a name="line.120"></a>
+<span class="sourceLineNo">121</span> * transponder and route, the one chosen is first, the one with best performance metric, and among them, the first transponder <a name="line.121"></a>
+<span class="sourceLineNo">122</span> * according to the order in which the user put it in the input parameter, and among them the shortest one in km . <a name="line.122"></a>
+<span class="sourceLineNo">123</span> * The performance metric used is the amount of extra traffic carried if the lightpath is established, divided by the lightpath cost, <a name="line.123"></a>
+<span class="sourceLineNo">124</span> * summing the transponder cost, and the cost of the signal regenerators if any.&lt;/p&gt;<a name="line.124"></a>
+<span class="sourceLineNo">125</span> * &lt;p&gt;The details of the algorithm will be provided in a publication currently under elaboration.&lt;/p&gt;<a name="line.125"></a>
+<span class="sourceLineNo">126</span> * <a name="line.126"></a>
+<span class="sourceLineNo">127</span> * @net2plan.keywords WDM<a name="line.127"></a>
+<span class="sourceLineNo">128</span> * @net2plan.inputParameters <a name="line.128"></a>
+<span class="sourceLineNo">129</span> * @author Pablo Pavon-Marino<a name="line.129"></a>
+<span class="sourceLineNo">130</span> */<a name="line.130"></a>
+<span class="sourceLineNo">131</span>public class Offline_wdm_routingSpectrumAndModulationAssignmentHeuristic implements IAlgorithm<a name="line.131"></a>
+<span class="sourceLineNo">132</span>{<a name="line.132"></a>
+<span class="sourceLineNo">133</span>        private InputParameter k = new InputParameter ("k", (int) 5 , "Maximum number of admissible paths per input-output node pair" , 1 , Integer.MAX_VALUE);<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        private InputParameter numFrequencySlotsPerFiber = new InputParameter ("numWavelengthsPerFiber", (int) 40 , "Number of wavelengths per link" , 1, Integer.MAX_VALUE);<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        private InputParameter transponderTypesInfo = new InputParameter ("transponderTypesInfo", "10 1 1 9600 1" , "Transpoder types separated by \";\" . Each type is characterized by the space-separated values: (i) Line rate in Gbps, (ii) cost of the transponder, (iii) number of slots occupied in each traversed fiber, (iv) optical reach in km (a non-positive number means no reach limit), (v) cost of the optical signal regenerator (regenerators do NOT make wavelength conversion ; if negative, regeneration is not possible).");<a name="line.135"></a>
+<span class="sourceLineNo">136</span>        private InputParameter wdmLayerIndex = new InputParameter ("wdmLayerIndex", (int) 0 , "Index of the WDM layer (-1 means default layer)");<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        private InputParameter networkRecoveryType = new InputParameter ("networkRecoveryType", "#select# not-fault-tolerant single-srg-tolerant-static-lp 1+1-srg-disjoint-lps" , "Establish if the design should be tolerant or not to single SRG failures (SRGs are as defined in the input NetPlan). First option is that the design should not be fault tolerant, the second means that failed lightpaths are not recovered, but an overprovisioned should be made so enough lightpaths survive to carry all the traffic in every failure. The third means that each lightpath is 1+1 protceted by a SRG-disjoint one, that uses the same transponder");<a name="line.137"></a>
+<span class="sourceLineNo">138</span>        private InputParameter maxPropagationDelayMs = new InputParameter ("maxPropagationDelayMs", (double) -1 , "Maximum allowed propagation time of a lighptath in miliseconds. If non-positive, no limit is assumed");<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        <a name="line.139"></a>
+<span class="sourceLineNo">140</span>        private NetPlan netPlan;<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        private Map&lt;Demand,List&lt;List&lt;Link&gt;&gt;&gt; cpl;<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        private Map&lt;Demand,List&lt;Pair&lt;List&lt;Link&gt;,List&lt;Link&gt;&gt;&gt;&gt; cpl11;<a name="line.142"></a>
+<span class="sourceLineNo">143</span>        private NetworkLayer wdmLayer;<a name="line.143"></a>
+<span class="sourceLineNo">144</span>        private WDMUtils.TransponderTypesInfo tpInfo;<a name="line.144"></a>
+<span class="sourceLineNo">145</span>        private int N, E, D, S, T;<a name="line.145"></a>
+<span class="sourceLineNo">146</span>        private boolean singleSRGToleranceNot11Type;<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        private DoubleMatrix2D frequencySlot2FiberOccupancy_se;<a name="line.147"></a>
+<span class="sourceLineNo">148</span>        <a name="line.148"></a>
+<span class="sourceLineNo">149</span>        @Override<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.150"></a>
+<span class="sourceLineNo">151</span>        {<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.153"></a>
+<span class="sourceLineNo">154</span><a name="line.154"></a>
+<span class="sourceLineNo">155</span>                this.netPlan = netPlan;<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                this.wdmLayer = wdmLayerIndex.getInt () == -1? netPlan.getNetworkLayerDefault() : netPlan.getNetworkLayer(wdmLayerIndex.getInt ());<a name="line.156"></a>
+<span class="sourceLineNo">157</span><a name="line.157"></a>
+<span class="sourceLineNo">158</span>                /* Basic checks */<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                this.N = netPlan.getNumberOfNodes();<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                this.E = netPlan.getNumberOfLinks(wdmLayer);<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                this.D = netPlan.getNumberOfDemands(wdmLayer);<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                this.S = numFrequencySlotsPerFiber.getInt();<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                if (N == 0 || E == 0 || D == 0) throw new Net2PlanException("This algorithm requires a topology with links and a demand set");<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                this.singleSRGToleranceNot11Type = networkRecoveryType.getString().equals("single-srg-tolerant-static-lp");<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                <a name="line.165"></a>
+<span class="sourceLineNo">166</span>                if (singleSRGToleranceNot11Type &amp;&amp; (netPlan.getNumberOfSRGs() == 0)) throw new Net2PlanException ("No SRGs are defined, so there is no reason to use the single-SRG failure-tolerant design option");<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                <a name="line.167"></a>
+<span class="sourceLineNo">168</span>                /* Store transpoder info */<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                this.tpInfo = new WDMUtils.TransponderTypesInfo(transponderTypesInfo.getString());<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                this.T = tpInfo.getNumTypes();<a name="line.170"></a>
+<span class="sourceLineNo">171</span><a name="line.171"></a>
+<span class="sourceLineNo">172</span>                /* Remove all routes in current netPlan object. Initialize link capacities and attributes, and demand offered traffic */<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                netPlan.removeAllMulticastTrees(wdmLayer);<a name="line.173"></a>
+<span class="sourceLineNo">174</span>                netPlan.removeAllUnicastRoutingInformation(wdmLayer);<a name="line.174"></a>
+<span class="sourceLineNo">175</span>                netPlan.setRoutingType(RoutingType.SOURCE_ROUTING , wdmLayer);<a name="line.175"></a>
+<span class="sourceLineNo">176</span><a name="line.176"></a>
+<span class="sourceLineNo">177</span>                /* Initialize the slot occupancy */<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                this.frequencySlot2FiberOccupancy_se = DoubleFactory2D.dense.make(S , E); <a name="line.178"></a>
+<span class="sourceLineNo">179</span><a name="line.179"></a>
+<span class="sourceLineNo">180</span>                /* Compute the candidate path list of possible paths */<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                this.cpl = netPlan.computeUnicastCandidatePathList(wdmLayer , <a name="line.181"></a>
+<span class="sourceLineNo">182</span>                                netPlan.getVectorLinkLengthInKm(wdmLayer).toArray(), "K" , "" + k.getInt() , "maxLengthInKm" , ""+tpInfo.getMaxOpticalReachKm(), "maxPropDelayInMs" , "" + maxPropagationDelayMs.getDouble());<a name="line.182"></a>
+<span class="sourceLineNo">183</span>                this.cpl11 = networkRecoveryType.getString().equals("1+1-srg-disjoint-lps")? NetPlan.computeUnicastCandidate11PathList(cpl,0) : null;<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                <a name="line.184"></a>
+<span class="sourceLineNo">185</span>                /* Compute the CPL, adding the routes */<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                /* 1+1 case: as many routes as 1+1 valid pairs (then, the same sequence of links can be in more than one Route). The route index and segment index are the same (1+1 pair index) */<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                /* rest of the cases: each sequence of links appears at most once */<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                Map&lt;Link,Double&gt; linkLengthMap = new HashMap&lt;Link,Double&gt; (); for (Link e : netPlan.getLinks(wdmLayer)) linkLengthMap.put(e , e.getLengthInKm());<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                final int maximumNumberOfPaths = T*k.getInt()*D;<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                List&lt;Integer&gt; transponderType_p = new ArrayList&lt;Integer&gt; (maximumNumberOfPaths);<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                List&lt;Double&gt; cost_p = new ArrayList&lt;Double&gt; (maximumNumberOfPaths); <a name="line.191"></a>
+<span class="sourceLineNo">192</span>                List&lt;Double&gt; lineRate_p = new ArrayList&lt;Double&gt; (maximumNumberOfPaths); <a name="line.192"></a>
+<span class="sourceLineNo">193</span>                List&lt;Integer&gt; numSlots_p = new ArrayList&lt;Integer&gt; (maximumNumberOfPaths);<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                List&lt;List&lt;Link&gt;&gt; seqLinks_p = new ArrayList&lt;List&lt;Link&gt;&gt; (maximumNumberOfPaths);<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                List&lt;List&lt;Link&gt;&gt; seqLinks2_p = cpl11 == null? null : new ArrayList&lt;List&lt;Link&gt;&gt; (maximumNumberOfPaths);<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                List&lt;int []&gt; regPositions_p = new ArrayList&lt;int []&gt; (maximumNumberOfPaths);<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                List&lt;int []&gt; regPositions2_p = new ArrayList&lt;int []&gt; (maximumNumberOfPaths);<a name="line.197"></a>
+<span class="sourceLineNo">198</span>                List&lt;Demand&gt; demand_p = new ArrayList&lt;Demand&gt; (maximumNumberOfPaths);<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                Map&lt;Demand,List&lt;Integer&gt;&gt; demand2PathListMap = new HashMap&lt;Demand,List&lt;Integer&gt;&gt; (); <a name="line.199"></a>
+<span class="sourceLineNo">200</span>                for (Demand d : netPlan.getDemands(wdmLayer))<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                {<a name="line.201"></a>
+<span class="sourceLineNo">202</span>                        boolean atLeastOnePathOrPathPair = false;<a name="line.202"></a>
+<span class="sourceLineNo">203</span>                        List&lt;Integer&gt; pathListThisDemand = new LinkedList&lt;Integer&gt; ();<a name="line.203"></a>
+<span class="sourceLineNo">204</span>                        demand2PathListMap.put(d , pathListThisDemand);<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                        for (int t = 0 ; t &lt; T ; t ++)<a name="line.205"></a>
+<span class="sourceLineNo">206</span>                        {<a name="line.206"></a>
+<span class="sourceLineNo">207</span>                                final boolean isRegenerable = tpInfo.isOpticalRegenerationPossible(t);<a name="line.207"></a>
+<span class="sourceLineNo">208</span>                                for (Object sp : cpl11 != null? cpl11.get(d) : cpl.get(d))<a name="line.208"></a>
+<span class="sourceLineNo">209</span>                                {<a name="line.209"></a>
+<span class="sourceLineNo">210</span>                                        List&lt;Link&gt; firstPath = (cpl11 == null)? ((List&lt;Link&gt;) sp) : ((Pair&lt;List&lt;Link&gt;,List&lt;Link&gt;&gt;) sp).getFirst(); <a name="line.210"></a>
+<span class="sourceLineNo">211</span>                                        List&lt;Link&gt; secondPath = (cpl11 == null)? null : ((Pair&lt;List&lt;Link&gt;,List&lt;Link&gt;&gt;) sp).getSecond (); <a name="line.211"></a>
+<span class="sourceLineNo">212</span>                                        if (!isRegenerable &amp;&amp; (getLengthInKm(firstPath) &gt; tpInfo.getOpticalReachKm(t))) break;<a name="line.212"></a>
+<span class="sourceLineNo">213</span>                                        if (secondPath != null) if (!isRegenerable &amp;&amp; (getLengthInKm(secondPath) &gt; tpInfo.getOpticalReachKm(t))) break;<a name="line.213"></a>
+<span class="sourceLineNo">214</span><a name="line.214"></a>
+<span class="sourceLineNo">215</span>                                        final int [] regPositions1 = isRegenerable? WDMUtils.computeRegeneratorPositions(firstPath , tpInfo.getOpticalReachKm(t)) : new int [firstPath.size()];<a name="line.215"></a>
+<span class="sourceLineNo">216</span>                                        final int [] regPositions2 = cpl11 == null? null : isRegenerable? WDMUtils.computeRegeneratorPositions(secondPath , tpInfo.getOpticalReachKm(t)) : new int [secondPath.size()];<a name="line.216"></a>
+<span class="sourceLineNo">217</span>                                        final int numRegeneratorsNeeded = !isRegenerable? 0 : (int) IntUtils.sum(regPositions1) + (secondPath == null? 0 : (int) IntUtils.sum(regPositions2)) ;<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                                        final double costOfLightpathOr11Pair = tpInfo.getCost(t) * (cpl11 != null? 2 : 1) + (tpInfo.getRegeneratorCost(t) * numRegeneratorsNeeded);<a name="line.218"></a>
+<span class="sourceLineNo">219</span><a name="line.219"></a>
+<span class="sourceLineNo">220</span>                                        final int pathIndex = cost_p.size();<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                                        cost_p.add (costOfLightpathOr11Pair);<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                                        transponderType_p.add (t);<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                                        lineRate_p.add(tpInfo.getLineRateGbps(t));<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                                        numSlots_p.add(tpInfo.getNumSlots(t));<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                                        demand_p.add(d);<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                                        seqLinks_p.add(firstPath);<a name="line.226"></a>
+<span class="sourceLineNo">227</span>                                        regPositions_p.add(regPositions1);<a name="line.227"></a>
+<span class="sourceLineNo">228</span>                                        pathListThisDemand.add(pathIndex);<a name="line.228"></a>
+<span class="sourceLineNo">229</span>                                        if (cpl11 != null) { seqLinks2_p.add(secondPath); regPositions2_p.add(regPositions2); }<a name="line.229"></a>
+<span class="sourceLineNo">230</span>                                        atLeastOnePathOrPathPair = true;<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                                }<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                        }<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                        if (!atLeastOnePathOrPathPair) throw new Net2PlanException ("There are no possible routes (or 1+1 pairs) for a demand (" + d + "). The topology may be not connected enough, or the optical reach may be too small");<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                }<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                final int P = transponderType_p.size(); // one per potential sequence of links (or 1+1 pairs of sequences) and transponder<a name="line.235"></a>
+<span class="sourceLineNo">236</span><a name="line.236"></a>
+<span class="sourceLineNo">237</span>                /* Main algorithm loop. Take one demand at a time, in a HLDA loop (ordered by average blocked traffic). <a name="line.237"></a>
+<span class="sourceLineNo">238</span>                 * In each demand, try all possible path-transponder pairs, and take the best according to the performance metric:<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                 * avExtraTrafficCarried/transponderCost */<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                boolean atLeastOneLpAdded = false;<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                Set&lt;Integer&gt; demandIndexesNotToTry = new HashSet&lt;Integer&gt; ();<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                double totalCost = 0;<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                do <a name="line.243"></a>
+<span class="sourceLineNo">244</span>                {<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                        double [] b_d = getVectorDemandAverageAllStatesBlockedTraffic ();<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                        int [] demandIndexes = DoubleUtils.sortIndexes(b_d , OrderingType.DESCENDING);<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                        atLeastOneLpAdded = false;<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                        for (int demandIndex : demandIndexes)<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                        {<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                                final Demand d = netPlan.getDemand(demandIndex , wdmLayer);<a name="line.250"></a>
+<span class="sourceLineNo">251</span><a name="line.251"></a>
+<span class="sourceLineNo">252</span>                                /* Not to try a demand if already fully satisfied or we tried and could not add a lp to it */<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                                if (demandIndexesNotToTry.contains(demandIndex)) continue;<a name="line.253"></a>
+<span class="sourceLineNo">254</span><a name="line.254"></a>
+<span class="sourceLineNo">255</span>                                /* If the demand is already fully satisfied, skip it */<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                                if (isDemandFullySatisfied(d)) { demandIndexesNotToTry.add(demandIndex); continue; } <a name="line.256"></a>
+<span class="sourceLineNo">257</span>                                <a name="line.257"></a>
+<span class="sourceLineNo">258</span>                                /* Try all the possible routes and all the possible transpoder types. Take the solution with the best <a name="line.258"></a>
+<span class="sourceLineNo">259</span>                                 * performance metric (average extra carried traffic / transponder cost) */<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                                WDMUtils.RSA best_rsa = null;<a name="line.260"></a>
+<span class="sourceLineNo">261</span>                                WDMUtils.RSA best_rsa2 = null;<a name="line.261"></a>
+<span class="sourceLineNo">262</span>                                double best_performanceMetric = 0;<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                                int best_pathIndex = -1;<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                                for (int pathIndex : demand2PathListMap.get (d))<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                                {<a name="line.265"></a>
+<span class="sourceLineNo">266</span>                                        List&lt;Link&gt; firstPath = seqLinks_p.get(pathIndex);<a name="line.266"></a>
+<span class="sourceLineNo">267</span>                                        List&lt;Link&gt; secondPath = cpl11 == null? null : seqLinks2_p.get(pathIndex);<a name="line.267"></a>
+<span class="sourceLineNo">268</span>                                        Pair&lt;Integer,Integer&gt; slotIds = null;<a name="line.268"></a>
+<span class="sourceLineNo">269</span>                                        int slotId = -1;<a name="line.269"></a>
+<span class="sourceLineNo">270</span>                                        if (cpl11 == null)<a name="line.270"></a>
+<span class="sourceLineNo">271</span>                                                slotId = WDMUtils.spectrumAssignment_firstFit(firstPath , frequencySlot2FiberOccupancy_se , numSlots_p.get(pathIndex));<a name="line.271"></a>
+<span class="sourceLineNo">272</span>                                        else<a name="line.272"></a>
+<span class="sourceLineNo">273</span>                                                slotIds = WDMUtils.spectrumAssignment_firstFitTwoRoutes(firstPath, secondPath, frequencySlot2FiberOccupancy_se , numSlots_p.get(pathIndex));<a name="line.273"></a>
+<span class="sourceLineNo">274</span>                                        <a name="line.274"></a>
+<span class="sourceLineNo">275</span>                                        /* Check if the path (or 1+1 path pair) is not feasible */<a name="line.275"></a>
+<span class="sourceLineNo">276</span>                                        if (cpl11 == null) if (slotId == -1) continue;<a name="line.276"></a>
+<span class="sourceLineNo">277</span>                                        if (cpl11 != null) if (slotIds == null) continue;<a name="line.277"></a>
+<span class="sourceLineNo">278</span>                                        <a name="line.278"></a>
+<span class="sourceLineNo">279</span>                                        /* If the performance metric is better than existing, this is the best choice */<a name="line.279"></a>
+<span class="sourceLineNo">280</span>                                        final double extraCarriedTraffic = getAverageAllStatesExtraCarriedTrafficAfterPotentialAllocation (d , lineRate_p.get(pathIndex) , seqLinks_p.get(pathIndex));<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                                        final double performanceIndicator = extraCarriedTraffic / cost_p.get(pathIndex); <a name="line.281"></a>
+<span class="sourceLineNo">282</span>                                        if (performanceIndicator &gt; best_performanceMetric)<a name="line.282"></a>
+<span class="sourceLineNo">283</span>                                        {<a name="line.283"></a>
+<span class="sourceLineNo">284</span>                                                best_performanceMetric = performanceIndicator;<a name="line.284"></a>
+<span class="sourceLineNo">285</span>                                                best_rsa = new WDMUtils.RSA(firstPath , cpl11 != null? slotIds.getFirst() : slotId , numSlots_p.get(pathIndex) , regPositions_p.get(pathIndex));<a name="line.285"></a>
+<span class="sourceLineNo">286</span>                                                best_rsa2 = cpl11 == null? null : new WDMUtils.RSA(secondPath , slotIds.getSecond() , numSlots_p.get(pathIndex) , regPositions2_p.get(pathIndex));<a name="line.286"></a>
+<span class="sourceLineNo">287</span>                                                best_pathIndex = pathIndex;<a name="line.287"></a>
+<span class="sourceLineNo">288</span>                                        }<a name="line.288"></a>
+<span class="sourceLineNo">289</span>                                }<a name="line.289"></a>
+<span class="sourceLineNo">290</span><a name="line.290"></a>
+<span class="sourceLineNo">291</span>                                <a name="line.291"></a>
+<span class="sourceLineNo">292</span>                                /* No lp could be added to this demand, try with the next */<a name="line.292"></a>
+<span class="sourceLineNo">293</span>                                if (best_pathIndex == -1) { demandIndexesNotToTry.add(d.getIndex()); continue; }<a name="line.293"></a>
+<span class="sourceLineNo">294</span>                                <a name="line.294"></a>
+<span class="sourceLineNo">295</span>                                /* Add the lightpath to the design */<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                                atLeastOneLpAdded = true;<a name="line.296"></a>
+<span class="sourceLineNo">297</span>                                totalCost += cost_p.get(best_pathIndex);<a name="line.297"></a>
+<span class="sourceLineNo">298</span>                                final Route lp = WDMUtils.addLightpath(d , best_rsa , lineRate_p.get(best_pathIndex));<a name="line.298"></a>
+<span class="sourceLineNo">299</span>                                WDMUtils.allocateResources(best_rsa , frequencySlot2FiberOccupancy_se , null);<a name="line.299"></a>
+<span class="sourceLineNo">300</span>                                if (cpl11 != null)<a name="line.300"></a>
+<span class="sourceLineNo">301</span>                                {<a name="line.301"></a>
+<span class="sourceLineNo">302</span>                                        final ProtectionSegment lpProt = WDMUtils.addLightpathAsProtectionSegment(best_rsa2);<a name="line.302"></a>
+<span class="sourceLineNo">303</span>                                        WDMUtils.allocateResources(best_rsa2 , frequencySlot2FiberOccupancy_se , null);<a name="line.303"></a>
+<span class="sourceLineNo">304</span>                                        lp.addProtectionSegment(lpProt);<a name="line.304"></a>
+<span class="sourceLineNo">305</span>                                }<a name="line.305"></a>
+<span class="sourceLineNo">306</span>                                break;<a name="line.306"></a>
+<span class="sourceLineNo">307</span>                        }<a name="line.307"></a>
+<span class="sourceLineNo">308</span>                        <a name="line.308"></a>
+<span class="sourceLineNo">309</span>                } while (atLeastOneLpAdded);<a name="line.309"></a>
+<span class="sourceLineNo">310</span>                <a name="line.310"></a>
+<span class="sourceLineNo">311</span>                WDMUtils.checkResourceAllocationClashing(netPlan,true,true,wdmLayer);<a name="line.311"></a>
+<span class="sourceLineNo">312</span><a name="line.312"></a>
+<span class="sourceLineNo">313</span>                String outMessage = "Total cost: " + totalCost + ". Num lps (not including 1+1 backup if any) " + netPlan.getNumberOfRoutes();<a name="line.313"></a>
+<span class="sourceLineNo">314</span>                System.out.println (outMessage);<a name="line.314"></a>
+<span class="sourceLineNo">315</span>                return "Ok! " + outMessage;<a name="line.315"></a>
+<span class="sourceLineNo">316</span>        }<a name="line.316"></a>
+<span class="sourceLineNo">317</span><a name="line.317"></a>
+<span class="sourceLineNo">318</span>        private static double getLengthInKm (Collection&lt;Link&gt; r) { double res = 0; for (Link e : r) res += e.getLengthInKm(); return res; }<a name="line.318"></a>
+<span class="sourceLineNo">319</span>        <a name="line.319"></a>
+<span class="sourceLineNo">320</span>        @Override<a name="line.320"></a>
+<span class="sourceLineNo">321</span>        public String getDescription()<a name="line.321"></a>
+<span class="sourceLineNo">322</span>        {<a name="line.322"></a>
+<span class="sourceLineNo">323</span>                return "Algorithm based on an ILP solving the Routing, Spectrum, Modulation Assignment (RSMA) problem with regenerator placement, in flexi (elastic) or fixed grid optical WDM networks, with or without fault tolerance, latency and/or lightpath bidirectionality requisites (see the Javadoc for details).";<a name="line.323"></a>
+<span class="sourceLineNo">324</span>        }<a name="line.324"></a>
+<span class="sourceLineNo">325</span><a name="line.325"></a>
+<span class="sourceLineNo">326</span>        @Override<a name="line.326"></a>
+<span class="sourceLineNo">327</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.327"></a>
+<span class="sourceLineNo">328</span>        {<a name="line.328"></a>
+<span class="sourceLineNo">329</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.329"></a>
+<span class="sourceLineNo">330</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.330"></a>
+<span class="sourceLineNo">331</span>        }<a name="line.331"></a>
+<span class="sourceLineNo">332</span>        <a name="line.332"></a>
+<span class="sourceLineNo">333</span>        /* A vector with the blocked traffic for each demand (in the single-SRG failure tolerance, is averaged for each state) */<a name="line.333"></a>
+<span class="sourceLineNo">334</span>        private double [] getVectorDemandAverageAllStatesBlockedTraffic ()<a name="line.334"></a>
+<span class="sourceLineNo">335</span>        {<a name="line.335"></a>
+<span class="sourceLineNo">336</span>                double [] res = new double [D];<a name="line.336"></a>
+<span class="sourceLineNo">337</span>                for (Demand d : netPlan.getDemands(wdmLayer))<a name="line.337"></a>
+<span class="sourceLineNo">338</span>                {<a name="line.338"></a>
+<span class="sourceLineNo">339</span>                        res [d.getIndex()] = d.getBlockedTraffic();<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                        if (singleSRGToleranceNot11Type)<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                        {<a name="line.341"></a>
+<span class="sourceLineNo">342</span>                                for (SharedRiskGroup srg : netPlan.getSRGs())<a name="line.342"></a>
+<span class="sourceLineNo">343</span>                                {<a name="line.343"></a>
+<span class="sourceLineNo">344</span>                                        Set&lt;Route&gt; affectedRoutes = srg.getAffectedRoutes();<a name="line.344"></a>
+<span class="sourceLineNo">345</span>                                        double carriedTrafficThisFailure = 0; for (Route r : d.getRoutes()) if (!affectedRoutes.contains(r)) carriedTrafficThisFailure += r.getCarriedTraffic();<a name="line.345"></a>
+<span class="sourceLineNo">346</span>                                        res [d.getIndex()] += Math.max(0 , d.getOfferedTraffic() - carriedTrafficThisFailure);<a name="line.346"></a>
+<span class="sourceLineNo">347</span>                                }<a name="line.347"></a>
+<span class="sourceLineNo">348</span>                        }<a name="line.348"></a>
+<span class="sourceLineNo">349</span>                        res [d.getIndex()] /= (singleSRGToleranceNot11Type? (netPlan.getNumberOfSRGs() + 1) : 1);<a name="line.349"></a>
+<span class="sourceLineNo">350</span>                }<a name="line.350"></a>
+<span class="sourceLineNo">351</span>                return res;<a name="line.351"></a>
+<span class="sourceLineNo">352</span>        }<a name="line.352"></a>
+<span class="sourceLineNo">353</span>        <a name="line.353"></a>
+<span class="sourceLineNo">354</span>        /* The average for all the states (no failure, and potentially one per SRG if single-SRG failure tolerance option is chosen), <a name="line.354"></a>
+<span class="sourceLineNo">355</span>         * of all the blocked traffic */<a name="line.355"></a>
+<span class="sourceLineNo">356</span>        private double getAverageAllStatesExtraCarriedTrafficAfterPotentialAllocation (Demand d , double lineRateGbps , List&lt;Link&gt; seqLinksIfSingleSRGToleranceIsNeeded)<a name="line.356"></a>
+<span class="sourceLineNo">357</span>        {<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                double extraCarriedTraffic = Math.min(d.getBlockedTraffic() , lineRateGbps);<a name="line.358"></a>
+<span class="sourceLineNo">359</span>                if (singleSRGToleranceNot11Type)<a name="line.359"></a>
+<span class="sourceLineNo">360</span>                {<a name="line.360"></a>
+<span class="sourceLineNo">361</span>                        for (SharedRiskGroup srg : netPlan.getSRGs())<a name="line.361"></a>
+<span class="sourceLineNo">362</span>                        {<a name="line.362"></a>
+<span class="sourceLineNo">363</span>                                if (isAffected(seqLinksIfSingleSRGToleranceIsNeeded , srg)) continue; // no extra carried traffic<a name="line.363"></a>
+<span class="sourceLineNo">364</span>                                Set&lt;Route&gt; affectedRoutes = srg.getAffectedRoutes(wdmLayer);<a name="line.364"></a>
+<span class="sourceLineNo">365</span>                                double carriedTrafficThisFailure = 0; for (Route r : d.getRoutes()) if (!affectedRoutes.contains(r)) carriedTrafficThisFailure += r.getCarriedTraffic();<a name="line.365"></a>
+<span class="sourceLineNo">366</span>                                extraCarriedTraffic += Math.min(lineRateGbps , Math.max(0 , d.getOfferedTraffic() - carriedTrafficThisFailure));<a name="line.366"></a>
+<span class="sourceLineNo">367</span>                        }<a name="line.367"></a>
+<span class="sourceLineNo">368</span>                }<a name="line.368"></a>
+<span class="sourceLineNo">369</span>                return extraCarriedTraffic / (singleSRGToleranceNot11Type? (netPlan.getNumberOfSRGs() + 1) : 1);<a name="line.369"></a>
+<span class="sourceLineNo">370</span>        }<a name="line.370"></a>
+<span class="sourceLineNo">371</span><a name="line.371"></a>
+<span class="sourceLineNo">372</span>        /* True if the demand is fully satisfied (in the single-SRG failure case, also in each SRG) */<a name="line.372"></a>
+<span class="sourceLineNo">373</span>        private boolean isDemandFullySatisfied (Demand d)<a name="line.373"></a>
+<span class="sourceLineNo">374</span>        {<a name="line.374"></a>
+<span class="sourceLineNo">375</span>                if (d.getBlockedTraffic() &gt; 1e-3) return false;<a name="line.375"></a>
+<span class="sourceLineNo">376</span>                if (singleSRGToleranceNot11Type)<a name="line.376"></a>
+<span class="sourceLineNo">377</span>                {<a name="line.377"></a>
+<span class="sourceLineNo">378</span>                        for (SharedRiskGroup srg : netPlan.getSRGs())<a name="line.378"></a>
+<span class="sourceLineNo">379</span>                        {<a name="line.379"></a>
+<span class="sourceLineNo">380</span>                                Set&lt;Route&gt; affectedRoutes = srg.getAffectedRoutes(wdmLayer);<a name="line.380"></a>
+<span class="sourceLineNo">381</span>                                double carriedTrafficThisFailure = 0;<a name="line.381"></a>
+<span class="sourceLineNo">382</span>                                for (Route r : d.getRoutes()) if (!affectedRoutes.contains(r)) carriedTrafficThisFailure += r.getCarriedTraffic();<a name="line.382"></a>
+<span class="sourceLineNo">383</span>                                if (carriedTrafficThisFailure + 1e-3 &lt; d.getOfferedTraffic()) return false;<a name="line.383"></a>
+<span class="sourceLineNo">384</span>                        }<a name="line.384"></a>
+<span class="sourceLineNo">385</span>                }<a name="line.385"></a>
+<span class="sourceLineNo">386</span>                return true;<a name="line.386"></a>
+<span class="sourceLineNo">387</span>        }<a name="line.387"></a>
+<span class="sourceLineNo">388</span>        <a name="line.388"></a>
+<span class="sourceLineNo">389</span>        /* True is a sequence of links is affected by a failure */<a name="line.389"></a>
+<span class="sourceLineNo">390</span>        private boolean isAffected (List&lt;Link&gt; seqLinks , SharedRiskGroup srg)<a name="line.390"></a>
+<span class="sourceLineNo">391</span>        {<a name="line.391"></a>
+<span class="sourceLineNo">392</span>                Set&lt;Link&gt; affectedSeqLink = srg.getAffectedLinks(wdmLayer);<a name="line.392"></a>
+<span class="sourceLineNo">393</span>                affectedSeqLink.retainAll(seqLinks);<a name="line.393"></a>
+<span class="sourceLineNo">394</span>                return !affectedSeqLink.isEmpty();<a name="line.394"></a>
+<span class="sourceLineNo">395</span>        }<a name="line.395"></a>
+<span class="sourceLineNo">396</span>}<a name="line.396"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

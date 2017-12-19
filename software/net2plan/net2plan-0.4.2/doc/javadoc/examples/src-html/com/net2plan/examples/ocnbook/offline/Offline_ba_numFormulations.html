@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span>package com.net2plan.examples.ocnbook.offline;<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.util.List;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.Map;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>import cern.colt.matrix.tdouble.DoubleFactory1D;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import cern.jet.math.tdouble.DoubleFunctions;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>import com.jom.OptimizationProblem;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.utils.InputParameter;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.utils.Triple;<a name="line.27"></a>
+<span class="sourceLineNo">028</span><a name="line.28"></a>
+<span class="sourceLineNo">029</span>/** <a name="line.29"></a>
+<span class="sourceLineNo">030</span> * Solves the congestion control problem using a NUM formulation.<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * @net2plan.description <a name="line.31"></a>
+<span class="sourceLineNo">032</span> * @net2plan.keywords Bandwidth assignment (BA), JOM, NUM, TCP<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * @net2plan.ocnbooksections Section 6.2, Section 6.3<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * @net2plan.inputParameters <a name="line.34"></a>
+<span class="sourceLineNo">035</span> * @author Pablo Pavon-Marino<a name="line.35"></a>
+<span class="sourceLineNo">036</span> */<a name="line.36"></a>
+<span class="sourceLineNo">037</span>public class Offline_ba_numFormulations implements IAlgorithm<a name="line.37"></a>
+<span class="sourceLineNo">038</span>{<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        private InputParameter shortestPathType = new InputParameter ("shortestPathType", "#select# hops km" , "Criteria to compute the shortest path. Valid values: 'hops' or 'km'");<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        private InputParameter alphaFairnessFactor = new InputParameter ("alphaFairnessFactor", (double) 2 , "Fairness alpha factor" , 0 , true , Double.MAX_VALUE , true);<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        private InputParameter utilityFunctionType = new InputParameter ("utilityFunctionType", "#select# alphaFairness TCP-Reno TCP-Vegas", "The type of utility function of each demand, in the NUM problem to solve: standard alpha-fairness (alpha parameter is given by alphaFairnessFactor), an utility function suitable for TCP-Reno NUM model (each demand is a TCP connection) and the same for TCP-Vegas");<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        private InputParameter solverName = new InputParameter ("solverName", "#select# glpk ipopt xpress cplex", "The solver name to be used by JOM. GLPK and IPOPT are free, XPRESS and CPLEX commercial. GLPK, XPRESS and CPLEX solve linear problems w/w.o integer contraints. IPOPT is can solve nonlinear problems (if convex, returns global optimum), but cannot handle integer constraints");<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        private InputParameter solverLibraryName = new InputParameter ("solverLibraryName", "" , "The solver library full or relative path, to be used by JOM. Leave blank to use JOM default.");<a name="line.43"></a>
+<span class="sourceLineNo">044</span>        private InputParameter maxSolverTimeInSeconds = new InputParameter ("maxSolverTimeInSeconds", (double) -1 , "Maximum time granted to the solver to solve the problem. If this time expires, the solver returns the best solution found so far (if a feasible solution is found)");<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        <a name="line.45"></a>
+<span class="sourceLineNo">046</span>        @Override<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        {<a name="line.48"></a>
+<span class="sourceLineNo">049</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.49"></a>
+<span class="sourceLineNo">050</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.50"></a>
+<span class="sourceLineNo">051</span>                if (!shortestPathType.getString().equalsIgnoreCase("km") &amp;&amp; !shortestPathType.getString().equalsIgnoreCase("hops"))<a name="line.51"></a>
+<span class="sourceLineNo">052</span>                        throw new Net2PlanException("Wrong shortestPathType parameter");<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                <a name="line.53"></a>
+<span class="sourceLineNo">054</span>                /* Initialize variables */<a name="line.54"></a>
+<span class="sourceLineNo">055</span>                final int E = netPlan.getNumberOfLinks();<a name="line.55"></a>
+<span class="sourceLineNo">056</span>                final int D = netPlan.getNumberOfDemands();<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                final double PRECISION_FACTOR = Double.parseDouble(net2planParameters.get("precisionFactor"));<a name="line.57"></a>
+<span class="sourceLineNo">058</span>                if (E == 0 || D == 0) throw new Net2PlanException("This algorithm requires a topology with links and a demand set");<a name="line.58"></a>
+<span class="sourceLineNo">059</span><a name="line.59"></a>
+<span class="sourceLineNo">060</span>                /* Remove all unicast routed traffic. Any multicast routed traffic is kept */<a name="line.60"></a>
+<span class="sourceLineNo">061</span>                netPlan.removeAllUnicastRoutingInformation();<a name="line.61"></a>
+<span class="sourceLineNo">062</span>                netPlan.setRoutingType(RoutingType.SOURCE_ROUTING);<a name="line.62"></a>
+<span class="sourceLineNo">063</span><a name="line.63"></a>
+<span class="sourceLineNo">064</span>                /* Add all the k-shortest candidate routes to the netPlan object carrying no traffic */<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                final DoubleMatrix1D linkCostVector = shortestPathType.getString().equalsIgnoreCase("hops")? DoubleFactory1D.dense.make (E , 1.0) : netPlan.getVectorLinkLengthInKm();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                netPlan.addRoutesFromCandidatePathList(linkCostVector.toArray() , "K", "1"); // one route per demand, so P equals D<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                final int P = netPlan.getNumberOfRoutes(); <a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>                /* Create the optimization problem object (JOM library) */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                OptimizationProblem op = new OptimizationProblem();<a name="line.70"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>                /* Set some input parameters to the problem */<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                op.setInputParameter("u_e", netPlan.getVectorLinkSpareCapacity(), "row"); /* for each link, its unused capacity (the one not used by any mulitcast trees) */<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                op.setInputParameter("A_ep", netPlan.getMatrixLink2RouteAssignment()); /* 1 in position (e,p) if link e is traversed by path p, 0 otherwise */<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                op.addDecisionVariable("h_p", false , new int[] { 1, P }, 0, Double.MAX_VALUE); /* the traffic carried by the demand in the macroscopic equilibrium */<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                op.addConstraint("A_ep * h_p' &lt;= u_e'" , "pi_e"); // the capacity constraints (E constraints)<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>                /* Write the problem formulations */<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                if (utilityFunctionType.getString ().equals ("alphaFairness")) <a name="line.79"></a>
+<span class="sourceLineNo">080</span>                {<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                        op.setInputParameter("oneMinusAlpha", 1-alphaFairnessFactor.getDouble());<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                        if (alphaFairnessFactor.getDouble() == 1)<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                    op.setObjectiveFunction("maximize", "sum(ln(h_p))");<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                        else if (alphaFairnessFactor.getDouble() == 0)<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                            op.setObjectiveFunction("maximize", "sum(h_p)");<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                        else<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                            op.setObjectiveFunction("maximize", "(1/oneMinusAlpha) * sum(h_p ^ oneMinusAlpha)");<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        <a name="line.88"></a>
+<span class="sourceLineNo">089</span>                }<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                else if (utilityFunctionType.getString ().equals ("TCP-Reno"))<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                {<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                        op.setInputParameter("rtt_p", netPlan.getVectorRoutePropagationDelayInMiliseconds().assign (DoubleFunctions.mult (2)) , "row"); /* round-trip-time in miliseconds for each connection */<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                        op.setObjectiveFunction("maximize", "sum (-1.5 / (rtt_p .* h_p))");<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                }<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                else if (utilityFunctionType.getString ().equals ("TCP-Vegas"))<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                {<a name="line.96"></a>
+<span class="sourceLineNo">097</span>            op.setObjectiveFunction("maximize", "sum(ln(h_p))");<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                }<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                else throw new Net2PlanException ("Unknown optimization target " + utilityFunctionType.getString());<a name="line.99"></a>
+<span class="sourceLineNo">100</span><a name="line.100"></a>
+<span class="sourceLineNo">101</span>                /* Call the solver to solve the problem */<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                op.solve(solverName.getString (), "solverLibraryName", solverLibraryName.getString () ,  "maxSolverTimeInSeconds" , maxSolverTimeInSeconds.getDouble ());<a name="line.102"></a>
+<span class="sourceLineNo">103</span><a name="line.103"></a>
+<span class="sourceLineNo">104</span>                /* If no solution is found, quit */<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                if (op.feasibleSolutionDoesNotExist()) throw new Net2PlanException("The problem has no feasible solution");<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                if (op.foundUnboundedSolution()) throw new Net2PlanException ("Found an unbounded solution");<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                if (!op.solutionIsFeasible()) throw new Net2PlanException("A feasible solution was not found");<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                <a name="line.108"></a>
+<span class="sourceLineNo">109</span>                /* Save the solution found in the netPlan object */<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                final DoubleMatrix1D h_p = op.getPrimalSolution("h_p").view1D();<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                netPlan.setVectorRouteCarriedTrafficAndOccupiedLinkCapacities(h_p , h_p);<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                for (Demand d : netPlan.getDemands ()) d.setOfferedTraffic(d.getCarriedTraffic()); // make the offered traffic equal to the carried traffic<a name="line.112"></a>
+<span class="sourceLineNo">113</span><a name="line.113"></a>
+<span class="sourceLineNo">114</span>                System.out.println ("Total carried traffic: " + netPlan.getVectorDemandOfferedTraffic().zSum());<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                System.out.println ("Network utility: " + op.getOptimalCost());<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                <a name="line.116"></a>
+<span class="sourceLineNo">117</span>                return "Ok!: The solution found is guaranteed to be optimal: " + op.solutionIsOptimal() + ". Total carried traffic: " + netPlan.getVectorDemandOfferedTraffic().zSum() + ", Network utility: " + op.getOptimalCost();<a name="line.117"></a>
+<span class="sourceLineNo">118</span>        }<a name="line.118"></a>
+<span class="sourceLineNo">119</span><a name="line.119"></a>
+<span class="sourceLineNo">120</span>        @Override<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        public String getDescription()<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                return "Given a network topology, the capacities in the links, and the set of unicast demands, this algorithm assigns the shortest path route to each demand, then optimizes the traffic to inject by each demand (that is, assigns bandwidth), with different optimization targets based on some form of fairness in resource allocation";<a name="line.123"></a>
+<span class="sourceLineNo">124</span>        }<a name="line.124"></a>
+<span class="sourceLineNo">125</span><a name="line.125"></a>
+<span class="sourceLineNo">126</span>        <a name="line.126"></a>
+<span class="sourceLineNo">127</span>        @Override<a name="line.127"></a>
+<span class="sourceLineNo">128</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.128"></a>
+<span class="sourceLineNo">129</span>        {<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.131"></a>
+<span class="sourceLineNo">132</span>        }<a name="line.132"></a>
+<span class="sourceLineNo">133</span>}<a name="line.133"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

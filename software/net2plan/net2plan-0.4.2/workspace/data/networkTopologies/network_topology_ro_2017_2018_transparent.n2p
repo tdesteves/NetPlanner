@@ -1,0 +1,728 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<network description="" name="" version="4">
+	<node id="2" xCoord="158.0" yCoord="-288.0" name="Node 1" isUp="true"/>
+	<node id="3" xCoord="267.0" yCoord="-186.0" name="Node 2" isUp="true"/>
+	<node id="4" xCoord="464.0" yCoord="-187.0" name="Node 3" isUp="true"/>
+	<node id="5" xCoord="589.0" yCoord="-280.0" name="Node 4" isUp="true"/>
+	<node id="6" xCoord="467.0" yCoord="-398.0" name="Node 5" isUp="true"/>
+	<node id="7" xCoord="262.0" yCoord="-398.0" name="Node 6" isUp="true"/>
+	<layer id="1" name="Physical Topology" description="" linkCapacityUnitsName="" demandTrafficUnitsName="">
+		<link id="8" originNodeId="2" destinationNodeId="3" capacity="640.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="8"/>
+		</link>
+		<link id="9" originNodeId="3" destinationNodeId="2" capacity="640.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="8"/>
+		</link>
+		<link id="10" originNodeId="3" destinationNodeId="4" capacity="800.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="10"/>
+		</link>
+		<link id="11" originNodeId="4" destinationNodeId="3" capacity="800.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="10"/>
+		</link>
+		<link id="12" originNodeId="4" destinationNodeId="5" capacity="400.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="5"/>
+		</link>
+		<link id="13" originNodeId="5" destinationNodeId="4" capacity="400.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="5"/>
+		</link>
+		<link id="14" originNodeId="5" destinationNodeId="6" capacity="400.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="5"/>
+		</link>
+		<link id="15" originNodeId="6" destinationNodeId="5" capacity="400.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="5"/>
+		</link>
+		<link id="16" originNodeId="6" destinationNodeId="4" capacity="720.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="9"/>
+		</link>
+		<link id="17" originNodeId="4" destinationNodeId="6" capacity="720.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="9"/>
+		</link>
+		<link id="18" originNodeId="6" destinationNodeId="7" capacity="800.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="10"/>
+		</link>
+		<link id="19" originNodeId="7" destinationNodeId="6" capacity="800.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="10"/>
+		</link>
+		<link id="20" originNodeId="7" destinationNodeId="3" capacity="960.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="12"/>
+		</link>
+		<link id="21" originNodeId="3" destinationNodeId="7" capacity="960.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="12"/>
+		</link>
+		<link id="22" originNodeId="7" destinationNodeId="2" capacity="640.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="8"/>
+		</link>
+		<link id="23" originNodeId="2" destinationNodeId="7" capacity="640.0" lengthInKm="100.0" propagationSpeedInKmPerSecond="200000.0" isUp="true">
+			<attribute key="nW" value="8"/>
+		</link>
+		<demand id="55" ingressNodeId="2" egressNodeId="3" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="56" ingressNodeId="2" egressNodeId="4" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="57" ingressNodeId="2" egressNodeId="5" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="58" ingressNodeId="2" egressNodeId="6" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="59" ingressNodeId="2" egressNodeId="7" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="60" ingressNodeId="3" egressNodeId="2" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="61" ingressNodeId="3" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="62" ingressNodeId="3" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="63" ingressNodeId="3" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="64" ingressNodeId="3" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="65" ingressNodeId="4" egressNodeId="2" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="66" ingressNodeId="4" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="67" ingressNodeId="4" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="68" ingressNodeId="4" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="69" ingressNodeId="4" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="70" ingressNodeId="5" egressNodeId="2" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="71" ingressNodeId="5" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="72" ingressNodeId="5" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="73" ingressNodeId="5" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="74" ingressNodeId="5" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="75" ingressNodeId="6" egressNodeId="2" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="76" ingressNodeId="6" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="77" ingressNodeId="6" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="78" ingressNodeId="6" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="79" ingressNodeId="6" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="80" ingressNodeId="7" egressNodeId="2" offeredTraffic="10.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="81" ingressNodeId="7" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="82" ingressNodeId="7" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="83" ingressNodeId="7" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="84" ingressNodeId="7" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="0"/>
+		</demand>
+		<demand id="85" ingressNodeId="2" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="86" ingressNodeId="2" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="87" ingressNodeId="2" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="88" ingressNodeId="2" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="89" ingressNodeId="2" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="90" ingressNodeId="3" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="91" ingressNodeId="3" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="92" ingressNodeId="3" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="93" ingressNodeId="3" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="94" ingressNodeId="3" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="95" ingressNodeId="4" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="96" ingressNodeId="4" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="97" ingressNodeId="4" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="98" ingressNodeId="4" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="99" ingressNodeId="4" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="100" ingressNodeId="5" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="101" ingressNodeId="5" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="102" ingressNodeId="5" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="103" ingressNodeId="5" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="104" ingressNodeId="5" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="105" ingressNodeId="6" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="106" ingressNodeId="6" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="107" ingressNodeId="6" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="108" ingressNodeId="6" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="109" ingressNodeId="6" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="110" ingressNodeId="7" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="111" ingressNodeId="7" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="112" ingressNodeId="7" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="113" ingressNodeId="7" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="114" ingressNodeId="7" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="1"/>
+		</demand>
+		<demand id="115" ingressNodeId="2" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="116" ingressNodeId="2" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="117" ingressNodeId="2" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="118" ingressNodeId="2" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="119" ingressNodeId="2" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="120" ingressNodeId="3" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="121" ingressNodeId="3" egressNodeId="4" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="122" ingressNodeId="3" egressNodeId="5" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="123" ingressNodeId="3" egressNodeId="6" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="124" ingressNodeId="3" egressNodeId="7" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="125" ingressNodeId="4" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="126" ingressNodeId="4" egressNodeId="3" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="127" ingressNodeId="4" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="128" ingressNodeId="4" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="129" ingressNodeId="4" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="130" ingressNodeId="5" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="131" ingressNodeId="5" egressNodeId="3" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="132" ingressNodeId="5" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="133" ingressNodeId="5" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="134" ingressNodeId="5" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="135" ingressNodeId="6" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="136" ingressNodeId="6" egressNodeId="3" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="137" ingressNodeId="6" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="138" ingressNodeId="6" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="139" ingressNodeId="6" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="140" ingressNodeId="7" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="141" ingressNodeId="7" egressNodeId="3" offeredTraffic="40.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="142" ingressNodeId="7" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="143" ingressNodeId="7" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="144" ingressNodeId="7" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="2"/>
+		</demand>
+		<demand id="145" ingressNodeId="2" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="146" ingressNodeId="2" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="147" ingressNodeId="2" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="148" ingressNodeId="2" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="149" ingressNodeId="2" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="150" ingressNodeId="3" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="151" ingressNodeId="3" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="152" ingressNodeId="3" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="153" ingressNodeId="3" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="154" ingressNodeId="3" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="155" ingressNodeId="4" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="156" ingressNodeId="4" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="157" ingressNodeId="4" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="158" ingressNodeId="4" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="159" ingressNodeId="4" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="160" ingressNodeId="5" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="161" ingressNodeId="5" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="162" ingressNodeId="5" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="163" ingressNodeId="5" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="164" ingressNodeId="5" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="165" ingressNodeId="6" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="166" ingressNodeId="6" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="167" ingressNodeId="6" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="168" ingressNodeId="6" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="169" ingressNodeId="6" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="170" ingressNodeId="7" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="171" ingressNodeId="7" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="172" ingressNodeId="7" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="173" ingressNodeId="7" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="174" ingressNodeId="7" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="3"/>
+		</demand>
+		<demand id="175" ingressNodeId="2" egressNodeId="3" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="176" ingressNodeId="2" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="177" ingressNodeId="2" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="178" ingressNodeId="2" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="179" ingressNodeId="2" egressNodeId="7" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="180" ingressNodeId="3" egressNodeId="2" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="181" ingressNodeId="3" egressNodeId="4" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="182" ingressNodeId="3" egressNodeId="5" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="183" ingressNodeId="3" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="184" ingressNodeId="3" egressNodeId="7" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="185" ingressNodeId="4" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="186" ingressNodeId="4" egressNodeId="3" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="187" ingressNodeId="4" egressNodeId="5" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="188" ingressNodeId="4" egressNodeId="6" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="189" ingressNodeId="4" egressNodeId="7" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="190" ingressNodeId="5" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="191" ingressNodeId="5" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="192" ingressNodeId="5" egressNodeId="4" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="193" ingressNodeId="5" egressNodeId="6" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="194" ingressNodeId="5" egressNodeId="7" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="195" ingressNodeId="6" egressNodeId="2" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="196" ingressNodeId="6" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="197" ingressNodeId="6" egressNodeId="4" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="198" ingressNodeId="6" egressNodeId="5" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="199" ingressNodeId="6" egressNodeId="7" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="200" ingressNodeId="7" egressNodeId="2" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="201" ingressNodeId="7" egressNodeId="3" offeredTraffic="0.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="202" ingressNodeId="7" egressNodeId="4" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="203" ingressNodeId="7" egressNodeId="5" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<demand id="204" ingressNodeId="7" egressNodeId="6" offeredTraffic="80.0">
+			<attribute key="ODU" value="4"/>
+		</demand>
+		<sourceRouting>
+			<protectionSegment id="1866" reservedCapacity="10.0" seqLinks="23 20"/>
+			<protectionSegment id="1867" reservedCapacity="10.0" seqLinks="23 19 16"/>
+			<protectionSegment id="1868" reservedCapacity="10.0" seqLinks="23 19 15"/>
+			<protectionSegment id="1869" reservedCapacity="10.0" seqLinks="8 10 17"/>
+			<protectionSegment id="1870" reservedCapacity="10.0" seqLinks="8 21"/>
+			<protectionSegment id="1871" reservedCapacity="10.0" seqLinks="21 22"/>
+			<protectionSegment id="1872" reservedCapacity="0.0" seqLinks="21 19 16"/>
+			<protectionSegment id="1873" reservedCapacity="0.0" seqLinks="21 19 15"/>
+			<protectionSegment id="1874" reservedCapacity="0.0" seqLinks="10 17"/>
+			<protectionSegment id="1875" reservedCapacity="0.0" seqLinks="9 23"/>
+			<protectionSegment id="1876" reservedCapacity="10.0" seqLinks="17 18 22"/>
+			<protectionSegment id="1877" reservedCapacity="0.0" seqLinks="17 18 20"/>
+			<protectionSegment id="1878" reservedCapacity="0.0" seqLinks="17 15"/>
+			<protectionSegment id="1879" reservedCapacity="0.0" seqLinks="12 14"/>
+			<protectionSegment id="1880" reservedCapacity="0.0" seqLinks="17 18"/>
+			<protectionSegment id="1881" reservedCapacity="10.0" seqLinks="14 18 22"/>
+			<protectionSegment id="1882" reservedCapacity="0.0" seqLinks="14 18 20"/>
+			<protectionSegment id="1883" reservedCapacity="0.0" seqLinks="14 16"/>
+			<protectionSegment id="1884" reservedCapacity="0.0" seqLinks="13 17"/>
+			<protectionSegment id="1885" reservedCapacity="0.0" seqLinks="13 11 21"/>
+			<protectionSegment id="1886" reservedCapacity="10.0" seqLinks="16 11 9"/>
+			<protectionSegment id="1887" reservedCapacity="0.0" seqLinks="16 11"/>
+			<protectionSegment id="1888" reservedCapacity="0.0" seqLinks="15 13"/>
+			<protectionSegment id="1889" reservedCapacity="0.0" seqLinks="16 12"/>
+			<protectionSegment id="1890" reservedCapacity="0.0" seqLinks="16 11 21"/>
+			<protectionSegment id="1891" reservedCapacity="10.0" seqLinks="20 9"/>
+			<protectionSegment id="1892" reservedCapacity="0.0" seqLinks="22 8"/>
+			<protectionSegment id="1893" reservedCapacity="0.0" seqLinks="20 10"/>
+			<protectionSegment id="1894" reservedCapacity="0.0" seqLinks="20 10 12"/>
+			<protectionSegment id="1895" reservedCapacity="0.0" seqLinks="20 10 17"/>
+			<protectionSegment id="1896" reservedCapacity="0.0" seqLinks="23 20"/>
+			<protectionSegment id="1897" reservedCapacity="0.0" seqLinks="23 19 16"/>
+			<protectionSegment id="1898" reservedCapacity="0.0" seqLinks="23 19 15"/>
+			<protectionSegment id="1899" reservedCapacity="0.0" seqLinks="8 10 17"/>
+			<protectionSegment id="1900" reservedCapacity="0.0" seqLinks="8 21"/>
+			<protectionSegment id="1901" reservedCapacity="0.0" seqLinks="21 22"/>
+			<protectionSegment id="1902" reservedCapacity="0.0" seqLinks="21 19 16"/>
+			<protectionSegment id="1903" reservedCapacity="0.0" seqLinks="21 19 15"/>
+			<protectionSegment id="1904" reservedCapacity="0.0" seqLinks="10 17"/>
+			<protectionSegment id="1905" reservedCapacity="0.0" seqLinks="9 23"/>
+			<protectionSegment id="1906" reservedCapacity="0.0" seqLinks="17 18 22"/>
+			<protectionSegment id="1907" reservedCapacity="0.0" seqLinks="17 18 20"/>
+			<protectionSegment id="1908" reservedCapacity="0.0" seqLinks="17 15"/>
+			<protectionSegment id="1909" reservedCapacity="0.0" seqLinks="12 14"/>
+			<protectionSegment id="1910" reservedCapacity="0.0" seqLinks="17 18"/>
+			<protectionSegment id="1911" reservedCapacity="0.0" seqLinks="14 18 22"/>
+			<protectionSegment id="1912" reservedCapacity="0.0" seqLinks="14 18 20"/>
+			<protectionSegment id="1913" reservedCapacity="0.0" seqLinks="14 16"/>
+			<protectionSegment id="1914" reservedCapacity="0.0" seqLinks="13 17"/>
+			<protectionSegment id="1915" reservedCapacity="0.0" seqLinks="13 11 21"/>
+			<protectionSegment id="1916" reservedCapacity="0.0" seqLinks="16 11 9"/>
+			<protectionSegment id="1917" reservedCapacity="0.0" seqLinks="16 11"/>
+			<protectionSegment id="1918" reservedCapacity="0.0" seqLinks="15 13"/>
+			<protectionSegment id="1919" reservedCapacity="0.0" seqLinks="16 12"/>
+			<protectionSegment id="1920" reservedCapacity="0.0" seqLinks="16 11 21"/>
+			<protectionSegment id="1921" reservedCapacity="0.0" seqLinks="20 9"/>
+			<protectionSegment id="1922" reservedCapacity="0.0" seqLinks="22 8"/>
+			<protectionSegment id="1923" reservedCapacity="0.0" seqLinks="20 10"/>
+			<protectionSegment id="1924" reservedCapacity="0.0" seqLinks="20 10 12"/>
+			<protectionSegment id="1925" reservedCapacity="0.0" seqLinks="20 10 17"/>
+			<protectionSegment id="1926" reservedCapacity="0.0" seqLinks="23 20"/>
+			<protectionSegment id="1927" reservedCapacity="0.0" seqLinks="23 19 16"/>
+			<protectionSegment id="1928" reservedCapacity="0.0" seqLinks="23 19 15"/>
+			<protectionSegment id="1929" reservedCapacity="0.0" seqLinks="8 10 17"/>
+			<protectionSegment id="1930" reservedCapacity="0.0" seqLinks="8 21"/>
+			<protectionSegment id="1931" reservedCapacity="0.0" seqLinks="21 22"/>
+			<protectionSegment id="1932" reservedCapacity="40.0" seqLinks="21 19 16"/>
+			<protectionSegment id="1933" reservedCapacity="40.0" seqLinks="21 19 15"/>
+			<protectionSegment id="1934" reservedCapacity="40.0" seqLinks="10 17"/>
+			<protectionSegment id="1935" reservedCapacity="40.0" seqLinks="9 23"/>
+			<protectionSegment id="1936" reservedCapacity="0.0" seqLinks="17 18 22"/>
+			<protectionSegment id="1937" reservedCapacity="40.0" seqLinks="17 18 20"/>
+			<protectionSegment id="1938" reservedCapacity="0.0" seqLinks="17 15"/>
+			<protectionSegment id="1939" reservedCapacity="0.0" seqLinks="12 14"/>
+			<protectionSegment id="1940" reservedCapacity="0.0" seqLinks="17 18"/>
+			<protectionSegment id="1941" reservedCapacity="0.0" seqLinks="14 18 22"/>
+			<protectionSegment id="1942" reservedCapacity="40.0" seqLinks="14 18 20"/>
+			<protectionSegment id="1943" reservedCapacity="0.0" seqLinks="14 16"/>
+			<protectionSegment id="1944" reservedCapacity="0.0" seqLinks="13 17"/>
+			<protectionSegment id="1945" reservedCapacity="0.0" seqLinks="13 11 21"/>
+			<protectionSegment id="1946" reservedCapacity="0.0" seqLinks="16 11 9"/>
+			<protectionSegment id="1947" reservedCapacity="40.0" seqLinks="16 11"/>
+			<protectionSegment id="1948" reservedCapacity="0.0" seqLinks="15 13"/>
+			<protectionSegment id="1949" reservedCapacity="0.0" seqLinks="16 12"/>
+			<protectionSegment id="1950" reservedCapacity="0.0" seqLinks="16 11 21"/>
+			<protectionSegment id="1951" reservedCapacity="0.0" seqLinks="20 9"/>
+			<protectionSegment id="1952" reservedCapacity="40.0" seqLinks="22 8"/>
+			<protectionSegment id="1953" reservedCapacity="0.0" seqLinks="20 10"/>
+			<protectionSegment id="1954" reservedCapacity="0.0" seqLinks="20 10 12"/>
+			<protectionSegment id="1955" reservedCapacity="0.0" seqLinks="20 10 17"/>
+			<protectionSegment id="1956" reservedCapacity="0.0" seqLinks="23 20"/>
+			<protectionSegment id="1957" reservedCapacity="0.0" seqLinks="23 19 16"/>
+			<protectionSegment id="1958" reservedCapacity="0.0" seqLinks="23 19 15"/>
+			<protectionSegment id="1959" reservedCapacity="0.0" seqLinks="8 10 17"/>
+			<protectionSegment id="1960" reservedCapacity="0.0" seqLinks="8 21"/>
+			<protectionSegment id="1961" reservedCapacity="0.0" seqLinks="21 22"/>
+			<protectionSegment id="1962" reservedCapacity="0.0" seqLinks="21 19 16"/>
+			<protectionSegment id="1963" reservedCapacity="0.0" seqLinks="21 19 15"/>
+			<protectionSegment id="1964" reservedCapacity="0.0" seqLinks="10 17"/>
+			<protectionSegment id="1965" reservedCapacity="0.0" seqLinks="9 23"/>
+			<protectionSegment id="1966" reservedCapacity="0.0" seqLinks="17 18 22"/>
+			<protectionSegment id="1967" reservedCapacity="0.0" seqLinks="17 18 20"/>
+			<protectionSegment id="1968" reservedCapacity="0.0" seqLinks="17 15"/>
+			<protectionSegment id="1969" reservedCapacity="0.0" seqLinks="12 14"/>
+			<protectionSegment id="1970" reservedCapacity="0.0" seqLinks="17 18"/>
+			<protectionSegment id="1971" reservedCapacity="0.0" seqLinks="14 18 22"/>
+			<protectionSegment id="1972" reservedCapacity="0.0" seqLinks="14 18 20"/>
+			<protectionSegment id="1973" reservedCapacity="0.0" seqLinks="14 16"/>
+			<protectionSegment id="1974" reservedCapacity="0.0" seqLinks="13 17"/>
+			<protectionSegment id="1975" reservedCapacity="0.0" seqLinks="13 11 21"/>
+			<protectionSegment id="1976" reservedCapacity="0.0" seqLinks="16 11 9"/>
+			<protectionSegment id="1977" reservedCapacity="0.0" seqLinks="16 11"/>
+			<protectionSegment id="1978" reservedCapacity="0.0" seqLinks="15 13"/>
+			<protectionSegment id="1979" reservedCapacity="0.0" seqLinks="16 12"/>
+			<protectionSegment id="1980" reservedCapacity="0.0" seqLinks="16 11 21"/>
+			<protectionSegment id="1981" reservedCapacity="0.0" seqLinks="20 9"/>
+			<protectionSegment id="1982" reservedCapacity="0.0" seqLinks="22 8"/>
+			<protectionSegment id="1983" reservedCapacity="0.0" seqLinks="20 10"/>
+			<protectionSegment id="1984" reservedCapacity="0.0" seqLinks="20 10 12"/>
+			<protectionSegment id="1985" reservedCapacity="0.0" seqLinks="20 10 17"/>
+			<protectionSegment id="1986" reservedCapacity="80.0" seqLinks="23 20"/>
+			<protectionSegment id="1987" reservedCapacity="0.0" seqLinks="23 19 16"/>
+			<protectionSegment id="1988" reservedCapacity="0.0" seqLinks="23 19 15"/>
+			<protectionSegment id="1989" reservedCapacity="0.0" seqLinks="8 10 17"/>
+			<protectionSegment id="1990" reservedCapacity="80.0" seqLinks="8 21"/>
+			<protectionSegment id="1991" reservedCapacity="80.0" seqLinks="21 22"/>
+			<protectionSegment id="1992" reservedCapacity="80.0" seqLinks="21 19 16"/>
+			<protectionSegment id="1993" reservedCapacity="0.0" seqLinks="21 19 15"/>
+			<protectionSegment id="1994" reservedCapacity="0.0" seqLinks="10 17"/>
+			<protectionSegment id="1995" reservedCapacity="0.0" seqLinks="9 23"/>
+			<protectionSegment id="1996" reservedCapacity="0.0" seqLinks="17 18 22"/>
+			<protectionSegment id="1997" reservedCapacity="80.0" seqLinks="17 18 20"/>
+			<protectionSegment id="1998" reservedCapacity="80.0" seqLinks="17 15"/>
+			<protectionSegment id="1999" reservedCapacity="0.0" seqLinks="12 14"/>
+			<protectionSegment id="2000" reservedCapacity="80.0" seqLinks="17 18"/>
+			<protectionSegment id="2001" reservedCapacity="0.0" seqLinks="14 18 22"/>
+			<protectionSegment id="2002" reservedCapacity="0.0" seqLinks="14 18 20"/>
+			<protectionSegment id="2003" reservedCapacity="80.0" seqLinks="14 16"/>
+			<protectionSegment id="2004" reservedCapacity="80.0" seqLinks="13 17"/>
+			<protectionSegment id="2005" reservedCapacity="80.0" seqLinks="13 11 21"/>
+			<protectionSegment id="2006" reservedCapacity="0.0" seqLinks="16 11 9"/>
+			<protectionSegment id="2007" reservedCapacity="0.0" seqLinks="16 11"/>
+			<protectionSegment id="2008" reservedCapacity="0.0" seqLinks="15 13"/>
+			<protectionSegment id="2009" reservedCapacity="80.0" seqLinks="16 12"/>
+			<protectionSegment id="2010" reservedCapacity="80.0" seqLinks="16 11 21"/>
+			<protectionSegment id="2011" reservedCapacity="80.0" seqLinks="20 9"/>
+			<protectionSegment id="2012" reservedCapacity="0.0" seqLinks="22 8"/>
+			<protectionSegment id="2013" reservedCapacity="80.0" seqLinks="20 10"/>
+			<protectionSegment id="2014" reservedCapacity="80.0" seqLinks="20 10 12"/>
+			<protectionSegment id="2015" reservedCapacity="80.0" seqLinks="20 10 17"/>
+			<route id="1132" demandId="59" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="23" currentSeqLinksAndProtectionSegments="23" backupSegmentList="1870"/>
+			<route id="1140" demandId="124" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="21" currentSeqLinksAndProtectionSegments="21" backupSegmentList="1935"/>
+			<route id="1154" demandId="175" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="8" currentSeqLinksAndProtectionSegments="8" backupSegmentList="1986"/>
+			<route id="1188" demandId="58" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="23 19" currentSeqLinksAndProtectionSegments="23 19" backupSegmentList="1869"/>
+			<route id="1217" demandId="57" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="8 10 12" currentSeqLinksAndProtectionSegments="8 10 12" backupSegmentList="1868"/>
+			<route id="1237" demandId="75" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="18 22" currentSeqLinksAndProtectionSegments="18 22" backupSegmentList="1886"/>
+			<route id="1277" demandId="186" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="11" currentSeqLinksAndProtectionSegments="11" backupSegmentList="1997"/>
+			<route id="1311" demandId="55" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="8" currentSeqLinksAndProtectionSegments="8" backupSegmentList="1866"/>
+			<route id="1349" demandId="200" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="22" currentSeqLinksAndProtectionSegments="22" backupSegmentList="2011"/>
+			<route id="1369" demandId="198" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="15" currentSeqLinksAndProtectionSegments="15" backupSegmentList="2009"/>
+			<route id="1402" demandId="189" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="11 21" currentSeqLinksAndProtectionSegments="11 21" backupSegmentList="2000"/>
+			<route id="1422" demandId="194" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="14 18" currentSeqLinksAndProtectionSegments="14 18" backupSegmentList="2005"/>
+			<route id="1432" demandId="199" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="18" currentSeqLinksAndProtectionSegments="18" backupSegmentList="2010"/>
+			<route id="1437" demandId="126" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="11" currentSeqLinksAndProtectionSegments="11" backupSegmentList="1937"/>
+			<route id="1442" demandId="193" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="14" currentSeqLinksAndProtectionSegments="14" backupSegmentList="2004"/>
+			<route id="1450" demandId="141" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="20" currentSeqLinksAndProtectionSegments="20" backupSegmentList="1952"/>
+			<route id="1462" demandId="179" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="23" currentSeqLinksAndProtectionSegments="23" backupSegmentList="1990"/>
+			<route id="1466" demandId="70" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="13 11 9" currentSeqLinksAndProtectionSegments="13 11 9" backupSegmentList="1881"/>
+			<route id="1474" demandId="136" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="18 20" currentSeqLinksAndProtectionSegments="18 20" backupSegmentList="1947"/>
+			<route id="1478" demandId="204" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="19" currentSeqLinksAndProtectionSegments="19" backupSegmentList="2015"/>
+			<route id="1483" demandId="65" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="11 9" currentSeqLinksAndProtectionSegments="11 9" backupSegmentList="1876"/>
+			<route id="1527" demandId="131" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="13 11" currentSeqLinksAndProtectionSegments="13 11" backupSegmentList="1942"/>
+			<route id="1554" demandId="80" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="22" currentSeqLinksAndProtectionSegments="22" backupSegmentList="1891"/>
+			<route id="1567" demandId="56" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="8 10" currentSeqLinksAndProtectionSegments="8 10" backupSegmentList="1867"/>
+			<route id="1585" demandId="121" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="10" currentSeqLinksAndProtectionSegments="10" backupSegmentList="1932"/>
+			<route id="1598" demandId="123" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="21 19" currentSeqLinksAndProtectionSegments="21 19" backupSegmentList="1934"/>
+			<route id="1665" demandId="180" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="9" currentSeqLinksAndProtectionSegments="9" backupSegmentList="1991"/>
+			<route id="1685" demandId="187" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="12" currentSeqLinksAndProtectionSegments="12" backupSegmentList="1998"/>
+			<route id="1708" demandId="202" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="19 16" currentSeqLinksAndProtectionSegments="19 16" backupSegmentList="2013"/>
+			<route id="1712" demandId="181" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="10" currentSeqLinksAndProtectionSegments="10" backupSegmentList="1992"/>
+			<route id="1751" demandId="122" carriedTraffic="40.0" occupiedCapacity="40.0" carriedTrafficIfNotFailing="40.0" occupiedLinkCapacityIfNotFailing="40.0" seqLinks="10 12" currentSeqLinksAndProtectionSegments="10 12" backupSegmentList="1933"/>
+			<route id="1790" demandId="203" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="19 15" currentSeqLinksAndProtectionSegments="19 15" backupSegmentList="2014"/>
+			<route id="1846" demandId="60" carriedTraffic="10.0" occupiedCapacity="10.0" carriedTrafficIfNotFailing="10.0" occupiedLinkCapacityIfNotFailing="10.0" seqLinks="9" currentSeqLinksAndProtectionSegments="9" backupSegmentList="1871"/>
+			<route id="1850" demandId="192" carriedTraffic="80.0" occupiedCapacity="80.0" carriedTrafficIfNotFailing="80.0" occupiedLinkCapacityIfNotFailing="80.0" seqLinks="13" currentSeqLinksAndProtectionSegments="13" backupSegmentList="2003"/>
+		</sourceRouting>
+	</layer>
+	<layer id="205" name="Logical Topology Transparent" description="Upper layer of the design" linkCapacityUnitsName="ODU" demandTrafficUnitsName="ODU">
+		<link id="206" originNodeId="2" destinationNodeId="3" capacity="0.0" lengthInKm="149.2816130673835" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="207" originNodeId="2" destinationNodeId="4" capacity="0.0" lengthInKm="322.2374900597384" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="208" originNodeId="2" destinationNodeId="5" capacity="0.0" lengthInKm="431.07423954581185" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="209" originNodeId="2" destinationNodeId="6" capacity="0.0" lengthInKm="327.9954267973869" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="210" originNodeId="2" destinationNodeId="7" capacity="0.0" lengthInKm="151.38031576133008" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="211" originNodeId="3" destinationNodeId="2" capacity="0.0" lengthInKm="149.2816130673835" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="212" originNodeId="3" destinationNodeId="4" capacity="0.0" lengthInKm="197.00253805471644" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="213" originNodeId="3" destinationNodeId="5" capacity="0.0" lengthInKm="335.4400095397089" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="214" originNodeId="3" destinationNodeId="6" capacity="0.0" lengthInKm="291.4515397111499" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="215" originNodeId="3" destinationNodeId="7" capacity="0.0" lengthInKm="212.05895406702354" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="216" originNodeId="4" destinationNodeId="2" capacity="0.0" lengthInKm="322.2374900597384" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="217" originNodeId="4" destinationNodeId="3" capacity="0.0" lengthInKm="197.00253805471644" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="218" originNodeId="4" destinationNodeId="5" capacity="0.0" lengthInKm="155.80115532305913" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="219" originNodeId="4" destinationNodeId="6" capacity="0.0" lengthInKm="211.0213259365034" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="220" originNodeId="4" destinationNodeId="7" capacity="0.0" lengthInKm="292.1044333795706" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="221" originNodeId="5" destinationNodeId="2" capacity="0.0" lengthInKm="431.07423954581185" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="222" originNodeId="5" destinationNodeId="3" capacity="0.0" lengthInKm="335.4400095397089" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="223" originNodeId="5" destinationNodeId="4" capacity="0.0" lengthInKm="155.80115532305913" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="224" originNodeId="5" destinationNodeId="6" capacity="0.0" lengthInKm="169.72919607421701" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="225" originNodeId="5" destinationNodeId="7" capacity="0.0" lengthInKm="347.6391807607422" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="226" originNodeId="6" destinationNodeId="2" capacity="0.0" lengthInKm="327.9954267973869" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="227" originNodeId="6" destinationNodeId="3" capacity="0.0" lengthInKm="291.4515397111499" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="228" originNodeId="6" destinationNodeId="4" capacity="0.0" lengthInKm="211.0213259365034" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="229" originNodeId="6" destinationNodeId="5" capacity="0.0" lengthInKm="169.72919607421701" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="230" originNodeId="6" destinationNodeId="7" capacity="0.0" lengthInKm="205.0" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="231" originNodeId="7" destinationNodeId="2" capacity="0.0" lengthInKm="151.38031576133008" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="232" originNodeId="7" destinationNodeId="3" capacity="0.0" lengthInKm="212.05895406702354" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="233" originNodeId="7" destinationNodeId="4" capacity="0.0" lengthInKm="292.1044333795706" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="234" originNodeId="7" destinationNodeId="5" capacity="0.0" lengthInKm="347.6391807607422" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<link id="235" originNodeId="7" destinationNodeId="6" capacity="0.0" lengthInKm="205.0" propagationSpeedInKmPerSecond="200000.0" isUp="true"/>
+		<sourceRouting/>
+	</layer>
+</network>

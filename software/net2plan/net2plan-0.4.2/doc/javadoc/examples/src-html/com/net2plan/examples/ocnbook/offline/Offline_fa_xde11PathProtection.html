@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span> <a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>package com.net2plan.examples.ocnbook.offline;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.util.ArrayList;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import java.util.Collections;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import java.util.List;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import java.util.Map;<a name="line.23"></a>
+<span class="sourceLineNo">024</span><a name="line.24"></a>
+<span class="sourceLineNo">025</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import cern.colt.matrix.tdouble.DoubleMatrix2D;<a name="line.26"></a>
+<span class="sourceLineNo">027</span><a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.jom.OptimizationProblem;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.interfaces.networkDesign.ProtectionSegment;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.interfaces.networkDesign.Route;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.libraries.GraphUtils;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.net2plan.utils.InputParameter;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import com.net2plan.utils.Triple;<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span>/**<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * Solves several variants of unicast routing problems with 1+1 protection, with flow-link formulations<a name="line.42"></a>
+<span class="sourceLineNo">043</span> * @net2plan.description<a name="line.43"></a>
+<span class="sourceLineNo">044</span> * @net2plan.keywords JOM, Flow-path formulation, Flow assignment (FA), Network recovery: protection<a name="line.44"></a>
+<span class="sourceLineNo">045</span> * @net2plan.ocnbooksections Section 4.3, Section 4.6.6<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * @net2plan.inputParameters <a name="line.46"></a>
+<span class="sourceLineNo">047</span> * @author Pablo Pavon-Marino<a name="line.47"></a>
+<span class="sourceLineNo">048</span> */<a name="line.48"></a>
+<span class="sourceLineNo">049</span>public class Offline_fa_xde11PathProtection implements IAlgorithm<a name="line.49"></a>
+<span class="sourceLineNo">050</span>{<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private InputParameter optimizationTarget = new InputParameter ("optimizationTarget", "#select# min-av-num-hops minimax-link-utilization maximin-link-idle-capacity" , "Type of optimization target. Choose among minimize the average number of hops, minimize the highest link utilization, maximize the lowest link idle capacity");<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private InputParameter solverName = new InputParameter ("solverName", "#select# glpk ipopt xpress cplex", "The solver name to be used by JOM. GLPK and IPOPT are free, XPRESS and CPLEX commercial. GLPK, XPRESS and CPLEX solve linear problems w/w.o integer contraints. IPOPT is can solve nonlinear problems (if convex, returns global optimum), but cannot handle integer constraints");<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private InputParameter solverLibraryName = new InputParameter ("solverLibraryName", "", "The solver library full or relative path, to be used by JOM. Leave blank to use JOM default.");<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        private InputParameter maxSolverTimeInSeconds = new InputParameter ("maxSolverTimeInSeconds", (double) -1 , "Maximum time granted to the solver to solve the problem. If this time expires, the solver returns the best solution found so far (if a feasible solution is found)");<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        private InputParameter type11 = new InputParameter ("type11", "#select# linkDisjoint srgDisjoint" , "Type of 1+1 protection: 1+1 link disjoint (primary and backup paths have no link in common), and 1+1 srg disjoint (primary and backup paths have no SRG in common)");<a name="line.55"></a>
+<span class="sourceLineNo">056</span><a name="line.56"></a>
+<span class="sourceLineNo">057</span>        @Override<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        {<a name="line.59"></a>
+<span class="sourceLineNo">060</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.60"></a>
+<span class="sourceLineNo">061</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.61"></a>
+<span class="sourceLineNo">062</span><a name="line.62"></a>
+<span class="sourceLineNo">063</span>                /* Basic checks */<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                final int N = netPlan.getNumberOfNodes();<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                final int E = netPlan.getNumberOfLinks();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                final int D = netPlan.getNumberOfDemands();<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                if (N == 0 || D == 0 || E == 0) throw new Net2PlanException("This algorithm requires a topology with links, and a demand set");<a name="line.67"></a>
+<span class="sourceLineNo">068</span><a name="line.68"></a>
+<span class="sourceLineNo">069</span>                /* Remove all unicast routed traffic. Any multicast routed traffic is kept */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                netPlan.removeAllUnicastRoutingInformation();<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                netPlan.setRoutingType(RoutingType.SOURCE_ROUTING);<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                <a name="line.72"></a>
+<span class="sourceLineNo">073</span>                /* Initialize some variables */<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                DoubleMatrix1D u_e = netPlan.getVectorLinkSpareCapacity(); // just the unused capacity (some capacity may be used by multicast traffic)<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                DoubleMatrix1D h_d = netPlan.getVectorDemandOfferedTraffic();<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                <a name="line.76"></a>
+<span class="sourceLineNo">077</span>                /* Create the optimization problem object (JOM library) */<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                OptimizationProblem op = new OptimizationProblem();<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                op.setInputParameter("u_e", u_e, "row");<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                op.setInputParameter("h_d", h_d, "row");<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                op.setInputParameter("A_ne", netPlan.getMatrixNodeLinkIncidence());<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                op.setInputParameter("A_nd", netPlan.getMatrixNodeDemandIncidence());<a name="line.82"></a>
+<span class="sourceLineNo">083</span><a name="line.83"></a>
+<span class="sourceLineNo">084</span>                if (type11.getString ().equalsIgnoreCase("linkDisjoint"))<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                {<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                        /* Add the decision variables to the problem */<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                        op.addDecisionVariable("x_de", true, new int[] { D, E }, 0, 1); /* 1 if the primary path of demand d, traverses link e */<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                        op.addDecisionVariable("xx_de", true, new int[] { D, E }, 0, 1);  /* 1 if the backup path of demand d, traverses link e */<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                        <a name="line.89"></a>
+<span class="sourceLineNo">090</span>                        /* Sets the objective function */<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                        if (optimizationTarget.getString ().equalsIgnoreCase("min-av-num-hops"))<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                        {<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                                op.setObjectiveFunction("minimize", "sum (h_d * (x_de + xx_de))");<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                                op.addConstraint("h_d * (x_de + xx_de) &lt;= u_e"); /* the capacity constraints summing primary and backup paths (E constraints) */<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                        }<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                        else if (optimizationTarget.getString ().equalsIgnoreCase("minimax-link-utilization"))<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                        {<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                                op.setInputParameter ("EPSILON" , 1e-4);<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                                op.addDecisionVariable("rho", false, new int[] { 1, 1 }, 0, Double.MAX_VALUE); /* idle capacity in the bottleneck link */<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                                op.setObjectiveFunction("minimize", "rho + EPSILON * sum(x_de + xx_de)");<a name="line.100"></a>
+<span class="sourceLineNo">101</span>                                op.addConstraint("h_d * (x_de + xx_de) &lt;= rho * u_e"); /* the capacity constraints summing primary and backup paths (E constraints), make that rho becomes the worse case link utilization */<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                        }<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                        else if (optimizationTarget.getString ().equalsIgnoreCase("maximin-link-idle-capacity"))<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                        {<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                                op.setInputParameter ("EPSILON" , 1e-4);<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                                op.addDecisionVariable("u", false, new int[] { 1, 1 }, 0, Double.MAX_VALUE); /* idle capacity in the bottleneck link */<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                                op.setObjectiveFunction("maximize", "u - EPSILON * sum(x_de + xx_de)");<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                                op.addConstraint("h_d * (x_de + xx_de) &lt;= u_e - u"); /* the capacity constraints summing primary and backup paths (E constraints) */<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                        }<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                        else throw new Net2PlanException ("Unknown optimization target " + optimizationTarget.getString());<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                        <a name="line.111"></a>
+<span class="sourceLineNo">112</span>                        /* Add constraints */<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                        op.addConstraint("A_ne * (x_de') == A_nd"); /* the flow-conservation constraints for the primary path (NxD constraints) */<a name="line.113"></a>
+<span class="sourceLineNo">114</span>                        op.addConstraint("A_ne * (xx_de') == A_nd"); /* the flow-conservation constraints for the backup path (NxD constraints) */<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                        op.addConstraint("x_de + xx_de &lt;= 1"); /* the primary and backup path are link disjoint (DxE constraints) */<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                }       <a name="line.116"></a>
+<span class="sourceLineNo">117</span>                else if (type11.getString ().equalsIgnoreCase("srgDisjoint"))<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                        final int S = netPlan.getNumberOfSRGs();<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                        if (S == 0) throw new Net2PlanException("No SRG was defined");<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                        <a name="line.121"></a>
+<span class="sourceLineNo">122</span>                        op.setInputParameter("A_es", netPlan.getMatrixLink2SRGAssignment());<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                        op.setInputParameter("E", E);<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                        <a name="line.124"></a>
+<span class="sourceLineNo">125</span>                        /* Add the decision variables to the problem */<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                        op.addDecisionVariable("x_de", true, new int[] { D, E }, 0, 1); /* 1 if the primary path of demand d, traverses link e */<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                        op.addDecisionVariable("xx_de", true, new int[] { D, E }, 0, 1);  /* 1 if the backup path of demand d, traverses link e */<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                        op.addDecisionVariable("u", false, new int[] { 1, 1 }, 0, Double.MAX_VALUE); /* idle capacity in the bottleneck link */<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                        op.addDecisionVariable("x_ds", true, new int[] { D, S }, 0, 1); /* 1 if demand d traverses SRG s in the primary  */<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                        op.addDecisionVariable("xx_ds", true, new int[] { D, S }, 0, 1); /* 1 if demand d traverses SRG s in the backup */<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                        <a name="line.131"></a>
+<span class="sourceLineNo">132</span>                        /* Sets the objective function */<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                        if (optimizationTarget.getString ().equalsIgnoreCase("min-av-num-hops"))<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                        {<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                                op.setObjectiveFunction("minimize", "sum (h_d * (x_de + xx_de))");<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                                op.addConstraint("h_d * (x_de + xx_de) &lt;= u_e"); /* the capacity constraints summing primary and backup paths (E constraints) */<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                        }<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                        else if (optimizationTarget.getString ().equalsIgnoreCase("minimax-link-utilization"))<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                        {<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                                op.setInputParameter ("EPSILON" , 1e-4);<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                                op.addDecisionVariable("rho", false, new int[] { 1, 1 }, 0, Double.MAX_VALUE); /* idle capacity in the bottleneck link */<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                                op.setObjectiveFunction("minimize", "rho + EPSILON * sum(x_de + xx_de)");<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                                op.addConstraint("h_d * (x_de + xx_de) &lt;= rho * u_e"); /* the capacity constraints summing primary and backup paths (E constraints), make that rho becomes the worse case link utilization */<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                        }<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                        else if (optimizationTarget.getString ().equalsIgnoreCase("maximin-link-idle-capacity"))<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                        {<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                                op.setInputParameter ("EPSILON" , 1e-4);<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                                op.addDecisionVariable("u", false, new int[] { 1, 1 }, 0, Double.MAX_VALUE); /* idle capacity in the bottleneck link */<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                                op.setObjectiveFunction("maximize", "u - EPSILON * sum (x_de + xx_de)"); <a name="line.149"></a>
+<span class="sourceLineNo">150</span>                                op.addConstraint("h_d * (x_de + xx_de) &lt;= u_e - u"); /* the capacity constraints summing primary and backup paths (E constraints) */<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                        }<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                        else throw new Net2PlanException ("Unknown optimization target " + optimizationTarget.getString());<a name="line.152"></a>
+<span class="sourceLineNo">153</span><a name="line.153"></a>
+<span class="sourceLineNo">154</span>                        /* Add constraints */<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                        op.addConstraint("A_ne * (x_de') == A_nd"); /* the flow-conservation constraints for the primary path (NxD constraints) */<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                        op.addConstraint("A_ne * (xx_de') == A_nd"); /* the flow-conservation constraints for the backup path (NxD constraints) */<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                        op.addConstraint("h_d * (x_de + xx_de) &lt;= u_e - u"); /* the capacity constraints summing primary and backup paths (E constraints) */<a name="line.157"></a>
+<span class="sourceLineNo">158</span>                        op.addConstraint("E * x_ds &gt;= x_de * A_es"); /* 1 if demand s traverses SRG s in the primary (DxS constraints) */<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                        op.addConstraint("E * xx_ds &gt;= xx_de * A_es"); /* 1 if demand s traverses SRG s in the nackup (DxS constraints) */<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                        op.addConstraint("x_ds + xx_ds &lt;= 1"); /* the primary and backup path are SRG disjoint (DxS constraints) */<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                }<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                else throw new Net2PlanException("Wrong type of 1:1 protection");<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                <a name="line.163"></a>
+<span class="sourceLineNo">164</span>                /* Call the solver to solve the problem */<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                op.solve(solverName.getString (), "solverLibraryName", solverLibraryName.getString () , "maxSolverTimeInSeconds" , maxSolverTimeInSeconds.getDouble ());<a name="line.165"></a>
+<span class="sourceLineNo">166</span><a name="line.166"></a>
+<span class="sourceLineNo">167</span>                /* If no solution is found, quit */<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                if (op.feasibleSolutionDoesNotExist()) throw new Net2PlanException("The problem has no feasible solution");<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                if (!op.solutionIsFeasible()) throw new Net2PlanException("A feasible solution was not found");<a name="line.169"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>                /* Retrieve the optimum solutions */<a name="line.171"></a>
+<span class="sourceLineNo">172</span>                DoubleMatrix2D x_de = op.getPrimalSolution("x_de").view2D();<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                DoubleMatrix2D xx_de = op.getPrimalSolution("xx_de").view2D();<a name="line.173"></a>
+<span class="sourceLineNo">174</span><a name="line.174"></a>
+<span class="sourceLineNo">175</span>                /* Convert the x_de variables into a set of routes for each demand */<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                List&lt;Demand&gt; primary_demands = new ArrayList&lt;Demand&gt;();<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                List&lt;List&lt;Link&gt;&gt; primary_seqLinks = new ArrayList&lt;List&lt;Link&gt;&gt;();<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                List&lt;Double&gt; primary_x_p = new ArrayList&lt;Double&gt;();<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                GraphUtils.convert_xde2xp(netPlan.getNodes (), netPlan.getLinks () , netPlan.getDemands () , x_de, primary_demands, primary_x_p, primary_seqLinks);<a name="line.179"></a>
+<span class="sourceLineNo">180</span>                <a name="line.180"></a>
+<span class="sourceLineNo">181</span>                List&lt;Demand&gt; backup_demands = new ArrayList&lt;Demand&gt;();<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                List&lt;List&lt;Link&gt;&gt; backup_seqLinks = new ArrayList&lt;List&lt;Link&gt;&gt;();<a name="line.182"></a>
+<span class="sourceLineNo">183</span>                List&lt;Double&gt; backup_x_p = new ArrayList&lt;Double&gt;();<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                GraphUtils.convert_xde2xp(netPlan.getNodes (), netPlan.getLinks () , netPlan.getDemands () , xx_de, backup_demands, backup_x_p, backup_seqLinks);<a name="line.184"></a>
+<span class="sourceLineNo">185</span><a name="line.185"></a>
+<span class="sourceLineNo">186</span>                /* Update netPlan object adding the calculated routes */<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                if (primary_demands.size() != D) throw new Net2PlanException("Unexpected error");<a name="line.187"></a>
+<span class="sourceLineNo">188</span>                if (backup_demands.size() != D) throw new Net2PlanException("Unexpected error");<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                <a name="line.189"></a>
+<span class="sourceLineNo">190</span>                for (Demand demand : netPlan.getDemands())<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                {<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                        /* for each demand, there is one primary and one backup path*/<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                        int primary_p = primary_demands.indexOf(demand);<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                        if (primary_p == -1) throw new RuntimeException("Unexpected error");<a name="line.194"></a>
+<span class="sourceLineNo">195</span><a name="line.195"></a>
+<span class="sourceLineNo">196</span>                        int backup_p = backup_demands.indexOf(demand);<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                        if (backup_p == -1) throw new RuntimeException("Unexpected error");<a name="line.197"></a>
+<span class="sourceLineNo">198</span>                        <a name="line.198"></a>
+<span class="sourceLineNo">199</span>                        Route route = netPlan.addRoute(demand , demand.getOfferedTraffic() , demand.getOfferedTraffic() , primary_seqLinks.get(primary_p), null); /* add the primary route (primary path) */<a name="line.199"></a>
+<span class="sourceLineNo">200</span>                        ProtectionSegment segment = netPlan.addProtectionSegment(backup_seqLinks.get(backup_p), demand.getOfferedTraffic(), null); /* add the protection segment (backup path) */<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                        route.addProtectionSegment(segment);<a name="line.201"></a>
+<span class="sourceLineNo">202</span>                }<a name="line.202"></a>
+<span class="sourceLineNo">203</span><a name="line.203"></a>
+<span class="sourceLineNo">204</span>                checkSolution(netPlan, type11.getString ());<a name="line.204"></a>
+<span class="sourceLineNo">205</span><a name="line.205"></a>
+<span class="sourceLineNo">206</span>                return "Ok!";<a name="line.206"></a>
+<span class="sourceLineNo">207</span>        }<a name="line.207"></a>
+<span class="sourceLineNo">208</span><a name="line.208"></a>
+<span class="sourceLineNo">209</span>        @Override<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        public String getDescription()<a name="line.210"></a>
+<span class="sourceLineNo">211</span>        {<a name="line.211"></a>
+<span class="sourceLineNo">212</span>                return "Given a network topology, the capacities in the links, and a set unicast traffic demands, this algorithm permits computing the optimum routing of the traffic with 1+1 protection to each route, solving a variations of the flow-link formulation. Through a set of input parameters, the user can choose among different optimization targets and constraints.";<a name="line.212"></a>
+<span class="sourceLineNo">213</span>        }<a name="line.213"></a>
+<span class="sourceLineNo">214</span><a name="line.214"></a>
+<span class="sourceLineNo">215</span>        @Override<a name="line.215"></a>
+<span class="sourceLineNo">216</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.216"></a>
+<span class="sourceLineNo">217</span>        {<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.219"></a>
+<span class="sourceLineNo">220</span>        }<a name="line.220"></a>
+<span class="sourceLineNo">221</span>        <a name="line.221"></a>
+<span class="sourceLineNo">222</span>        /**<a name="line.222"></a>
+<span class="sourceLineNo">223</span>         * Checks if solution is valid.<a name="line.223"></a>
+<span class="sourceLineNo">224</span>         * <a name="line.224"></a>
+<span class="sourceLineNo">225</span>         * @param netPlan Network design<a name="line.225"></a>
+<span class="sourceLineNo">226</span>         * @param type11 Type of 1:1 protection<a name="line.226"></a>
+<span class="sourceLineNo">227</span>         * @since 1.1<a name="line.227"></a>
+<span class="sourceLineNo">228</span>         */<a name="line.228"></a>
+<span class="sourceLineNo">229</span>        private static void checkSolution(NetPlan netPlan, String type11)<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        {<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                if (!netPlan.getLinksOversubscribed().isEmpty()) throw new Net2PlanException("Bad - Some link is oversubscribed (constraint violated)");<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                if (!netPlan.getDemandsBlocked().isEmpty()) throw new Net2PlanException("Bad - Some demand is blocked (constraint violated)");<a name="line.232"></a>
+<span class="sourceLineNo">233</span><a name="line.233"></a>
+<span class="sourceLineNo">234</span>                for (Route route : netPlan.getRoutes())<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                {<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                        if (route.getPotentialBackupProtectionSegments().size () != 1) throw new RuntimeException("Bad");<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                        <a name="line.237"></a>
+<span class="sourceLineNo">238</span>                        final ProtectionSegment segment = route.getPotentialBackupProtectionSegments().iterator().next();<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                        if (route.getIngressNode() != segment.getOriginNode()) throw new RuntimeException("Bad");<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                        if (route.getEgressNode() != segment.getDestinationNode()) throw new RuntimeException("Bad");<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                        <a name="line.241"></a>
+<span class="sourceLineNo">242</span>                        if (type11.equalsIgnoreCase("srgDisjoint"))<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                                if (!Collections.disjoint(route.getSRGs(), segment.getSRGs()))<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                                        throw new RuntimeException("Bad");<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                        else if (type11.equalsIgnoreCase("linkDisjoint"))<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                                if (!Collections.disjoint(route.getSeqLinksRealPath(), segment.getSeqLinks()))<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                                        throw new RuntimeException("Bad");<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                        else<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                                throw new RuntimeException ("Bad");<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                }<a name="line.250"></a>
+<span class="sourceLineNo">251</span>        }<a name="line.251"></a>
+<span class="sourceLineNo">252</span>}<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                <a name="line.253"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

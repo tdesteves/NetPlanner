@@ -1,0 +1,242 @@
+/*******************************************************************************
+ * Copyright (c) 2013-2015 Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl.html
+ *
+ * Contributors:
+ *     Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza - initial API and implementation
+ ******************************************************************************/
+package com.net2plan.gui.utils;
+
+import com.net2plan.internal.ErrorHandling;
+import com.jom.JOMException;
+import com.net2plan.interfaces.networkDesign.Net2PlanException;
+import com.net2plan.utils.StringUtils;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.concurrent.ExecutionException;
+import javax.swing.*;
+
+/**
+ * Class in charge of executing some tasks, using a dialog waiting for completion.
+ * It allows to stop the execution of the task.
+ *
+ * @author Pablo Pavon-Marino, Jose-Luis Izquierdo-Zaragoza
+ * @since 0.2.0
+ */
+public class ThreadExecutionController
+{
+	private final ThreadExecutionController.IThreadExecutionHandler handler;
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param handler Reference to the handler
+	 * @since 0.2.0
+	 */
+	public ThreadExecutionController(ThreadExecutionController.IThreadExecutionHandler handler)
+	{
+		this.handler = handler;
+	}
+
+	/**
+	 * Executes the code into a separated thread.
+	 * 
+	 * @since 0.2.0
+	 */
+	public void execute()
+	{
+		final JDialog dialog;
+
+		if (handler instanceof JComponent)
+		{
+			Container topLevel = ((JComponent) handler).getTopLevelAncestor();
+			dialog = (topLevel instanceof Frame) ? new JDialog((Frame) topLevel) : new JDialog();
+		}
+		else
+		{
+			dialog = new JDialog();
+		}
+
+		dialog.setTitle("Executing algorithm (press stop to abort)");
+		dialog.setLayout(new BorderLayout());
+		dialog.setSize(new Dimension(200, 200));
+		dialog.setLocationRelativeTo(null);
+		dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		dialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+
+		Container contentPane = dialog.getContentPane();
+		if (contentPane instanceof JComponent)
+			((JComponent) contentPane).registerKeyboardAction(new ThreadExecutionController.ShowConsole(), KeyStroke.getKeyStroke(KeyEvent.VK_F12, InputEvent.ALT_DOWN_MASK), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+		final SwingWorker worker = new SwingWorkerCompletionWaiter(dialog, handler);
+
+		JButton button = new JButton();
+		button.setText("Stop");
+		button.addActionListener(new ThreadExecutionController.StopExecution(worker));
+		dialog.add(button, BorderLayout.SOUTH);
+		dialog.pack();
+
+		worker.execute();
+		dialog.setVisible(true);
+
+		if (worker.isCancelled()) return;
+
+		Object out;
+		try	{ out = worker.get(); }
+		catch (Throwable e) { out = e; }
+
+		if (out instanceof ExecutionException)
+		{
+			Throwable cause = ((ExecutionException) out).getCause();
+			if (cause != null) out = cause;
+		}
+
+		if (out instanceof Throwable)
+		{
+			if (out instanceof Net2PlanException)
+			{
+				if (ErrorHandling.isDebugEnabled()) ErrorHandling.printStackTrace((Throwable) out);
+				ErrorHandling.showErrorDialog(((Throwable) out).getMessage(), "An error happened");
+			}
+			else if (out instanceof UnsatisfiedLinkError)
+			{
+				String newLine = StringUtils.getLineSeparator();
+				StringBuilder msg = new StringBuilder();
+				msg.append(((Throwable) out).getMessage());
+				msg.append(newLine).append(newLine);
+				msg.append("Possible causes:").append(newLine);
+				msg.append("(1) .so in Linux, .dll in Windows or .dylib in Mac is not in the expected location, and/or").append(newLine);
+				msg.append("(2) you are trying to load a 32-bit library using a 64-bit JVM, or viceversa (switch to a valid JVM)");
+
+				((Throwable) out).printStackTrace();
+				ErrorHandling.showErrorDialog(msg.toString(), "Error loading dynamic library");
+			}
+			else if (out instanceof JOMException)
+			{
+				if (ErrorHandling.isDebugEnabled()) ErrorHandling.printStackTrace((Throwable) out);
+				
+				ErrorHandling.showErrorDialog(((Throwable) out).getMessage(), "Error executing JOM");
+			}
+			else if (out instanceof InterruptedException)
+			{
+			}
+			else
+			{
+				ErrorHandling.addErrorOrException(((Throwable) out), ThreadExecutionController.class);
+				handler.executionFailed(ThreadExecutionController.this);
+			}
+		}
+		else
+		{
+			handler.executionFinished(ThreadExecutionController.this, out);
+		}
+	}
+	private Thread thread;
+
+	/**
+	 * Interface for the handlers.
+	 * 
+	 * @since 0.2.0
+	 */
+	public interface IThreadExecutionHandler
+	{
+		/**
+		 * Executes the handler and returns an object.
+		 * 
+		 * @param controller Reference to the controller
+		 * @return An object
+		 * @since 0.2.0
+		 */
+		public Object execute(ThreadExecutionController controller);
+
+		/**
+		 * Reports the end of execution.
+		 * 
+		 * @param controller Reference to the controller
+		 * @param out Object returned by the {@link #execute(com.net2plan.utils.ThreadExecutionController) execute} method
+		 * @since 0.2.0
+		 */
+		public void executionFinished(ThreadExecutionController controller, Object out);
+
+		/**
+		 * Reports the end of execution with errors.
+		 *
+		 * @param controller Reference to the controller
+		 * @since 0.2.0
+		 */
+		public void executionFailed(ThreadExecutionController controller);
+	}
+
+	private class SwingWorkerCompletionWaiter extends SwingWorker implements PropertyChangeListener
+	{
+		private final JDialog dialog;
+		private final ThreadExecutionController.IThreadExecutionHandler handler;
+
+		public SwingWorkerCompletionWaiter(JDialog dialog, ThreadExecutionController.IThreadExecutionHandler handler)
+		{
+			super();
+
+			this.dialog = dialog;
+			this.handler = handler;
+			addPropertyChangeListener(this);
+		}
+
+		@Override
+		public void propertyChange(PropertyChangeEvent event)
+		{
+			if ("state".equals(event.getPropertyName()) && event.getNewValue() == SwingWorker.StateValue.DONE)
+			{
+				dialog.setVisible(false);
+				dialog.dispose();
+			}
+		}
+
+		@Override
+		protected Object doInBackground() throws Exception
+		{
+			thread = Thread.currentThread();
+
+			Object out;
+			try	{ out = handler.execute(ThreadExecutionController.this); }
+			catch (Throwable e) { out = e; }
+
+			return out;
+		}
+	}
+
+	private static class ShowConsole implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			ErrorHandling.showConsole();
+		}
+	}
+
+	private class StopExecution implements ActionListener
+	{
+		private final SwingWorker worker;
+
+		public StopExecution(SwingWorker worker)
+		{
+			this.worker = worker;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			worker.cancel(true);
+
+			try { thread.stop(); }
+			catch (Throwable ex) { }
+		}
+	}
+}

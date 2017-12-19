@@ -1,0 +1,341 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span>package com.net2plan.examples.ocnbook.onlineSim;<a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.io.File;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.io.FileOutputStream;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.io.PrintStream;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import java.util.HashMap;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import java.util.List;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import java.util.Map;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import java.util.Random;<a name="line.19"></a>
+<span class="sourceLineNo">020</span><a name="line.20"></a>
+<span class="sourceLineNo">021</span>import cern.colt.matrix.tdouble.DoubleFactory1D;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import cern.colt.matrix.tdouble.DoubleMatrix2D;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import cern.jet.math.tdouble.DoubleFunctions;<a name="line.24"></a>
+<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.examples.ocnbook.offline.Offline_ca_wirelessCsmaWindowSize;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.simulation.IEventProcessor;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.interfaces.simulation.SimEvent;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.libraries.NetworkPerformanceMetrics;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.libraries.WirelessUtils;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.utils.InputParameter;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.utils.Pair;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.utils.TimeTrace;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.net2plan.utils.Triple;<a name="line.37"></a>
+<span class="sourceLineNo">038</span><a name="line.38"></a>
+<span class="sourceLineNo">039</span>/** <a name="line.39"></a>
+<span class="sourceLineNo">040</span> * This module implements a distributed dual-gradient based algorithm for adjusting the backoff windows sizes in a wireless network with a CSMA-mased MAC, to maximize the network utility enforcing a fair allocation of the resources.<a name="line.40"></a>
+<span class="sourceLineNo">041</span> *<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * Ths event processor is adapted to permit observing the algorithm performances under user-defined conditions, <a name="line.42"></a>
+<span class="sourceLineNo">043</span> * including asynchronous distributed executions, where signaling can be affected by losses and/or delays, and/or measurement errors. <a name="line.43"></a>
+<span class="sourceLineNo">044</span> * The time evolution of different metrics can be stored in output files, for later processing. <a name="line.44"></a>
+<span class="sourceLineNo">045</span> * As an example, see the &lt;a href="../../../../../../graphGeneratorFiles/fig_sec10_5_csmaBackoffOptimizationDual.m"&gt;{@code fig_sec10_5_csmaBackoffOptimizationDual.m}&lt;/a&gt; MATLAB file used for generating the graph/s of the case study in the <a name="line.45"></a>
+<span class="sourceLineNo">046</span> * &lt;a href="http://eu.wiley.com/WileyCDA/WileyTitle/productCd-1119013356.html"&gt;book&lt;/a&gt; using this algorithm.<a name="line.46"></a>
+<span class="sourceLineNo">047</span> * <a name="line.47"></a>
+<span class="sourceLineNo">048</span> * To simulate a network with this module, use the {@code Online_evGen_doNothing} generator.<a name="line.48"></a>
+<span class="sourceLineNo">049</span> * <a name="line.49"></a>
+<span class="sourceLineNo">050</span> * @net2plan.keywords Wireless, CSMA, Capacity assignment (CA), Dual gradient algorithm<a name="line.50"></a>
+<span class="sourceLineNo">051</span> * @net2plan.ocnbooksections Section 10.5<a name="line.51"></a>
+<span class="sourceLineNo">052</span> * @net2plan.inputParameters <a name="line.52"></a>
+<span class="sourceLineNo">053</span> * @author Pablo Pavon-Marino<a name="line.53"></a>
+<span class="sourceLineNo">054</span> */<a name="line.54"></a>
+<span class="sourceLineNo">055</span>public class Online_evProc_csmaBackoffOptimizationDual extends IEventProcessor <a name="line.55"></a>
+<span class="sourceLineNo">056</span>{<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        private InputParameter update_isSynchronous = new InputParameter ("update_isSynchronous", false , "true if all the distributed agents involved wake up synchronousely to update its state");<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        private InputParameter update_averageInterUpdateTime = new InputParameter ("update_averageInterUpdateTime", 1.0 , "Average time between two updates of an agent" , 0 , false , Double.MAX_VALUE , true);<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private InputParameter update_maxFluctuationInterUpdateTime = new InputParameter ("update_maxFluctuationInterUpdateTime", 0.5 , "Max fluctuation in time in the update interval of an agent, in absolute time values. The update intervals are sampled from a uniform distribution within the given interval" , 0 , true , Double.MAX_VALUE , true);<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        private InputParameter gradient_gammaStep = new InputParameter ("gradient_gammaStep", 5.0 , "Gamma step in the gradient algorithm" , 0 , false , Double.MAX_VALUE , true);<a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private InputParameter control_fairnessFactor = new InputParameter ("control_fairnessFactor", 1.0 , "Fairness factor in utility function of link capacity assignment" , 0 , true , Double.MAX_VALUE , true);<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        private InputParameter simulation_randomSeed = new InputParameter ("simulation_randomSeed", (long) 1 , "Seed of the random number generator");<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        private InputParameter simulation_maxNumberOfUpdateIntervals = new InputParameter ("simulation_maxNumberOfUpdateIntervals", 1000.0 , "Maximum number of update intervals in average per agent" , 0 , false , Double.MAX_VALUE , true);<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        private InputParameter control_linkNominalCapacity = new InputParameter ("control_linkNominalCapacity", 1.0 , "Nominal rate of the links. If non positive, nominal rates are rates of the initial design");<a name="line.64"></a>
+<span class="sourceLineNo">065</span>        private InputParameter simulation_outFileNameRoot = new InputParameter ("simulation_outFileNameRoot", "csmaBackoffOptimizationDual" , "Root of the file name to be used in the output files. If blank, no output");<a name="line.65"></a>
+<span class="sourceLineNo">066</span>        <a name="line.66"></a>
+<span class="sourceLineNo">067</span>        private InputParameter control_betaFactor = new InputParameter ("control_betaFactor", 10.0 , "Factor weighting the network utility in the objective function" , 0 , true , Double.MAX_VALUE , true);<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        private InputParameter control_maxSeMeasurementRelativeNoise = new InputParameter ("control_maxSeMeasurementRelativeNoise", 0.1 , "Max relative fluctuation in gradient coordinate" , 0 , true , Double.MAX_VALUE , true);<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        <a name="line.69"></a>
+<span class="sourceLineNo">070</span>        private Random rng;<a name="line.70"></a>
+<span class="sourceLineNo">071</span><a name="line.71"></a>
+<span class="sourceLineNo">072</span>        private static final int UPDATE_WAKEUPTOUPDATE = 202;<a name="line.72"></a>
+<span class="sourceLineNo">073</span><a name="line.73"></a>
+<span class="sourceLineNo">074</span>        private int E , N , M;<a name="line.74"></a>
+<span class="sourceLineNo">075</span>        <a name="line.75"></a>
+<span class="sourceLineNo">076</span>        private NetPlan currentNetPlan , copyInitialNetPlan;<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        <a name="line.77"></a>
+<span class="sourceLineNo">078</span>        private DoubleMatrix2D A_em;<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        private DoubleMatrix1D control_linkNominalCapacities_e;<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        private DoubleMatrix1D control_r_e;<a name="line.80"></a>
+<span class="sourceLineNo">081</span>        private DoubleMatrix1D control_intendedU_e;<a name="line.81"></a>
+<span class="sourceLineNo">082</span>        private DoubleMatrix1D pi_m;<a name="line.82"></a>
+<span class="sourceLineNo">083</span><a name="line.83"></a>
+<span class="sourceLineNo">084</span>        private TimeTrace stat_traceOf_ue;<a name="line.84"></a>
+<span class="sourceLineNo">085</span>        private TimeTrace stat_traceOf_re;<a name="line.85"></a>
+<span class="sourceLineNo">086</span>        private TimeTrace stat_traceOf_objFun;<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        private TimeTrace stat_traceOf_netUtilityWithoutBeta;<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        private TimeTrace stat_traceOf_netUtilityWithBeta;<a name="line.88"></a>
+<span class="sourceLineNo">089</span>        <a name="line.89"></a>
+<span class="sourceLineNo">090</span>        @Override<a name="line.90"></a>
+<span class="sourceLineNo">091</span>        public String getDescription()<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        {<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                return "This module implements a distributed dual-gradient based algorithm for adjusting the backoff windows sizes in a wireless network with a CSMA-mased MAC, to maximize the network utility enforcing a fair allocation of the resources.";<a name="line.93"></a>
+<span class="sourceLineNo">094</span>        }<a name="line.94"></a>
+<span class="sourceLineNo">095</span><a name="line.95"></a>
+<span class="sourceLineNo">096</span>        @Override<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.97"></a>
+<span class="sourceLineNo">098</span>        {<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.100"></a>
+<span class="sourceLineNo">101</span>        }<a name="line.101"></a>
+<span class="sourceLineNo">102</span><a name="line.102"></a>
+<span class="sourceLineNo">103</span>        @Override<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        public void initialize(NetPlan currentNetPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; simulationParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        {<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.107"></a>
+<span class="sourceLineNo">108</span><a name="line.108"></a>
+<span class="sourceLineNo">109</span>                this.currentNetPlan = currentNetPlan;<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                this.copyInitialNetPlan = currentNetPlan.copy();<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                <a name="line.111"></a>
+<span class="sourceLineNo">112</span>                if (currentNetPlan.getNumberOfLayers() != 1) throw new Net2PlanException ("This algorithm works in single layer networks");<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                this.N = currentNetPlan.getNumberOfNodes ();<a name="line.113"></a>
+<span class="sourceLineNo">114</span>                this.E = currentNetPlan.getNumberOfLinks ();<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                if (E == 0) throw new Net2PlanException ("The input design should have links");<a name="line.115"></a>
+<span class="sourceLineNo">116</span><a name="line.116"></a>
+<span class="sourceLineNo">117</span>                if (control_linkNominalCapacity.getDouble() &gt; 0) currentNetPlan.setVectorLinkCapacity(DoubleFactory1D.dense.make (E , control_linkNominalCapacity.getDouble()));<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                control_linkNominalCapacities_e = currentNetPlan.getVectorLinkCapacity();<a name="line.118"></a>
+<span class="sourceLineNo">119</span><a name="line.119"></a>
+<span class="sourceLineNo">120</span>                this.rng = new Random (simulation_randomSeed.getLong());<a name="line.120"></a>
+<span class="sourceLineNo">121</span><a name="line.121"></a>
+<span class="sourceLineNo">122</span>                this.E = this.currentNetPlan.getNumberOfLinks();<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                this.N = this.currentNetPlan.getNumberOfNodes();<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                this.A_em = WirelessUtils.computeSchedulingMatrix(currentNetPlan.getLinks ());<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                this.M = A_em.columns();<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                <a name="line.126"></a>
+<span class="sourceLineNo">127</span>                /* Take link nominal capacities */<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                this.control_r_e = DoubleFactory1D.dense.make(E);<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                this.control_intendedU_e = DoubleFactory1D.dense.make(E);<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                for (Link e : currentNetPlan.getLinks ())<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                {<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                        control_r_e.set(e.getIndex () , 1.0);<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                        e.setAttribute("r_e" , "" + 1.0); <a name="line.133"></a>
+<span class="sourceLineNo">134</span>                }<a name="line.134"></a>
+<span class="sourceLineNo">135</span><a name="line.135"></a>
+<span class="sourceLineNo">136</span>                this.updateLinkCapacities();<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                <a name="line.137"></a>
+<span class="sourceLineNo">138</span>                /* Initially all nodes receive a "wake up to transmit" event, aligned at time zero or y asynchr =&gt; randomly chosen */<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                for (Link e : currentNetPlan.getLinks())<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                {<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                        final double updateTime = (update_isSynchronous.getBoolean())? update_averageInterUpdateTime.getDouble() : Math.max(0 , update_averageInterUpdateTime.getDouble() + update_maxFluctuationInterUpdateTime.getDouble() * (rng.nextDouble() - 0.5));<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                        this.scheduleEvent(new SimEvent (updateTime , SimEvent.DestinationModule.EVENT_PROCESSOR , UPDATE_WAKEUPTOUPDATE , e));<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                }<a name="line.143"></a>
+<span class="sourceLineNo">144</span><a name="line.144"></a>
+<span class="sourceLineNo">145</span>                /* Intialize the traces */<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                this.stat_traceOf_ue = new TimeTrace ();<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                this.stat_traceOf_re = new TimeTrace ();<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                this.stat_traceOf_objFun = new TimeTrace ();<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                this.stat_traceOf_netUtilityWithoutBeta = new TimeTrace ();<a name="line.149"></a>
+<span class="sourceLineNo">150</span>                this.stat_traceOf_netUtilityWithBeta = new TimeTrace ();<a name="line.150"></a>
+<span class="sourceLineNo">151</span><a name="line.151"></a>
+<span class="sourceLineNo">152</span>                this.stat_traceOf_ue.add(0.0, currentNetPlan.getVectorLinkCapacity());<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                this.stat_traceOf_re.add(0.0, control_r_e.copy ());<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                Pair&lt;Double,Double&gt; objFunc = computeObjectiveFunction ();<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                this.stat_traceOf_objFun.add(0.0, objFunc.getFirst());<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                this.stat_traceOf_netUtilityWithBeta.add(0.0, objFunc.getSecond());<a name="line.156"></a>
+<span class="sourceLineNo">157</span>                this.stat_traceOf_netUtilityWithoutBeta.add(0.0, objFunc.getSecond() / control_betaFactor.getDouble());<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        }<a name="line.158"></a>
+<span class="sourceLineNo">159</span><a name="line.159"></a>
+<span class="sourceLineNo">160</span>        @Override<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        public void processEvent(NetPlan currentNetPlan, SimEvent event)<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        {<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                final double t = event.getEventTime();<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                switch (event.getEventType())<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                {<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                case UPDATE_WAKEUPTOUPDATE: // a node updates its p_n, p_e values, using most updated info available<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                {<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                        final Link eMe = (Link) event.getEventObject(); <a name="line.168"></a>
+<span class="sourceLineNo">169</span>                        final int eIdMe_index = eMe.getIndex ();<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                        <a name="line.170"></a>
+<span class="sourceLineNo">171</span>                        //final double gradientThisLink = this.currentNetPlan.getLinkCapacity(eIdMe_SN) - this.control_intendedU_e.get(eIdMe_index) + 2*mac_maxSeMeasurementRelativeNoise*(r.nextDouble()-0.5);  <a name="line.171"></a>
+<span class="sourceLineNo">172</span>                        //final double gradientThisLink = (this.currentNetPlan.getLinkCapacity(eIdMe_SN) - this.control_intendedU_e.get(eIdMe_index)) * (1 + 2*mac_maxSeMeasurementRelativeNoise*(r.nextDouble()-0.5));  <a name="line.172"></a>
+<span class="sourceLineNo">173</span>                        final double gradientThisLink = eMe.getCapacity() * (1 + 2*control_maxSeMeasurementRelativeNoise.getDouble()*(rng.nextDouble()-0.5)) - this.control_intendedU_e.get(eIdMe_index);<a name="line.173"></a>
+<span class="sourceLineNo">174</span>                        final double newRe = Math.max(0.001 , control_r_e.get(eIdMe_index) - this.gradient_gammaStep.getDouble() * gradientThisLink);<a name="line.174"></a>
+<span class="sourceLineNo">175</span><a name="line.175"></a>
+<span class="sourceLineNo">176</span>                        if (Double.isNaN(gradientThisLink))<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                        {<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                                System.out.println("Gradient this links: " + gradientThisLink);<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                                System.out.println("control_intendedU_e: " + control_intendedU_e);<a name="line.179"></a>
+<span class="sourceLineNo">180</span>                                System.out.println("getLinkCapacity: " + this.currentNetPlan.getVectorLinkCapacity());<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                                throw new RuntimeException ("Bad");<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                        }<a name="line.182"></a>
+<span class="sourceLineNo">183</span>                        <a name="line.183"></a>
+<span class="sourceLineNo">184</span>                        this.control_r_e.set(eIdMe_index, newRe);<a name="line.184"></a>
+<span class="sourceLineNo">185</span>                        eMe.setAttribute("r_e" , "" + control_r_e.get(eIdMe_index)); <a name="line.185"></a>
+<span class="sourceLineNo">186</span>                        this.updateLinkCapacities();<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                        <a name="line.187"></a>
+<span class="sourceLineNo">188</span>                        final double updateTime = update_isSynchronous.getBoolean()? t + update_averageInterUpdateTime.getDouble() : Math.max(t , t + update_averageInterUpdateTime.getDouble() + update_maxFluctuationInterUpdateTime.getDouble() * (rng.nextDouble() - 0.5));<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                        this.scheduleEvent(new SimEvent (updateTime , SimEvent.DestinationModule.EVENT_PROCESSOR , UPDATE_WAKEUPTOUPDATE,  eMe));<a name="line.189"></a>
+<span class="sourceLineNo">190</span><a name="line.190"></a>
+<span class="sourceLineNo">191</span>                        this.stat_traceOf_ue.add(t, currentNetPlan.getVectorLinkCapacity());<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                        this.stat_traceOf_re.add(t, control_r_e.copy ());<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                        Pair&lt;Double,Double&gt; objFunc = computeObjectiveFunction ();<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                        this.stat_traceOf_objFun.add(t, objFunc.getFirst());<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                        this.stat_traceOf_netUtilityWithBeta.add(t, objFunc.getSecond());<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                        this.stat_traceOf_netUtilityWithoutBeta.add(t, objFunc.getSecond() / control_betaFactor.getDouble());<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                        <a name="line.197"></a>
+<span class="sourceLineNo">198</span>                        if (t &gt; this.simulation_maxNumberOfUpdateIntervals.getDouble() * this.update_averageInterUpdateTime.getDouble()) { this.endSimulation (); }<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                        <a name="line.199"></a>
+<span class="sourceLineNo">200</span>                        break;<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                }<a name="line.201"></a>
+<span class="sourceLineNo">202</span>                        <a name="line.202"></a>
+<span class="sourceLineNo">203</span><a name="line.203"></a>
+<span class="sourceLineNo">204</span>                default: throw new RuntimeException ("Unexpected received event");<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                }<a name="line.205"></a>
+<span class="sourceLineNo">206</span>        }<a name="line.206"></a>
+<span class="sourceLineNo">207</span><a name="line.207"></a>
+<span class="sourceLineNo">208</span>        public String finish (StringBuilder st , double simTime)<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        {<a name="line.209"></a>
+<span class="sourceLineNo">210</span>                if (simulation_outFileNameRoot.getString().equals("")) return null;<a name="line.210"></a>
+<span class="sourceLineNo">211</span>                stat_traceOf_ue.printToFile(new File (simulation_outFileNameRoot.getString() + "_ue.txt"));<a name="line.211"></a>
+<span class="sourceLineNo">212</span>                stat_traceOf_re.printToFile(new File (simulation_outFileNameRoot.getString() + "_re.txt"));<a name="line.212"></a>
+<span class="sourceLineNo">213</span>                stat_traceOf_netUtilityWithoutBeta.printToFile(new File (simulation_outFileNameRoot.getString() + "_netUtilityWithoutBeta.txt"));<a name="line.213"></a>
+<span class="sourceLineNo">214</span>                stat_traceOf_netUtilityWithBeta.printToFile(new File (simulation_outFileNameRoot.getString() + "_netUtilityWithBeta.txt"));<a name="line.214"></a>
+<span class="sourceLineNo">215</span>                stat_traceOf_objFun.printToFile(new File (simulation_outFileNameRoot.getString() + "_objFunc.txt"));<a name="line.215"></a>
+<span class="sourceLineNo">216</span><a name="line.216"></a>
+<span class="sourceLineNo">217</span>                Map&lt;String,String&gt; par = new HashMap&lt;String,String&gt; ();<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                par.put("solverName", "ipopt");<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                par.put("solverLibraryName", "");<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                par.put("maxSolverTimeInSeconds", "-1");<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                par.put("alphaFairnessFactor", "" + this.control_fairnessFactor.getDouble());<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                par.put("betaFactor", "" + this.control_betaFactor.getDouble());<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                par.put("linkNominalCapacity", "" + this.control_linkNominalCapacity.getDouble());<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                par.put("minimumSchedFractionTime", "0.00001");<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                new Offline_ca_wirelessCsmaWindowSize ().executeAlgorithm(copyInitialNetPlan, par, null);<a name="line.225"></a>
+<span class="sourceLineNo">226</span>                final double optimumCSMAObjectiveFunction = Double.parseDouble(copyInitialNetPlan.getAttribute("optimumCSMAObjectiveFunction"));<a name="line.226"></a>
+<span class="sourceLineNo">227</span>                final double optimumCSMAUtilityByBeta = Double.parseDouble(copyInitialNetPlan.getAttribute("optimumCSMAUtilityByBeta"));<a name="line.227"></a>
+<span class="sourceLineNo">228</span>                final double optimumCSMAUtility = Double.parseDouble(copyInitialNetPlan.getAttribute("optimumCSMAUtility"));<a name="line.228"></a>
+<span class="sourceLineNo">229</span>                TimeTrace.printToFile(new File (simulation_outFileNameRoot.getString() + "_jom_ue.txt"), copyInitialNetPlan.getVectorLinkCapacity());<a name="line.229"></a>
+<span class="sourceLineNo">230</span>                DoubleMatrix1D optimum_re = DoubleFactory1D.dense.make (E); for (Link e : copyInitialNetPlan.getLinks ()) optimum_re.set (e.getIndex () , Double.parseDouble (e.getAttribute("r_e")));<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                TimeTrace.printToFile(new File (simulation_outFileNameRoot.getString() + "_jom_re.txt"), optimum_re);<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                TimeTrace.printToFile(new File (simulation_outFileNameRoot.getString() + "_jom_netUtilityWithoutBeta.txt"), optimumCSMAUtility);<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                TimeTrace.printToFile(new File (simulation_outFileNameRoot.getString() + "_jom_netUtilityWithBeta.txt"), optimumCSMAUtilityByBeta);<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                TimeTrace.printToFile(new File (simulation_outFileNameRoot.getString() + "_jom_objFunc.txt"), optimumCSMAObjectiveFunction);<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                return null;<a name="line.235"></a>
+<span class="sourceLineNo">236</span>        }<a name="line.236"></a>
+<span class="sourceLineNo">237</span>        <a name="line.237"></a>
+<span class="sourceLineNo">238</span><a name="line.238"></a>
+<span class="sourceLineNo">239</span>        /* Applies the TAs and recomputes the link capacities from it */<a name="line.239"></a>
+<span class="sourceLineNo">240</span>        private void updateLinkCapacities ()<a name="line.240"></a>
+<span class="sourceLineNo">241</span>        {<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                this.pi_m = A_em.zMult(control_r_e, null , 1 , 0 , true); // for each m, the sum of the associated r_es<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                final double maxRm = pi_m.getMaxLocation() [0];<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                for (int m = 0 ; m &lt; M ; m ++) this.pi_m.set(m , this.pi_m.get(m) - maxRm);<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                this.pi_m.assign(DoubleFunctions.exp);<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                this.pi_m.assign(DoubleFunctions.div(pi_m.zSum()));<a name="line.246"></a>
+<span class="sourceLineNo">247</span><a name="line.247"></a>
+<span class="sourceLineNo">248</span>                DoubleMatrix1D u_e = A_em.zMult(pi_m,null);<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                for (Link e : currentNetPlan.getLinks ())<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                {<a name="line.250"></a>
+<span class="sourceLineNo">251</span>                        e.setCapacity(u_e.get(e.getIndex ()) * control_linkNominalCapacities_e.get(e.getIndex ()));<a name="line.251"></a>
+<span class="sourceLineNo">252</span>                        final double intended_ue = Math.pow(control_betaFactor.getDouble() / control_r_e.get(e.getIndex ()) , 1/control_fairnessFactor.getDouble());<a name="line.252"></a>
+<span class="sourceLineNo">253</span>                        this.control_intendedU_e.set(e.getIndex (), intended_ue);<a name="line.253"></a>
+<span class="sourceLineNo">254</span>                }<a name="line.254"></a>
+<span class="sourceLineNo">255</span>        }<a name="line.255"></a>
+<span class="sourceLineNo">256</span><a name="line.256"></a>
+<span class="sourceLineNo">257</span>        private Pair&lt;Double,Double&gt; computeObjectiveFunction ()<a name="line.257"></a>
+<span class="sourceLineNo">258</span>        {<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                double objFunc = 0;<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                for (int m = 0 ; m &lt; M ; m ++)<a name="line.260"></a>
+<span class="sourceLineNo">261</span>                        objFunc -= (pi_m.get(m) == 0)? 0 : pi_m.get(m) * Math.log(pi_m.get(m));<a name="line.261"></a>
+<span class="sourceLineNo">262</span>                double netUtilityByBeta = control_betaFactor.getDouble() * NetworkPerformanceMetrics.alphaUtility(currentNetPlan.getVectorLinkCapacity() , control_fairnessFactor.getDouble());<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                if (!Double.isFinite(netUtilityByBeta))<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                        netUtilityByBeta = -Double.MAX_VALUE;<a name="line.264"></a>
+<span class="sourceLineNo">265</span>                objFunc += netUtilityByBeta;<a name="line.265"></a>
+<span class="sourceLineNo">266</span>                return Pair.of(objFunc, netUtilityByBeta);<a name="line.266"></a>
+<span class="sourceLineNo">267</span>        }<a name="line.267"></a>
+<span class="sourceLineNo">268</span><a name="line.268"></a>
+<span class="sourceLineNo">269</span>}<a name="line.269"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

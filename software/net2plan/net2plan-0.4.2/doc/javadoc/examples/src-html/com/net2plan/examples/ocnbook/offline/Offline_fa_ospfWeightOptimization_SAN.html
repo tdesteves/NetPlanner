@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span>package com.net2plan.examples.ocnbook.offline;<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.io.File;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.List;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.Map;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import java.util.Random;<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.net2plan.libraries.IPUtils;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.utils.InputParameter;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.utils.Pair;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.utils.TimeTrace;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.utils.Triple;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.29"></a>
+<span class="sourceLineNo">030</span><a name="line.30"></a>
+<span class="sourceLineNo">031</span>/**<a name="line.31"></a>
+<span class="sourceLineNo">032</span> * Searches for the OSPF link weights that minimize a measure of congestion, using a simulated annealing (SAN) heuristic<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * <a name="line.33"></a>
+<span class="sourceLineNo">034</span> * The time evolution of different metrics can be stored in output files, for later processing. <a name="line.34"></a>
+<span class="sourceLineNo">035</span> * As an example, see the &lt;a href="../../../../../../graphGeneratorFiles/fig_sec12_4_ospfWeightLocalSAN.m"&gt;{@code fig_sec12_4_ospfWeightSAN.m}&lt;/a&gt; MATLAB file used for generating the graph/s of the case study in the <a name="line.35"></a>
+<span class="sourceLineNo">036</span> * &lt;a href="http://eu.wiley.com/WileyCDA/WileyTitle/productCd-1119013356.html"&gt;book&lt;/a&gt; using this algorithm.<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * @net2plan.description<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * @net2plan.keywords IP/OSPF, Flow assignment (FA), Simulated annealing (SAN)<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * @net2plan.ocnbooksections Section 12.4<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * @net2plan.inputParameters <a name="line.40"></a>
+<span class="sourceLineNo">041</span> * @author Pablo Pavon-Marino<a name="line.41"></a>
+<span class="sourceLineNo">042</span> */<a name="line.42"></a>
+<span class="sourceLineNo">043</span>public class Offline_fa_ospfWeightOptimization_SAN implements IAlgorithm<a name="line.43"></a>
+<span class="sourceLineNo">044</span>{<a name="line.44"></a>
+<span class="sourceLineNo">045</span>        private int numIterOuterLoop;<a name="line.45"></a>
+<span class="sourceLineNo">046</span><a name="line.46"></a>
+<span class="sourceLineNo">047</span>        private TimeTrace stat_objFunction;<a name="line.47"></a>
+<span class="sourceLineNo">048</span>        private TimeTrace stat_bestObjFunction;<a name="line.48"></a>
+<span class="sourceLineNo">049</span>        private TimeTrace stat_temperature;<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        private OSPFHeuristicUtils ospfEngine;<a name="line.50"></a>
+<span class="sourceLineNo">051</span><a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private InputParameter san_initializationType = new InputParameter ("san_initializationType", "#select# random" , "The type of initialization of the OSPF link weights");<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private InputParameter san_worseCaseObjFunctionWorsening = new InputParameter ("san_worseCaseObjFunctionWorsening", (double) 0.25 , "Objective function worsening in a transition considered as worse case for initial temperature computation" , 0 , false , Double.MAX_VALUE , true);<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        private InputParameter san_geometricTemperatureReductionFactor = new InputParameter ("san_geometricTemperatureReductionFactor", (double) 0.8 , "Geometric decrease factor of the temperature" , 0 , true , 1 , true);<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        private InputParameter san_freezingProbabilityThreshold = new InputParameter ("san_freezingProbabilityThreshold", (double) 0.01 , "If the fraction of iterations with a jump, in the inner loop, is below this, the system is reheated (temperature to the initial value). If not, decreased geometrically" , 0 , true , 1 , true);<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        private InputParameter san_initialAcceptanceProbability = new InputParameter ("san_initialAcceptanceProbability", (double) 0.5 , "Acceptance probability of the worst case transition: to compute the initial temperature" , 0 , false , Double.MAX_VALUE , true);<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        private InputParameter san_maxNumIterationsInnerLoop = new InputParameter ("san_maxNumIterationsInnerLoop", (int) 1000 , "Number of iterations of the inner loop (all with the same temperature)" , 1 , Integer.MAX_VALUE);<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        private InputParameter san_maxNumIterationsOuterLoop = new InputParameter ("san_maxNumIterationsOuterLoop", (int) 50 , "Number of iterations of the outer loop" , 1 , Integer.MAX_VALUE);<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private InputParameter san_differenceInWeightToBeNeighbors = new InputParameter ("san_differenceInWeightToBeNeighbors", (int) 1 , "Two solutions where all the links have the same weight, but one link where the weight differs in the quantity given by this parameter, are considered neighbors");<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        private InputParameter ospf_maxLinkWeight = new InputParameter ("ospf_maxLinkWeight", (int) 16 , "OSPF link weights are constrained to be integers between 1 and this parameter" , 1 , Integer.MAX_VALUE);<a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private InputParameter ospf_weightOfMaxUtilizationInObjectiveFunction = new InputParameter ("ospf_weightOfMaxUtilizationInObjectiveFunction", (double) 0.9 , "Objective function is this factor multiplied by maximum link utilization, plus 1 minus this factor by average link utilization" , 0 , true , 1 , true);<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        private InputParameter algorithm_randomSeed = new InputParameter ("algorithm_randomSeed", (long) 1 , "Seed of the random number generator");<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        private InputParameter algorithm_outputFileNameRoot = new InputParameter ("algorithm_outputFileNameRoot", "ospfWeghtOptimization_san" , "Root of the file name to be used in the output files. If blank, no output");<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        private InputParameter algorithm_maxExecutionTimeInSeconds = new InputParameter ("algorithm_maxExecutionTimeInSeconds", (double) 60 , "Algorithm maximum running time in seconds" , 0 , false , Double.MAX_VALUE , true);<a name="line.64"></a>
+<span class="sourceLineNo">065</span><a name="line.65"></a>
+<span class="sourceLineNo">066</span>        <a name="line.66"></a>
+<span class="sourceLineNo">067</span>        <a name="line.67"></a>
+<span class="sourceLineNo">068</span>        @Override<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        {<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.72"></a>
+<span class="sourceLineNo">073</span><a name="line.73"></a>
+<span class="sourceLineNo">074</span>                /* Basic checks */<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                final int N = netPlan.getNumberOfNodes();<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                final int E = netPlan.getNumberOfLinks ();<a name="line.76"></a>
+<span class="sourceLineNo">077</span>                if (N == 0) throw new Net2PlanException("The input design must have nodes");<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                netPlan.removeAllUnicastRoutingInformation();<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                netPlan.setRoutingType (RoutingType.HOP_BY_HOP_ROUTING);<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>                final long algorithmInitialtime = System.nanoTime();<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                final long algorithmEndtime = algorithmInitialtime + (long) (algorithm_maxExecutionTimeInSeconds.getDouble() * 1E9);<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                <a name="line.83"></a>
+<span class="sourceLineNo">084</span>                /* Compute initial solution */ <a name="line.84"></a>
+<span class="sourceLineNo">085</span>                Random rng = new Random (algorithm_randomSeed.getLong ());<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                this.ospfEngine = new OSPFHeuristicUtils(netPlan, ospf_maxLinkWeight.getInt (), ospf_weightOfMaxUtilizationInObjectiveFunction.getDouble (), rng);<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                this.stat_bestObjFunction = new TimeTrace ();<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                this.stat_objFunction = new TimeTrace ();<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                this.stat_temperature = new TimeTrace ();<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                this.numIterOuterLoop = 0;<a name="line.90"></a>
+<span class="sourceLineNo">091</span><a name="line.91"></a>
+<span class="sourceLineNo">092</span>                Pair&lt;DoubleMatrix1D,Double&gt; p = ospfEngine.getInitialSolution (san_initializationType.getString ());<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                DoubleMatrix1D currentSol = p.getFirst();<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                double currentObjFunction = p.getSecond();<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                <a name="line.95"></a>
+<span class="sourceLineNo">096</span>                /* Compute the initial and end temperatures, and the geometric temperature reduction factor */<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                final double initialTemperature = -san_worseCaseObjFunctionWorsening.getDouble () / Math.log(san_initialAcceptanceProbability.getDouble ());<a name="line.97"></a>
+<span class="sourceLineNo">098</span><a name="line.98"></a>
+<span class="sourceLineNo">099</span>                System.out.println("initialTemperature: " + initialTemperature + ", geometricReductionFactor: " + san_geometricTemperatureReductionFactor.getDouble ());<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                <a name="line.100"></a>
+<span class="sourceLineNo">101</span>                double currentTemperature = initialTemperature;<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                DoubleMatrix1D bestSol = currentSol.copy ();<a name="line.102"></a>
+<span class="sourceLineNo">103</span>                double bestObjFunction = currentObjFunction;<a name="line.103"></a>
+<span class="sourceLineNo">104</span><a name="line.104"></a>
+<span class="sourceLineNo">105</span>                stat_objFunction.add(0.0 , currentObjFunction);<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                stat_bestObjFunction.add(0.0 , bestObjFunction);<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                stat_temperature.add(0.0 , currentTemperature);<a name="line.107"></a>
+<span class="sourceLineNo">108</span>                while ((System.nanoTime() &lt; algorithmEndtime) &amp;&amp; (numIterOuterLoop &lt; san_maxNumIterationsOuterLoop.getInt ()))<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                {<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                        numIterOuterLoop ++;<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                        int numFrozenJumps = 0;<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                        for (int innerIt = 0 ; innerIt &lt; san_maxNumIterationsInnerLoop.getInt () ; innerIt ++)<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                        {<a name="line.113"></a>
+<span class="sourceLineNo">114</span>                                final Link neighborDifferentLink = netPlan.getLink (rng.nextInt(E));<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                                final double oldWeight = currentSol.get(neighborDifferentLink.getIndex ());<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                                double newWeight = 1;<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                                do <a name="line.117"></a>
+<span class="sourceLineNo">118</span>                                { newWeight = oldWeight + rng.nextInt(2*san_differenceInWeightToBeNeighbors.getInt ()+1) - san_differenceInWeightToBeNeighbors.getInt (); } <a name="line.118"></a>
+<span class="sourceLineNo">119</span>                                while ((oldWeight == newWeight) || (newWeight &lt; 1) || (newWeight &gt; ospf_maxLinkWeight.getInt ()));<a name="line.119"></a>
+<span class="sourceLineNo">120</span><a name="line.120"></a>
+<span class="sourceLineNo">121</span>                                currentSol.set(neighborDifferentLink.getIndex (), newWeight);<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                                final double neighborObjFunction = ospfEngine.computeObjectiveFunction(currentSol).getFirst();<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                                <a name="line.123"></a>
+<span class="sourceLineNo">124</span>                                if ((neighborObjFunction &lt; currentObjFunction) || (rng.nextDouble() &lt; Math.exp(-(neighborObjFunction - currentObjFunction)/currentTemperature)))<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                                {<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                                        /* If this jump does not change objFunction, consider it a frozen one */<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                                        if (currentObjFunction == neighborObjFunction) numFrozenJumps ++;<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                                        /* jump to the neighbor solution */<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                                        currentObjFunction = neighborObjFunction;<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                                        if (neighborObjFunction &lt; bestObjFunction) { bestObjFunction = neighborObjFunction; bestSol = currentSol.copy (); System.out.println("Improving solution (temp: " + currentTemperature + ", objFunction: "+  bestObjFunction); }<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                                }<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                                else<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                                {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                                        currentSol.set(neighborDifferentLink.getIndex (), oldWeight);<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                                        numFrozenJumps ++;<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                                }<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                                final double currentTimeInSecs = (System.nanoTime() - algorithmInitialtime) * 1e-9;<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                                stat_objFunction.add(currentTimeInSecs , currentObjFunction);<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                                stat_bestObjFunction.add(currentTimeInSecs , bestObjFunction);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                                stat_temperature.add(currentTimeInSecs , currentTemperature);<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                        }<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                        if (((double) numFrozenJumps)/san_maxNumIterationsInnerLoop.getInt () &gt; 1-san_freezingProbabilityThreshold.getDouble ())<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                                { currentTemperature = initialTemperature; System.out.println("Reheat the system."); } // reheat the system  <a name="line.143"></a>
+<span class="sourceLineNo">144</span>                        else<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                                { currentTemperature *= san_geometricTemperatureReductionFactor.getDouble(); System.out.println("Decrease temperature."); } // decrease temperature<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                }<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                <a name="line.147"></a>
+<span class="sourceLineNo">148</span>                IPUtils.setECMPForwardingRulesFromLinkWeights(netPlan, bestSol);<a name="line.148"></a>
+<span class="sourceLineNo">149</span><a name="line.149"></a>
+<span class="sourceLineNo">150</span>                stat_bestObjFunction.printToFile(new File (algorithm_outputFileNameRoot.getString () + "_bestObjFunc.txt"));<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                stat_objFunction.printToFile(new File (algorithm_outputFileNameRoot.getString () + "_objFunc.txt"));<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                stat_temperature.printToFile(new File (algorithm_outputFileNameRoot.getString () + "_temp.txt"));<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                System.out.println("Ok! ObjFunction: " + bestObjFunction );<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                return "Ok! ObjFunction: " + bestObjFunction;<a name="line.154"></a>
+<span class="sourceLineNo">155</span>        }<a name="line.155"></a>
+<span class="sourceLineNo">156</span><a name="line.156"></a>
+<span class="sourceLineNo">157</span>        @Override<a name="line.157"></a>
+<span class="sourceLineNo">158</span>        public String getDescription()<a name="line.158"></a>
+<span class="sourceLineNo">159</span>        {<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                return "Given a set of nodes, links and offered traffic, this algorithm assumes that the nodes are IP routers running the OSPF protocol (applying ECMP rules) for routing it. The algorithm searches for the set of link weights that optimize the routing. In particular, the target is minimizing a congestion metric computed as a function of both the worst-case link utilization and the average link utilization. The algorithm is based on applying a simulated annealign (SAN) heuristic approach.";<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        }<a name="line.161"></a>
+<span class="sourceLineNo">162</span><a name="line.162"></a>
+<span class="sourceLineNo">163</span>        @Override<a name="line.163"></a>
+<span class="sourceLineNo">164</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        {<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        }<a name="line.168"></a>
+<span class="sourceLineNo">169</span><a name="line.169"></a>
+<span class="sourceLineNo">170</span>}<a name="line.170"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

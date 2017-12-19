@@ -1,0 +1,280 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span><a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span> <a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>package com.net2plan.examples.ocnbook.offline;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>import java.util.HashSet;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import java.util.List;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import java.util.Map;<a name="line.22"></a>
+<span class="sourceLineNo">023</span>import java.util.Set;<a name="line.23"></a>
+<span class="sourceLineNo">024</span><a name="line.24"></a>
+<span class="sourceLineNo">025</span>import cern.colt.matrix.tdouble.DoubleFactory1D;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import cern.colt.matrix.tdouble.DoubleMatrix2D;<a name="line.26"></a>
+<span class="sourceLineNo">027</span><a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.jom.DoubleMatrixND;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.jom.OptimizationProblem;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.Configuration;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.interfaces.networkDesign.MulticastDemand;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>import com.net2plan.interfaces.networkDesign.Node;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>import com.net2plan.utils.InputParameter;<a name="line.38"></a>
+<span class="sourceLineNo">039</span>import com.net2plan.utils.Triple;<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span>/**<a name="line.41"></a>
+<span class="sourceLineNo">042</span> * Solves several variants of multicast routing problems, with flow-link formulations<a name="line.42"></a>
+<span class="sourceLineNo">043</span> * @net2plan.description<a name="line.43"></a>
+<span class="sourceLineNo">044</span> * @net2plan.keywords Multicast, JOM, Flow-link formulation, Flow assignment (FA)<a name="line.44"></a>
+<span class="sourceLineNo">045</span> * @net2plan.ocnbooksections Section 4.6.2<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * @net2plan.inputParameters <a name="line.46"></a>
+<span class="sourceLineNo">047</span> * @author Pablo Pavon-Marino<a name="line.47"></a>
+<span class="sourceLineNo">048</span> */<a name="line.48"></a>
+<span class="sourceLineNo">049</span>public class Offline_fa_xdeFormulationsMulticast implements IAlgorithm<a name="line.49"></a>
+<span class="sourceLineNo">050</span>{<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        private InputParameter linkCostType = new InputParameter ("linkCostType", "#select# hops km" , "Criteria to compute the multicast tree cost. Valid values: 'hops' (all links cost one) or 'km' (link cost is its length in km)");<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private InputParameter optimizationTarget = new InputParameter ("optimizationTarget", "#select# min-consumed-bandwidth min-av-num-hops minimax-link-utilization maximin-link-idle-capacity" , "Type of optimization target. Choose among minimize the total traffic in the links, minimize the average number of hops from ingress to different egress nodes, minimize the highest link utilization, maximize the lowest link idle capacity");<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private InputParameter maxCopyCapability = new InputParameter ("maxCopyCapability", (int) -1 , "Maximum number of copies of the traffic a node can make (this is the maximum number of output links in a node of the same multicast tree). A non-positive value means no limit");<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        private InputParameter maxE2ELengthInKm = new InputParameter ("maxE2ELengthInKm", (double) -1 , "The path from an origin to any destination in any multicast tree cannot be longer than this. A non-positive number means this limit does not exist");<a name="line.54"></a>
+<span class="sourceLineNo">055</span>        private InputParameter maxE2ENumHops = new InputParameter ("maxE2ENumHops", (int) -1 , "The path from an origin to any destination in any multicast tree cannot have more than this number of hops. A non-positive number means this limit does not exist");<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        private InputParameter maxE2EPropDelayInMs = new InputParameter ("maxE2EPropDelayInMs", (double) -1 , "The path from an origin to any destination in any multicast tree cannot have more than this propagation delay in miliseconds. A non-positive number means this limit does not exist");<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        private InputParameter solverName = new InputParameter ("solverName", "#select# glpk ipopt xpress cplex", "The solver name to be used by JOM. GLPK and IPOPT are free, XPRESS and CPLEX commercial. GLPK, XPRESS and CPLEX solve linear problems w/w.o integer contraints. IPOPT is can solve nonlinear problems (if convex, returns global optimum), but cannot handle integer constraints");<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        private InputParameter solverLibraryName = new InputParameter ("solverLibraryName", "" , "The solver library full or relative path, to be used by JOM. Leave blank to use JOM default.");<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private InputParameter maxSolverTimeInSeconds = new InputParameter ("maxSolverTimeInSeconds", (double) -1 , "Maximum time granted to the solver to solve the problem. If this time expires, the solver returns the best solution found so far (if a feasible solution is found)");<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        <a name="line.60"></a>
+<span class="sourceLineNo">061</span>        @Override<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        {<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                if (!linkCostType.getString().equalsIgnoreCase("km") &amp;&amp; !linkCostType.getString().equalsIgnoreCase("hops"))<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                        throw new Net2PlanException("Wrong linkCostType parameter");<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                <a name="line.68"></a>
+<span class="sourceLineNo">069</span>                /* Initialize variables */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                final int E = netPlan.getNumberOfLinks();<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                final int N = netPlan.getNumberOfNodes();<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                final int MD = netPlan.getNumberOfMulticastDemands();<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                if (E == 0 || MD == 0) throw new Net2PlanException("This algorithm requires a topology with links and a multicast demand set");<a name="line.73"></a>
+<span class="sourceLineNo">074</span><a name="line.74"></a>
+<span class="sourceLineNo">075</span>                /* Remove all multicast routed traffic. Any unicast routed traffic is kept */<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                netPlan.removeAllMulticastTrees();<a name="line.76"></a>
+<span class="sourceLineNo">077</span><a name="line.77"></a>
+<span class="sourceLineNo">078</span>                /* Create the optimization problem object (JOM library) */<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                OptimizationProblem op = new OptimizationProblem();<a name="line.79"></a>
+<span class="sourceLineNo">080</span><a name="line.80"></a>
+<span class="sourceLineNo">081</span>                /* Set some input parameters to the problem */<a name="line.81"></a>
+<span class="sourceLineNo">082</span>                op.setInputParameter("u_e", netPlan.getVectorLinkSpareCapacity(), "row"); /* for each link, its unused capacity (the one not used by any mulitcast trees) */<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                op.setInputParameter("A_nd", netPlan.getMatrixNodeMulticastDemandIncidence()); /* 1 if node n is ingress in multicast demand d, -1 if n is egress */ <a name="line.83"></a>
+<span class="sourceLineNo">084</span>                final DoubleMatrix2D Aout_nd = netPlan.getMatrixNodeMulticastDemandOutgoingIncidence();<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                final DoubleMatrix2D Ain_nd = netPlan.getMatrixNodeMulticastDemandIncomingIncidence();<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                op.setInputParameter("Aout_nd", Aout_nd); /* 1 if node n is ingress in multicast demand d */ <a name="line.86"></a>
+<span class="sourceLineNo">087</span>                op.setInputParameter("Ain_nd", Ain_nd); /* -1 if node n is egress in multicast demand d */ <a name="line.87"></a>
+<span class="sourceLineNo">088</span>                op.setInputParameter("A_ne", netPlan.getMatrixNodeLinkIncidence()); /* 1 in position (n,e) if link e starts in n, -1 if it ends in n, 0 otherwise */<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                op.setInputParameter("Aout_ne", netPlan.getMatrixNodeLinkOutgoingIncidence()); /* 1 in position (n,e) if link e starts in n */<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                op.setInputParameter("Ain_ne", netPlan.getMatrixNodeLinkIncomingIncidence()); /* 1 in position (n,e) if link e ends in n */<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                op.setInputParameter("h_d", netPlan.getVectorMulticastDemandOfferedTraffic(), "row"); /* for each multicast demand, its offered traffic */<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                op.setInputParameter("lengthInKm_e", netPlan.getVectorLinkLengthInKm(), "row"); /* for each link, its length in km */<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                op.setInputParameter("propDelay_e", netPlan.getVectorLinkPropagationDelayInMiliseconds(), "row"); /* for each link, its length in km */<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                op.setInputParameter("onesE", DoubleFactory1D.dense.make (E,1.0) , "row"); /* for each link, a one */<a name="line.94"></a>
+<span class="sourceLineNo">095</span>                op.setInputParameter("K", maxCopyCapability.getInt() &lt;= 0? N : maxCopyCapability.getInt ()); /* the maximum number of output links a node can copy the input traffic of a multicast tree (&lt;= 0 means no limitation) */<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                <a name="line.96"></a>
+<span class="sourceLineNo">097</span>                /* Add decision variables for the multicast demands */<a name="line.97"></a>
+<span class="sourceLineNo">098</span>                op.addDecisionVariable("xx_de", true , new int [] {MD , E} , 0 , 1); // 1 if link e is used my the multicast tree of this demand<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                op.addDecisionVariable("xx_det", true , new int [] {MD , E , N} , 0 , 1); // 1 if link e is used my the multicast tree of this demand<a name="line.99"></a>
+<span class="sourceLineNo">100</span><a name="line.100"></a>
+<span class="sourceLineNo">101</span>                /* Write the problem objective function and constraints specific to this objective function */<a name="line.101"></a>
+<span class="sourceLineNo">102</span>                if (optimizationTarget.getString ().equals ("min-consumed-bandwidth")) <a name="line.102"></a>
+<span class="sourceLineNo">103</span>                {<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                        op.setObjectiveFunction("minimize", "sum (h_d * xx_de)"); /* total traffic in the links */<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                        op.addConstraint("h_d * xx_de &lt;= u_e"); /* the traffic in each link cannot exceed its capacity */<a name="line.105"></a>
+<span class="sourceLineNo">106</span>                }<a name="line.106"></a>
+<span class="sourceLineNo">107</span>                else if (optimizationTarget.getString ().equals ("min-av-num-hops")) <a name="line.107"></a>
+<span class="sourceLineNo">108</span>                {<a name="line.108"></a>
+<span class="sourceLineNo">109</span>                        op.setInputParameter ("EPSILON" , getMinimumNonZeroTrafficOrCapacityValue (netPlan) / 1000);<a name="line.109"></a>
+<span class="sourceLineNo">110</span>                        op.setObjectiveFunction("minimize", "sum(diag(h_d) * xx_det) + EPSILON * sum (h_d * xx_de)"); /* proportional to the number of hops each packet makes */<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                        op.addConstraint("h_d * xx_de &lt;= u_e"); /* the traffic in each link cannot exceed its capacity */<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                }<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                else if (optimizationTarget.getString ().equals ("minimax-link-utilization")) <a name="line.113"></a>
+<span class="sourceLineNo">114</span>                {<a name="line.114"></a>
+<span class="sourceLineNo">115</span>                        op.setInputParameter ("EPSILON" , getMinimumNonZeroTrafficOrCapacityValue (netPlan) / 1000);<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                        op.addDecisionVariable("rho", false, new int[] { 1, 1 }, 0, 1); /* worse case link utilization */<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                        op.setObjectiveFunction("minimize", "rho + EPSILON * sum (h_d * xx_de)"); // to avoid loops, we sum EPSILON by the traffic carried (EPSILON very small number)<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                        op.addConstraint("h_d * xx_de &lt;= rho * u_e"); /* the traffic in each link cannot exceed its capacity. sets rho as the worse case utilization */<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                }<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                else if (optimizationTarget.getString ().equals ("maximin-link-idle-capacity"))<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                {<a name="line.121"></a>
+<span class="sourceLineNo">122</span>                        op.setInputParameter ("EPSILON" , getMinimumNonZeroTrafficOrCapacityValue (netPlan) / 1000);<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                        op.addDecisionVariable("u", false, new int[] { 1, 1 }, 0, Double.MAX_VALUE); /* worse case link idle capacity */<a name="line.123"></a>
+<span class="sourceLineNo">124</span>                        op.setObjectiveFunction("maximize", "u - EPSILON * sum (h_d * xx_de)"); // to avoid loops, we sum EPSILON by the traffic carried (EPSILON very small number)<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                        op.addConstraint("h_d * xx_de &lt;= -u + u_e"); /* the traffic in each link cannot exceed its capacity. sets u as the worse case idle capacity */<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                }<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                else throw new Net2PlanException ("Unknown optimization target " + optimizationTarget.getString());<a name="line.127"></a>
+<span class="sourceLineNo">128</span><a name="line.128"></a>
+<span class="sourceLineNo">129</span>//              DoubleMatrix3D I_eet = DoubleFactory3D.sparse.make (E,E,N); for (int t = 0; t &lt; N ; t ++) I_eet.viewColumn (t).assign (DoubleFactory2D.sparse.identity(E));<a name="line.129"></a>
+<span class="sourceLineNo">130</span>//              op.setInputParameter("I_eet", new DoubleMatrixND (I_eet));<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                DoubleMatrixND I_eet = new DoubleMatrixND (new int [] {E,E,N} , "sparse"); for (int t = 0 ; t &lt; N ; t ++) for (int e = 0 ; e &lt; E ; e ++) I_eet.set (new int [] { e,e,t} , 1.0);<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                op.setInputParameter("I_eet", I_eet);<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                <a name="line.133"></a>
+<span class="sourceLineNo">134</span>                DoubleMatrixND A_ndt = new DoubleMatrixND (new int [] { N , MD , N }  , "sparse"); <a name="line.134"></a>
+<span class="sourceLineNo">135</span>                for (MulticastDemand d : netPlan.getMulticastDemands())<a name="line.135"></a>
+<span class="sourceLineNo">136</span>                        for (Node t : d.getEgressNodes())<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                        {<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                                A_ndt.set (new int [] { d.getIngressNode().getIndex() , d.getIndex ()  , t.getIndex () } , 1.0);<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                                A_ndt.set (new int [] { t.getIndex () , d.getIndex () , t.getIndex () } , -1.0);<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                        }<a name="line.140"></a>
+<span class="sourceLineNo">141</span>                op.setInputParameter("A_ndt", A_ndt);<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                op.setInputParameter("onesN" , DoubleFactory1D.dense.make (N,1.0)  , "row");<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                <a name="line.143"></a>
+<span class="sourceLineNo">144</span>                /* Add constraints for the multicast demands */<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                op.addConstraint ("Ain_ne * xx_de' &gt;= Ain_nd"); // a destination node receives at least one input link<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                op.addConstraint ("Ain_ne * xx_de' &lt;= 1 - Aout_nd"); // source nodes receive 0 links, destination nodes at most one (then just one)<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                op.addConstraint ("Aout_ne * xx_de' &lt;= K * (Aout_nd + (Ain_ne * xx_de'))"); // at most K out links from ingress node and from intermediate nodes if they have one input link<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                op.addConstraint ("xx_det  &lt;= xx_de * I_eet"); // a link belongs to a path only if it is in the tree<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                op.addConstraint ("A_ne * permute(xx_det , [2 ; 1 ; 3]) == A_ndt"); // flow conservation constraint for each path in the tree<a name="line.149"></a>
+<span class="sourceLineNo">150</span><a name="line.150"></a>
+<span class="sourceLineNo">151</span>                final boolean maxE2ELengthConstraintApplies = (maxE2ELengthInKm.getDouble() &gt; 0) &amp;&amp; (maxE2ELengthInKm.getDouble() &lt; netPlan.getVectorLinkLengthInKm().zSum());<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                final boolean maxE2ENumHopsConstraintApplies = (maxE2ENumHops.getInt() &gt; 0) &amp;&amp; (maxE2ENumHops.getInt() &lt; E);<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                final boolean maxE2EPropDelayConstraintApplies = (maxE2EPropDelayInMs.getDouble() &gt; 0) &amp;&amp; (maxE2EPropDelayInMs.getDouble() &lt; netPlan.getVectorLinkPropagationDelayInMiliseconds().zSum());<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                if (maxE2ELengthConstraintApplies) op.addConstraint ("lengthInKm_e * permute(xx_det,[2;1;3]) &lt;= " + maxE2ELengthInKm.getDouble()); // maximum length in km from ingress node to any demand egress node is limited<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                if (maxE2ENumHopsConstraintApplies) op.addConstraint ("sum(xx_det,2) &lt;= " + maxE2ENumHops.getInt()); // maximum number of hops from ingress node to any demand egress node is limited<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                if (maxE2EPropDelayConstraintApplies) op.addConstraint ("propDelay_e * permute(xx_det,[2;1;3])  &lt;= " + maxE2EPropDelayInMs.getDouble()); // maximum propagation delay in ms from ingress node to any demand egress node is limited<a name="line.156"></a>
+<span class="sourceLineNo">157</span><a name="line.157"></a>
+<span class="sourceLineNo">158</span>                op.solve(solverName.getString (), "solverLibraryName", solverLibraryName.getString () , "maxSolverTimeInSeconds" , maxSolverTimeInSeconds.getDouble ());<a name="line.158"></a>
+<span class="sourceLineNo">159</span><a name="line.159"></a>
+<span class="sourceLineNo">160</span>                /* If no solution is found, quit */<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                if (op.feasibleSolutionDoesNotExist()) throw new Net2PlanException("The problem has no feasible solution");<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                if (!op.solutionIsFeasible()) throw new Net2PlanException("A feasible solution was not found");<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                <a name="line.163"></a>
+<span class="sourceLineNo">164</span>                /* Save the solution found in the netPlan object */<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                final DoubleMatrix2D xx_de = op.getPrimalSolution("xx_de").view2D();<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                /* Check */<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                final DoubleMatrixND xx_det = op.getPrimalSolution("xx_det");<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                for (MulticastDemand d : netPlan.getMulticastDemands())<a name="line.168"></a>
+<span class="sourceLineNo">169</span>                        for (Link e : netPlan.getLinks())<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                                for (Node n : netPlan.getNodes())<a name="line.170"></a>
+<span class="sourceLineNo">171</span>                                        if (xx_de.get(d.getIndex () , e.getIndex ()) == 0)<a name="line.171"></a>
+<span class="sourceLineNo">172</span>                                                if (xx_det.get(new int [] {d.getIndex() , e.getIndex () , n.getIndex() } ) != 0) throw new RuntimeException ("Bad: x_de: " + (xx_de.get(d.getIndex () , e.getIndex ())) + ", xx_det: " + (xx_det.get(new int [] {d.getIndex() , e.getIndex () , n.getIndex() } )) );<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                <a name="line.173"></a>
+<span class="sourceLineNo">174</span>                for (MulticastDemand d : netPlan.getMulticastDemands())<a name="line.174"></a>
+<span class="sourceLineNo">175</span>                {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                        Set&lt;Link&gt; linkSet = new HashSet&lt;Link&gt; (); for (int e = 0 ; e &lt; E ; e ++) if (xx_de.get(d.getIndex() , e) != 0) { linkSet.add (netPlan.getLink (e)); }<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                        netPlan.addMulticastTree(d , d.getOfferedTraffic() , d.getOfferedTraffic() , linkSet , null);<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                }<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                <a name="line.179"></a>
+<span class="sourceLineNo">180</span><a name="line.180"></a>
+<span class="sourceLineNo">181</span>                <a name="line.181"></a>
+<span class="sourceLineNo">182</span>                <a name="line.182"></a>
+<span class="sourceLineNo">183</span>                return "Ok!: The solution found is guaranteed to be optimal: " + op.solutionIsOptimal() + ", number of multicast trees created: " + netPlan.getNumberOfMulticastTrees();<a name="line.183"></a>
+<span class="sourceLineNo">184</span>        }<a name="line.184"></a>
+<span class="sourceLineNo">185</span><a name="line.185"></a>
+<span class="sourceLineNo">186</span>        @Override<a name="line.186"></a>
+<span class="sourceLineNo">187</span>        public String getDescription()<a name="line.187"></a>
+<span class="sourceLineNo">188</span>        {<a name="line.188"></a>
+<span class="sourceLineNo">189</span>                return "Given a network topology, the capacities in the links, and a set multicast traffic demands, this algorithm permits computing the optimum multicast routing of the traffic (that is, the set ofm multicast trees carrying the traffic of the multicast demand) solving flow-link formulations. Through a set of input parameters, the user can choose among different optimization targets and constraints.";<a name="line.189"></a>
+<span class="sourceLineNo">190</span>        }<a name="line.190"></a>
+<span class="sourceLineNo">191</span><a name="line.191"></a>
+<span class="sourceLineNo">192</span>        <a name="line.192"></a>
+<span class="sourceLineNo">193</span>        @Override<a name="line.193"></a>
+<span class="sourceLineNo">194</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.194"></a>
+<span class="sourceLineNo">195</span>        {<a name="line.195"></a>
+<span class="sourceLineNo">196</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        }<a name="line.198"></a>
+<span class="sourceLineNo">199</span>        <a name="line.199"></a>
+<span class="sourceLineNo">200</span>        private double getMinimumNonZeroTrafficOrCapacityValue (NetPlan netPlan)<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        {<a name="line.201"></a>
+<span class="sourceLineNo">202</span>                double res = Double.MAX_VALUE;<a name="line.202"></a>
+<span class="sourceLineNo">203</span>                for (Demand d : netPlan.getDemands ()) if (d.getOfferedTraffic() &gt; 0) res = Math.min (res , d.getOfferedTraffic());<a name="line.203"></a>
+<span class="sourceLineNo">204</span>                for (Link e : netPlan.getLinks ()) if (e.getCapacity() &gt; 0) res = Math.min (res , e.getCapacity());<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                if (res == Double.MAX_VALUE) throw new Net2PlanException ("Too large offered traffics and link capacities");<a name="line.205"></a>
+<span class="sourceLineNo">206</span>                return res;<a name="line.206"></a>
+<span class="sourceLineNo">207</span>        }<a name="line.207"></a>
+<span class="sourceLineNo">208</span>}<a name="line.208"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

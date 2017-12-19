@@ -1,0 +1,339 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="es">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*******************************************************************************<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * Copyright (c) 2016 Pablo Pavon Mariño.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> * All rights reserved. This program and the accompanying materials<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * are made available under the terms of the GNU Lesser Public License v2.1<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * which accompanies this distribution, and is available at<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * http://www.gnu.org/licenses/lgpl.html<a name="line.6"></a>
+<span class="sourceLineNo">007</span> ******************************************************************************/<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span><a name="line.9"></a>
+<span class="sourceLineNo">010</span><a name="line.10"></a>
+<span class="sourceLineNo">011</span>package com.net2plan.examples.ocnbook.offline;<a name="line.11"></a>
+<span class="sourceLineNo">012</span><a name="line.12"></a>
+<span class="sourceLineNo">013</span>import java.io.File;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import java.util.List;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import java.util.Map;<a name="line.15"></a>
+<span class="sourceLineNo">016</span><a name="line.16"></a>
+<span class="sourceLineNo">017</span>import cern.colt.matrix.tdouble.DoubleFactory1D;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import cern.colt.matrix.tdouble.DoubleFactory2D;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import cern.colt.matrix.tdouble.DoubleMatrix1D;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import cern.colt.matrix.tdouble.DoubleMatrix2D;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import cern.jet.math.tdouble.DoubleFunctions;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import cern.jet.math.tdouble.DoublePlusMultSecond;<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>import com.jom.OptimizationProblem;<a name="line.24"></a>
+<span class="sourceLineNo">025</span>import com.net2plan.interfaces.networkDesign.Demand;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>import com.net2plan.interfaces.networkDesign.IAlgorithm;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>import com.net2plan.interfaces.networkDesign.Link;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>import com.net2plan.interfaces.networkDesign.Net2PlanException;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>import com.net2plan.interfaces.networkDesign.NetPlan;<a name="line.29"></a>
+<span class="sourceLineNo">030</span>import com.net2plan.interfaces.networkDesign.Node;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>import com.net2plan.libraries.GraphUtils;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>import com.net2plan.utils.Constants.RoutingType;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>import com.net2plan.utils.InputParameter;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>import com.net2plan.utils.Quintuple;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>import com.net2plan.utils.TimeTrace;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>import com.net2plan.utils.Triple;<a name="line.36"></a>
+<span class="sourceLineNo">037</span><a name="line.37"></a>
+<span class="sourceLineNo">038</span>/**<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * Finds the routing and mocular capacities for a network that minimize the cost, using a dual decomposition approach<a name="line.39"></a>
+<span class="sourceLineNo">040</span> * <a name="line.40"></a>
+<span class="sourceLineNo">041</span> * The time evolution of different metrics can be stored in output files, for later processing. <a name="line.41"></a>
+<span class="sourceLineNo">042</span> * As an example, see the &lt;a href="../../../../../../graphGeneratorFiles/fig_sec11_7_modularCapacitiesAndRouting_dualDecomp.m"&gt;{@code fig_sec11_7_modularCapacitiesAndRouting_dualDecomp.m}&lt;/a&gt; MATLAB file used for generating the graph/s of the case study in the <a name="line.42"></a>
+<span class="sourceLineNo">043</span> * &lt;a href="http://eu.wiley.com/WileyCDA/WileyTitle/productCd-1119013356.html"&gt;book&lt;/a&gt; using this algorithm.<a name="line.43"></a>
+<span class="sourceLineNo">044</span> * @net2plan.description<a name="line.44"></a>
+<span class="sourceLineNo">045</span> * @net2plan.keywords Capacity assignment (CA), Flow assignment (FA), Modular capacities , Dual decomposition<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * @net2plan.ocnbooksections Section 11.7<a name="line.46"></a>
+<span class="sourceLineNo">047</span> * @net2plan.inputParameters <a name="line.47"></a>
+<span class="sourceLineNo">048</span> * @author Pablo Pavon-Marino<a name="line.48"></a>
+<span class="sourceLineNo">049</span> */<a name="line.49"></a>
+<span class="sourceLineNo">050</span>public class Offline_cfa_modularCapacitiesAndRoutingDualDecomposition implements IAlgorithm<a name="line.50"></a>
+<span class="sourceLineNo">051</span>{<a name="line.51"></a>
+<span class="sourceLineNo">052</span>        private double PRECISIONFACTOR;<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        private double numModulesUpperBound;<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        <a name="line.54"></a>
+<span class="sourceLineNo">055</span>        private int N , E;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>        <a name="line.56"></a>
+<span class="sourceLineNo">057</span>        private InputParameter moduleCapacity = new InputParameter ("moduleCapacity", 1.0 , "Capacity of one module" , 0 , false , Double.MAX_VALUE , true);<a name="line.57"></a>
+<span class="sourceLineNo">058</span>        private InputParameter solverName = new InputParameter ("solverName", "#select# glpk ipopt xpress cplex", "The solver name to be used by JOM. GLPK and IPOPT are free, XPRESS and CPLEX commercial. GLPK, XPRESS and CPLEX solve linear problems w/w.o integer contraints. IPOPT is can solve nonlinear problems (if convex, returns global optimum), but cannot handle integer constraints");<a name="line.58"></a>
+<span class="sourceLineNo">059</span>        private InputParameter solverLibraryName = new InputParameter ("solverLibraryName", "" , "The solver library full or relative path, to be used by JOM. Leave blank to use JOM default.");<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        private InputParameter maxSolverTimeInSeconds = new InputParameter ("maxSolverTimeInSeconds", (double) -1 , "Maximum time granted to the solver to solve the problem. If this time expires, the solver returns the best solution found so far (if a feasible solution is found)");<a name="line.60"></a>
+<span class="sourceLineNo">061</span>        private InputParameter subgrad_gammaStep = new InputParameter ("subgrad_gammaStep", (double) 0.05 , "Gamma step in the algorithm iteration" , 0 , false , Double.MAX_VALUE , true);<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        private InputParameter subgrad_type = new InputParameter ("subgrad_type", "#select# 1-over-t constant 1-over-square-root-t", "Type of gradient algorithm.  constant, 1-over-t, decreasing-square-t");   <a name="line.62"></a>
+<span class="sourceLineNo">063</span>        private InputParameter simulation_outFileNameRoot = new InputParameter ("simulation_outFileNameRoot", "modularCapacitiesAndRoutingDualDecomp" , "Root of the file name to be used in the output files. If blank, no output");<a name="line.63"></a>
+<span class="sourceLineNo">064</span>        private InputParameter simulation_numIterations = new InputParameter ("simulation_numIterations", (int) 500 , "Number o iterations of the algorithm" , 1 , Integer.MAX_VALUE);<a name="line.64"></a>
+<span class="sourceLineNo">065</span><a name="line.65"></a>
+<span class="sourceLineNo">066</span><a name="line.66"></a>
+<span class="sourceLineNo">067</span>        private DoubleMatrix2D tmColumnSumZero;<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        private DoubleMatrix2D A_ne;<a name="line.68"></a>
+<span class="sourceLineNo">069</span><a name="line.69"></a>
+<span class="sourceLineNo">070</span>        private TimeTrace stat_bestObjFuncFeasible;<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        private TimeTrace stat_objFuncFeasible;<a name="line.71"></a>
+<span class="sourceLineNo">072</span>        private TimeTrace stat_lowerBound;<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        private TimeTrace stat_bestLowerBound;<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        private TimeTrace stat_pie;<a name="line.74"></a>
+<span class="sourceLineNo">075</span><a name="line.75"></a>
+<span class="sourceLineNo">076</span>        @Override<a name="line.76"></a>
+<span class="sourceLineNo">077</span>        public String executeAlgorithm(NetPlan netPlan, Map&lt;String, String&gt; algorithmParameters, Map&lt;String, String&gt; net2planParameters)<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        {<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                /* Initialize all InputParameter objects defined in this object (this uses Java reflection) */<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                InputParameter.initializeAllInputParameterFieldsOfObject(this, algorithmParameters);<a name="line.80"></a>
+<span class="sourceLineNo">081</span><a name="line.81"></a>
+<span class="sourceLineNo">082</span>                if (netPlan.getNumberOfLayers() != 1) throw new Net2PlanException ("This algorithm works in single layer networks");<a name="line.82"></a>
+<span class="sourceLineNo">083</span><a name="line.83"></a>
+<span class="sourceLineNo">084</span>                /* Initialize some variables */<a name="line.84"></a>
+<span class="sourceLineNo">085</span>                this.N = netPlan.getNumberOfNodes();<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                this.E = netPlan.getNumberOfLinks();<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                this.PRECISIONFACTOR = Double.parseDouble(net2planParameters.get("precisionFactor"));<a name="line.87"></a>
+<span class="sourceLineNo">088</span>                <a name="line.88"></a>
+<span class="sourceLineNo">089</span>                this.stat_objFuncFeasible = new TimeTrace ();<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                this.stat_bestObjFuncFeasible = new TimeTrace ();<a name="line.90"></a>
+<span class="sourceLineNo">091</span>                this.stat_lowerBound = new TimeTrace ();<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                this.stat_bestLowerBound = new TimeTrace ();<a name="line.92"></a>
+<span class="sourceLineNo">093</span>                this.stat_pie = new TimeTrace ();<a name="line.93"></a>
+<span class="sourceLineNo">094</span><a name="line.94"></a>
+<span class="sourceLineNo">095</span>                netPlan.removeAllUnicastRoutingInformation();<a name="line.95"></a>
+<span class="sourceLineNo">096</span>                netPlan.setRoutingType (RoutingType.HOP_BY_HOP_ROUTING);<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                <a name="line.97"></a>
+<span class="sourceLineNo">098</span>            /* The diagonal in the traffic matrix contains minus the amount of traffic destined to that node */<a name="line.98"></a>
+<span class="sourceLineNo">099</span>                double [][] trafficMatrix = netPlan.getMatrixNode2NodeOfferedTraffic().toArray();<a name="line.99"></a>
+<span class="sourceLineNo">100</span>                for (int n1 = 0 ; n1 &lt; N ; n1 ++) for (int n2 = 0 ; n2 &lt; N ; n2 ++) if (n1 == n2) continue; else trafficMatrix [n2][n2] -= trafficMatrix [n1][n2];<a name="line.100"></a>
+<span class="sourceLineNo">101</span>                this.tmColumnSumZero= DoubleFactory2D.dense.make(trafficMatrix);<a name="line.101"></a>
+<span class="sourceLineNo">102</span><a name="line.102"></a>
+<span class="sourceLineNo">103</span>                this.numModulesUpperBound = Math.ceil(netPlan.getVectorDemandOfferedTraffic().zSum() / moduleCapacity.getDouble());<a name="line.103"></a>
+<span class="sourceLineNo">104</span>                this.A_ne = netPlan.getMatrixNodeLinkIncidence();<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                <a name="line.105"></a>
+<span class="sourceLineNo">106</span>                DoubleMatrix1D multipliers_eIP = DoubleFactory1D.dense.make(E, 1.0);<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    double highestDualCost = -Double.MAX_VALUE;<a name="line.107"></a>
+<span class="sourceLineNo">108</span>    double lowestPrimalCost = Double.MAX_VALUE;<a name="line.108"></a>
+<span class="sourceLineNo">109</span>    DoubleMatrix1D bestFeasible_ne = null;<a name="line.109"></a>
+<span class="sourceLineNo">110</span>    DoubleMatrix2D bestRelaxedAndFeasible_xte = null;<a name="line.110"></a>
+<span class="sourceLineNo">111</span>                for (int it = 1 ; it &lt;= simulation_numIterations.getInt() ; it ++)<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                {<a name="line.112"></a>
+<span class="sourceLineNo">113</span>                        System.out.println("**** Iteration : " + it + ", mult: " + multipliers_eIP);<a name="line.113"></a>
+<span class="sourceLineNo">114</span><a name="line.114"></a>
+<span class="sourceLineNo">115</span>                        Quintuple&lt;DoubleMatrix2D,DoubleMatrix1D,DoubleMatrix1D,Double,DoubleMatrix1D&gt; q = solveSubproblems (multipliers_eIP);<a name="line.115"></a>
+<span class="sourceLineNo">116</span>                        final DoubleMatrix2D relaxedAndFeasible_xte = q.getFirst();<a name="line.116"></a>
+<span class="sourceLineNo">117</span>                        final DoubleMatrix1D relaxed_ne = q.getSecond();<a name="line.117"></a>
+<span class="sourceLineNo">118</span>                        final DoubleMatrix1D feasible_n_e = q.getThird();<a name="line.118"></a>
+<span class="sourceLineNo">119</span>                        final double dualCost = q.getFourth();<a name="line.119"></a>
+<span class="sourceLineNo">120</span>                        final DoubleMatrix1D gradient_e = q.getFifth ();<a name="line.120"></a>
+<span class="sourceLineNo">121</span>                        <a name="line.121"></a>
+<span class="sourceLineNo">122</span>                        final double objFunc = feasible_n_e.zSum();<a name="line.122"></a>
+<span class="sourceLineNo">123</span><a name="line.123"></a>
+<span class="sourceLineNo">124</span>                        highestDualCost = Math.max(highestDualCost , dualCost);<a name="line.124"></a>
+<span class="sourceLineNo">125</span>                        if (objFunc &lt; lowestPrimalCost)<a name="line.125"></a>
+<span class="sourceLineNo">126</span>                        {<a name="line.126"></a>
+<span class="sourceLineNo">127</span>                                lowestPrimalCost = objFunc;<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                                bestFeasible_ne = feasible_n_e.copy();<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                                bestRelaxedAndFeasible_xte = relaxedAndFeasible_xte.copy();<a name="line.129"></a>
+<span class="sourceLineNo">130</span>                        }<a name="line.130"></a>
+<span class="sourceLineNo">131</span><a name="line.131"></a>
+<span class="sourceLineNo">132</span>                        if (highestDualCost &gt; lowestPrimalCost + PRECISIONFACTOR) throw new RuntimeException ("Bad: highestDualCost: "+  highestDualCost + ", lowestPrimalCost: " + lowestPrimalCost); <a name="line.132"></a>
+<span class="sourceLineNo">133</span>                        <a name="line.133"></a>
+<span class="sourceLineNo">134</span>                        System.out.println("* Feasible: Compute cost: " + objFunc);<a name="line.134"></a>
+<span class="sourceLineNo">135</span><a name="line.135"></a>
+<span class="sourceLineNo">136</span>                        this.stat_objFuncFeasible.add (it , new double [] { objFunc } );<a name="line.136"></a>
+<span class="sourceLineNo">137</span>                        this.stat_bestObjFuncFeasible.add(it ,  new double [] { lowestPrimalCost } );<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                        this.stat_lowerBound.add(it , new double [] { dualCost } );<a name="line.138"></a>
+<span class="sourceLineNo">139</span>                        this.stat_bestLowerBound.add(it , new double [] { highestDualCost } );<a name="line.139"></a>
+<span class="sourceLineNo">140</span>                        this.stat_pie.add(it, multipliers_eIP.toArray() );<a name="line.140"></a>
+<span class="sourceLineNo">141</span><a name="line.141"></a>
+<span class="sourceLineNo">142</span>                        double gamma = 0; <a name="line.142"></a>
+<span class="sourceLineNo">143</span>                        if (this.subgrad_type.getString ().equalsIgnoreCase("constant"))<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                                gamma = this.subgrad_gammaStep.getDouble();<a name="line.144"></a>
+<span class="sourceLineNo">145</span>                        else if (this.subgrad_type.getString ().equalsIgnoreCase("1-over-t"))<a name="line.145"></a>
+<span class="sourceLineNo">146</span>                                gamma = this.subgrad_gammaStep.getDouble() / it;<a name="line.146"></a>
+<span class="sourceLineNo">147</span>                        else if (this.subgrad_type.getString ().equalsIgnoreCase("1-over-square-root-t"))<a name="line.147"></a>
+<span class="sourceLineNo">148</span>                                gamma = this.subgrad_gammaStep.getDouble() / Math.sqrt(it);<a name="line.148"></a>
+<span class="sourceLineNo">149</span>                        else throw new Net2PlanException ("Unknown subgradient algorithm type");<a name="line.149"></a>
+<span class="sourceLineNo">150</span>                        for (int e = 0 ; e &lt; E ; e++)<a name="line.150"></a>
+<span class="sourceLineNo">151</span>                                multipliers_eIP.set(e , Math.max(0 ,  multipliers_eIP.get(e) + gamma * gradient_e.get(e) ));<a name="line.151"></a>
+<span class="sourceLineNo">152</span>                }<a name="line.152"></a>
+<span class="sourceLineNo">153</span>                <a name="line.153"></a>
+<span class="sourceLineNo">154</span>                saveNetPlan (netPlan , bestRelaxedAndFeasible_xte , bestFeasible_ne);           <a name="line.154"></a>
+<span class="sourceLineNo">155</span>                <a name="line.155"></a>
+<span class="sourceLineNo">156</span>                finish (netPlan);<a name="line.156"></a>
+<span class="sourceLineNo">157</span><a name="line.157"></a>
+<span class="sourceLineNo">158</span>                return "Ok! Best solution. Cost: " + bestFeasible_ne.zSum();<a name="line.158"></a>
+<span class="sourceLineNo">159</span>        }<a name="line.159"></a>
+<span class="sourceLineNo">160</span><a name="line.160"></a>
+<span class="sourceLineNo">161</span>        @Override<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        public String getDescription()<a name="line.162"></a>
+<span class="sourceLineNo">163</span>        {<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                return "Given a network with a set of given nodes, and links, and a given known unicast offered traffic. This algorithm jointly computes (i) the routing of the traffic, and the capacity to assign to the links. The link capacities are constrained to be modular: an integer multiple of a link capacity quantum. Optimization target is minimizing the network cost, given by the number of capacity modules to install in the network. The problem in NP-hard. The algorithm implements a dual decomposition iterative, using a subgradient algorithm.";<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        }<a name="line.165"></a>
+<span class="sourceLineNo">166</span><a name="line.166"></a>
+<span class="sourceLineNo">167</span>        @Override<a name="line.167"></a>
+<span class="sourceLineNo">168</span>        public List&lt;Triple&lt;String, String, String&gt;&gt; getParameters()<a name="line.168"></a>
+<span class="sourceLineNo">169</span>        {<a name="line.169"></a>
+<span class="sourceLineNo">170</span>                /* Returns the parameter information for all the InputParameter objects defined in this object (uses Java reflection) */<a name="line.170"></a>
+<span class="sourceLineNo">171</span>                return InputParameter.getInformationAllInputParameterFieldsOfObject(this);<a name="line.171"></a>
+<span class="sourceLineNo">172</span>        }<a name="line.172"></a>
+<span class="sourceLineNo">173</span>        <a name="line.173"></a>
+<span class="sourceLineNo">174</span>        private Quintuple&lt;DoubleMatrix2D,DoubleMatrix1D,DoubleMatrix1D,Double,DoubleMatrix1D&gt; solveSubproblems (DoubleMatrix1D pi_e)<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        {<a name="line.175"></a>
+<span class="sourceLineNo">176</span>                /* Upper layer */<a name="line.176"></a>
+<span class="sourceLineNo">177</span>                DoubleMatrix2D x_te = DoubleFactory2D.dense.make(N,E);<a name="line.177"></a>
+<span class="sourceLineNo">178</span>                {<a name="line.178"></a>
+<span class="sourceLineNo">179</span>                        OptimizationProblem op = new OptimizationProblem();<a name="line.179"></a>
+<span class="sourceLineNo">180</span>                        op.setInputParameter("pi_e", pi_e.toArray() , "column");<a name="line.180"></a>
+<span class="sourceLineNo">181</span>            op.setInputParameter("A_ne", A_ne.toArray());<a name="line.181"></a>
+<span class="sourceLineNo">182</span>                        op.setInputParameter("TM", this.tmColumnSumZero.toArray());<a name="line.182"></a>
+<span class="sourceLineNo">183</span>      op.addDecisionVariable("x_te", false , new int[] { N , E }, 0, Double.MAX_VALUE); // dest-link formulation at IP layer<a name="line.183"></a>
+<span class="sourceLineNo">184</span>                        op.setObjectiveFunction("minimize", "sum (x_te * pi_e)");<a name="line.184"></a>
+<span class="sourceLineNo">185</span>                        op.addConstraint("A_ne * (x_te') == TM"); // the flow-conservation constraints (NxN constraints)<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                        /* Call the solver to solve the problem */<a name="line.186"></a>
+<span class="sourceLineNo">187</span>                        op.solve(solverName.getString (), "solverLibraryName", solverLibraryName.getString () ,  "maxSolverTimeInSeconds" , maxSolverTimeInSeconds.getDouble ());<a name="line.187"></a>
+<span class="sourceLineNo">188</span><a name="line.188"></a>
+<span class="sourceLineNo">189</span>                        /* If no solution is found, quit */<a name="line.189"></a>
+<span class="sourceLineNo">190</span>                        if (op.feasibleSolutionDoesNotExist()) throw new Net2PlanException("The problem has no feasible solution");<a name="line.190"></a>
+<span class="sourceLineNo">191</span>                        if (op.foundUnboundedSolution()) throw new Net2PlanException ("Found an unbounded solution");<a name="line.191"></a>
+<span class="sourceLineNo">192</span>                        if (!op.solutionIsFeasible()) throw new Net2PlanException("A feasible solution was not found");<a name="line.192"></a>
+<span class="sourceLineNo">193</span>                        x_te = op.getPrimalSolution("x_te").view2D();<a name="line.193"></a>
+<span class="sourceLineNo">194</span>                }<a name="line.194"></a>
+<span class="sourceLineNo">195</span>                <a name="line.195"></a>
+<span class="sourceLineNo">196</span>                DoubleMatrix1D n_e = DoubleFactory1D.dense.make(E);<a name="line.196"></a>
+<span class="sourceLineNo">197</span>                for (int e = 0 ; e &lt; E ; e ++)<a name="line.197"></a>
+<span class="sourceLineNo">198</span>                        n_e.set(e , (1 - (moduleCapacity.getDouble() * pi_e.get(e)) &gt;= 0)? 0 : numModulesUpperBound);<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                <a name="line.199"></a>
+<span class="sourceLineNo">200</span>                DoubleMatrix1D y_e = x_te.copy().zMult(DoubleFactory1D.dense.make(N, 1.0) , null , 1.0 , 0.0 , true);<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                DoubleMatrix1D gradient_e = y_e.copy().assign(n_e , DoublePlusMultSecond.plusDiv(-moduleCapacity.getDouble()));<a name="line.201"></a>
+<span class="sourceLineNo">202</span><a name="line.202"></a>
+<span class="sourceLineNo">203</span>                /* Compute the dual cost */<a name="line.203"></a>
+<span class="sourceLineNo">204</span>                final double dualCost = x_te.copy().zMult(pi_e, null).zSum() - n_e.zDotProduct(pi_e) * moduleCapacity.getDouble();<a name="line.204"></a>
+<span class="sourceLineNo">205</span>                <a name="line.205"></a>
+<span class="sourceLineNo">206</span>                /* Compute a feasible solution from the relaxed x_te */<a name="line.206"></a>
+<span class="sourceLineNo">207</span>                DoubleMatrix1D feasible_n_e = y_e.copy().assign(DoubleFunctions.div(moduleCapacity.getDouble())).assign(DoubleFunctions.ceil);<a name="line.207"></a>
+<span class="sourceLineNo">208</span><a name="line.208"></a>
+<span class="sourceLineNo">209</span>//              System.out.println("carriedTraffic_e: " + carriedTraffic_e);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>//              System.out.println("capacityLink_e: " + capacityLink_e);<a name="line.210"></a>
+<span class="sourceLineNo">211</span>//              System.out.println("barU_e: " + barU_e);<a name="line.211"></a>
+<span class="sourceLineNo">212</span>                <a name="line.212"></a>
+<span class="sourceLineNo">213</span>                return Quintuple.of(x_te.copy () ,  n_e.copy() ,  feasible_n_e.copy() ,  dualCost ,  gradient_e);<a name="line.213"></a>
+<span class="sourceLineNo">214</span>        }<a name="line.214"></a>
+<span class="sourceLineNo">215</span>        <a name="line.215"></a>
+<span class="sourceLineNo">216</span>        private void finish (NetPlan np)<a name="line.216"></a>
+<span class="sourceLineNo">217</span>        {<a name="line.217"></a>
+<span class="sourceLineNo">218</span>                /* If no output file, return */<a name="line.218"></a>
+<span class="sourceLineNo">219</span>                if (simulation_outFileNameRoot.getString ().equals("")) return;<a name="line.219"></a>
+<span class="sourceLineNo">220</span>                stat_objFuncFeasible.printToFile(new File (simulation_outFileNameRoot.getString () + "_objFunc.txt"));<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                stat_bestObjFuncFeasible.printToFile(new File (simulation_outFileNameRoot.getString () + "_bestObjFunc.txt"));<a name="line.221"></a>
+<span class="sourceLineNo">222</span>                stat_lowerBound.printToFile(new File (simulation_outFileNameRoot.getString () + "_lowerBound.txt"));<a name="line.222"></a>
+<span class="sourceLineNo">223</span>                stat_bestLowerBound.printToFile(new File (simulation_outFileNameRoot.getString () + "_bestLowerBound.txt"));<a name="line.223"></a>
+<span class="sourceLineNo">224</span>                stat_pie.printToFile(new File (simulation_outFileNameRoot.getString () + "_pie.txt"));<a name="line.224"></a>
+<span class="sourceLineNo">225</span>                <a name="line.225"></a>
+<span class="sourceLineNo">226</span>                <a name="line.226"></a>
+<span class="sourceLineNo">227</span>                double lowerBoundNumLps_1 = 0;<a name="line.227"></a>
+<span class="sourceLineNo">228</span>                for (Node s : np.getNodes())<a name="line.228"></a>
+<span class="sourceLineNo">229</span>                {<a name="line.229"></a>
+<span class="sourceLineNo">230</span>                        double outTraffic = 0; for (Demand d : s.getOutgoingDemands()) outTraffic += d.getOfferedTraffic();<a name="line.230"></a>
+<span class="sourceLineNo">231</span>                        lowerBoundNumLps_1 += Math.ceil(outTraffic / moduleCapacity.getDouble());<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                }<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                double lowerBoundNumLps_2 = 0;<a name="line.233"></a>
+<span class="sourceLineNo">234</span>                for (Node t : np.getNodes())<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                {<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                        double inTraffic = 0; for (Demand d : t.getIncomingDemands()) inTraffic += d.getOfferedTraffic();<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                        lowerBoundNumLps_2 += Math.ceil(inTraffic / moduleCapacity.getDouble());<a name="line.237"></a>
+<span class="sourceLineNo">238</span>                }<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                double lowerBoundNumLps_3 = 0;<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                for (Node t : np.getNodes())<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                        for (Node s : np.getNodes())<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                        {<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                                if (s == t) continue;<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                                final int numHopsSP = GraphUtils.getShortestPath(np.getNodes () , np.getLinks(), s, t, null).size();<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                                for (Demand d : np.getNodePairDemands(s,t,false)) lowerBoundNumLps_3 += numHopsSP * d.getOfferedTraffic();<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                        }<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                lowerBoundNumLps_3 = Math.ceil(lowerBoundNumLps_3/moduleCapacity.getDouble());<a name="line.247"></a>
+<span class="sourceLineNo">248</span><a name="line.248"></a>
+<span class="sourceLineNo">249</span>                TimeTrace.printToFile(new File (simulation_outFileNameRoot.getString () + "_heuristicLBCost.txt") , new double [] { lowerBoundNumLps_1 , lowerBoundNumLps_2 , lowerBoundNumLps_3  }   );<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                <a name="line.250"></a>
+<span class="sourceLineNo">251</span>        }<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        <a name="line.252"></a>
+<span class="sourceLineNo">253</span>        void saveNetPlan (NetPlan netPlan , DoubleMatrix2D x_te , DoubleMatrix1D n_e)<a name="line.253"></a>
+<span class="sourceLineNo">254</span>        {<a name="line.254"></a>
+<span class="sourceLineNo">255</span>                /* Set the routing at the IP layer */<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                netPlan.setRoutingType(RoutingType.HOP_BY_HOP_ROUTING);<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                netPlan.removeAllForwardingRules();<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                netPlan.setRoutingFromDestinationLinkCarriedTraffic(x_te , true);<a name="line.258"></a>
+<span class="sourceLineNo">259</span>                for (Link e : netPlan.getLinks())<a name="line.259"></a>
+<span class="sourceLineNo">260</span>                        e.setCapacity(moduleCapacity.getDouble() * n_e.get(e.getIndex ()));<a name="line.260"></a>
+<span class="sourceLineNo">261</span>                for (Demand d : netPlan.getDemandsBlocked())<a name="line.261"></a>
+<span class="sourceLineNo">262</span>                        if (d.getBlockedTraffic() &gt; PRECISIONFACTOR) throw new RuntimeException ("Bad");<a name="line.262"></a>
+<span class="sourceLineNo">263</span>                for (Link e : netPlan.getLinksOversubscribed())<a name="line.263"></a>
+<span class="sourceLineNo">264</span>                        if (e.getOccupiedCapacityIncludingProtectionSegments() - e.getCapacity() &gt; PRECISIONFACTOR) throw new RuntimeException ("Bad");<a name="line.264"></a>
+<span class="sourceLineNo">265</span>        }<a name="line.265"></a>
+<span class="sourceLineNo">266</span>        <a name="line.266"></a>
+<span class="sourceLineNo">267</span>}<a name="line.267"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

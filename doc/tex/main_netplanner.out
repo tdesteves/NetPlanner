@@ -18,6 +18,7 @@
 \BOOKMARK [1][-]{section.4.3}{Translucent with 1+1 Protection}{chapter.4}% 18
 \BOOKMARK [2][-]{subsection.4.3.1}{Physical Network Topology}{section.4.3}% 19
 \BOOKMARK [2][-]{subsection.4.3.2}{Dimensioning using ILP}{section.4.3}% 20
+<<<<<<< HEAD
 \BOOKMARK [2][-]{subsection.4.3.3}{Dimensioning using Analytical solution}{section.4.3}% 21
 \BOOKMARK [2][-]{subsection.4.3.4}{Dimensioning using Heuristics}{section.4.3}% 22
 \BOOKMARK [2][-]{subsection.4.3.5}{Comparative Analysis}{section.4.3}% 23
@@ -51,3 +52,12 @@
 \BOOKMARK [2][-]{subsection.5.10.3}{Results using LPSolve}{section.5.10}% 51
 \BOOKMARK [0][-]{chapter.6}{Master Dissertations}{}% 52
 \BOOKMARK [1][-]{section*.59}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.6}% 53
+=======
+\BOOKMARK [2][-]{subsection.4.3.3}{Dimensioning using Heuristics}{section.4.3}% 21
+\BOOKMARK [2][-]{subsection.4.3.4}{Analysis and comparison of results}{section.4.3}% 22
+\BOOKMARK [0][-]{chapter.5}{Appendices}{}% 23
+\BOOKMARK [1][-]{section.5.1}{Net2Plan Guide}{chapter.5}% 24
+\BOOKMARK [1][-]{section.5.2}{ILP scenarios}{chapter.5}% 25
+\BOOKMARK [0][-]{chapter.6}{Master Dissertations}{}% 26
+\BOOKMARK [1][-]{section*.63}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.6}% 27
+>>>>>>> RO_2017_2018
