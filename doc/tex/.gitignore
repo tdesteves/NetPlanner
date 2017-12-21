@@ -1,0 +1,19 @@
+######################
+# Winedt
+######################
+*.synctex
+*.log
+*.ilg
+*.gz
+*.toc
+*.bak
+*.out
+*.toc
+*.blg
+*.bbl
+
+########################
+# Specific files
+########################
+
+main_netplanner.pdf
