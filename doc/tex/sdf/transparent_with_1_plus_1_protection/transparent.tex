@@ -583,6 +583,21 @@ To perform the calculations using the implementation of the models described in 
 
 In this scenario we used the table \ref{table:3}. In the table \ref{result_ILP1_T} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
 
+Using equation \ref{linkCostsTransp} : \\
+$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 26 $)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{26 336 000 \euro} \\
+
+Using equation \ref{electricalCostTransp} : \\
+$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($2 * 1 000$)$ \\
+$C_{exc}$ = \textbf{2 060 000\euro} \\
+
+Using equation \ref{opticalCost} : \\
+$C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($ 34 + 52 $)$ \\
+$C_{oxc}$ = \textbf{146 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{2 206 000 \euro} \\
+
+$CAPEX$ = 26 336 000 + 2 206 000 = \textbf{28 542 000 \euro}\\
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c || c | c || c | c ||}
@@ -602,21 +617,6 @@ In this scenario we used the table \ref{table:3}. In the table \ref{result_ILP1_
 \caption{Table with results for scenario 1}
 \label{result_ILP1_T}
 \end{table}
-
-Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 8$)$ + $($2 * 5 000 * 100 * 26 $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{26 336 000 \euro} \\
-
-Using equation \ref{electricalCostTransp} : \\
-$C_{exc}$ = $($6 * 10 000$)$ + 1 000 * $($2 * 1 000$)$ \\
-$C_{exc}$ = \textbf{2 060 000\euro} \\
-
-Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($ 34 + 52 $)$ \\
-$C_{oxc}$ = \textbf{146 000 \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{2 206 000 \euro} \\
-
-$CAPEX$ = 26 336 000 + 2 206 000 = \textbf{28 542 000 \euro}\\
 
 
 \textbf{Scenario 2: Reference Network High Traffic} \label{Scenario2_transp} \\
@@ -657,10 +657,27 @@ $C_{oxc}$ = $($6 * 10 000$)$ + 1 000 * $($114 + 168$)$ \\
 $C_{oxc}$ = \textbf{342 000 \euro} \\
 $C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{20 402 000 \euro} \\
 
-$CAPEX$ = 84 240 000 + 20 402 000 = \textbf{104 642 000 \euro}
-\newpage
+$CAPEX$ = 84 240 000 + 20 402 000 = \textbf{104 642 000 \euro}\\
+
 
 \textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_transp} \\
+
+This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:4} In the previous page we can see the table \ref{result_ILP3_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
+
+Using equation \ref{linkCostsTransp} : \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 378$)$ + $($24 * 4 000$)$ \\
+$C_L$ = \textbf{379 206 000 \euro} \\
+
+Using equation \ref{electricalCostTransp} : \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($2 * 4 000$)$ \\
+$C_{exc}$ = \textbf{8 190 000\euro} \\
+
+Using equation \ref{opticalCost} : \\
+$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($276 + 756$)$ \\
+$C_{oxc}$ = \textbf{1 222 000 \euro} \\
+$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{9 412 000 \euro} \\
+
+$CAPEX$ = 379 206 000 + 9 412 000 = \textbf{388 618 000 \euro}\\
 
 \begin{table}[h!]
 \centering
@@ -711,24 +728,7 @@ in link (18,19): & 2& & & & \\
 \label{result_ILP3_T}
 \end{table}
 
-This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:4} In the previous page we can see the table \ref{result_ILP3_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
-
-Using equation \ref{linkCostsTransp} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 378$)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{379 206 000 \euro} \\
-
-Using equation \ref{electricalCostTransp} : \\
-$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($2 * 4 000$)$ \\
-$C_{exc}$ = \textbf{8 190 000\euro} \\
-
-Using equation \ref{opticalCost} : \\
-$C_{oxc}$ = $($19 * 10 000$)$ + 1 000 * $($276 + 756$)$ \\
-$C_{oxc}$ = \textbf{1 222 000 \euro} \\
-$C_N$ = $C_{oxc}$ + $C_{exc}$ = \textbf{9 412 000 \euro} \\
-
-$CAPEX$ = 379 206 000 + 9 412 000 = \textbf{388 618 000 \euro}\\
-
-
+\newpage
 \textbf{Scenario 4: Realistic Network High Traffic} \label{Scenario4_transp} \\
 
 This scenario is identical to the previous one, therefore, the execution time was the same. In this scenario we used again the table \ref{table:4} In the next page we can see the table \ref{result_ILP4_T} with the values calculated through MatLab and using the values indicated in table \ref{table_cost2} we can finally calculate the CAPEX value. \\
