@@ -484,6 +484,7 @@ Again, for a better understanding of the functions and variables used in the ILP
  $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
  $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
  $fp_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows with protection) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
  $W_{od}$ & number of optical channels between the nodes $o$ and $d$\\
  G & Network topology in form of adjacency matrix \\
  \hline
@@ -492,11 +493,11 @@ Again, for a better understanding of the functions and variables used in the ILP
 \label{description_transp}
 \end{table}
 
-The optimization model suggested for transparent transport mode with dedicated path protection intends to minimize the total number of flows crossing link (i, j) for all demand pairs (o, d). The mathematical model described below also minimizes the total number of optical channels between each demand end nodes $W_{od}$, instead of minimizing the number of optical link-by-link channels as in the previous model.
-
+The optimization model suggested for the transparent transport mode with dedicated path protection aims to minimize the cost of CAPEX and for this it minimizes the total number of flows crossing the link (i, j) for all demand pairs (o, d) multiplying by the price previously mentioned. The mathematical model described below also minimizes the total number of optical channels between each of the demand end nodes $W_{od}$ od instead of minimizing the number of optical link-by-link channels as in the previous model.
 \vspace{10pt}
+
 \begin{equation}
-minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} \sum_{(o,d)} fp_{ij}^{od} + 3 \times 4000 \times \sum_{(i,j)} L_{ij} + 2 \times 5000 \times \sum_{(o,d)} W_{od}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} \sum_{(o,d)} fp_{ij}^{od} + 4000 \times \sum_{(i,j)} L_{ij} + 2 \times 5000 \times \sum_{(o,d)} W_{od}
 \label{ILPTransp}
 \end{equation}
 
@@ -538,12 +539,6 @@ $subject$ $to$
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d)} f_{ij}^{op} + f_{ji}^{op} + fp_{ij}^{op} + fp_{ji}^{op}  <= 80 \times L_{ij} \qquad \qquad \qquad \qquad
-\forall (i,j)
-\label{ILPTranspL}
-\end{equation}
-
-\begin{equation}
 \sum_{j\textbackslash \{d\}} fp_{ji}^{od} = W_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPTransp3p}
@@ -556,7 +551,7 @@ $subject$ $to$
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od}\right) W_{od} \leq 80 G_{ij} \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od}\right) W_{od} \leq 80 G_{ij} L_{ij} \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPTransp4}
 \end{equation}
@@ -568,12 +563,13 @@ f_{ij}^{od} , f_{ji}^{od} , fp_{ij}^{od} , fp_{ji}^{od} , W_{od} \in \mathbb{N} 
 \end{equation}
 
 \begin{equation}
-L_{i,j} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+L_{i,j} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j)
 \label{ILPTranspL1}
 \end{equation}
 
-The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and by equations \ref{ILPTransp1p}, \ref{ILPTransp2p} and \ref{ILPTransp3p} for the protection case. The constraints \ref{ILPTransp1} and \ref{ILPTransp1p} ensures that, for all demand pairs (o,d), is equal to number of optical channels between this demand for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPTransp3} and \ref{ILPTransp3p} is based on the same idea of \ref{ILPTransp1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPTransp2} and \ref{ILPTransp2p}. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last constraint define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.
+\vspace{11pt}
+The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and by equations \ref{ILPTransp1p}, \ref{ILPTransp2p} and \ref{ILPTransp3p} for the protection case. The constraints \ref{ILPTransp1} and \ref{ILPTransp1p} ensures that, for all demand pairs (o,d), is equal to number of optical channels between this demand for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPTransp3} and \ref{ILPTransp3p} is based on the same idea of \ref{ILPTransp1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPTransp2} and \ref{ILPTransp2p}. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last constraint define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.\\
 
 \subsubsection{ILP Results}
 

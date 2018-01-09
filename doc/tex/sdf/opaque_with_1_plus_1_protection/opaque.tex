@@ -481,7 +481,7 @@ C_L = \left(2 \times \gamma_0^{OLT} \times L\right) + \left(2 \times \gamma_1^{O
 
 \subsubsection{ILP models}\label{ILP_models_OP}
 
-For a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all the variables and their description. \\
+For a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all the variables and their description.
 
 \begin{table}[h!]
 \centering
@@ -499,6 +499,7 @@ For a better understanding of the functions and variables used in the ILP, a tab
  $c$ & index for bit rate of the client signal \\
  $C$ & set of the client signal \\
  $f_{ij}^{od}$ & binary variable indicating if link between the nodes $i$ and $j$ is used in the path between nodes $o$ and $d$ \\
+ $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
  $W_{ij}$ & number of optical channels between the nodes $i$ and $j$\\
  $B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
  $D_{odc}$ & client demands with bit rate $c$ between nodes $o$ and $d$ \\
@@ -509,12 +510,10 @@ For a better understanding of the functions and variables used in the ILP, a tab
 \label{description_opaque}
 \end{table}
 
-
-The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i,j) for all demand pairs (o,d) and total number of optical channels in each link (i,j).
-\vspace{11pt}
+The objective function of following the ILP is a CAPEX minimization using the sum of two variables multiplied by the price previously mentioned: total number of flows crossing the link (i, j) for all demand pairs (o, d) and total number of optical channels in each link (i, j).
 
 \begin{equation}
-minimize \quad 4000 \times \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + 2 \times 5000 \times \sum_{(i,j)} W_{ij}
+minimize \quad \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + 4000 \times \sum_{(i,j)} L_{ij} + 2 \times 5000 \times \sum_{(i,j)} W_{ij}
 \label{ILPOpaque}
 \end{equation}
 
@@ -550,7 +549,13 @@ W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 \end{equation}
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d)} \left(f_{ij}^{op} + f_{ji}^{op}\right)<= 80 \times L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (i,j)
+\label{ILPOpaqueX}
+\end{equation}
+
+\begin{equation}
+L_{ij} , f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPOpaque6}
 \end{equation}
@@ -571,7 +576,7 @@ To perform the calculations using the implementation of the models described in 
 
 \textbf{Scenario 1: Reference Network Low Traffic} \label{Scenario1_opaque} \\
 
-In this scenario we used the table \ref{table:1}. In the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value.
+In this scenario we used the table \ref{table:1}. In the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value.\\
 
 \begin{table}[h!]
 \centering
@@ -607,7 +612,7 @@ $CAPEX$ = 23 336 000 + 5 660 000 = \textbf{28 996 000\euro}\\
 
 \textbf{Scenario 2: Reference Network High Traffic} \label{Scenario2_opaque} \\
 
-In this scenario we used again the table \ref{table:1}. In the table \ref{result_ILP2} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value.
+In this scenario we used again the table \ref{table:1}. In the table \ref{result_ILP2} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost1} we can finally calculate the CAPEX value.\\
 
 \begin{table}[h!]
 \centering
@@ -640,10 +645,10 @@ $C_N$ = $C_{exc}$ = \textbf{49 860 000\euro} \\
 
 $CAPEX$ = 199 336 000 + 49 860 000 = \textbf{249 196 000\euro}\\
 
-
+\newpage
 \textbf{Scenario 3: Realistic Network Low Traffic} \label{Scenario3_opaque} \\
 
-This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:2} and in the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost3} we can finally calculate the CAPEX value.
+This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this case, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table:2} and in the table \ref{result_ILP1} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost3} we can finally calculate the CAPEX value.\\
 
 \begin{table}[h!]
 \centering

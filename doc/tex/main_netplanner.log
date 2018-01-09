@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  22 DEC 2017 15:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  9 JAN 2018 15:08
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -1468,113 +1468,116 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 441.
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 484--485
-
- []
-
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 519.
+(babel)             in language  on input line 518.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 519.
+(babel)             in language  on input line 518.
 [16]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 523.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 522.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 530.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 529.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 530.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 529.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 536.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 535.
 
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 566.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 566.
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 570--571
+Underfull \hbox (badness 10000) in paragraph at lines 575--576
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 572--573
+Underfull \hbox (badness 10000) in paragraph at lines 577--578
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--599
+Underfull \hbox (badness 10000) in paragraph at lines 579--580
 
  []
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 599.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 599.
-[18]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 601--604
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 605--606
+Underfull \hbox (badness 10000) in paragraph at lines 606--609
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 608--609
+Underfull \hbox (badness 10000) in paragraph at lines 610--611
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 633--636
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 637--640
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 641--642
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 644--645
+Underfull \hbox (badness 10000) in paragraph at lines 613--614
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 695.
+(babel)             in language  on input line 615.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 695.
+(babel)             in language  on input line 615.
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 615--616
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 638--641
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 642--645
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 646--647
+
+ []
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 648.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 648.
 [19]
-Underfull \hbox (badness 10000) in paragraph at lines 698--701
-
- []
-
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 701.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 701.
-[20]
-Underfull \hbox (badness 10000) in paragraph at lines 702--705
+Underfull \hbox (badness 10000) in paragraph at lines 649--650
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 706--707
+Underfull \hbox (badness 10000) in paragraph at lines 651--652
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 709--710
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 703--706
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 707--710
 
  []
 
@@ -1584,40 +1587,58 @@ Underfull \hbox (badness 10000) in paragraph at lines 711--712
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 714--715
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 716--717
+
+ []
+
+
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 763--766
+Underfull \hbox (badness 10000) in paragraph at lines 768--771
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 767--770
+Underfull \hbox (badness 10000) in paragraph at lines 772--775
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 771--772
+Underfull \hbox (badness 10000) in paragraph at lines 776--777
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 773.
+(babel)             in language  on input line 778.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 773.
+(babel)             in language  on input line 778.
+[20]
+
+LaTeX Warning: Text page 21 contains only floats.
+
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 778.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 778.
 [21]
 
 LaTeX Warning: Text page 22 contains only floats.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 773.
+(babel)             in language  on input line 778.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 773.
+(babel)             in language  on input line 778.
 [22]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 775.
+(babel)             in language  on input line 780.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 781.
+(babel)             in language  on input line 786.
 ) (sdf/transparent_with_1_plus_1_protection/transparent.tex
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
@@ -1779,50 +1800,60 @@ Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 438.
 [32]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 496.
+(babel)             in language  on input line 498.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 496.
+(babel)             in language  on input line 498.
  [33]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 511.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 512.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 517.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 518.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 517.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 518.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 523.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 524.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 529.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 530.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 535.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 536.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 535.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 536.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 547.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 542.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 572--573
+
+ []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 577.
+(babel)             in language  on input line 573.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 577.
+(babel)             in language  on input line 573.
 [34]
+Underfull \hbox (badness 10000) in paragraph at lines 576--577
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 578--579
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 580--581
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 582--583
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 584--585
+Underfull \hbox (badness 10000) in paragraph at lines 582--585
 
  []
 
@@ -1832,26 +1863,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 586--589
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 590--593
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 594--598
+Underfull \hbox (badness 10000) in paragraph at lines 590--594
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 598.
+(babel)             in language  on input line 594.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 598.
+(babel)             in language  on input line 594.
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 599--600
+Underfull \hbox (badness 10000) in paragraph at lines 595--596
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 622--623
+Underfull \hbox (badness 10000) in paragraph at lines 618--619
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 643--646
 
  []
 
@@ -1860,32 +1891,32 @@ Underfull \hbox (badness 10000) in paragraph at lines 647--650
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 651--654
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 655--659
-
- []
-
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 659.
+(babel)             in language  on input line 650.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 659.
+(babel)             in language  on input line 650.
 [36]
-Underfull \hbox (badness 10000) in paragraph at lines 660--661
+Underfull \hbox (badness 10000) in paragraph at lines 651--655
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 663--664
+Underfull \hbox (badness 10000) in paragraph at lines 656--657
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 665--666
+Underfull \hbox (badness 10000) in paragraph at lines 659--660
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 661--662
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 663--666
 
  []
 
@@ -1895,17 +1926,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 667--670
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 671--674
+Underfull \hbox (badness 10000) in paragraph at lines 671--675
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 675--679
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 680--681
+Underfull \hbox (badness 10000) in paragraph at lines 676--677
 
  []
 
@@ -1913,24 +1939,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 680--681
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
+(babel)             in language  on input line 727.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
+(babel)             in language  on input line 727.
 [37]
 
 LaTeX Warning: Text page 38 contains only floats.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
+(babel)             in language  on input line 727.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 731.
+(babel)             in language  on input line 727.
 [38]
-Underfull \hbox (badness 10000) in paragraph at lines 732--733
+Underfull \hbox (badness 10000) in paragraph at lines 728--729
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 734--735
+Underfull \hbox (badness 10000) in paragraph at lines 730--731
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 732--735
 
  []
 
@@ -1940,17 +1971,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 736--739
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 740--743
+Underfull \hbox (badness 10000) in paragraph at lines 740--744
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 744--748
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 749--750
+Underfull \hbox (badness 10000) in paragraph at lines 745--746
 
  []
 
@@ -1958,22 +1984,22 @@ Underfull \hbox (badness 10000) in paragraph at lines 749--750
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 800.
+(babel)             in language  on input line 796.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 800.
+(babel)             in language  on input line 796.
 [39]
 
 LaTeX Warning: Text page 40 contains only floats.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 800.
+(babel)             in language  on input line 796.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 800.
+(babel)             in language  on input line 796.
 [40]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 802.
+(babel)             in language  on input line 798.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 808.
+(babel)             in language  on input line 804.
 ) (sdf/translucent_with_1_plus_1_protection/translucent.tex
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 1.
@@ -1993,190 +2019,176 @@ Overfull \hbox (7.33366pt too wide) in paragraph at lines 4--9
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 11.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 15.
+(babel)             in language  on input line 17.
 File: ./figures/RedeTeste.jpg Graphic file (type jpg)
 <use ./figures/RedeTeste.jpg>
-Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 24.
+Package pdftex.def Info: ./figures/RedeTeste.jpg used on input line 26.
 (pdftex.def)             Requested size: 442.65375pt x 151.43628pt.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 43.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 43.
+ [42
 
-Overfull \hbox (15.56113pt too wide) detected at line 71
+]
+Overfull \hbox (15.56113pt too wide) detected at line 73
 \OML/cmm/m/it/10.95 ODU\OT1/cmr/m/n/10.95 0 = []  \OML/cmm/m/it/10.95 ODU\OT1/c
 mr/m/n/10.95 1 = []  \OML/cmm/m/it/10.95 ODU\OT1/cmr/m/n/10.95 2 = []
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 97--100
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--106
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--112
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 113--114
+
+ []
+
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 71.
+(babel)             in language  on input line 117.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 71.
-[42
-
-]
-Underfull \hbox (badness 10000) in paragraph at lines 95--98
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 99--100
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 101--104
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 105--107
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 108--110
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 111--112
-
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+(babel)             in language  on input line 117.
+[43]
 File: ./figures/EON_Rede_Realista.jpg Graphic file (type jpg)
-<use ./figures/EON_Rede_Realista.jpg>
-Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 143
+ <use ./figures/EON_Rede_Realista.jpg>
+Package pdftex.def Info: ./figures/EON_Rede_Realista.jpg used on input line 145
 .
 (pdftex.def)             Requested size: 442.65375pt x 272.44514pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 145.
+(babel)             in language  on input line 151.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 145.
- [43]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+(babel)             in language  on input line 151.
+ [44]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
+(babel)             in language  on input line 258.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
-[44]
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 256.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 256.
+(babel)             in language  on input line 258.
  [45]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 256.
+(babel)             in language  on input line 258.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 256.
+(babel)             in language  on input line 258.
  [46]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 309.
+(babel)             in language  on input line 311.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 309.
+(babel)             in language  on input line 311.
  [47]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 362.
+(babel)             in language  on input line 364.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 362.
+(babel)             in language  on input line 364.
  [48]
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
+Underfull \hbox (badness 10000) in paragraph at lines 370--371
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 370--373
+Underfull \hbox (badness 10000) in paragraph at lines 372--375
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 374--376
+Underfull \hbox (badness 10000) in paragraph at lines 376--378
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 377--379
+Underfull \hbox (badness 10000) in paragraph at lines 379--381
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 380--381
+Underfull \hbox (badness 10000) in paragraph at lines 382--383
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 389.
+(babel)             in language  on input line 391.
 
-Underfull \hbox (badness 2073) in paragraph at lines 393--394
+Underfull \hbox (badness 2073) in paragraph at lines 395--396
 []|\T1/ppl/m/n/10.95 Implement the di-men-si-o-ning of op-ti-cal networks in th
 e
  []
 
 
-Overfull \hbox (7.33366pt too wide) in paragraph at lines 391--395
+Overfull \hbox (7.33366pt too wide) in paragraph at lines 393--397
 [][] 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 398.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 396.
+(babel)             in language  on input line 398.
 [49]
-Underfull \hbox (badness 10000) in paragraph at lines 406--408
+Underfull \hbox (badness 10000) in paragraph at lines 408--410
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 434--435
+Underfull \hbox (badness 10000) in paragraph at lines 436--437
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 443.
+(babel)             in language  on input line 445.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 443.
+(babel)             in language  on input line 445.
 [50]
-Underfull \hbox (badness 10000) in paragraph at lines 462--463
+Underfull \hbox (badness 10000) in paragraph at lines 464--465
 
  []
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 500.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 502.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 504.
+(babel)             in language  on input line 506.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 504.
+(babel)             in language  on input line 506.
 [51]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 507.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 509.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 507.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 509.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 514.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 516.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 535.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 537.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 542.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 544.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 542.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 544.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 549.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 574--575
-
- []
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 551.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 576--577
@@ -2184,7 +2196,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 576--577
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 582--583
+Underfull \hbox (badness 10000) in paragraph at lines 578--579
 
  []
 
@@ -2194,21 +2206,21 @@ Underfull \hbox (badness 10000) in paragraph at lines 584--585
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 590--591
+Underfull \hbox (badness 10000) in paragraph at lines 586--587
 
  []
 
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 591.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 591.
-[52]
+
 Underfull \hbox (badness 10000) in paragraph at lines 592--593
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 598--599
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 593.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 593.
+[52]
+Underfull \hbox (badness 10000) in paragraph at lines 594--595
 
  []
 
@@ -2218,21 +2230,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 600--601
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 606--607
+Underfull \hbox (badness 10000) in paragraph at lines 602--603
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 608--609
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 609.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 615.
-Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 615.
-[53]
+(babel)             in language  on input line 611.
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 617.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 623.
+(babel)             in language  on input line 617.
+[53]
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 619.
+Package babel Info: Redefining portuges shorthand "|
+(babel)             in language  on input line 625.
 ))
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 28.
@@ -11338,7 +11355,7 @@ msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (1140 pages, 11030118 bytes).
+Output written on main_netplanner.pdf (1140 pages, 11030784 bytes).
 PDF statistics:
  7416 PDF objects out of 7423 (max. 8388607)
  1365 named destinations out of 1440 (max. 500000)
