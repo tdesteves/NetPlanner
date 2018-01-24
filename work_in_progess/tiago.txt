@@ -1,33 +1,16 @@
-<<<<<<< HEAD
-﻿2017-05-17
+﻿2018-01-24
 TO BE DONE
-	diretorios figuras: sdf/opaco/figures (pdfs), sdf/opaco/figures_raw (power point) ----- este ponto esta feito -----
+	- organizar o documento (acrecentar uma secção sobre assessement)
+	- incluir no documento os casos concluidos para irmos discutindo
 
-	opaco, alterar a função objetivo de forma a minimizar o custo total 
-
-	fazer igual para o transparente
-
-	translucido perceber o modelo de custos para depois escrever a função objetivo 
+Next meeting: 31/1/2018, 11h
 
 
-2017-11-28
-TO BE DONE
-	- melhorar a edição e colocar mais informação no documento, incluindo os resultados ----- este ponto esta feito -----
-	- incluir também os anexos (opaco e o transparent) ----- este ponto esta feito -----
-	- incluir um anexo para o lpsolve ----- este ponto esta feito -----
-	- incluir um diretorio para o lpsolve ----- este ponto esta feito -----
-
-	- fazer o script para o translucido ----- este ponto esta praticamente feito -----
-		- incluir no documento ----- este ponto esta feito -----
-
-	- preparar apresentação ----- este ponto esta feito -----
-=======
-﻿2018-01-12
+2018-01-12
 TO BE DONE
 	- organizar o documento
 
 Next meeting: 24/1/2018
->>>>>>> 5f668b6c0a2c9ec05cd236f052ab382a7620ab42
 
 2017-11-21
 TO BE DONE
