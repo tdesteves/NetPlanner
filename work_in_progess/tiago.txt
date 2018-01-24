@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿2017-05-17
 TO BE DONE
 	diretorios figuras: sdf/opaco/figures (pdfs), sdf/opaco/figures_raw (power point) ----- este ponto esta feito -----
@@ -20,6 +21,13 @@ TO BE DONE
 		- incluir no documento ----- este ponto esta feito -----
 
 	- preparar apresentação ----- este ponto esta feito -----
+=======
+﻿2018-01-12
+TO BE DONE
+	- organizar o documento
+
+Next meeting: 24/1/2018
+>>>>>>> 5f668b6c0a2c9ec05cd236f052ab382a7620ab42
 
 2017-11-21
 TO BE DONE

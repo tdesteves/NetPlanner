@@ -1,0 +1,149 @@
+\clearpage
+
+\section{Translucent without Survivability}\label{ILP_Transluc_Survivability}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the translucent transport mode without survivability.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transluc} will be created with all the variables and their description. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{1cm}||p{13cm}|}
+ \hline
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $c$ & Client traffic Type $($ 1 to 5 $)$ \\
+ $L_{ij}^{od}$ & Number of ODU-o low speed signals from node $o$ to node $d$ employing lightpath ($i$,$j$) \\
+ $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $W_{od}$ & Number of lightpath channels between the nodes $o$ and $d$ \\
+ $B$ & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ $D_{od}$ & Client traffic demands between the nodes $o$ and $d$ \\
+ $G$ & Network topology in form of adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_transluc}
+\end{table}
+
+
+The objective function of following ILP is a minimization of ...............
+
+\begin{equation}
+minimize
+\label{ILPTransluc_surv}
+\end{equation}
+
+$subject$ $to$
+
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPTransluc_Surv}....................
+
+\newpage
+\section{Translucent with 1+1 Protection}\label{ILP_Transluc_Protection}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the translucent transport mode with 1 plus 1 protection.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+Here, in this case, we must take into account table \ref{description_transluc}, previously mentioned, in order to better understand the objective function.\\
+
+The objective function of following the ILP is a CAPEX minimization using .............................
+
+
+\begin{equation}
+minimize \qquad \qquad \qquad \qquad \qquad  \sum_{(o,d)} W_{od}
+\label{ILPTransluc}
+\end{equation}
+
+$subject$ $to$
+
+\begin{equation}
+\sum_{j \textbackslash \{o\} } L_{ij}^{od} = D_{odc}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d
+\label{ILPTransluc1}
+\end{equation}
+
+\begin{equation}
+\sum_{j \textbackslash \{o\} } L_{ij}^{od} = \sum_{j \textbackslash \{d\} } L_{ji}^{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d , \forall i : i \neq o,d
+\label{ILPTransluc2}
+\end{equation}
+
+\begin{equation}
+\sum_{j \textbackslash \{d\} } L_{ji}^{od} = D_{odc}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d
+\label{ILPTransluc3}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left( B(c) \times L_{ij}^{od}\right) \leq  100 W_{ij}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (i,j)
+\label{ILPTransluc4}
+\end{equation}
+
+\begin{equation}
+L_{ij}^{od} \geq 0;
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (i,j) , \forall (o,d) : o < d
+\label{ILPTransluc5}
+\end{equation}
+
+\begin{equation}
+\sum_{j \textbackslash \{o\} } f_{ij}^{od} = W_{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d
+\label{ILPTransluc6}
+\end{equation}
+
+\begin{equation}
+\sum_{j \textbackslash \{o\} } f_{ij}^{od} = \sum_{j \textbackslash \{d\} } f_{ji}^{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d , \forall i : i \neq o,d
+\label{ILPTransluc7}
+\end{equation}
+
+\begin{equation}
+\sum_{j \textbackslash \{d\} } f_{ji}^{od} = W_{od}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d):o<d
+\label{ILPTransluc8}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left( f_{ij}^{od} + f_{ji}^{od}\right) \leq 80 G_{ij}
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (i,j) : i < j
+\label{ILPTransluc9}
+\end{equation}
+
+\begin{equation}
+f_{ij}^{od} \geq 0
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (i,j) \forall (o,d)
+\label{ILPTransluc10}
+\end{equation}	
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPTransluc}............

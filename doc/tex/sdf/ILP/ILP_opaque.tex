@@ -1,0 +1,165 @@
+\clearpage
+
+\section{Opaque without Survivability}\label{ILP_Opaque_Survivability}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the opaque transport mode without survivability.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all indexes, inputs and variables and with their respective description.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{1cm}||p{13cm}|}
+ \hline
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $c$ & index for bit rate of the client signal \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $C$ & set of the client signal \\
+ $f_{ij}^{od}$ & binary variable indicating if link between the nodes $i$ and $j$ is used in the path between nodes $o$ and $d$ \\
+ $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
+ $W_{ij}$ & number of optical channels between the nodes $i$ and $j$\\
+ $B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ $D_{odc}$ & client demands with bit rate $c$ between nodes $o$ and $d$ \\
+ $G_{ij}$ & network topology in form of adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_opaque}
+\end{table}
+
+
+The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i, j) for all demand pairs (o, d) and total number of optical channels in each link (i, j).\\
+
+\begin{equation}
+minimize \quad \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} W_{ij}
+\label{ILPOpaque_Surv}
+\end{equation}
+
+$subject$ $to$
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 1  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPOpaque1_Surv}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPOpaque2_Surv}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 1  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPOpaque3_Surv}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{odc}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPOpaque4_Surv}
+\end{equation}
+
+\begin{equation}
+W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+\label{ILPOpaque5_Surv}
+\end{equation}
+
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPOpaque6_Surv}
+\end{equation}
+
+\begin{equation}
+W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPOpaque7_Surv}
+\end{equation}
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPOpaque_Surv}. The flow conservation constraints are \ref{ILPOpaque1_Surv}, \ref{ILPOpaque2_Surv} and \ref{ILPOpaque3_Surv}. First constraint ensures that, for all demand pairs (o,d), it routes one flow of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3_Surv} is based on the same idea of \ref{ILPOpaque1_Surv}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2_Surv}. The inequality \ref{ILPOpaque4_Surv} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5_Surv} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or one if considering traffic \ref{ILPOpaque6_Surv}. The last constraint \ref{ILPOpaque7_Surv} is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
+
+
+\newpage
+\section{Opaque with 1+1 Protection}\label{ILP_Opaque_Protection}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the opaque transport mode with 1 plus 1 protection.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+Here, in this case, we must take into account table \ref{description_opaque}, previously mentioned, in order to better understand the objective function.\\
+
+The objective function of following the ILP is a CAPEX minimization using the sum of two variables multiplied by the price previously mentioned: total number of flows crossing the link (i, j) for all demand pairs (o, d) and total number of optical channels in each link (i, j).\\
+
+\begin{equation}
+minimize \quad \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + 4000 \times \sum_{(i,j)} L_{ij} + 2 \times 5000 \times \sum_{(i,j)} W_{ij}
+\label{ILPOpaque}
+\end{equation}
+
+$subject$ $to$
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPOpaque1}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPOpaque2}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPOpaque3}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{odc}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPOpaque4}
+\end{equation}
+
+\begin{equation}
+W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+\label{ILPOpaque5}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d)} \left(f_{ij}^{op} + f_{ji}^{op}\right)<= 80 \times L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (i,j)
+\label{ILPOpaqueX}
+\end{equation}
+
+\begin{equation}
+L_{ij} , f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPOpaque6}
+\end{equation}
+
+\begin{equation}
+W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j\label{ILPOpaque7}
+\end{equation}
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or one if considering working or protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+
