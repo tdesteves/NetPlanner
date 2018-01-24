@@ -2,8 +2,10 @@ This is BibTeX, Version 0.99dThe top-level auxiliary file: main_netplanner.aux
 A level-1 auxiliary file: chapter/introduction.aux
 A level-1 auxiliary file: chapter/simulator_structure.aux
 A level-1 auxiliary file: chapter/development_cycle.aux
+A level-1 auxiliary file: chapter/ILP.aux
+A level-1 auxiliary file: chapter/Heuristics.aux
 A level-1 auxiliary file: chapter/case_studies.aux
-A level-1 auxiliary file: chapter/attachments.aux
+A level-1 auxiliary file: chapter/appendices.aux
 A level-1 auxiliary file: chapter/dissertations.aux
 The style file: ieeetr.bst
 I found no \citation commands---while reading file main_netplanner.aux
