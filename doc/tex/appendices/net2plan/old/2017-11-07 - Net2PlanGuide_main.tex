@@ -1,0 +1,52 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[lmargin=2cm, rmargin=2cm, tmargin=2cm, bmargin=2cm]{geometry}
+\usepackage{mathptmx,amsmath}
+\usepackage{amssymb}
+\usepackage[tight,scriptsize]{subfigure}
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+%\usepackage{enumerate}
+%\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{hyperref}
+\usepackage{eurosym}
+
+\pagestyle{plain} %empty heading myheadings
+\pagenumbering{arabic}
+\renewcommand{\arraystretch}{1.3}
+\graphicspath{{./figures/}}
+
+\hyphenpenalty=50000
+\tolerance=10000
+
+\hypersetup
+{
+    pdftitle={Net2Plan Guide 2016},
+    pdfauthor={Vasco Braz},
+    pdfauthor={Adolfo Oliveira},
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    urlcolor=blue,
+    pdfview=Fit,
+    pdfpagemode=UseNone
+}
+
+\begin{document}
+\title{NetPlanner}
+\author{University of Aveiro}
+%\date{\small \today}
+\maketitle
+
+\tableofcontents
+\clearpage
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\pagebreak
+
+
+\clearpage
+
+\include{Net2PlanGuide}
+
+\end{document} 
