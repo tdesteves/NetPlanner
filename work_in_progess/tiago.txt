@@ -1,4 +1,12 @@
-﻿2018-01-12
+﻿2018-01-24
+TO BE DONE
+	- organizar o documento (acrecentar uma secção sobre assessement)
+	- incluir no documento os casos concluidos para irmos discutindo
+
+Next meeting: 31/1/2018, 11h
+
+
+2018-01-12
 TO BE DONE
 	- organizar o documento
 
@@ -10,23 +18,22 @@ TO BE DONE
 		opaco, both networks in both scenarios
 			reference network, low traffic -> DONE
 			reference network, high traffic -> DONE
-			realistic network, low traffic -> MIssing (to be done)
-			realistic network, high traffic -> MIssing (to be done)
+			realistic network, low traffic -> Running
+			realistic network, high traffic -> Running
 
 		transparent, both networks in both scenarios
-			reference network, low traffic -> Missing (to be done)
+			reference network, low traffic -> DONE
 			reference network, high traffic -> Missing (to be done)
-			realistic network, low traffic -> MIssing (to be done)
-			realistic network, high traffic -> MIssing (to be done)
+			realistic network, low traffic -> Running
+			realistic network, high traffic -> Missing (to be done)
 
 	- finalize the ILP for the translucent for reference network with 1+1
-			- perceber o algoritmo ->finish
-			- definir as variaveis ->finish
-			- ajustar a notação ->finish
-			- implementar no Matlab ->finish
+			- perceber o algoritmo ->finish 		DONE
+			- definir as variaveis ->finish 		DONE
+			- ajustar a notação ->finish 			DONE
+			- implementar no Matlab ->finish 		DONE
 				
-			 -> preparar apresentação (5/6 slides) 
-
+			 -> preparar apresentação (5/6 slides) 	DONE 
 
 2017-11-14
 TO BE DONE
@@ -43,10 +50,6 @@ TO BE DONE
 		- definir as variaveis ----- quase feito -----
 		- ajustar a notação ----- feito -----
 		- implementar no Matlab ----- quase feito -----
-
-
-
-	
 
 2017-11-07
 TO BE DONE
