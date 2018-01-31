@@ -490,14 +490,60 @@ Through image \ref{scriptopaque_surv_ref_high} we can see that the previous ILP 
 
 
 \subsection{Dimensioning using Heuristics}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{11pt}
+In this section we will, again, do the dimensioning of the network mentioned in the first subsection to calculate the value of your CAPEX, for this we will use the Heuristic model describe in section \ref{heuristic_Opaque_Survivability} and we can get the best possible solution.
+The software used to implement the above heuristics is Net2Plan.
+In an initial phase will be described in a simple way how net2plan works, if a more complete description is necessary we can always consult the appendice \ref{net2planguide}, next will be presented the results for the scenarios mentioned previously.
+
+\subsubsection{Net2Plan description}
+
+In an initial phase we will have two aspects to fulfill. The first one is to define the ODU0, ODU1, ODU2, ODU3 and ODU4 matrices, and the second one passes through the design of the network in question.
+After this phase is completed, we then apply the algorithms created. first the "joinTrafficMatrices" then the "logicalTopology" and finally the "Grooming".
+At the end, the algorithm "CostReport" will be applied to obtain the CAPEX result for the network in question.
 
 \subsubsection{Heuristics Results}
 
-\subsection{Comparative Analysis}
+\textbf{Scenario 1: Reference Network Low Traffic}\\
 
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario the obtained result can be consulted in the following table \ref{heuristicopaque_surv_ref_low}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{heuristic_opaque_surv_ref_low}
+\caption{The network cost using Net2Plan.}
+\label{heuristicopaque_surv_ref_low}
+\end{figure}
+
+
+\textbf{Scenario 2: Reference Network High Traffic}\\
+
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario the obtained result can be consulted in the following table \ref{heuristicopaque_surv_ref_high}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=9cm]{heuristic_opaque_surv_ref_high}
+\caption{The network cost using Net2Plan.}
+\label{heuristicopaque_surv_ref_high}
+\end{figure}
+
+
+\subsection{Comparative Analysis}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\end{tabular}
+\end{tcolorbox}
+
+\vspace{11pt}
 In this subsection we will compare the CAPEX values obtained for the two scenarios in the three types of dimensioning. For a better analysis of the results will be created the table \ref{table_comparative_opaque_sur_ref_1} (scenario 1) and the table \ref{table_comparative_opaque_sur_ref_2} (scenario 2) with the different values obtained.\\
 
-\textbf{Scenario 1:}
+\textbf{Scenario 1:}\\
 
 \begin{table}[h!]
 \centering
@@ -505,17 +551,26 @@ In this subsection we will compare the CAPEX values obtained for the two scenari
  \hline
    & Analytical & ILP & Heuristic \\
  \hline\hline
- Link Cost & 16 372 000 \euro & 11 372 000 \euro & ------ \euro \\
- Node Cost & 5 125 500 \euro & 3 260 000 \euro & ------ \euro \\
- CAPEX & 21 497 500 \euro & 14 632 000 \euro & ------ \euro \\
+ Link Cost & 16 372 000 \euro & 11 372 000 \euro & 12 504 000 \euro \\
+ Node Cost & 5 125 500 \euro & 3 260 000 \euro & 4 460 000 \euro \\
+ CAPEX & \textbf{21 497 500 \euro} & \textbf{14 632 000 \euro} & \textbf{16 964 000 \euro} \\
  \hline
 \end{tabular}
 \caption{Table with different value of CAPEX }
 \label{table_comparative_opaque_sur_ref_1}
 \end{table}
 
+\vspace{11pt}
+Looking at the previous table we can make some comparisons between the several different models of dimensioning and finally draw some conclusions.
 
-\textbf{Scenario 2:}
+\begin{itemize}
+  \item We can conclude that in this case the dimensioning using ILP is the best (lowest cost).
+  \item In comparison with the analytical model we can see that there is a difference considered with a 32\% error, this value is mainly due to the number of optical channels because in the analytical model more optical channels are calculated and used than those required in the ILP model.
+  \item In comparison with the heuristic model we can see that there is a small difference with a 14\% error, much smaller than the previous one.
+\end{itemize}
+
+\vspace{11pt}
+\textbf{Scenario 2:}\\
 
 \begin{table}[h!]
 \centering
@@ -523,17 +578,23 @@ In this subsection we will compare the CAPEX values obtained for the two scenari
  \hline
    & Analytical & ILP & Heuristic \\
  \hline\hline
- Link Cost & 160 372 000 \euro & 75 372 000 \euro & ------ \euro \\
- Node Cost & 8 453 250 \euro & 25 060 000 \euro & ------ \euro \\
- CAPEX & 168 825 250 \euro & 100 432 000 \euro & ------ \euro \\
+ Link Cost & 160 372 000 \euro & 75 372 000 \euro & 43 000 000 \euro \\
+ Node Cost & 8 453 250 \euro & 25 060 000 \euro & 14 460 000 \euro \\
+ CAPEX & \textbf{168 825 250 \euro} & \textbf{100 432 000 \euro} & \textbf{57 460 000 \euro} \\
  \hline
 \end{tabular}
 \caption{Table with different value of CAPEX }
 \label{table_comparative_opaque_sur_ref_2}
 \end{table}
 
+\vspace{11pt}
+Looking at the previous table we can make some comparisons between the several different models of dimensioning and finally draw some conclusions.
 
-
+\begin{itemize}
+  \item We can conclude that in this case the dimensioning using heuristics is the best (lowest cost).
+  \item In comparison with the analytical model we can see that there is a difference considered with a 66\% error.
+  \item In comparison with the ILP model we can see that there is a smaller but considerable difference with a 14\% error.
+\end{itemize}
 
 
 
@@ -809,6 +870,91 @@ Again, we can thus conclude that the total traffic for the two scenarios is as f
 \end{tabular}
 \end{tcolorbox}
 
+In this section we will do the dimensioning of the network mentioned in the previous subsection to calculate the value of your CAPEX, for this we will use the analytical formulations so as to obtain the best solution but for this we will also have to take into account the cost of the equipment used that can be consulted in table \ref{table_cost_opaque}.
+The formulas and calculations needed for the CAPEX of the network are the same as in the previous case (reference network) and therefore only the results obtained will be presented.\\
+
+As described in the subsection of the network topology we have two values of network traffic, low traffic and high traffic, soon we will get two different CAPEX. Finally we have to take into account that as it is the opaque transport mode, the value of $\xi$ is 1 and because it is without survivability, the value of $<k>$ is 0. Then we can rewrite the equations.\\
+
+\textbf{Scenario 1: Realistic Network Low Traffic}\\
+
+Using equation \ref{demands}:\\
+
+$D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{4000}{100}$ $)$ \qquad \qquad $D$ = 40\\
+
+Replacing in equation \ref{optical_channels}:\\
+
+$<w>$ = $($ $\frac{40 * 2.3}{37}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 3\\
+
+Using equation \ref{amplifiers}:\\
+
+$N^R$ $\backsimeq$ L * $<N^R>$ \\
+
+$<N^R>$ = $\frac{<len>}{span}-1$\\
+
+$<N^R>$ = $\frac{<753.76>}{100}-1$\\
+
+$N^R$ = 259\\
+
+Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
+
+$C_L$ = $($2 * 37 * 15000$)$ + $($2 * 37 * 5000 * 100 * 3$)$ + $($259 * 4000$)$\\
+
+$C_L$ = \textbf{113 146 000 \euro}\\
+
+In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
+
+$<d>$ = $\frac{2 * 40}{19}$ \qquad \qquad $<d>$ = 4.21\\
+
+Replacing in equation \ref{Pexc_opaque}:\\
+
+$P_{exc}$ = 4.21 * $[$1 + $($1 + $0$ $)$ * 2.3$]$ \qquad \quad $P_{exc}$ = 13.893 \\
+
+Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
+
+$C_N$ = $C_{exc}$ = 19 * $($10000 + $($1000 * 100 * 13.893 $)$ $)$\\
+
+$C_N$ = \textbf{26 589 700 \euro}\\
+
+The CAPEX is:\\
+$CAPEX$ = 113 146 000 + 26 589 700\\
+
+$CAPEX$ = \textbf{139 732 700 \euro}\\
+
+\textbf{Scenario 2: Reference Network High Traffic}\\
+
+Using equation \ref{demands}:\\
+
+$D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{40000}{100}$ $)$ \qquad \qquad $D$ = 400\\
+
+replacing in equation \ref{optical_channels}:\\
+
+$<w>$ = $($ $\frac{400 * 2.3}{37}$ $)$ * $($ 1 + 0$)$ \qquad \quad $<w>$ = 25\\
+
+Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
+
+$C_L$ = $($2 * 37 * 15000$)$ + $($2 * 37 * 5000 * 100 * 25$)$ + $($259 * 4000$)$\\
+
+$C_L$ = \textbf{927 146 000 \euro}\\
+
+In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
+
+$<d>$ = $\frac{2 * 400}{19}$ \qquad \qquad $<d>$ = 42.105\\
+
+Replacing in equation \ref{Pexc_opaque}:\\
+
+$P_{exc}$ = 42.105 * $[$1 + $($1 + $0$ $)$ * 2.3$]$ \qquad \qquad $P_{exc}$ = 138.9465 \\
+
+Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
+
+$C_N$ = $C_{exc}$ = 19 * $($10000 + $($1000 * 100 * 138.9465 $)$ $)$\\
+
+$C_N$ = \textbf{246 188 350 \euro}\\
+
+The CAPEX is:\\
+$CAPEX$ = 927 146 000 + 246 188 350\\
+
+$CAPEX$ = \textbf{1 191 334 350 \euro}\\
+
 
 \subsection{Dimensioning using ILP}
 \begin{tcolorbox}	
@@ -825,14 +971,14 @@ The initial subsection is the same as the subsection of the previous case so in 
 This real network consists of many nodes and with many links between them as such the lpsolve takes immense time to get an optimal solution. Therefore, in this two cases, the execution time was defined as being two days (48 hours) and after that time presented the best solution. In this scenario we used the table \ref{table_real_net} and in the table \ref{result_ILP3_without} we can see the values calculated through MatLab and using the values indicated in table \ref{table_cost_opaque} we can finally calculate the CAPEX value.\\
 
 Using equation \ref{linkCosts} : \\
-$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 * 111 $)$ + $($24 * 4 000$)$ \\
-$C_L$ = \textbf{112 206 000\euro} \\
+$C_L$ = $($2 * 15 000 * 37$)$ + $($2 * 5 000 * 100 *  $)$ + $($ * 4 000$)$ \\
+$C_L$ = \textbf{\euro} \\
 
 Using equation \ref{electricalCostOpaque} : \\
-$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($4 000 + $($2 * 111 * 100$)$ $)$ \\
-$C_N$ = $C_{exc}$ = \textbf{26 390 000 \euro} \\
+$C_{exc}$ = $($19 * 10 000$)$ + 1 000 * $($4 000 + $($2 *  * 100$)$ $)$ \\
+$C_N$ = $C_{exc}$ = \textbf{ \euro} \\
 
-$CAPEX$ = 112 206 000 + 26 390 000 = \textbf{138 596 000 \euro}\\
+$CAPEX$ =  +  = \textbf{ \euro}\\
 
 \begin{table}[h!]
 \centering
