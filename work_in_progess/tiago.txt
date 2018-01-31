@@ -1,4 +1,10 @@
-﻿2018-01-24
+﻿2018-01-31
+TO BE DONE
+	- trabalhar na função objetivo (opáco)(CL+CN)
+
+Next meeting: 7/2/2018, 11h
+
+2018-01-24
 TO BE DONE
 	- organizar o documento (acrecentar uma secção sobre assessement)
 	- incluir no documento os casos concluidos para irmos discutindo
