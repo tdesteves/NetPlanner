@@ -19,7 +19,7 @@ As we know the telecommunications networks are made up of links and nodes, so it
 This can be said that the value of CAPEX is given by the sum of equation \ref{Capex_Link} with the equation \ref{Capex_Node}.
 
 \begin{equation}
-C_L = \sum_{(l)}^L L_{ij} \left( (2 \times OLT) + (2 \times transponder \times \tau \times W_{ij}) +  (Amp_{ij} \times amplifier) \right)
+C_L = \sum_{(l)}^L L_{l} \left( (2 \times OLT) + (2 \times transponder \times \tau \times W_{l}) +  (Amp_{l} \times amplifier) \right)
 \label{Capex_Link}
 \end{equation}
 
@@ -45,7 +45,7 @@ To obtain the best possible value, it will be necessary to minimize the cost of 
 
 \begin{equation}
 minimize
-\sum_{(l)}^L L_{ij} \left(2 \times OLT + 2 \times transponder \times \tau \times W_{ij} + ( Amp_{ij} \times amplifier \right)
+\sum_{(l)}^L L_{l} \left(2 \times OLT + 2 \times transponder \times \tau \times W_{l} + ( Amp_{l} \times amplifier \right)
 \label{obj_func}
 \end{equation}
 
