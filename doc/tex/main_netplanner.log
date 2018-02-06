@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  6 FEB 2018 16:45
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  6 FEB 2018 17:08
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -1338,6 +1338,12 @@ Package babel Info: Redefining portuges shorthand "|
 
 Overfull \hbox (7.33366pt too wide) in paragraph at lines 5--9
 [][] 
+ []
+
+
+Overfull \hbox (57.70123pt too wide) detected at line 50
+[] [] \OML/cmm/m/it/10.95 L[] [] \OT1/cmr/m/n/10.95 + [] \OML/cmm/m/it/10.95 N[
+]\OT1/cmr/m/n/10.95 ([] + [])
  []
 
 ) (sdf/ILP/ILP_opaque_survivability.tex
@@ -12476,10 +12482,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 65.
  ) 
 Here is how much of TeX's memory you used:
- 28562 strings out of 493323
- 514649 string characters out of 3139065
- 2408371 words of memory out of 3000000
- 29875 multiletter control sequences out of 15000+200000
+ 28559 strings out of 493323
+ 514612 string characters out of 3139065
+ 2408334 words of memory out of 3000000
+ 29873 multiletter control sequences out of 15000+200000
  26285 words of font info for 62 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,18n,94p,3556b,564s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -12502,9 +12508,9 @@ msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (1173 pages, 11301801 bytes).
+Output written on main_netplanner.pdf (1173 pages, 11301891 bytes).
 PDF statistics:
  7973 PDF objects out of 8907 (max. 8388607)
- 1474 named destinations out of 1728 (max. 500000)
+ 1473 named destinations out of 1728 (max. 500000)
  1433 words of extra memory for PDF output out of 10000 (max. 10000000)
 

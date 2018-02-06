@@ -19,7 +19,7 @@ As we know the telecommunications networks are made up of links and nodes, so it
 This can be said that the value of CAPEX is given by the sum of equation \ref{Capex_Link} with the equation \ref{Capex_Node}.
 
 \begin{equation}
-C_L = \sum_{(l)}^L L_{l} \left( (2 \times OLT) + (2 \times transponder \times \tau \times W_{l}) +  (Amp_{l} \times amplifier) \right)
+C_L = \sum_{l}^L L_{l} \left( (2 \times OLT) + (2 \times transponder \times \tau \times W_{l}) +  (Amp_{l} \times amplifier) \right)
 \label{Capex_Link}
 \end{equation}
 
@@ -31,28 +31,22 @@ C_N = C_{EXC} + C_{OXC}
 Where:
 
 \begin{equation}
-C_{EXC} = \sum_{(n)}^N N_{n} \left(EXC + EXC_{PORT} \times \tau \times P^{EXC}_{n} \right)
+C_{EXC} = \sum_{n}^N N_{n} \left(exc + exc_{port} \times \tau \times P^{exc}_{n} \right)
 \label{Capex_Node_EXC}
 \end{equation}
 
 \begin{equation}
-C_{OXC} = \sum_{(n)}^N N_{n} \left(OXC + OXC_{PORT} \times P^{OXC}_{n} \right)
+C_{OXC} = \sum_{n}^N N_{n} \left(oxc + oxc_{port} \times P^{oxc}_{n} \right)
 \label{Capex_Node_OXC}
 \end{equation}
 
 
-To obtain the best possible value, it will be necessary to minimize the cost of the two equations mentioned above, thus obtaining the following objective function:
+To obtain the best possible value, it will be necessary to minimize the cost of the two equations mentioned above so that we can thus obtain the objective function described in equation \ref{obj_func}. For this we have to take into account that some variables mentioned previously have a fixed value and therefore some we can withdraw from the equation.
 
+$minimize$
 \begin{equation}
-minimize
-\sum_{(l)}^L L_{l} \left(2 \times OLT + 2 \times transponder \times \tau \times W_{l} + ( Amp_{l} \times amplifier \right)
+\sum_{l}^L L_{l} \left(2 \times transponder \times \tau \times W_{l} + ( Amp_{l} \times amplifier \right) + \sum_{n}^N N_{n} ( \left(exc_{port} \times \tau \times P^{exc}_{n} \right) + \left(oxc_{port} \times P^{oxc}_{n} \right) )
 \label{obj_func}
-\end{equation}
-
-\begin{equation}
-minimize
-\sum_{(n)}^N N_{n} ( \left(EXC + EXC_{PORT} \times \tau \times P^{EXC}_{n} \right) + \left(OXC + OXC_{PORT} \times P^{OXC}_{n} \right) )
-\label{obj_func1}
 \end{equation}
 
 
