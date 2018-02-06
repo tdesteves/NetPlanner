@@ -1,0 +1,86 @@
+\clearpage
+
+\subsection{Transparent without Survivability}\label{ILP_Transp_Survivability}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the transparent transport mode without survivability.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transp} will be created with all the variables and their description.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{1cm}||p{13cm}|}
+ \hline
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $fp_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows with protection) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
+ $W_{od}$ & number of optical channels between the nodes $o$ and $d$\\
+ G & Network topology in form of adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_transp}
+\end{table}
+
+
+The optimization model suggested for transparent transport mode intends to minimize the total number of flows crossing link (i, j) for all demand pairs (o, d). The mathematical model described below also minimizes the total number of optical channels between each demand end nodes $W_{od}$.\\
+
+\begin{equation}
+minimize    \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(o,d)} W_{od}
+\label{ILPTransp_surv}
+\end{equation}
+
+$subject$ $to$
+\begin{equation}
+100 W_{od} \geq \sum_{c\in C} B\left(c\right) D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d
+\label{ILPTransp0_surv}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = W_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTransp1_surv}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTransp2_surv}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = W_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTransp3_surv}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) \leq 80 G_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPTransp4_surv}
+\end{equation}
+
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} , W_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPTransp5_surv}
+\end{equation}
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPTransp_surv}. The flow conservation is performed by equations \ref{ILPTransp1_surv}, \ref{ILPTransp2_surv} and \ref{ILPTransp3_surv}. The constraints \ref{ILPTransp1_surv} ensures that, for all demand pairs (o,d), is equal to number of optical channels between this demand for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPTransp3_surv} is based on the same idea of \ref{ILPTransp1_surv}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPTransp2_surv}. The inequality \ref{ILPTransp4_surv} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last constraint define the total number of flows and the number of optical channels must be a counting number.
+

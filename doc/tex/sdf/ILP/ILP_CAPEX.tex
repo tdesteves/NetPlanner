@@ -1,0 +1,58 @@
+\clearpage
+
+\section{CAPEX}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement of the ILP model to obtain the best possible CAPEX of a given network.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+The cost of a telecommunications network can be divided into CAPEX and OPEX.
+CAPEX is the amount of money needed to set up and install a particular network.
+OPEX is the amount of money needed to run this network as well as its maintenance and operation over time.
+In this section we will only focus on CAPEX, that is, the costs of installing a particular network.
+
+As we know the telecommunications networks are made up of links and nodes, so it is possible to define the CAPEX as being the sum of the cost of links and cost of nodes.
+
+This can be said that the value of CAPEX is given by the sum of equation \ref{Capex_Link} with the equation \ref{Capex_Node}.
+
+\begin{equation}
+C_L = \sum_{(l)}^L L_{ij} \left( (2 \times OLT) + (2 \times transponder \times \tau \times W_{ij}) +  (Amp_{ij} \times amplifier) \right)
+\label{Capex_Link}
+\end{equation}
+
+\begin{equation}
+C_N = C_{EXC} + C_{OXC}
+\label{Capex_Node}
+\end{equation}
+
+Where:
+
+\begin{equation}
+C_{EXC} = \sum_{(n)}^N N_{n} \left(EXC + EXC_{PORT} \times \tau \times P^{EXC}_{n} \right)
+\label{Capex_Node_EXC}
+\end{equation}
+
+\begin{equation}
+C_{OXC} = \sum_{(n)}^N N_{n} \left(OXC + OXC_{PORT} \times P^{OXC}_{n} \right)
+\label{Capex_Node_OXC}
+\end{equation}
+
+
+To obtain the best possible value, it will be necessary to minimize the cost of the two equations mentioned above, thus obtaining the following objective function:
+
+\begin{equation}
+minimize
+\sum_{(l)}^L L_{ij} \left(2 \times OLT + 2 \times transponder \times \tau \times W_{ij} + ( Amp_{ij} \times amplifier \right)
+\label{obj_func}
+\end{equation}
+
+\begin{equation}
+minimize
+\sum_{(n)}^N N_{n} ( \left(EXC + EXC_{PORT} \times \tau \times P^{EXC}_{n} \right) + \left(OXC + OXC_{PORT} \times P^{OXC}_{n} \right) )
+\label{obj_func1}
+\end{equation}
+
+
