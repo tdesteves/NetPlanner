@@ -1,4 +1,10 @@
-﻿2018-01-31
+﻿2018-02-07
+TO BE DONE
+	refinar o modelo, parte geral e a parte especifica para cada modo de transporte.
+
+Next meeting: 14/2, 16h
+
+2018-01-31
 TO BE DONE
 	- trabalhar na função objetivo (opáco)(CL+CN)
 
