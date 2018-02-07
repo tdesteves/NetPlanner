@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  6 FEB 2018 17:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  6 FEB 2018 17:49
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -1341,9 +1341,33 @@ Overfull \hbox (7.33366pt too wide) in paragraph at lines 5--9
  []
 
 
-Overfull \hbox (57.70123pt too wide) detected at line 50
-[] [] \OML/cmm/m/it/10.95 L[] [] \OT1/cmr/m/n/10.95 + [] \OML/cmm/m/it/10.95 N[
-]\OT1/cmr/m/n/10.95 ([] + [])
+Underfull \hbox (badness 10000) in paragraph at lines 12--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--27
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 43--44
+
+ []
+
+
+Overfull \hbox (131.98375pt too wide) detected at line 50
+[] [] \OML/cmm/m/it/10.95 L[] [] \OT1/cmr/m/n/10.95 + [] []
  []
 
 ) (sdf/ILP/ILP_opaque_survivability.tex
@@ -12508,7 +12532,7 @@ msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (1173 pages, 11301891 bytes).
+Output written on main_netplanner.pdf (1173 pages, 11301621 bytes).
 PDF statistics:
  7973 PDF objects out of 8907 (max. 8388607)
  1473 named destinations out of 1728 (max. 500000)
