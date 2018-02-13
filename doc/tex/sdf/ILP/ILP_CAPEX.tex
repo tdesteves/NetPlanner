@@ -17,36 +17,71 @@ As we know the telecommunications networks are made up of links and nodes, so it
 This can be said that the value of CAPEX is given by the sum of equation \ref{Capex_Link} with the equation \ref{Capex_Node}.\\
 
 Link Cost is:\\
+
 \begin{equation}
-C_L = \sum_{(i,j)} L_{ij} \left( (2 \times \gamma_0^{OLT}) + (2 \times \gamma_1^{OLT} \times \tau \times \sum_{(i,j)} W_{ij}) + (\sum_{(i,j)} N^R_{ij} \times c^R) \right)
+C_L = \sum_{i=1}^N \sum_{j=i+1}^N L_{ij} ( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R )
 \label{Capex_Link}
 \end{equation}
 
 
+\vspace{10pt}
+\begin{itemize}
+\item{$C_L$				$\rightarrow$	Links cost}
+\item{$i$               $\rightarrow$   Index for start node of a physical link}
+\item{$j$               $\rightarrow$   Index for end node of a physical link}
+\item{$N$				$\rightarrow$	Total number of nodes}
+\item{$L_{ij}$			$\rightarrow$	Binary variable indicating if link between the nodes $i$ and $j$ is used}
+\item{$\gamma_0^{OLT}$	$\rightarrow$	OLT cost in euros}
+\item{$\gamma_1^{OLT}$	$\rightarrow$	Transponder cost in euros}
+\item{$\tau$		    $\rightarrow$	Traffic per port assuming 100Gbits/s}
+\item{$W_{ij}$          $\rightarrow$   Number of optical channels between the nodes $i$ and $j$}
+\item{$N^R_{ij}$    	$\rightarrow$	Number of optical amplifiers between the nodes $i$ and $j$}
+\item{$c^R$				$\rightarrow$	Optical amplifiers cost in euros}
+\end{itemize}
+
+
 The cost of nodes is given by the sum of electrical cost and the optical cost where:\\
+
 \begin{equation}
-C_{EXC} = \sum_{n=1}^{N} \left(\gamma_{e0} + \gamma_{e1} \times \tau \times P_{exc,n} \right)
+C_{EXC} = \sum_{n=1}^{N} N_{exc,n} ( \gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} P_{exc,c,n} )
 \label{Capex_Node_EXC}
 \end{equation}
 
+
+\begin{itemize}
+\item{$C_{EXC}$			$\rightarrow$	Electrical cost}
+\item{$N$				$\rightarrow$	Total number of nodes}
+\item{$N_{exc,n}$		$\rightarrow$	Binary variable indicating if node $n$ is used}
+\item{$\gamma_{e0}$ 	$\rightarrow$	EXC cost in euros}
+\item{$c$               $\rightarrow$   Index for bit rate (1.25; 2.5; 10; 40; 100)}
+\item{$\gamma_{e1,c}$	$\rightarrow$	EXC port cost in euros in bit rate $c$}
+\item{$P_{exc,c,n}$	    $\rightarrow$	Number of ports of the electrical switch}
+\end{itemize}
+
+
 \begin{equation}
-C_{OXC} = \sum_{n=1}^{N} \left(\gamma_{o0} + \gamma_{e1} \times P_{oxc,n} \right)
+C_{OXC} = \sum_{n=1}^{N} N_{oxc,n} ( \gamma_{o0} + \gamma_{o1} P_{oxc,n} )
 \label{Capex_Node_OXC}
 \end{equation}
 
+
+\begin{itemize}
+\item{$C_{OXC}$			$\rightarrow$	Optical cost}
+\item{$N$				$\rightarrow$	Total number of nodes}
+\item{$N_{oxc,n}$		$\rightarrow$	Binary variable indicating if node $n$ is used}
+\item{$\gamma_{o0}$ 	$\rightarrow$	OXC cost in euros}
+\item{$\gamma_{o1}$ 	$\rightarrow$	OXC port cost in euros }
+\item{$P_{oxc,n}$	    $\rightarrow$	Number of ports of the optical switch}
+\end{itemize}
+
 Node Cost is:\\
 \begin{equation}
-C_N = \sum_{n=1}^{N} \left( (\gamma_{e0} + \gamma_{e1} \times \tau \times P_{exc,n}) + (\gamma_{o0} + \gamma_{e1} \times P_{oxc,n}) \right)
+C_N = C_{EXC} + C_{OXC}
 \label{Capex_Node}
 \end{equation}
 
-To obtain the best possible value, it will be necessary to minimize the cost of the two equations mentioned above so that we can thus obtain the objective function described in equation \ref{obj_func}.\\
-
-$minimize$
-
-\begin{equation}
-\sum_{(i,j)} L_{ij} \left( (2 \times \gamma_0^{OLT}) + (2 \times \gamma_1^{OLT} \times \tau \times \sum_{(i,j)} W_{ij}) + (\sum_{(i,j)} N^R_{ij} \times c^R) \right) + \sum_{n=1}^{N} \left( (\gamma_{e0} + \gamma_{e1} \times \tau \times P_{exc,n}) + (\gamma_{o0} + \gamma_{e1} \times P_{oxc,n}) \right)
-\label{obj_func}
-\end{equation}
+\vspace{10pt}
+We have to take into account that the calculated value for the variable $P_{exc,c,n}$ and $P_{oxc,n}$ will depend on the mode of transport used (opaque, transparent or translucent) but later on it will be explained how these values are calculated for each specific transport mode.\\
+To obtain the best possible value, it will be necessary to minimize the cost of the two equations mentioned above so that we can obtain the objective function.
 
 

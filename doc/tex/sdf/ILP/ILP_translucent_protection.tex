@@ -11,11 +11,13 @@
 
 Here, in this case, we must take into account table \ref{description_transluc}, previously mentioned, in order to better understand the objective function.\\
 
-The objective function of following the ILP is a CAPEX minimization using .............................
+The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we have in consideration the electric cost and the optical cost.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_translucent} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_translucent}.\\
 
-
+Objective Function:\\
+$minimize$
 \begin{equation}
-minimize \qquad \qquad \qquad \qquad \qquad  \sum_{(o,d)} W_{od}
+\sum_{(i,j)}^N L_{ij} (2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R) + \sum_{n=1}^{N} N_{exc,n} (\gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 \tau W + \sum_{n=1}^{N} N_{oxc,n} (\gamma_{o0} + \gamma_{o1}(f_{ij}^{od} + W_{ij}))
 \label{ILPTransluc}
 \end{equation}
 
@@ -57,7 +59,7 @@ L_{ij}^{od} \geq 0;
 \end{equation}
 
 \begin{equation}
-\sum_{j \textbackslash \{o\} } f_{ij}^{od} = W_{od}
+\sum_{j \textbackslash \{o\} } f_{ij}^{od} = \lambda_{od}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (o,d):o<d
 \label{ILPTransluc6}
@@ -71,7 +73,7 @@ L_{ij}^{od} \geq 0;
 \end{equation}
 
 \begin{equation}
-\sum_{j \textbackslash \{d\} } f_{ji}^{od} = W_{od}
+\sum_{j \textbackslash \{d\} } f_{ji}^{od} = \lambda_{od}
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (o,d):o<d
 \label{ILPTransluc8}

@@ -39,10 +39,24 @@ First, for a better understanding of the functions and variables used in the ILP
 \end{table}
 
 
-The objective function of following ILP is a minimization of the sum of two variables: total number of flows crossing link (i, j) for all demand pairs (o, d) and total number of optical channels in each link (i, j).\\
+The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because the optical cost is zero.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_opaque}.\\
 
 \begin{equation}
-minimize \quad \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)} W_{ij}
+P_{exc,c,n} = 2 \tau W
+\label{EXC_pexc_opaque}
+\end{equation}
+
+\begin{itemize}
+\item{$P_{exc,c,n}$	    $\rightarrow$	Number of ports of the electrical switch}
+\item{$\tau$			$\rightarrow$	Traffic per port assuming 100Gbits/s}
+\item{$W$				$\rightarrow$	Total number of optical channels}
+\end{itemize}
+
+
+Objective Function :\\
+\begin{equation}
+minimize \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)}^N L_{ij} ( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R ) + \sum_{n=1}^{N} N_{exc,n} ( \gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 \tau W )
 \label{ILPOpaque_Surv}
 \end{equation}
 
