@@ -39,24 +39,36 @@ First, for a better understanding of the functions and variables used in the ILP
 \end{table}
 
 
-The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because the optical cost is zero.
-In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_opaque}.\\
-
+The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because for any value of $n$ the $N_{oxc,n}$ will always be 0 so the optical cost is zero.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaque} for long-reach and by the equation \ref{EXC_pexc2_opaque} for short-reach.\\
+\newpage
 \begin{equation}
-P_{exc,c,n} = 2 \tau W
-\label{EXC_pexc_opaque}
+P_{exc,-1,n} = \sum_{k=1}^{N} W_{nk}
+\label{EXC_pexc1_opaque}
 \end{equation}
 
 \begin{itemize}
-\item{$P_{exc,c,n}$	    $\rightarrow$	Number of ports of the electrical switch}
-\item{$\tau$			$\rightarrow$	Traffic per port assuming 100Gbits/s}
-\item{$W$				$\rightarrow$	Total number of optical channels}
+\item{$P_{exc,-1,n}$	$\rightarrow$	Number of ports of the electrical switch long-reach}
+\item{$k$	      		$\rightarrow$	Source node}
+\item{$W_{nk}$			$\rightarrow$	Number of optical channels between $n$ and $k$}
 \end{itemize}
 
 
-Objective Function :\\
 \begin{equation}
-minimize \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)}^N L_{ij} ( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R ) + \sum_{n=1}^{N} N_{exc,n} ( \gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 \tau W )
+P_{exc,c,n} = \sum_{c=0}^{4} D_{od,c}
+\label{EXC_pexc2_opaque}
+\end{equation}
+
+\begin{itemize}
+\item{$P_{exc,c,n}$	$\rightarrow$	Number of ports of the electrical switch sort-reach}
+\item{$D_{od,c}$	$\rightarrow$	client demands with bit rate $c$ between nodes $o$ and $d$}
+\end{itemize}
+
+
+Objective Function :
+
+\begin{equation}
+minimize \qquad \quad C_L + C_N
 \label{ILPOpaque_Surv}
 \end{equation}
 

@@ -11,13 +11,14 @@
 
 Here, in this case, we must take into account table \ref{description_opaque}, previously mentioned, in order to better understand the objective function.\\
 
-The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because the optical cost is zero.
-In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_opaque}.\\
+The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because for any value of $n$ the $N_{oxc,n}$ will always be 0 so the optical cost is zero.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaque} for long-reach and by the equation \ref{EXC_pexc2_opaque} for short-reach.\\
 
 
-Objective Function :\\
+Objective Function :
+
 \begin{equation}
-minimize \sum_{(i,j)} \sum_{(o,d)} f_{ij}^{od} + \sum_{(i,j)}^N L_{ij} ( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R ) + \sum_{n=1}^{N} N_{exc,n} ( \gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 \tau W )
+minimize \qquad \quad C_L + C_N
 \label{ILPOpaque}
 \end{equation}
 
