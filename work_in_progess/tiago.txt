@@ -1,4 +1,12 @@
-﻿2018-02-07
+﻿2018-02-21
+TO BE DONE
+
+
+	terminar o modelo do ILP do modo opaco sem sobrevivencia
+
+Next meeting: 1/3, 11h
+
+2018-02-07
 TO BE DONE
 	refinar o modelo, parte geral e a parte especifica para cada modo de transporte.
 
