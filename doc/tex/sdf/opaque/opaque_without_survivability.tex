@@ -16,16 +16,17 @@ One advantage of this mode of transport is that it eliminates accumulation of ph
 
 In the figure below we ca see that our reference network consists of 6 nodes and 8 Bidirectional links.
 The average length of the links was chosen so that the following calculations are more simplistic, for this was created a matrix of distances between the respective nodes.
-Finally, ODU's matrices were also created to be able to determine the total traffic used in each scenario.
+Finally, ODU's matrices were also created to be able to determine the total traffic used in each scenario.\\
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{RedeTeste}
+\includegraphics[width=\textwidth]{sdf/opaque/figures/RedeTeste}
 \caption{Physical topology of the reference network.}
 \end{figure}
 
+\vspace{11pt}
 The distance matrix is the same for the two scenarios but the ODU's matrices are not.
-In this way only the matrices for the case of low traffic are elucidated, being that in the case of a high traffic it is only necessary to multiply these matrices by the value 10.
+In this way only the matrices for the case of low traffic are elucidated, being that in the case of a high traffic it is only necessary to multiply these matrices by the value 10.\\
 
 \[
 Dist=
@@ -440,7 +441,7 @@ $CAPEX$ = \textbf{14 632 000 \euro}\\
 Through image \ref{scriptopaque_surv_ref_low} we can see that the previous ILP based calculations are correct.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{script_opaque_surv_ref_low}
+\includegraphics[width=8cm]{sdf/opaque/figures/script_opaque_surv_ref_low}
 \caption{The ILP script used with the network cost.}
 \label{scriptopaque_surv_ref_low}
 \end{figure}
@@ -483,7 +484,7 @@ $CAPEX$ = \textbf{100 432 000 \euro}\\
 Through image \ref{scriptopaque_surv_ref_high} we can see that the previous ILP based calculations are correct.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=8cm]{script_opaque_surv_ref_high}
+\includegraphics[width=8cm]{sdf/opaque/figures/script_opaque_surv_ref_high}
 \caption{The ILP script used with the network cost.}
 \label{scriptopaque_surv_ref_high}
 \end{figure}
@@ -515,7 +516,7 @@ Following all the steps mentioned in the previous subsection and using all the d
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{heuristic_opaque_surv_ref_low}
+\includegraphics[width=9cm]{sdf/opaque/figures/heuristic_opaque_surv_ref_low}
 \caption{The network cost using Net2Plan.}
 \label{heuristicopaque_surv_ref_low}
 \end{figure}
@@ -527,7 +528,7 @@ Following all the steps mentioned in the previous subsection and using all the d
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{heuristic_opaque_surv_ref_high}
+\includegraphics[width=9cm]{sdf/opaque/figures/heuristic_opaque_surv_ref_high}
 \caption{The network cost using Net2Plan.}
 \label{heuristicopaque_surv_ref_high}
 \end{figure}
@@ -578,9 +579,9 @@ Looking at the previous table we can make some comparisons between the several d
  \hline
    & Analytical & ILP & Heuristic \\
  \hline\hline
- Link Cost & 160 372 000 \euro & 75 372 000 \euro & 43 000 000 \euro \\
- Node Cost & 8 453 250 \euro & 25 060 000 \euro & 14 460 000 \euro \\
- CAPEX & \textbf{168 825 250 \euro} & \textbf{100 432 000 \euro} & \textbf{57 460 000 \euro} \\
+ Link Cost & 160 372 000 \euro & 75 372 000 \euro & 77 504 000 \euro \\
+ Node Cost & 8 453 250 \euro & 25 060 000 \euro & 26 160 000 \euro \\
+ CAPEX & \textbf{168 825 250 \euro} & \textbf{100 432 000 \euro} & \textbf{103 664 000 \euro} \\
  \hline
 \end{tabular}
 \caption{Table with different value of CAPEX }
@@ -591,8 +592,8 @@ Looking at the previous table we can make some comparisons between the several d
 Looking at the previous table we can make some comparisons between the several different models of dimensioning and finally draw some conclusions.
 
 \begin{itemize}
-  \item We can conclude that in this case the dimensioning using heuristics is the best (lowest cost).
+  \item We can conclude that in this case the dimensioning using ILP is the best (lowest cost).
   \item In comparison with the analytical model we can see that there is a difference considered with a 66\% error.
-  \item In comparison with the ILP model we can see that there is a smaller but considerable difference with a 14\% error.
+  \item In comparison with the heuristic model we can see that there is a smaller difference with a 3\% error.
 \end{itemize}
 
