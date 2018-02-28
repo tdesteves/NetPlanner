@@ -190,7 +190,7 @@ C_L = \left(2 \times L \times \gamma_0^{OLT}\right) + \left(2 \times L \times \g
 To calculate the cost of the nodes, the sum of the costs of the optical and electrical node is made. For this case the value of the optical cost is zero only needing to know the electric cost of the nodes that is given by equation \ref{analytical_electricalCost}
 
 \begin{equation}
-C_{exc} = N \times \left(\gamma_{e0} + \left(\gamma_{e1} \times \tau \times P_{exc} \right) \right)
+C_{exc} = N \times \left( \gamma_{e0} + \left( \gamma_{e1} \times \tau \times <P_{exc}> \right) \right)
 \label{analytical_electricalCost}
 \end{equation}
 
@@ -200,7 +200,7 @@ C_{exc} = N \times \left(\gamma_{e0} + \left(\gamma_{e1} \times \tau \times P_{e
 \item{$\gamma_{e0}$	$\rightarrow$	EXC cost in euros}
 \item{$\gamma_{e1}$	$\rightarrow$	EXC port cost in euros}
 \item{$\tau$		$\rightarrow$	Traffic per port}
-\item{$P_{exc}$     $\rightarrow$   Total number of ports of the electrical switch}
+\item{$<P_{exc}>$   $\rightarrow$   Average number of ports of the electrical switch}
 \end{itemize}
 
 
@@ -246,15 +246,15 @@ D = \left(\frac{1}{2}\right) \times \left( 1 + \xi \right) \times \left(\frac{T_
 Finally looking at the equation \ref{analytical_electricalCost} we can see that we already have practically all the values with the exception of the number of ports the electrical switch that can be calculated through the equation \ref{Pexc_opaque}
 
 \begin{equation}
-P_{exc} = <d> \times [1 + \left(1 + <k>\right) \times <h>]
+<P_{exc}> = <d> \times [1 + \left(1 + <k>\right) \times <h>]
 \label{Pexc_opaque}
 \end{equation}
 
 \begin{itemize}
-\item{$P_{exc}$ $\rightarrow$ Total number of ports of the electrical switch}
-\item{$<d>$		$\rightarrow$ Average number of demands}
-\item{$<k>$		$\rightarrow$ Survivability coefficient}	
-\item{$<h>$	    $\rightarrow$ Average number of hops}
+\item{$<P_{exc}>$ $\rightarrow$ Average number of ports of the electrical switch}
+\item{$<d>$		  $\rightarrow$ Average number of demands}
+\item{$<k>$		  $\rightarrow$ Survivability coefficient}	
+\item{$<h>$	      $\rightarrow$ Average number of hops}
 \end{itemize}
 
 Where:
@@ -295,7 +295,7 @@ $<d>$ = $\frac{2 * 10}{6}$ \qquad \qquad $<d>$ = 3.333\\
 
 Replacing in equation \ref{Pexc_opaque}:\\
 
-$P_{exc}$ = 3.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $P_{exc}$ = 8.4425 \\
+$<P_{exc}>$ = 3.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 8.4425 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
@@ -330,7 +330,7 @@ $<d>$ = $\frac{2 * 100}{6}$ \qquad \qquad $<d>$ = 33.333\\
 
 Replacing in equation \ref{Pexc_opaque}:\\
 
-$P_{exc}$ = 33.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \qquad $P_{exc}$ = 84.4325 \\
+$<P_{exc}>$ = 33.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \qquad $<P_{exc}>$ = 84.4325 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
