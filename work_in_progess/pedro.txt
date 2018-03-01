@@ -1,0 +1,7 @@
+2018-03-01
+TO BE DONE
+
+- obter resultados usando o Net2Plan (Heuristicas) para o caso mais simples (opaco sem proteção)
+- pull request
+
+Next meeting: 7/3, 16h
