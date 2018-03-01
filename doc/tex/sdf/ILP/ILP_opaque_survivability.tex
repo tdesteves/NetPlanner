@@ -38,37 +38,56 @@ First, for a better understanding of the functions and variables used in the ILP
 \label{description_opaque}
 \end{table}
 
+Before carrying out the description of the objective function we must take into account the following particularity of this mode of transport:
+\begin{itemize}
+  \item $N_{OXC,n}$ = 0, \quad $\forall$ n
+  \item $N_{EXC,n}$ = 1, \quad $\forall$ n that process traffic
+\end{itemize}
 
-The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because for any value of $n$ the $N_{oxc,n}$ will always be 0 so the optical cost is zero.
+
+\vspace{11pt}
+The objective function of following the ILP is a minimization of the CAPEX through the equation \ref{Capex} where in this case for the cost of nodes we only have in consideration the electric cost \ref{Capex_Node_EXC} because of the particularity previously mentioned.
 In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaque} for long-reach and by the equation \ref{EXC_pexc2_opaque} for short-reach.\\
+
 \newpage
+As previously mentioned, equation \ref{EXC_pexc1_opaque} refers to the number of long-reach ports, that is, the number of line ports of node n is calculated.
+
 \begin{equation}
-P_{exc,-1,n} = \sum_{k=1}^{N} W_{nk}
+P_{exc,-1,n} = \sum_{j=1}^{N} w_{nj}
 \label{EXC_pexc1_opaque}
 \end{equation}
 
 \begin{itemize}
-\item{$P_{exc,-1,n}$	$\rightarrow$	Number of ports of the electrical switch long-reach}
-\item{$k$	      		$\rightarrow$	Source node}
-\item{$W_{nk}$			$\rightarrow$	Number of optical channels between $n$ and $k$}
+\item{$P_{exc,-1,n}$	$\rightarrow$	Number of long-reach ports of the electrical switch, i.e. number of line ports}
+\item{$w_{nj}$			$\rightarrow$	Number of optical channels between node $n$ and node $j$}
 \end{itemize}
 
+\vspace{11pt}
+As previously mentioned, equation \ref{EXC_pexc2_opaque} refers to the number of sort-reach ports, that is, the number of tributary ports from node n to bit-rate c is calculated.
 
 \begin{equation}
-P_{exc,c,n} = \sum_{c=0}^{4} D_{od,c}
+P_{exc,c,n} = \sum_{j=1}^{n} D_{nj,c} 
 \label{EXC_pexc2_opaque}
 \end{equation}
 
 \begin{itemize}
-\item{$P_{exc,c,n}$	$\rightarrow$	Number of ports of the electrical switch sort-reach}
-\item{$D_{od,c}$	$\rightarrow$	client demands with bit rate $c$ between nodes $o$ and $d$}
+\item{$P_{exc,c,n}$	$\rightarrow$	Number of sort-reach ports of the electrical switch}
+\item{$D_{nj,c}$	$\rightarrow$	client demands with bit rate $c$ between nodes $o$ and $d$}
+\end{itemize}
+
+\vspace{11pt}
+In this case there is the following particularity:
+
+\begin{itemize}
+  \item When $n$=$j$ the value of client demands is always zero, i.e, $D_{nn,c}=0$ 
 \end{itemize}
 
 
+\vspace{17pt}
 Objective Function :
 
 \begin{equation}
-minimize \qquad \quad C_L + C_N
+minimize \qquad \qquad C_C
 \label{ILPOpaque_Surv}
 \end{equation}
 
@@ -92,13 +111,13 @@ $subject$ $to$
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{odc}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{odc}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPOpaque4_Surv}
 \end{equation}
 
 \begin{equation}
-W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+W_{ij} \leq 80 L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
 \label{ILPOpaque5_Surv}
 \end{equation}
 
