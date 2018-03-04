@@ -7,7 +7,8 @@
 \textbf{Goal}          &:& Implement the ILP model for the opaque transport mode without survivability.
 \end{tabular}
 \end{tcolorbox}
-\vspace{11pt}
+
+\subsubsection{Model description}
 
 First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_opaque} will be created with all indexes, inputs and variables and with their respective description.\\
 
@@ -63,23 +64,23 @@ P_{exc,-1,n} = \sum_{j=1}^{N} w_{nj}
 \end{itemize}
 
 \vspace{11pt}
-As previously mentioned, equation \ref{EXC_pexc2_opaque} refers to the number of sort-reach ports, that is, the number of tributary ports from node n to bit-rate c is calculated.
+As previously mentioned, equation \ref{EXC_pexc2_opaque} refers to the number of sort-reach ports, that is, the number of tributary ports with bit-rate c in node n is calculated.
 
 \begin{equation}
-P_{exc,c,n} = \sum_{j=1}^{n} D_{nj,c} 
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
 \label{EXC_pexc2_opaque}
 \end{equation}
 
 \begin{itemize}
 \item{$P_{exc,c,n}$	$\rightarrow$	Number of sort-reach ports of the electrical switch}
-\item{$D_{nj,c}$	$\rightarrow$	client demands with bit rate $c$ between nodes $o$ and $d$}
+\item{$D_{nj,c}$	$\rightarrow$	client demands between nodes $n$ and $d$ with bit rate $c$}
 \end{itemize}
 
 \vspace{11pt}
 In this case there is the following particularity:
 
 \begin{itemize}
-  \item When $n$=$j$ the value of client demands is always zero, i.e, $D_{nn,c}=0$ 
+  \item When $n$=$j$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
 \end{itemize}
 
 
@@ -137,3 +138,5 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 
 The objective function, to be minimized, is the expression \ref{ILPOpaque_Surv}. The flow conservation constraints are \ref{ILPOpaque1_Surv}, \ref{ILPOpaque2_Surv} and \ref{ILPOpaque3_Surv}. First constraint ensures that, for all demand pairs (o,d), it routes one flow of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3_Surv} is based on the same idea of \ref{ILPOpaque1_Surv}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2_Surv}. The inequality \ref{ILPOpaque4_Surv} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5_Surv} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or one if considering traffic \ref{ILPOpaque6_Surv}. The last constraint \ref{ILPOpaque7_Surv} is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
 
+
+\subsubsection{Result description}
