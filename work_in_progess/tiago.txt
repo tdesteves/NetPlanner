@@ -1,4 +1,15 @@
-﻿2018-03-01
+﻿2018-03-07
+TO BE DONE
+	melhorar a documentação
+
+	focar no caso opaco com e sem proteção produzir um report o mais detalhado
+
+	comparar com as heuristicas
+
+Next meeting: 14/3, 16h
+
+
+2018-03-01
 TO BE DONE
 
 	regorganizar o documento
