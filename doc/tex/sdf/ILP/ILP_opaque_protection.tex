@@ -11,16 +11,52 @@
 
 Here, in this case, we must take into account table \ref{description_opaque}, previously mentioned, in order to better understand the objective function.\\
 
-The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we only have in consideration the electric cost \ref{Capex_Node_EXC} because for any value of $n$ the $N_{oxc,n}$ will always be 0 so the optical cost is zero.
-In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaque} for long-reach and by the equation \ref{EXC_pexc2_opaque} for short-reach.\\
+Before carrying out the description of the objective function we must take into account the following particularity of this mode of transport:
+\begin{itemize}
+  \item $N_{OXC,n}$ = 0, \quad $\forall$ n
+  \item $N_{EXC,n}$ = 1, \quad $\forall$ n that process traffic
+\end{itemize}
 
 
-Objective Function :
+\vspace{11pt}
+The objective function of following the ILP is a minimization of the CAPEX through the equation \ref{Capex} where in this case for the cost of nodes we only have in consideration the electric cost \ref{Capex_Node_EXC} because of the particularity previously mentioned.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaquep} for long-reach and by the equation \ref{EXC_pexc2_opaquep} for short-reach.\\
+
+As previously mentioned, equation \ref{EXC_pexc1_opaquep} refers to the number of long-reach ports, that is, the number of line ports of node n is calculated.
 
 \begin{equation}
-minimize \qquad \quad C_L + C_N
-\label{ILPOpaque}
+P_{exc,-1,n} = \sum_{j=1}^{N} w_{nj}
+\label{EXC_pexc1_opaquep}
 \end{equation}
+
+\begin{itemize}
+\item{$P_{exc,-1,n}$	$\rightarrow$	Number of long-reach ports of the electrical switch, i.e. number of line ports}
+\item{$w_{nj}$			$\rightarrow$	Number of optical channels between node $n$ and node $j$}
+\end{itemize}
+
+\vspace{11pt}
+As previously mentioned, equation \ref{EXC_pexc2_opaque} refers to the number of sort-reach ports, that is, the number of tributary ports with bit-rate c in node n is calculated.
+
+\begin{equation}
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc2_opaquep}
+\end{equation}
+
+\begin{itemize}
+\item{$P_{exc,c,n}$	$\rightarrow$	Number of sort-reach ports of the electrical switch}
+\item{$D_{nj,c}$	$\rightarrow$	client demands between nodes $n$ and $d$ with bit rate $c$}
+\end{itemize}
+
+\newpage
+In this case there is the following particularity:
+
+\begin{itemize}
+  \item When $n$=$j$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
+\end{itemize}
+
+
+\vspace{17pt}
+The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}.\\
 
 $subject$ $to$
 \begin{equation}
@@ -53,7 +89,7 @@ W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d)} \left(f_{ij}^{op} + f_{ji}^{op}\right)<= 80 \times L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d)} \left(f_{ij}^{od} + f_{ji}^{od}\right)<= 80 \times L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j)
 \label{ILPOpaqueX}
 \end{equation}
@@ -71,5 +107,136 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 
 \vspace{10pt}
 
-The objective function, to be minimized, is the expression \ref{ILPOpaque}. The flow conservation constraints are \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3}. First constraint ensures that, for all demand pairs (o,d), it routes two flows of traffic for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3} is based on the same idea of \ref{ILPOpaque1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2}. The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand can be zero if there are no traffic demands or one if considering working or protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.
+The constraints \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3} are equals to the constraints \ref{ILPOpaque1_CAPEX}, \ref{ILPOpaque2_CAPEX} and \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of 2(work and protection).
+The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand in this case can be zero if there are no traffic demands or one if considering working or protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
+
+\subsubsection{Result description}
+
+To perform the calculations using the implementation of the models described in previous subsection it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
+We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost2_ilp}.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Equipment & Cost \\
+ \hline\hline
+ OLT without transponders & 15000 \euro \\
+ Transponder & 5000 \euro/Gb \\
+ Optical Amplifier & 4000 \euro \\
+ EXC & 10000 \euro \\
+ OXC & 20000 \euro \\
+ EXC Port & 1000 \euro /Gb/s\\
+ OXC Port & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost2_ilp}
+\end{table}
+
+
+\textbf{Low Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In table \ref{result_ILP1P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_low} we can see the results obtained with this ILP model.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Number of optical channels & Value \\
+ \hline\hline
+ in the link (1,2) & 2 \\
+ in the link (1,3) & 2 \\
+ in the link (2,3) & 4 \\
+ in the link (2,4) & 3 \\
+ in the link (3,5) & 3 \\
+ in the link (4,5) & 3 \\
+ in the link (4,6) & 3 \\
+ in the link (5,6) & 3 \\
+ \hline
+\end{tabular}
+\caption{Table with the number of optical channels for each link}
+\label{result_ILP1P_reference}
+\end{table}
+\newpage
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm]{sdf/ilp/figures/script_opaque_protec_ref_low}
+\caption{The ILP script used in the low scenario with the network cost.}
+\label{scriptopaque_surv_ref_low}
+\end{figure}
+
+As we can see the cost of CAPEX for this scenario is \textbf{29 032 000 \euro}.\\
+
+
+\textbf{Medium Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In table \ref{result_ILP2P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_medium} we can see the results obtained with this ILP model.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Number of optical channels & Value \\
+ \hline\hline
+ in the link (1,2) & 12 \\
+ in the link (1,3) & 12 \\
+ in the link (2,3) & 14 \\
+ in the link (2,4) & 13 \\
+ in the link (3,5) & 13 \\
+ in the link (4,5) & 11 \\
+ in the link (4,6) & 7 \\
+ in the link (5,6) & 7 \\
+ \hline
+\end{tabular}
+\caption{Table with the number of optical channels for each link}
+\label{result_ILP2P_reference}
+\end{table}
+\newpage
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm]{sdf/ilp/figures/script_opaque_protec_ref_medium}
+\caption{The ILP script used in the medium scenario with the network cost.}
+\label{scriptopaque_surv_ref_medium}
+\end{figure}
+
+As we can see the cost of CAPEX for this scenario is \textbf{111 432 000 \euro}.\\
+
+
+\textbf{High Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In table \ref{result_ILP3P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_high} we can see the results obtained with this ILP model.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Number of optical channels & Value \\
+ \hline\hline
+ in the link (1,2) & 12 \\
+ in the link (1,3) & 12 \\
+ in the link (2,3) & 33 \\
+ in the link (2,4) & 28 \\
+ in the link (3,5) & 28 \\
+ in the link (4,5) & 26 \\
+ in the link (4,6) & 30 \\
+ in the link (5,6) & 30 \\
+ \hline
+\end{tabular}
+\caption{Table with the number of optical channels for each link}
+\label{result_ILP3P_reference}
+\end{table}
+\newpage
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm]{sdf/ilp/figures/script_opaque_protec_ref_high}
+\caption{The ILP script used in the high scenario with the network cost.}
+\label{scriptopaque_surv_ref_high}
+\end{figure}
+
+As we can see the cost of CAPEX for this scenario is \textbf{249 232 000 \euro}\\
 
