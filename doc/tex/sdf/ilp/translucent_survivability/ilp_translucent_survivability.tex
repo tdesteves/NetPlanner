@@ -1,0 +1,77 @@
+\clearpage
+
+\subsection{Translucent without Survivability}\label{ILP_Transluc_Survivability}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the translucent transport mode without survivability.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transluc} will be created with all the variables and their description. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{1cm}||p{13cm}|}
+ \hline
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $c$ & Client traffic Type $($ 1 to 5 $)$ \\
+ $L_{ij}^{od}$ & Number of ODU-o low speed signals from node $o$ to node $d$ employing lightpath ($i$,$j$) \\
+ $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $\lambda_{od}$ & Number of lightpath channels between the nodes $o$ and $d$ \\
+ $B$ & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
+ $D_{od}$ & Client traffic demands between the nodes $o$ and $d$ \\
+ $G$ & Network topology in form of adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_transluc}
+\end{table}
+
+The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we have in consideration the electric cost and the optical cost.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_translucent} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_translucent}.
+
+\begin{equation}
+P_{exc,c,n} = 2 \tau W
+\label{EXC_pexc_translucent}
+\end{equation}
+
+\begin{itemize}
+\item{$P_{exc,c,n}$	    $\rightarrow$	Number of ports of the electrical switch}
+\item{$\tau$			$\rightarrow$	Traffic per port assuming 100Gbits/s}
+\item{$W$				$\rightarrow$	Total number of optical channels}
+\end{itemize}
+
+\begin{equation}
+P_{oxc,n} = P_{ADD} + P_{LINE}
+\label{OXC_poxc_translucent}
+\end{equation}
+\begin{itemize}
+\item{$P_{oxc,n}$	    $\rightarrow$	Number of ports of the optical switch}
+\item{$P_{ADD}$			$\rightarrow$	Number of adding ports}
+\item{$P_{LINE}$		$\rightarrow$	Number of line ports}
+\end{itemize}
+
+Objective Function :\\
+$minimize$
+\begin{equation}
+\sum_{(i,j)}^N L_{ij} (2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R) + \sum_{n=1}^{N} N_{exc,n} (\gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 \tau W + \sum_{n=1}^{N} N_{oxc,n} (\gamma_{o0} + \gamma_{o1}(f_{ij}^{od} + W_{ij}))
+\label{ILPTransluc_surv}
+\end{equation}
+
+
+$subject$ $to$
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPTransluc_Surv}....................
+

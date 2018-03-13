@@ -1,6 +1,6 @@
 \clearpage
 
-\section{CAPEX}
+\section{CAPEX}\label{ILP_CAPEX}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
 \textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
@@ -143,12 +143,16 @@ minimize \qquad \qquad C_C
 \label{ILPOpaque_CAPEX}
 \end{equation}
 
-$subject$ $to$
+\vspace{11pt}
+Subject to the following restrictions where these restrictions are generic for all transport modes where the $Z$ variable depends by mode. The \ref{ILPOpaque1_CAPEX}, \ref{ILPOpaque2_CAPEX} and \ref{ILPOpaque3_CAPEX} are the flow conservation constraints.
+
 \begin{equation}
 \sum_{j\textbackslash \{o\}} f_{ij}^{od} = Z  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPOpaque1_CAPEX}
 \end{equation}
+
+This constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(i,j)$ when $j$ is not equal to the origin of the demand.
 
 \begin{equation}
 \sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -156,11 +160,15 @@ $subject$ $to$
 \label{ILPOpaque2_CAPEX}
 \end{equation}
 
+In this constraint, assuming bidirectional traffic, so the number of flows in both directions of the link is the same.
+
 \begin{equation}
 \sum_{j\textbackslash \{d\}} f_{ji}^{od} = Z  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPOpaque3_CAPEX}
 \end{equation}
+
+This constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(j,i)$ when $i$ is not equal to the destination of the demand.
 
 \begin{equation}
 f_{ij}^{od} , f_{ji}^{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -168,9 +176,6 @@ f_{ij}^{od} , f_{ji}^{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \q
 \label{ILPOpaque6_CAPEX}
 \end{equation}
 
-
-These restrictions previously mentioned are generic for all transport modes where the $Z$ variable depends by mode.
-The \ref{ILPOpaque1_CAPEX}, \ref{ILPOpaque2_CAPEX} and \ref{ILPOpaque3_CAPEX} are the flow conservation constraints. The first constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(i,j)$ when $j$ is not equal to the origin of the demand. Equation \ref{ILPOpaque3_CAPEX} is based on the same idea of \ref{ILPOpaque1_CAPEX}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPOpaque2_CAPEX}.
-The number of flows per demand can be a natural number depending the considered traffic \ref{ILPOpaque6_CAPEX}.
+The number of flows per demand can be a natural number depending the considered traffic.
 
 

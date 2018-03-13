@@ -84,12 +84,12 @@ $subject$ $to$
 \end{equation}
 
 \begin{equation}
-W_{ij} \leq 80 \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
 \label{ILPOpaque5}
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d)} \left(f_{ij}^{od} + f_{ji}^{od}\right)<= 80 \times L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d)} \left(f_{ij}^{od} + f_{ji}^{od}\right)<= 80 L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j)
 \label{ILPOpaqueX}
 \end{equation}
@@ -124,7 +124,7 @@ The value of the CAPEX of the network will be calculated based on the costs of t
  \hline\hline
  OLT without transponders & 15000 \euro \\
  Transponder & 5000 \euro/Gb \\
- Optical Amplifier & 4000 \euro \\
+ Unidirectional Optical Amplifier & 4000 \euro \\
  EXC & 10000 \euro \\
  OXC & 20000 \euro \\
  EXC Port & 1000 \euro /Gb/s\\
@@ -163,7 +163,7 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/figures/script_opaque_protec_ref_low}
+\includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_low}
 \caption{The ILP script used in the low scenario with the network cost.}
 \label{scriptopaque_surv_ref_low}
 \end{figure}
@@ -198,7 +198,7 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/figures/script_opaque_protec_ref_medium}
+\includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_medium}
 \caption{The ILP script used in the medium scenario with the network cost.}
 \label{scriptopaque_surv_ref_medium}
 \end{figure}
@@ -233,7 +233,7 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/figures/script_opaque_protec_ref_high}
+\includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_high}
 \caption{The ILP script used in the high scenario with the network cost.}
 \label{scriptopaque_surv_ref_high}
 \end{figure}
