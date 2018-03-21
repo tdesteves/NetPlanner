@@ -1,0 +1,701 @@
+
+<!-- saved from url=(0069)file:///C:/Users/Asus/AppData/Local/Temp/tmp_1468375505720957200.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>Network design report</title>
+    
+  </head>
+  <body><table border="0" cellpadding="1" cellspacing="1" style="height: 120px; width: 100%; font-size: 20px; color: white; font-weight: bold; background-color: #1E73BE;">
+    <tbody><tr>
+        <td>
+            <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
+                <tbody><tr>
+                    <td rowspan="2" style="width: 130px;"><img src="./Network design report_files/tmp_4696526745169017721.png" alt="Net2Plan logo"></td>
+                    <td style="padding: 10px; font-size: 40px; color: white; font-weight: bold;">Net2Plan</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; font-size: 20px; color: white; font-weight: bold;">The open-source network
+                        planner
+                    </td>
+                </tr>
+            </tbody></table>
+        </td>
+        <td style="padding: 10px; font-size: 40px; text-align: right; color: white; font-weight: bold;">Network design report
+        </td>
+    </tr>
+</tbody></table>
+
+    <h1>
+      Contents
+    </h1>
+    <ul>
+      <li>
+        <a href="file:///C:/Users/Asus/AppData/Local/Temp/tmp_1468375505720957200.html#sectionIntroduction">Introduction</a>
+      </li>
+      <li>
+        <a href="file:///C:/Users/Asus/AppData/Local/Temp/tmp_1468375505720957200.html#sectionLinkInformation">Detailed per-link description</a>
+      </li>
+      <li>
+        <a href="file:///C:/Users/Asus/AppData/Local/Temp/tmp_1468375505720957200.html#sectionNodeInformation">Detailed per-node description</a>
+      </li>
+      <li>
+        <a href="file:///C:/Users/Asus/AppData/Local/Temp/tmp_1468375505720957200.html#sectioncostInformation">Network Cost</a>
+      </li>
+      <li>
+        <a href="file:///C:/Users/Asus/AppData/Local/Temp/tmp_1468375505720957200.html#sectioninfoInformation">Network Information</a>
+      </li>
+    </ul>
+    <h1>
+      <a name="sectionIntroduction">Introduction
+</a>    </h1>
+    <p>
+      This report shows all the relevant information to obtain the network 
+      cost as well as the calculated values.
+    </p>
+    <h1>
+      <a name="sectionLinkInformation">Detailed per-link description
+</a>    </h1>
+    <center>
+      <table border="1">
+        <tbody><tr>
+          <th>
+            <b>Node Pair </b>
+          </th>
+          <th>
+            <b>Wavelengths forward </b>
+          </th>
+          <th>
+            <b>Wavelengths backward </b>
+          </th>
+          <th>
+            <b>Amplifiers forward </b>
+          </th>
+          <th>
+            <b>Amplifiers backward </b>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Node 2 -» Node 3
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            4
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 3 -» Node 2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            4
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 4 -» Node 3
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 3 -» Node 4
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            0
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 2 -» Node 4
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            6
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 4 -» Node 2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            6
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 4 -» Node 6
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            8
+          </td>
+          <td>
+            8
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 6 -» Node 4
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            8
+          </td>
+          <td>
+            8
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 6 -» Node 7
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 7 -» Node 6
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 5 -» Node 7
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            7
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 7 -» Node 5
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            7
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 5 -» Node 6
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 6 -» Node 5
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+          <td>
+            1
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 3 -» Node 5
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            6
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 5 -» Node 3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            6
+          </td>
+        </tr>
+      </tbody></table>
+    </center>
+    <h1>
+      <a name="sectionNodeInformation">Detailed per-node description
+</a>    </h1>
+    <center>
+      <table border="1">
+        <tbody><tr>
+          <th>
+            <b>Name</b>
+          </th>
+          <th>
+            <b>Trib ports in</b>
+          </th>
+          <th>
+            <b>Trib ports out</b>
+          </th>
+          <th>
+            <b>Line Ports in</b>
+          </th>
+          <th>
+            <b>Line Ports out</b>
+          </th>
+          <th>
+            <b>Total Ports in</b>
+          </th>
+          <th>
+            <b>Total Ports out</b>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Node 2
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            4
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 3
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            10
+          </td>
+          <td>
+            9
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 4
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            6
+          </td>
+          <td>
+            6
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 5
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            3
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            7
+          </td>
+          <td>
+            10
+          </td>
+          <td>
+            10
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 6
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            9
+          </td>
+          <td>
+            9
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Node 7
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            5
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            4
+          </td>
+          <td>
+            8
+          </td>
+          <td>
+            9
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Total
+          </td>
+          <td>
+            21
+          </td>
+          <td>
+            21
+          </td>
+          <td>
+            26
+          </td>
+          <td>
+            26
+          </td>
+          <td>
+            47
+          </td>
+          <td>
+            47
+          </td>
+        </tr>
+      </tbody></table>
+    </center>
+    <h1>
+      <a name="sectioncostInformation">Network Cost
+</a>    </h1>
+    <center>
+      <table border="1">
+        <tbody><tr>
+          <th colspan="2">
+            <b>Category</b>
+          </th>
+          <th>
+            <b>Cost</b>
+          </th>
+          <th>
+            <b>Total</b>
+          </th>
+        </tr>
+        <tr>
+          <td rowspan="3">
+            <b>Link Cost</b>
+          </td>
+          <td>
+            <b>OLT</b>
+          </td>
+          <td>
+            240,000
+          </td>
+          <td rowspan="3">
+            13,520,000
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Transponders</b>
+          </td>
+          <td>
+            13,000,000
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Amplifiers</b>
+          </td>
+          <td>
+            280,000
+          </td>
+        </tr>
+        <tr>
+          <td rowspan="2">
+            <b>Node Cost</b>
+          </td>
+          <td>
+            <b>Electrical</b>
+          </td>
+          <td>
+            3,660,000
+          </td>
+          <td rowspan="2">
+            3,660,000
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Optical</b>
+          </td>
+          <td>
+            0
+          </td>
+        </tr>
+        <tr>
+          <th colspan="3">
+            <b>Total Network Cost</b>
+          </th>
+          <td>
+            17,180,000
+          </td>
+        </tr>
+      </tbody></table>
+    </center>
+    <h1>
+      <a name="sectioninfoInformation">Network Information
+</a>    </h1>
+    <center>
+      <table border="1">
+        <tbody><tr>
+          <th>
+            <b>Category</b>
+          </th>
+          <th>
+            <b>Quantity</b>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <b>Nodes</b>
+          </td>
+          <td>
+            6
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Links</b>
+          </td>
+          <td>
+            16
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Capacity</b>
+          </td>
+          <td>
+            80
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Optical Channels</b>
+          </td>
+          <td>
+            26
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Amplifiers</b>
+          </td>
+          <td>
+            70
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Trib Ports</b>
+          </td>
+          <td>
+            21
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Line Ports</b>
+          </td>
+          <td>
+            26
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <b>Total Ports</b>
+          </td>
+          <td>
+            47
+          </td>
+        </tr>
+      </tbody></table>
+    </center>
+  
+
+
+</body></html>
