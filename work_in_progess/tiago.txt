@@ -1,4 +1,10 @@
-﻿2018-03-07
+﻿2018-03-21
+TO BE DONE
+	- incluir no report a percentagem do tráfego que foi possivel encaminhar, no caso em que fica tráfego por encaminhar especificar quais oa pedidos que não satisfeitos.
+        - melhorar a documentação
+	- melhorar as tabelas colocando uma coluna para o bit-rate e eliminar o número de transceiver
+
+2018-03-07
 TO BE DONE
 	melhorar a documentação
 
