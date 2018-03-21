@@ -176,6 +176,28 @@ f_{ij}^{od} , f_{ji}^{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \q
 \label{ILPOpaque6_CAPEX}
 \end{equation}
 
-The number of flows per demand can be a natural number depending the considered traffic.
+The number of flows per demand can be a natural number depending the considered traffic.\\
+
+Finally, one aspect to be taken into account is the cost of the equipment used in the network. Through the table \ref{table_cost_ilp} we can see the cost in euros of the equipment.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c||}
+ \hline
+ Equipment & Symbol & Cost \\
+ \hline\hline
+ OLT without transponders & $\gamma_0^{OLT}$ & 15000 \euro \\
+ Transponder & $\gamma_1^{OLT}$ & 5000 \euro/Gb \\
+ Unidirectional Optical Amplifier & $c^R$ & 4000 \euro \\
+ EXC & $\gamma_{e0}$ & 10000 \euro \\
+ OXC & $\gamma_{o0}$ & 20000 \euro \\
+ EXC Port & $\gamma_{e1}$ & 1000 \euro /Gb/s\\
+ OXC Port & $\gamma_{o1}$ & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost_ilp}
+\end{table}
+
 
 

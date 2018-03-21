@@ -65,11 +65,15 @@ $subject$ $to$
 \label{ILPOpaque1}
 \end{equation}
 
+This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that Z variable has the value of 2 (work and protection).
+
 \begin{equation}
 \sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPOpaque2}
 \end{equation}
+
+This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 
 \begin{equation}
 \sum_{j\textbackslash \{d\}} f_{ji}^{od} = 2  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -77,22 +81,30 @@ $subject$ $to$
 \label{ILPOpaque3}
 \end{equation}
 
+This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of 2 (work and protection).
+
 \begin{equation}
 \sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) + \sum_{c\in C} (B\left(c\right) D_{odc}\leq100 W_{ij} G_{ij} \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPOpaque4}
 \end{equation}
 
+This restriction is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links.
+
 \begin{equation}
-W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+W_{ij} \leq K_{ij} L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
 \label{ILPOpaque5}
 \end{equation}
 
+This restriction concerns the capacity of the optical channels which must be less or equal to the maximum number of optical channels. For any situation the maximum number of optical channels supported by each transmission system is 80, i.e., $K_{ij}$ = 80.
+
 \begin{equation}
-\sum_{(o,d)} \left(f_{ij}^{od} + f_{ji}^{od}\right)<= 80 L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d)} \left(f_{ij}^{od} + f_{ji}^{od}\right)\leq 80 L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j)
 \label{ILPOpaqueX}
 \end{equation}
+
+This restriction answers capacity constraint problem. Then, total flows must be less or equal to the capacity of network links.
 
 \begin{equation}
 L_{ij} , f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -100,72 +112,56 @@ L_{ij} , f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qq
 \label{ILPOpaque6}
 \end{equation}
 
+The number of flows per demand in this case can be zero if there are no traffic demands or one if considering working or protection traffic, in relation to the use of the link, can be zero if it is not being used or one if is being used.
+
 \begin{equation}
 W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j\label{ILPOpaque7}
 \end{equation}
 
-\vspace{10pt}
+The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
 
-The constraints \ref{ILPOpaque1}, \ref{ILPOpaque2} and \ref{ILPOpaque3} are equals to the constraints \ref{ILPOpaque1_CAPEX}, \ref{ILPOpaque2_CAPEX} and \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of 2(work and protection).
-The inequality \ref{ILPOpaque4} is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links. Another important constraint \ref{ILPOpaque5} is the capacity of the optical channels which must be less or equal to 100 Gb/s or 80 ODU0. The number of flows per demand in this case can be zero if there are no traffic demands or one if considering working or protection traffic \ref{ILPOpaque6}. The last constraint \ref{ILPOpaque7} is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
 
 \subsubsection{Result description}
 
-To perform the calculations using the implementation of the models described in previous subsection it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. \\
+To perform the calculations using the implementation of the models described in previous subsection it is necessary to use the MATLAB once more. \\
 We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.
-The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost2_ilp}.\\
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|| c | c||}
- \hline
- Equipment & Cost \\
- \hline\hline
- OLT without transponders & 15000 \euro \\
- Transponder & 5000 \euro/Gb \\
- Unidirectional Optical Amplifier & 4000 \euro \\
- EXC & 10000 \euro \\
- OXC & 20000 \euro \\
- EXC Port & 1000 \euro /Gb/s\\
- OXC Port & 2500 \euro /porto \\
- \hline
-\end{tabular}
-\caption{Table with costs}
-\label{table_cost2_ilp}
-\end{table}
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost_ilp}.\\
 
 
 \textbf{Low Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In table \ref{result_ILP1P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_low} we can see the results obtained with this ILP model.\\
+In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In table \ref{link_opaque_protec_ref_low} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c||}
+\begin{tabular}{|| c | c | c ||}
  \hline
- Number of optical channels & Value \\
- \hline\hline
- in the link (1,2) & 2 \\
- in the link (1,3) & 2 \\
- in the link (2,3) & 4 \\
- in the link (2,4) & 3 \\
- in the link (3,5) & 3 \\
- in the link (4,5) & 3 \\
- in the link (4,6) & 3 \\
- in the link (5,6) & 3 \\
+ \multicolumn{3}{|| c ||}{Information regarding LINK} \\
+ \hline
+ \hline
+ Bidirectional Link & Optical Channels & Amplifiers\\
+ \hline
+ Node 1 <-> Node 2 & 1 & 4 \\
+ Node 1 <-> Node 3 & 1 & 6 \\
+ Node 2 <-> Node 3 & 1 & 0 \\
+ Node 2 <-> Node 4 & 2 & 6 \\
+ Node 3 <-> Node 5 & 1 & 8 \\
+ Node 4 <-> Node 5 & 1 & 1 \\
+ Node 4 <-> Node 6 & 2 & 7 \\
+ Node 5 <-> Node 6 & 2 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with the number of optical channels for each link}
-\label{result_ILP1P_reference}
+\caption{Table with information regarding Link}
+\label{link_opaque_protec_ref_low}
 \end{table}
-\newpage
+
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_low}
 \caption{The ILP script used in the low scenario with the network cost.}
-\label{scriptopaque_surv_ref_low}
+\label{scriptopaque_protec_ref_low}
 \end{figure}
 
 As we can see the cost of CAPEX for this scenario is \textbf{29 032 000 \euro}.\\
@@ -173,7 +169,7 @@ As we can see the cost of CAPEX for this scenario is \textbf{29 032 000 \euro}.\
 
 \textbf{Medium Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In table \ref{result_ILP2P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_medium} we can see the results obtained with this ILP model.\\
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In table \ref{result_ILP2P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_protec_ref_medium} we can see the results obtained with this ILP model.\\
 
 \begin{table}[h!]
 \centering
@@ -200,7 +196,7 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \centering
 \includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_medium}
 \caption{The ILP script used in the medium scenario with the network cost.}
-\label{scriptopaque_surv_ref_medium}
+\label{scriptopaque_protec_ref_medium}
 \end{figure}
 
 As we can see the cost of CAPEX for this scenario is \textbf{111 432 000 \euro}.\\
@@ -208,7 +204,7 @@ As we can see the cost of CAPEX for this scenario is \textbf{111 432 000 \euro}.
 
 \textbf{High Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In table \ref{result_ILP3P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_high} we can see the results obtained with this ILP model.\\
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In table \ref{result_ILP3P_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_protec_ref_high} we can see the results obtained with this ILP model.\\
 
 \begin{table}[h!]
 \centering
@@ -235,7 +231,7 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \centering
 \includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_high}
 \caption{The ILP script used in the high scenario with the network cost.}
-\label{scriptopaque_surv_ref_high}
+\label{scriptopaque_protec_ref_high}
 \end{figure}
 
 As we can see the cost of CAPEX for this scenario is \textbf{249 232 000 \euro}\\

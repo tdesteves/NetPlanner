@@ -122,7 +122,7 @@ This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that
 This restriction is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical channels on all links.
 
 \begin{equation}
-W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
+W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
 \label{ILPOpaque5_Surv}
 \end{equation}
 
@@ -144,267 +144,696 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 
 The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
 
- 
+
 \subsubsection{Result description}
 
 To perform the calculations using the implementation of the models described in previous subsection it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.\\
 We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.
 The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost_ilp}.
+
 \newpage
+\textbf{Low Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In table \ref{link_opaque_surv_ref_low} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
+
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c||}
+\begin{tabular}{|| c | c | c ||}
  \hline
- Equipment & Cost \\
- \hline\hline
- OLT without transponders & 15000 \euro \\
- Transponder & 5000 \euro/Gb \\
- Unidirectional Optical Amplifier & 4000 \euro \\
- EXC & 10000 \euro \\
- OXC & 20000 \euro \\
- EXC Port & 1000 \euro /Gb/s\\
- OXC Port & 2500 \euro /porto \\
+ \multicolumn{3}{|| c ||}{Information regarding LINK} \\
+ \hline
+ \hline
+ Bidirectional Link & Optical Channels & Amplifiers\\
+ \hline
+ Node 1 <-> Node 2 & 1 & 4 \\
+ Node 1 <-> Node 3 & 1 & 6 \\
+ Node 2 <-> Node 3 & 1 & 0 \\
+ Node 2 <-> Node 4 & 2 & 6 \\
+ Node 3 <-> Node 5 & 1 & 8 \\
+ Node 4 <-> Node 5 & 1 & 1 \\
+ Node 4 <-> Node 6 & 2 & 7 \\
+ Node 5 <-> Node 6 & 2 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with costs}
-\label{table_cost_ilp}
+\caption{Table with information regarding Link}
+\label{link_opaque_surv_ref_low}
+\end{table}
+
+In table \ref{node_opaque_surv_ref_low}  we can see the number of transceivers, the number of line ports and the number of tributary ports for each node.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c ||}
+ \hline
+ \multicolumn{4}{|| c ||}{Information regarding NODE} \\
+ \hline
+ \hline
+ Node & Transceiver & Line Ports & Tributary Ports\\
+ \hline
+ 1 & 2 & 2 & 29 \\
+ 2 & 3 & 4 & 23 \\
+ 3 & 3 & 3 & 18 \\
+ 4 & 3 & 5 & 20 \\
+ 5 & 3 & 4 & 24 \\
+ 6 & 2 & 4 & 22 \\
+\hline
+\end{tabular}
+\caption{Table with information regarding Node}
+\label{node_opaque_surv_ref_low}
+\end{table}
+
+Through the information obtained previously on the nodes we can now create tables with detailed information about each node.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 1} \\
+ \hline
+ \hline
+ \multirow{2}{*}{2 transceivers} & One to connect to Node 2 \\
+  & One to connect to Node 3 \\ \hline
+\multirow{2}{*}{2 line ports} & 1 line ports to connect to Node 2 \\
+ & 1 line ports to connect to Node 3 \\ \hline
+\multirow{3}{*}{29 tributary ports} & where 13 is the ODU0 \\
+ & where 13 is the ODU1 \\
+ & where 3 is the ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 1}
 \end{table}
 
 
-\textbf{Low Traffic Scenario:}\\
-
-In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In figure \ref{link_opaque_surv_ref_low} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.\\
- 
-\begin{figure}[h!]
+\begin{table}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_survivability/figures/link_opaque_surv_ref_low}
-\caption{The ILP script used in the low scenario with the Link information.}
-\label{link_opaque_surv_ref_low}
-\end{figure}
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 2} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 1 \\
+  & One to connect to Node 3 \\
+  & One to connect to Node 4 \\ \hline
+\multirow{3}{*}{4 line ports} & 1 line ports to connect to Node 1 \\
+ & 1 line ports to connect to Node 3 \\
+ & 2 line ports to connect to Node 4 \\ \hline
+\multirow{5}{*}{23 tributary ports} & where 11 is the ODU0 \\
+ & where 7 is the ODU1 \\
+ & where 2 is the ODU2 \\
+ & where 2 is the ODU3 \\
+ & where 1 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 2}
+\end{table}
 
-In figure \ref{node_opaque_surv_ref_low}  we can see the number of transceivers, the number of line ports and the number of tributary ports for each node.\\
-
-\begin{figure}[h!]
+\newpage
+\begin{table}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_survivability/figures/node_opaque_surv_ref_low}
-\caption{The ILP script used in the low scenario with the Node information.}
-\label{node_opaque_surv_ref_low}
-\end{figure}
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 3} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 1 \\
+  & One to connect to Node 2 \\
+  & One to connect to Node 5 \\ \hline
+\multirow{3}{*}{3 line ports} & 1 line ports to connect to Node 1 \\
+ & 1 line ports to connect to Node 2 \\
+ & 1 line ports to connect to Node 5 \\ \hline
+\multirow{4}{*}{18 tributary ports} & where 7 is the ODU0 \\
+ & where 6 is the ODU1\\
+ & where 3 is the ODU2\\
+ & where 2 is the ODU3\\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 3}
+\end{table}
 
-Detailed description of each node:
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 4} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 2 \\
+ & One to connect to Node 5 \\
+ & One to connect to Node 6 \\ \hline
+\multirow{3}{*}{5 line ports} & 2 line ports to connect to Node 2 \\
+ & 1 line ports to connect to Node 5 \\
+ & 2 line ports to connect to Node 6 \\ \hline
+\multirow{3}{*}{20 tributary ports} & where 7 is the ODU0 \\
+ & where 10 is the ODU1 \\
+ & where 3 is the ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 4}
+\end{table}
 
-Node 1:\\
-- Needs 2 transceivers:\\
--- One to connect to Node 2;\\
--- One to connect to Node 3;\\
-- Needs 2 line ports:\\
--- 1 line ports to connect to Node 2;\\
--- 1 line ports to connect to Node 3;\\
-- Needs 29 tributary ports:\\
--- Where 13 is the ODU0;\\
--- Where 13 is the ODU1;\\
--- Where 3 is the ODU2;\\
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 5} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 3 \\
+ & One to connect to Node 4 \\
+ & One to connect to Node 6 \\ \hline
+\multirow{3}{*}{4 line ports} & 1 line ports to connect to Node 3 \\
+ & 1 line ports to connect to Node 4 \\
+ & 2 line ports to connect to Node 6 \\ \hline
+\multirow{5}{*}{24 tributary ports} & where 14 is the ODU0 \\
+ & where 4 is the ODU1 \\
+ & where 4 is the ODU2 \\
+ & where 1 is the ODU3 \\
+ & where 1 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 5}
+\end{table}
 
-Node 2:\\
-- Needs 3 transceivers:\\
--- One to connect to Node 1;\\
--- One to connect to Node 3;\\
--- One to connect to Node 4;\\
-- Needs 4 line ports:\\
--- 1 line ports to connect to Node 1;\\
--- 1 line ports to connect to Node 3;\\
--- 2 line ports to connect to Node 4;\\
-- Needs 23 tributary ports:\\
--- Where 11 is the ODU0;\\
--- Where 7 is the ODU1;\\
--- Where 2 is the ODU2;\\
--- Where 2 is the ODU3;\\
--- Where 1 is the ODU4;\\
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 6} \\
+ \hline
+ \hline
+ \multirow{2}{*}{2 transceivers} & One to connect to Node 4 \\
+  & One to connect to Node 5 \\ \hline
+\multirow{2}{*}{4 line ports} & 2 line ports to connect to Node 4 \\
+ & 2 line ports to connect to Node 5 \\ \hline
+\multirow{5}{*}{22 tributary ports} & where 8 is the ODU0 \\
+ & where 10 is the ODU1 \\
+ & where 1 is the ODU2 \\
+ & where 1 is the ODU3 \\
+ & where 2 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 6}
+\end{table}
 
-Node 3:\\
-- Needs 3 transceivers:\\
--- One to connect to Node 1;\\
--- One to connect to Node 2;\\
--- One to connect to Node 5;\\
-- Needs 3 line ports:\\
--- 1 line ports to connect to Node 1;\\
--- 1 line ports to connect to Node 2;\\
--- 1 line ports to connect to Node 5;\\
-- Needs 18 tributary ports:\\
--- Where 7 is the ODU0;\\
--- Where 6 is the ODU1;\\
--- Where 3 is the ODU2;\\
--- Where 2 is the ODU3;\\
 
-Node 4:\\
-- Needs 3 transceivers:\\
--- One to connect to Node 2;\\
--- One to connect to Node 5;\\
--- One to connect to Node 6;\\
-- Needs 5 line ports:\\
--- 2 line ports to connect to Node 2;\\
--- 1 line ports to connect to Node 5;\\
--- 2 line ports to connect to Node 6;\\
-- Needs 20 tributary ports:\\
--- Where 7 is the ODU0;\\
--- Where 10 is the ODU1;\\
--- Where 3 is the ODU2;\\
+Now let's focus on the path information. These paths are bidirectional paths so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_low} we can see all the paths obtained for all nodes.\\
 
-Node 5:\\
-- Needs 3 transceivers:\\
--- One to connect to Node 3;\\
--- One to connect to Node 4;\\
--- One to connect to Node 6;\\
-- Needs 4 line ports:\\
--- 1 line ports to connect to Node 3;\\
--- 1 line ports to connect to Node 4;\\
--- 2 line ports to connect to Node 6;\\
-- Needs 24 tributary ports:\\
--- Where 14 is the ODU0;\\
--- Where 4 is the ODU1;\\
--- Where 4 is the ODU2;\\
--- Where 1 is the ODU3;\\
--- Where 1 is the ODU4;\\
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Information regarding PATHS} \\
+ \hline
+ \hline
+ Node1 <-> Node2 & -Link(1,2) \\
+ Node1 <-> Node3 & -Link(1,3) \\
+ Node1 <-> Node4 & -Link(1,2) -Link(2,4)\\
+ Node1 <-> Node5 & -Link(1,3) -Link(3,5)\\
+ Node1 <-> Node6 & -Link(1,3) -Link(3,5) -Link(5,6)\\
+ Node2 <-> Node3 & -Link(2,3)\\
+ Node2 <-> Node4 & -Link(2,4)\\
+ Node2 <-> Node5 & -Link(2,3) -Link(3,5)\\
+ Node2 <-> Node6 & -Link(2,4) -Link(4,6)\\
+ Node3 <-> Node4 & -Link(3,2) -Link(2,4)\\
+ Node3 <-> Node5 & -Link(3,5)\\
+ Node3 <-> Node6 & -Link(3,5) -Link(5,6)\\
+ Node4 <-> Node5 & -Link(4,5)\\
+ Node4 <-> Node6 & -Link(4,6)\\
+ Node5 <-> Node6 & -Link(5,6)\\
+ \hline
+\end{tabular}
+\caption{Table with description of path}
+\label{path_opaque_surv_ref_low}
+\end{table}
 
-Node 6:\\
-\quad - Needs 2 transceivers:\\
-\quad \qquad - One to connect to Node 4;\\
-\quad \qquad - One to connect to Node 5;\\
-\quad - Needs 4 line ports:\\
-\quad \qquad - 2 line ports to connect to Node 4;\\
-\quad \qquad - 2 line ports to connect to Node 5;\\
-\quad - Needs 22 tributary ports:\\
-\quad \qquad - Where 8 is the ODU0;\\
-\quad \qquad - Where 10 is the ODU1;\\
-\quad \qquad - Where 1 is the ODU2;\\
-\quad \qquad - Where 1 is the ODU3;\\
-\quad \qquad - Where 2 is the ODU4;\\
 
-Information regarding PATHS:\\
-
-Path between Node1 <-> Node2:
-\quad-Link(1,2)
-
-Path between Node1 <-> Node3:
-\quad-Link(1,3)
-
-Path between Node1 <-> Node4:
-\quad-Link(1,2) -Link(2,4)
-
-Path between Node1 <-> Node5:
-\quad-Link(1,3) -Link(3,5)
-
-Path between Node1 <-> Node6:
-\quad-Link(1,3) -Link(3,5) -Link(5,6)
-
-Path between Node2 <-> Node3:
-\quad-Link(2,3)
-
-Path between Node2 <-> Node4:
-\quad-Link(2,4)
-
-Path between Node2 <-> Node5:
-\quad-Link(2,3) -Link(3,5)
-
-Path between Node2 <-> Node6:
-\quad-Link(2,4) -Link(4,6)
-
-Path between Node3 <-> Node4:
-\quad-Link(3,2) -Link(2,4)
-
-Path between Node3 <-> Node5:
-\quad-Link(3,5)
-
-Path between Node3 <-> Node6:
-\quad-Link(3,5) -Link(5,6)
-
-Path between Node4 <-> Node5:
-\quad-Link(4,5)
-
-Path between Node4 <-> Node6:
-\quad-Link(4,6)
-
-Path between Node5 <-> Node6:
-\quad-Link(5,6)
-
-\vspace{11pt}
-Through the figure \ref{scriptopaque_surv_ref_low} we can see the result of CAPEX obtained with this ILP model.\\
+Finally, through the figure \ref{scriptopaque_surv_ref_low} we can see the result of CAPEX obtained with this ILP model.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_survivability/figures/script_opaque_surv_ref_low}
+\includegraphics[width=9cm]{sdf/ilp/opaque_survivability/figures/script_opaque_surv_ref_low}
 \caption{The ILP script used in the low scenario with the network cost.}
 \label{scriptopaque_surv_ref_low}
 \end{figure}
 
-As we can see the cost of CAPEX for this scenario is \textbf{14 632 000 \euro}.\\
+As we can see the cost of CAPEX for this scenario is \textbf{14 780 000 \euro}.\\
 
 
 \textbf{Medium Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In table \ref{result_ILP2_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_medium} we can see the results obtained with this ILP model.\\
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In table \ref{link_opaque_surv_ref_medium} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c||}
+\begin{tabular}{|| c | c | c ||}
  \hline
- Number of optical channels & Value \\
- \hline\hline
- in the link (1,2) & 5 \\
- in the link (1,3) & 3 \\
- in the link (2,3) & 5 \\
- in the link (2,4) & 8 \\
- in the link (3,5) & 5 \\
- in the link (4,5) & 3 \\
- in the link (4,6) & 3 \\
- in the link (5,6) & 3 \\
+ \multicolumn{3}{|| c ||}{Information regarding LINK} \\
+ \hline
+ \hline
+ Bidirectional Link & Optical Channels & Amplifiers\\
+ \hline
+ Node 1 <-> Node 2 & 4 & 4 \\
+ Node 1 <-> Node 3 & 4 & 6 \\
+ Node 2 <-> Node 3 & 4 & 0 \\
+ Node 2 <-> Node 4 & 19 & 6 \\
+ Node 3 <-> Node 5 & 9 & 8 \\
+ Node 4 <-> Node 5 & 5 & 1 \\
+ Node 4 <-> Node 6 & 16 & 7 \\
+ Node 5 <-> Node 6 & 14 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with the number of optical channels for each link}
-\label{result_ILP2_reference}
+\caption{Table with information regarding Link}
+\label{link_opaque_surv_ref_medium}
+\end{table}
+
+In table \ref{node_opaque_surv_ref_medium}  we can see the number of transceivers, the number of line ports and the number of tributary ports for each node.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c ||}
+ \hline
+ \multicolumn{4}{|| c ||}{Information regarding NODE} \\
+ \hline
+ \hline
+ Node & Transceiver & Line Ports & Tributary Ports\\
+ \hline
+ 1 & 2 & 8 & 290 \\
+ 2 & 3 & 27 & 230 \\
+ 3 & 3 & 17 & 180 \\
+ 4 & 3 & 40 & 200 \\
+ 5 & 3 & 28 & 240 \\
+ 6 & 2 & 30 & 220 \\
+\hline
+\end{tabular}
+\caption{Table with information regarding Node}
+\label{node_opaque_surv_ref_medium}
+\end{table}
+
+Through the information obtained previously on the nodes we can now create tables with detailed information about each node.\\
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 1} \\
+ \hline
+ \hline
+ \multirow{2}{*}{2 transceivers} & One to connect to Node 2 \\
+  & One to connect to Node 3 \\ \hline
+\multirow{2}{*}{8 line ports} & 4 line ports to connect to Node 2 \\
+ & 4 line ports to connect to Node 3 \\ \hline
+\multirow{3}{*}{290 tributary ports} & where 130 is the ODU0 \\
+ & where 130 is the ODU1 \\
+ & where 30 is the ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 1}
 \end{table}
 
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 2} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 1 \\
+  & One to connect to Node 3 \\
+  & One to connect to Node 4 \\ \hline
+\multirow{3}{*}{27 line ports} & 4 line ports to connect to Node 1 \\
+ & 4 line ports to connect to Node 3 \\
+ & 19 line ports to connect to Node 4 \\ \hline
+\multirow{5}{*}{230 tributary ports} & where 110 is the ODU0 \\
+ & where 70 is the ODU1 \\
+ & where 20 is the ODU2 \\
+ & where 20 is the ODU3 \\
+ & where 10 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 2}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 3} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 1 \\
+  & One to connect to Node 2 \\
+  & One to connect to Node 5 \\ \hline
+\multirow{3}{*}{17 line ports} & 4 line ports to connect to Node 1 \\
+ & 4 line ports to connect to Node 2 \\
+ & 9 line ports to connect to Node 5 \\ \hline
+\multirow{4}{*}{180 tributary ports} & where 70 is the ODU0 \\
+ & where 60 is the ODU1\\
+ & where 30 is the ODU2\\
+ & where 20 is the ODU3\\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 3}
+\end{table}
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 4} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 2 \\
+ & One to connect to Node 5 \\
+ & One to connect to Node 6 \\ \hline
+\multirow{3}{*}{40 line ports} & 19 line ports to connect to Node 2 \\
+ & 5 line ports to connect to Node 5 \\
+ & 16 line ports to connect to Node 6 \\ \hline
+\multirow{3}{*}{200 tributary ports} & where 70 is the ODU0 \\
+ & where 100 is the ODU1 \\
+ & where 30 is the ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 4}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 5} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 3 \\
+ & One to connect to Node 4 \\
+ & One to connect to Node 6 \\ \hline
+\multirow{3}{*}{28 line ports} & 9 line ports to connect to Node 3 \\
+ & 5 line ports to connect to Node 4 \\
+ & 14 line ports to connect to Node 6 \\ \hline
+\multirow{5}{*}{240 tributary ports} & where 140 is the ODU0 \\
+ & where 40 is the ODU1 \\
+ & where 40 is the ODU2 \\
+ & where 10 is the ODU3 \\
+ & where 10 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 5}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 6} \\
+ \hline
+ \hline
+ \multirow{2}{*}{2 transceivers} & One to connect to Node 4 \\
+  & One to connect to Node 5 \\ \hline
+\multirow{2}{*}{30 line ports} & 16 line ports to connect to Node 4 \\
+ & 14 line ports to connect to Node 5 \\ \hline
+\multirow{5}{*}{220 tributary ports} & where 80 is the ODU0 \\
+ & where 100 is the ODU1 \\
+ & where 10 is the ODU2 \\
+ & where 10 is the ODU3 \\
+ & where 20 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 6}
+\end{table}
+
+
+Now let's focus on the path information. These paths are bidirectional paths so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_medium} we can see all the paths obtained for all nodes.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Information regarding PATHS} \\
+ \hline
+ \hline
+ Node1 <-> Node2 & -Link(1,2) \\
+ Node1 <-> Node3 & -Link(1,3) \\
+ Node1 <-> Node4 & -Link(1,2) -Link(2,4)\\
+ Node1 <-> Node5 & -Link(1,3) -Link(3,5)\\
+ Node1 <-> Node6 & -Link(1,3) -Link(3,5) -Link(5,6)\\
+ Node2 <-> Node3 & -Link(2,3)\\
+ Node2 <-> Node4 & -Link(2,4)\\
+ Node2 <-> Node5 & -Link(2,3) -Link(3,5)\\
+ Node2 <-> Node6 & -Link(2,4) -Link(4,6)\\
+ Node3 <-> Node4 & -Link(3,2) -Link(2,4)\\
+ Node3 <-> Node5 & -Link(3,5)\\
+ Node3 <-> Node6 & -Link(3,5) -Link(5,6)\\
+ Node4 <-> Node5 & -Link(4,5)\\
+ Node4 <-> Node6 & -Link(4,6)\\
+ Node5 <-> Node6 & -Link(5,6)\\
+ \hline
+\end{tabular}
+\caption{Table with description of path}
+\label{path_opaque_surv_ref_medium}
+\end{table}
+
+
+Finally, through the figure \ref{scriptopaque_surv_ref_medium} we can see the result of CAPEX obtained with this ILP model.
+
 \begin{figure}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_survivability/figures/script_opaque_surv_ref_medium}
+\includegraphics[width=9cm]{sdf/ilp/opaque_survivability/figures/script_opaque_surv_ref_medium}
 \caption{The ILP script used in the medium scenario with the network cost.}
 \label{scriptopaque_surv_ref_medium}
 \end{figure}
 
-As we can see the cost of CAPEX for this scenario is \textbf{46 632 000 \euro}.\\
+As we can see the cost of CAPEX for this scenario is \textbf{100 580 000 \euro}.\\
 
-\newpage
+
 \textbf{High Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In table \ref{result_ILP3_reference} we can see the number of optical channels for each link calculated through MatLab and through the image \ref{scriptopaque_surv_ref_high} we can see the results obtained with this ILP model.\\
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In table \ref{link_opaque_surv_ref_high} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c||}
+\begin{tabular}{|| c | c | c ||}
  \hline
- Number of optical channels & Value \\
- \hline\hline
- in the link (1,2) & 4 \\
- in the link (1,3) & 4 \\
- in the link (2,3) & 4 \\
- in the link (2,4) & 19 \\
- in the link (3,5) & 9 \\
- in the link (4,5) & 5 \\
- in the link (4,6) & 16 \\
- in the link (5,6) & 14 \\
+ \multicolumn{3}{|| c ||}{Information regarding LINK} \\
+ \hline
+ \hline
+ Bidirectional Link & Optical Channels & Amplifiers\\
+ \hline
+ Node 1 <-> Node 2 & 1 & 4 \\
+ Node 1 <-> Node 3 & 1 & 6 \\
+ Node 2 <-> Node 3 & 1 & 0 \\
+ Node 2 <-> Node 4 & 2 & 6 \\
+ Node 3 <-> Node 5 & 1 & 8 \\
+ Node 4 <-> Node 5 & 1 & 1 \\
+ Node 4 <-> Node 6 & 2 & 7 \\
+ Node 5 <-> Node 6 & 2 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with the number of optical channels for each link}
-\label{result_ILP3_reference}
+\caption{Table with information regarding Link}
+\label{link_opaque_surv_ref_high}
+\end{table}
+
+In table \ref{node_opaque_surv_ref_high}  we can see the number of transceivers, the number of line ports and the number of tributary ports for each node.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c ||}
+ \hline
+ \multicolumn{4}{|| c ||}{Information regarding NODE} \\
+ \hline
+ \hline
+ Node & Transceiver & Line Ports & Tributary Ports\\
+ \hline
+ 1 & 2 & 2 & 29 \\
+ 2 & 3 & 4 & 23 \\
+ 3 & 3 & 3 & 18 \\
+ 4 & 3 & 5 & 20 \\
+ 5 & 3 & 4 & 24 \\
+ 6 & 2 & 4 & 22 \\
+\hline
+\end{tabular}
+\caption{Table with information regarding Node}
+\label{node_opaque_surv_ref_high}
+\end{table}
+
+Through the information obtained previously on the nodes we can now create tables with detailed information about each node.\\
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 1} \\
+ \hline
+ \hline
+ \multirow{2}{*}{2 transceivers} & One to connect to Node 2 \\
+  & One to connect to Node 3 \\ \hline
+\multirow{2}{*}{2 line ports} & 1 line ports to connect to Node 2 \\
+ & 1 line ports to connect to Node 3 \\ \hline
+\multirow{3}{*}{29 tributary ports} & where 13 is the ODU0 \\
+ & where 13 is the ODU1 \\
+ & where 3 is the ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 1}
 \end{table}
 
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 2} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 1 \\
+  & One to connect to Node 3 \\
+  & One to connect to Node 4 \\ \hline
+\multirow{3}{*}{4 line ports} & 1 line ports to connect to Node 1 \\
+ & 1 line ports to connect to Node 3 \\
+ & 2 line ports to connect to Node 4 \\ \hline
+\multirow{5}{*}{23 tributary ports} & where 11 is the ODU0 \\
+ & where 7 is the ODU1 \\
+ & where 2 is the ODU2 \\
+ & where 2 is the ODU3 \\
+ & where 1 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 2}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 3} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 1 \\
+  & One to connect to Node 2 \\
+  & One to connect to Node 5 \\ \hline
+\multirow{3}{*}{3 line ports} & 1 line ports to connect to Node 1 \\
+ & 1 line ports to connect to Node 2 \\
+ & 1 line ports to connect to Node 5 \\ \hline
+\multirow{4}{*}{18 tributary ports} & where 7 is the ODU0 \\
+ & where 6 is the ODU1\\
+ & where 3 is the ODU2\\
+ & where 2 is the ODU3\\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 3}
+\end{table}
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 4} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 2 \\
+ & One to connect to Node 5 \\
+ & One to connect to Node 6 \\ \hline
+\multirow{3}{*}{5 line ports} & 2 line ports to connect to Node 2 \\
+ & 1 line ports to connect to Node 5 \\
+ & 2 line ports to connect to Node 6 \\ \hline
+\multirow{3}{*}{20 tributary ports} & where 7 is the ODU0 \\
+ & where 10 is the ODU1 \\
+ & where 3 is the ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 4}
+\end{table}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 5} \\
+ \hline
+ \hline
+ \multirow{3}{*}{3 transceivers} & One to connect to Node 3 \\
+ & One to connect to Node 4 \\
+ & One to connect to Node 6 \\ \hline
+\multirow{3}{*}{4 line ports} & 1 line ports to connect to Node 3 \\
+ & 1 line ports to connect to Node 4 \\
+ & 2 line ports to connect to Node 6 \\ \hline
+\multirow{5}{*}{24 tributary ports} & where 14 is the ODU0 \\
+ & where 4 is the ODU1 \\
+ & where 4 is the ODU2 \\
+ & where 1 is the ODU3 \\
+ & where 1 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 5}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Detailed description of Node 6} \\
+ \hline
+ \hline
+ \multirow{2}{*}{2 transceivers} & One to connect to Node 4 \\
+  & One to connect to Node 5 \\ \hline
+\multirow{2}{*}{4 line ports} & 2 line ports to connect to Node 4 \\
+ & 2 line ports to connect to Node 5 \\ \hline
+\multirow{5}{*}{22 tributary ports} & where 8 is the ODU0 \\
+ & where 10 is the ODU1 \\
+ & where 1 is the ODU2 \\
+ & where 1 is the ODU3 \\
+ & where 2 is the ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 6}
+\end{table}
+
+
+Now let's focus on the path information. These paths are bidirectional paths so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_high} we can see all the paths obtained for all nodes.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ \multicolumn{2}{|| c ||}{Information regarding PATHS} \\
+ \hline
+ \hline
+ Node1 <-> Node2 & -Link(1,2) \\
+ Node1 <-> Node3 & -Link(1,3) \\
+ Node1 <-> Node4 & -Link(1,2) -Link(2,4)\\
+ Node1 <-> Node5 & -Link(1,3) -Link(3,5)\\
+ Node1 <-> Node6 & -Link(1,3) -Link(3,5) -Link(5,6)\\
+ Node2 <-> Node3 & -Link(2,3)\\
+ Node2 <-> Node4 & -Link(2,4)\\
+ Node2 <-> Node5 & -Link(2,3) -Link(3,5)\\
+ Node2 <-> Node6 & -Link(2,4) -Link(4,6)\\
+ Node3 <-> Node4 & -Link(3,2) -Link(2,4)\\
+ Node3 <-> Node5 & -Link(3,5)\\
+ Node3 <-> Node6 & -Link(3,5) -Link(5,6)\\
+ Node4 <-> Node5 & -Link(4,5)\\
+ Node4 <-> Node6 & -Link(4,6)\\
+ Node5 <-> Node6 & -Link(5,6)\\
+ \hline
+\end{tabular}
+\caption{Table with description of path}
+\label{path_opaque_surv_ref_high}
+\end{table}
+
+Finally, through the figure \ref{scriptopaque_surv_ref_high} we can see the result of CAPEX obtained with this ILP model.
+
 \begin{figure}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_survivability/figures/script_opaque_surv_ref_high}
+\includegraphics[width=9cm]{sdf/ilp/opaque_survivability/figures/script_opaque_surv_ref_high}
 \caption{The ILP script used in the high scenario with the network cost.}
 \label{scriptopaque_surv_ref_high}
 \end{figure}
 
-As we can see the cost of CAPEX for this scenario is \textbf{100 432 000 \euro}\\
+As we can see the cost of CAPEX for this scenario is \textbf{100 432 000 \euro}.
