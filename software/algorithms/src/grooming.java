@@ -171,7 +171,7 @@ public class grooming implements IAlgorithm
     						p.setAttribute("nW", numberWavelengths);
     								
     					}
-    					break;
+    					break; 
     						
     			case "Logical Topology Transparent":
     				for (Demand d : netPlan.getDemands(lowerLayer)) {

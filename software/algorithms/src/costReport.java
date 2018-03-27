@@ -347,7 +347,7 @@ public class costReport implements IReport
 			traffic = readFile();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 		double Cexc = (Double.parseDouble(reportParameters.get("EXC"))*N)+(Padd*2*Tau*Double.parseDouble(reportParameters.get("EXCPort")));
 		double OLTCost = Double.parseDouble(reportParameters.get("OLT"))*E;
 		double amplifiersCost = numberAmplifiers* Double.parseDouble(reportParameters.get("opticalAmplifier"));

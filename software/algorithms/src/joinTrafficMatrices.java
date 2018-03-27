@@ -42,7 +42,7 @@ import javax.xml.transform.stream.StreamResult;
  * @author Adolfo Oliveira
  * @version 1.0, June 2015
  */
-
+ 
 public class joinTrafficMatrices implements IAlgorithm {
 	
 	private double traf = 0;

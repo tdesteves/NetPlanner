@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.5)  20 MAR 2018 22:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.5)  27 MAR 2018 21:04
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -2235,50 +2235,50 @@ File: sdf/heuristic/figures/network_topological_design.png Graphic file (type p
 ng)
 <use sdf/heuristic/figures/network_topological_design.png>
 Package pdftex.def Info: sdf/heuristic/figures/network_topological_design.png  
-used on input line 38.
+used on input line 40.
 (pdftex.def)             Requested size: 341.43306pt x 181.59361pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 48.
+(babel)             in language  on input line 50.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 48.
+(babel)             in language  on input line 50.
  [40 <./sdf/heuristic/figures/network_topological_design.png>]
 <sdf/heuristic/figures/join_traffic_matrices.png, id=967, 375.65344pt x 474.271
 88pt>
 File: sdf/heuristic/figures/join_traffic_matrices.png Graphic file (type png)
 <use sdf/heuristic/figures/join_traffic_matrices.png>
 Package pdftex.def Info: sdf/heuristic/figures/join_traffic_matrices.png  used 
-on input line 51.
+on input line 53.
 (pdftex.def)             Requested size: 284.52756pt x 359.24907pt.
 <sdf/heuristic/figures/logical_topology.png, id=968, 374.14781pt x 474.27188pt>
 
 File: sdf/heuristic/figures/logical_topology.png Graphic file (type png)
 <use sdf/heuristic/figures/logical_topology.png>
 Package pdftex.def Info: sdf/heuristic/figures/logical_topology.png  used on in
-put line 65.
+put line 67.
 (pdftex.def)             Requested size: 284.52756pt x 360.6892pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 74.
+(babel)             in language  on input line 76.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 74.
+(babel)             in language  on input line 76.
 [41
 
  <./sdf/heuristic/figures/join_traffic_matrices.png>]
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 76.
+(babel)             in language  on input line 78.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 76.
+(babel)             in language  on input line 78.
  [42 <./sdf/heuristic/figures/logical_topology.png>]
 <sdf/heuristic/figures/grooming.png, id=982, 374.14781pt x 472.01344pt>
 File: sdf/heuristic/figures/grooming.png Graphic file (type png)
 <use sdf/heuristic/figures/grooming.png>
 Package pdftex.def Info: sdf/heuristic/figures/grooming.png  used on input line
- 81.
+ 83.
 (pdftex.def)             Requested size: 284.52756pt x 358.97162pt.
 )
 (sdf/heuristic/heuristic_opaque_survivability.tex
@@ -2295,12 +2295,30 @@ Overfull \hbox (7.33366pt too wide) in paragraph at lines 5--9
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
+Underfull \hbox (badness 2790) in paragraph at lines 13--14
+\T1/ppl/m/n/10.95 In the opa-que trans-port mode (link-by-link ap-pro-ach), the
+ light-path en-te-ring any
+ []
+
+
+Underfull \hbox (badness 1264) in paragraph at lines 13--14
+\T1/ppl/m/n/10.95 in-ter-me-di-ate node is ne-ces-sa-rily ter-mi-na-ted, i.e., 
+there are per-for-med OEO (optical-
+ []
+
+
+Underfull \hbox (badness 1194) in paragraph at lines 17--18
+\T1/ppl/m/n/10.95 ne-ces-sary to ap-ply the rou-ting and gro-o-ming al-go-rithm
+s cre-a-ted. For the "Lo-gi-cal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
@@ -2310,56 +2328,60 @@ File: sdf/heuristic/figures/Low_Network_Cost_Opaque.png Graphic file (type png)
 
 <use sdf/heuristic/figures/Low_Network_Cost_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Low_Network_Cost_Opaque.png  use
-d on input line 26.
+d on input line 31.
 (pdftex.def)             Requested size: 284.52756pt x 145.61977pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 <sdf/heuristic/figures/Low_Network_Info_Opaque.png, id=993, 151.3153pt x 165.61
 874pt>
 File: sdf/heuristic/figures/Low_Network_Info_Opaque.png Graphic file (type png)
 
 <use sdf/heuristic/figures/Low_Network_Info_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Low_Network_Info_Opaque.png  use
-d on input line 33.
+d on input line 38.
 (pdftex.def)             Requested size: 142.26378pt x 155.71196pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 38.
+(babel)             in language  on input line 43.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 38.
+(babel)             in language  on input line 43.
 [44
 
- <./sdf/heuristic/figures/Low_Network_Cost_Opaque.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
+]
+Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
-<sdf/heuristic/figures/Medium_Network_Cost_Opaque.png, id=1003, 261.22594pt x 1
+<sdf/heuristic/figures/Medium_Network_Cost_Opaque.png, id=1002, 261.22594pt x 1
 30.98938pt>
 File: sdf/heuristic/figures/Medium_Network_Cost_Opaque.png Graphic file (type p
 ng)
 <use sdf/heuristic/figures/Medium_Network_Cost_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Medium_Network_Cost_Opaque.png  
-used on input line 45.
+used on input line 50.
 (pdftex.def)             Requested size: 284.52756pt x 142.67563pt.
-<sdf/heuristic/figures/Medium_Network_Info_Opaque.png, id=1004, 149.05687pt x 1
+<sdf/heuristic/figures/Medium_Network_Info_Opaque.png, id=1003, 149.05687pt x 1
 66.37157pt>
 File: sdf/heuristic/figures/Medium_Network_Info_Opaque.png Graphic file (type p
 ng)
 <use sdf/heuristic/figures/Medium_Network_Info_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Medium_Network_Info_Opaque.png  
-used on input line 52.
+used on input line 57.
 (pdftex.def)             Requested size: 142.26378pt x 158.79842pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 57.
+(babel)             in language  on input line 62.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 57.
-[45 <./sdf/heuristic/figures/Low_Network_Info_Opaque.png> <./sdf/heuristic/figu
-res/Medium_Network_Cost_Opaque.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
+(babel)             in language  on input line 62.
+[45 <./sdf/heuristic/figures/Low_Network_Cost_Opaque.png> <./sdf/heuristic/figu
+res/Low_Network_Info_Opaque.png> <./sdf/heuristic/figures/Medium_Network_Cost_O
+paque.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 
  []
 
@@ -2369,7 +2391,7 @@ File: sdf/heuristic/figures/High_Network_Cost_Opaque.png Graphic file (type png
 )
 <use sdf/heuristic/figures/High_Network_Cost_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/High_Network_Cost_Opaque.png  us
-ed on input line 64.
+ed on input line 69.
 (pdftex.def)             Requested size: 284.52756pt x 135.67384pt.
 <sdf/heuristic/figures/High_Network_Info_Opaque.png, id=1015, 150.5625pt x 167.
 12437pt>
@@ -2377,7 +2399,7 @@ File: sdf/heuristic/figures/High_Network_Info_Opaque.png Graphic file (type png
 )
 <use sdf/heuristic/figures/High_Network_Info_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/High_Network_Info_Opaque.png  us
-ed on input line 71.
+ed on input line 76.
 (pdftex.def)             Requested size: 142.26378pt x 157.92825pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -2402,12 +2424,12 @@ Overfull \hbox (7.33366pt too wide) in paragraph at lines 5--9
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 18--19
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 20--21
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
 
  []
 
@@ -2417,56 +2439,60 @@ File: sdf/heuristic/figures/Low_Network_Cost_Protec_Opaque.png Graphic file (ty
 pe png)
 <use sdf/heuristic/figures/Low_Network_Cost_Protec_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Low_Network_Cost_Protec_Opaque.p
-ng  used on input line 26.
+ng  used on input line 33.
 (pdftex.def)             Requested size: 284.52756pt x 145.61977pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 <sdf/heuristic/figures/Low_Network_Info_Protec_Opaque.png, id=1034, 149.8097pt 
 x 164.86594pt>
 File: sdf/heuristic/figures/Low_Network_Info_Protec_Opaque.png Graphic file (ty
 pe png)
 <use sdf/heuristic/figures/Low_Network_Info_Protec_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Low_Network_Info_Protec_Opaque.p
-ng  used on input line 33.
+ng  used on input line 40.
 (pdftex.def)             Requested size: 142.26378pt x 156.57393pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 38.
+(babel)             in language  on input line 45.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 38.
+(babel)             in language  on input line 45.
 [48
 
- <./sdf/heuristic/figures/Low_Network_Cost_Protec_Opaque.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
+]
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
 
  []
 
-<sdf/heuristic/figures/Medium_Network_Cost_Protec_Opaque.png, id=1045, 267.2484
+<sdf/heuristic/figures/Medium_Network_Cost_Protec_Opaque.png, id=1044, 267.2484
 4pt x 130.23656pt>
 File: sdf/heuristic/figures/Medium_Network_Cost_Protec_Opaque.png Graphic file 
 (type png)
 <use sdf/heuristic/figures/Medium_Network_Cost_Protec_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Medium_Network_Cost_Protec_Opaqu
-e.png  used on input line 45.
+e.png  used on input line 52.
 (pdftex.def)             Requested size: 284.52756pt x 138.67209pt.
-<sdf/heuristic/figures/Medium_Network_Info_Protec_Opaque.png, id=1046, 149.0568
+<sdf/heuristic/figures/Medium_Network_Info_Protec_Opaque.png, id=1045, 149.0568
 7pt x 166.37157pt>
 File: sdf/heuristic/figures/Medium_Network_Info_Protec_Opaque.png Graphic file 
 (type png)
 <use sdf/heuristic/figures/Medium_Network_Info_Protec_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/Medium_Network_Info_Protec_Opaqu
-e.png  used on input line 52.
+e.png  used on input line 59.
 (pdftex.def)             Requested size: 142.26378pt x 158.79842pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 57.
+(babel)             in language  on input line 64.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 57.
-[49 <./sdf/heuristic/figures/Low_Network_Info_Protec_Opaque.png> <./sdf/heurist
-ic/figures/Medium_Network_Cost_Protec_Opaque.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 58--59
+(babel)             in language  on input line 64.
+[49 <./sdf/heuristic/figures/Low_Network_Cost_Protec_Opaque.png> <./sdf/heurist
+ic/figures/Low_Network_Info_Protec_Opaque.png> <./sdf/heuristic/figures/Medium_
+Network_Cost_Protec_Opaque.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
 
  []
 
@@ -2476,7 +2502,7 @@ File: sdf/heuristic/figures/High_Network_Cost_Protec_Opaque.png Graphic file (t
 ype png)
 <use sdf/heuristic/figures/High_Network_Cost_Protec_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/High_Network_Cost_Protec_Opaque.
-png  used on input line 64.
+png  used on input line 71.
 (pdftex.def)             Requested size: 284.52756pt x 131.03424pt.
 <sdf/heuristic/figures/High_Network_Info_Protec_Opaque.png, id=1057, 148.30406p
 t x 166.37157pt>
@@ -2484,7 +2510,7 @@ File: sdf/heuristic/figures/High_Network_Info_Protec_Opaque.png Graphic file (t
 ype png)
 <use sdf/heuristic/figures/High_Network_Info_Protec_Opaque.png>
 Package pdftex.def Info: sdf/heuristic/figures/High_Network_Info_Protec_Opaque.
-png  used on input line 71.
+png  used on input line 78.
 (pdftex.def)             Requested size: 142.26378pt x 159.60063pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -13248,7 +13274,7 @@ public/amsfonts/symbols/msbm10.pfb><C:/Users/Asus/AppData/Local/Programs/MiKTeX
 iKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Asus/AppData/Local/Prog
 rams/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Asus/AppData/Loca
 l/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (1209 pages, 12166030 bytes).
+Output written on main_netplanner.pdf (1209 pages, 12167263 bytes).
 PDF statistics:
  8427 PDF objects out of 8907 (max. 8388607)
  1576 named destinations out of 1728 (max. 500000)

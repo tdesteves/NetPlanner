@@ -31,6 +31,8 @@ The next step is to choose the number of nodes, number of matrices and the const
 \vspace{11pt}
 To create the network topological design that was defined before in \label{creation_traffic_matrices} it is needed to add the 6 nodes that were chosen and link them with bidirectional links as it is shown in the picture \label{network_topological_design} below.
 
+It is known that each node represents an end-node which has a certain number of transmitters and receivers for a communication. These nodes are connected by optical fibers that support a fixed number of wavelengths.
+
 On the right side of the network design it is shown all the attributes of the network. However, some arguments are not set yet, like the capacity and the traffic demands that passes in each link, so now it is necessary to use routing and grooming algorithms in order to simulate the heuristic algorithms in this reference network.
 
 \begin{figure}[h!]
@@ -58,7 +60,7 @@ The first algorithm used is the "Join Traffic Matrices" algorithm and it joins t
 \vspace{11pt}
 The "Logical Topology" algorithm is the second one used and it is based on the transport mode that is used in the network and it creates the logical topology on another layer. The logical topology value is introduced by the user and it can be one of the three transport modes available. If the transport mode chosen is opaque there is no need of having a second layer because the logical layer is the same as the physical one and if the transport mode is transparent or translucent it is needed to add a new logical layer. One advantage of this algorithm is that all the traffic demands are copied to the new layer and all the arguments remains the same depending on the previous layer, not interfering with the network topology.
 
-It is also needed to add by the user the capacity that is used in each wavelength from all origin nodes to all destination nodes and the length of the links with values of the distance matrix represented in \label{Reference_Network_Topology} and expressed in Km.
+It is also needed to add by the user the capacity that is used in each wavelength from all origin nodes to all destination nodes and the length of the links with values of the distance matrix represented in \label{Reference_Network_Topology} and expressed in km.
 
 \begin{figure}[h!]
 \centering
@@ -81,4 +83,4 @@ The 1+1 protection scheme (dedicated path protection) assumes that each link has
 \includegraphics[width=10cm]{sdf/heuristic/figures/grooming}
 \caption{Grooming algorithm using Net2Plan.}
 \label{grooming}
-\end{figure}
+\end{figure} 
