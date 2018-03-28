@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<network description="" name="" version="4">
+	<node id="2" isUp="true" name="no-name-0" xCoord="0.0" yCoord="0.0"/>
+	<node id="3" isUp="true" name="no-name-1" xCoord="0.0" yCoord="0.0"/>
+	<node id="4" isUp="true" name="no-name-2" xCoord="0.0" yCoord="0.0"/>
+	<node id="5" isUp="true" name="no-name-3" xCoord="0.0" yCoord="0.0"/>
+	<node id="6" isUp="true" name="no-name-4" xCoord="0.0" yCoord="0.0"/>
+	<node id="7" isUp="true" name="no-name-5" xCoord="0.0" yCoord="0.0"/>
+	<layer demandTrafficUnitsName="" description="" id="1" linkCapacityUnitsName="" name="Layer 0">
+		<demand egressNodeId="3" id="8" ingressNodeId="2" offeredTraffic="50.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="4" id="9" ingressNodeId="2" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="5" id="10" ingressNodeId="2" offeredTraffic="30.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="6" id="11" ingressNodeId="2" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="7" id="12" ingressNodeId="2" offeredTraffic="30.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="2" id="13" ingressNodeId="3" offeredTraffic="50.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="4" id="14" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="5" id="15" ingressNodeId="3" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="6" id="16" ingressNodeId="3" offeredTraffic="50.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="7" id="17" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="2" id="18" ingressNodeId="4" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="3" id="19" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="5" id="20" ingressNodeId="4" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="6" id="21" ingressNodeId="4" offeredTraffic="40.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="7" id="22" ingressNodeId="4" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="2" id="23" ingressNodeId="5" offeredTraffic="30.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="3" id="24" ingressNodeId="5" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="4" id="25" ingressNodeId="5" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="6" id="26" ingressNodeId="5" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="7" id="27" ingressNodeId="5" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="2" id="28" ingressNodeId="6" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="3" id="29" ingressNodeId="6" offeredTraffic="50.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="4" id="30" ingressNodeId="6" offeredTraffic="40.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="5" id="31" ingressNodeId="6" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="7" id="32" ingressNodeId="6" offeredTraffic="30.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="2" id="33" ingressNodeId="7" offeredTraffic="30.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="3" id="34" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="4" id="35" ingressNodeId="7" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="5" id="36" ingressNodeId="7" offeredTraffic="10.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<demand egressNodeId="6" id="37" ingressNodeId="7" offeredTraffic="30.0">
+<attribute key="ODU" value="0"/>
+</demand>
+		<sourceRouting/>
+	<demand egressNodeId="3" id="38" ingressNodeId="2" offeredTraffic="40.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="4" id="39" ingressNodeId="2" offeredTraffic="80.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="5" id="40" ingressNodeId="2" offeredTraffic="40.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="6" id="41" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="7" id="42" ingressNodeId="2" offeredTraffic="100.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="2" id="43" ingressNodeId="3" offeredTraffic="40.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="4" id="44" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="5" id="45" ingressNodeId="3" offeredTraffic="60.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="6" id="46" ingressNodeId="3" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="7" id="47" ingressNodeId="3" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="2" id="48" ingressNodeId="4" offeredTraffic="80.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="3" id="49" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="5" id="50" ingressNodeId="4" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="6" id="51" ingressNodeId="4" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="7" id="52" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="2" id="53" ingressNodeId="5" offeredTraffic="40.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="3" id="54" ingressNodeId="5" offeredTraffic="60.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="4" id="55" ingressNodeId="5" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="6" id="56" ingressNodeId="5" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="7" id="57" ingressNodeId="5" offeredTraffic="60.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="2" id="58" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="3" id="59" ingressNodeId="6" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="4" id="60" ingressNodeId="6" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="5" id="61" ingressNodeId="6" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="7" id="62" ingressNodeId="6" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="2" id="63" ingressNodeId="7" offeredTraffic="100.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="3" id="64" ingressNodeId="7" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="4" id="65" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="5" id="66" ingressNodeId="7" offeredTraffic="60.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="6" id="67" ingressNodeId="7" offeredTraffic="20.0">
+<attribute key="ODU" value="1"/>
+</demand>
+<demand egressNodeId="3" id="68" ingressNodeId="2" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="4" id="69" ingressNodeId="2" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="5" id="70" ingressNodeId="2" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="6" id="71" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="7" id="72" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="2" id="73" ingressNodeId="3" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="4" id="74" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="5" id="75" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="6" id="76" ingressNodeId="3" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="7" id="77" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="2" id="78" ingressNodeId="4" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="3" id="79" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="5" id="80" ingressNodeId="4" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="6" id="81" ingressNodeId="4" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="7" id="82" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="2" id="83" ingressNodeId="5" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="3" id="84" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="4" id="85" ingressNodeId="5" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="6" id="86" ingressNodeId="5" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="7" id="87" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="2" id="88" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="3" id="89" ingressNodeId="6" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="4" id="90" ingressNodeId="6" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="5" id="91" ingressNodeId="6" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="7" id="92" ingressNodeId="6" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="2" id="93" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="3" id="94" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="4" id="95" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="5" id="96" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="6" id="97" ingressNodeId="7" offeredTraffic="80.0">
+<attribute key="ODU" value="2"/>
+</demand>
+<demand egressNodeId="3" id="98" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="4" id="99" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="5" id="100" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="6" id="101" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="7" id="102" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="2" id="103" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="4" id="104" ingressNodeId="3" offeredTraffic="320.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="5" id="105" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="6" id="106" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="7" id="107" ingressNodeId="3" offeredTraffic="320.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="2" id="108" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="3" id="109" ingressNodeId="4" offeredTraffic="320.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="5" id="110" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="6" id="111" ingressNodeId="4" offeredTraffic="320.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="7" id="112" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="2" id="113" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="3" id="114" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="4" id="115" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="6" id="116" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="7" id="117" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="2" id="118" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="3" id="119" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="4" id="120" ingressNodeId="6" offeredTraffic="320.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="5" id="121" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="7" id="122" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="2" id="123" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="3" id="124" ingressNodeId="7" offeredTraffic="320.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="4" id="125" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="5" id="126" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="6" id="127" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="3"/>
+</demand>
+<demand egressNodeId="3" id="128" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="4" id="129" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="5" id="130" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="6" id="131" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="7" id="132" ingressNodeId="2" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="2" id="133" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="4" id="134" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="5" id="135" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="6" id="136" ingressNodeId="3" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="7" id="137" ingressNodeId="3" offeredTraffic="800.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="2" id="138" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="3" id="139" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="5" id="140" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="6" id="141" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="7" id="142" ingressNodeId="4" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="2" id="143" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="3" id="144" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="4" id="145" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="6" id="146" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="7" id="147" ingressNodeId="5" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="2" id="148" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="3" id="149" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="4" id="150" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="5" id="151" ingressNodeId="6" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="7" id="152" ingressNodeId="6" offeredTraffic="800.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="2" id="153" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="3" id="154" ingressNodeId="7" offeredTraffic="800.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="4" id="155" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="5" id="156" ingressNodeId="7" offeredTraffic="0.0">
+<attribute key="ODU" value="4"/>
+</demand>
+<demand egressNodeId="6" id="157" ingressNodeId="7" offeredTraffic="800.0">
+<attribute key="ODU" value="4"/>
+</demand>
+</layer>
+</network>

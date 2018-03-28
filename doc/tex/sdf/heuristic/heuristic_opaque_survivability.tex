@@ -10,46 +10,70 @@
 
 \subsubsection{Model description}
 
-In an initial phase we will have two aspects to fulfill. The first one is to define the ODU0, ODU1, ODU2, ODU3 and ODU4 matrices, and the second one passes through the design of the network in question.
-After this phase is completed, we then apply the algorithms created. first the "joinTrafficMatrices" then the "logicalTopology" and finally the "Grooming".
-At the end, the algorithm "CostReport" will be applied to obtain the CAPEX result for the network in question.
+In the opaque transport mode (link-by-link approach), the lightpath entering any intermediate node is necessarily terminated, i.e., there are performed OEO (optical-electrical-optical) conversions at every intermediate node since the origin to the destination node. These conversions are used for every wavelength at every node.
 
+Contrary to the opaque with dedicated 1+1 protection technique, the opaque without survivability technique does not have a backup path, so if there is a network failure it is more likely to suffer large data losses, which consequently leads to higher network costs. However, the CAPEX will be significantly lower, because that not includes a secondary path that would increase several network elements.
+
+For this model, after the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. For the "Logical Topology" algorithm, the user must insert "Opaque" in the "logicalTopology" value and for the "Grooming" algorithm, the user must insert "no" in the parameter value "protection".
+
+At the end, the "Cost Report" algorithm will be applied to obtain the best CAPEX result for the network in question.
 
 \subsubsection{Result description}
 
-We already have all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.\\
+We already have all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic), so we have to obtain three different CAPEX.\\
 
 \textbf{Low Traffic Scenario:}\\
 
-Following all the steps mentioned in the previous subsection and using all the data referring to this scenario the obtained result can be consulted in the following figure \ref{heuristicopaque_surv_ref_low}.
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following figure \ref{Low_Network_Cost_Opaque}.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/figures/heuristic_opaque_surv_ref_low}
-\caption{The network cost using Net2Plan.}
-\label{heuristicopaque_surv_ref_low}
+\includegraphics[width=10cm]{sdf/heuristic/figures/Low_Network_Cost_Opaque}
+\caption{The low traffic network cost using Net2Plan.}
+\label{Low_Network_Cost_Opaque}
 \end{figure}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5cm]{sdf/heuristic/figures/Low_Network_Info_Opaque}
+\caption{The low traffic network info using Net2Plan.}
+\label{Low_Network_Info_Opaque}
+\end{figure}
 
+\newpage
 \textbf{Medium Traffic Scenario:}\\
 
-Following all the steps mentioned in the previous subsection and using all the data referring to this scenario the obtained result can be consulted in the following figure \ref{heuristicopaque_surv_ref_medium}.
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following figure \ref{Medium_Network_Cost_Opaque}.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/figures/heuristic_opaque_surv_ref_medium}
-\caption{The network cost using Net2Plan.}
-\label{heuristicopaque_surv_ref_low}
+\includegraphics[width=10cm]{sdf/heuristic/figures/Medium_Network_Cost_Opaque}
+\caption{The medium traffic network cost using Net2Plan.}
+\label{Medium_Network_Cost_Opaque}
 \end{figure}
 
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5cm]{sdf/heuristic/figures/Medium_Network_Info_Opaque}
+\caption{The medium traffic network info using Net2Plan.}
+\label{Medium_Network_Info_Opaque}
+\end{figure}
 
+\newpage
 \textbf{High Traffic Scenario:}\\
 
-Following all the steps mentioned in the previous subsection and using all the data referring to this scenario the obtained result can be consulted in the following figure \ref{heuristicopaque_surv_ref_high}.
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following figure \ref{High_Network_Cost_Opaque}.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/figures/heuristic_opaque_surv_ref_high}
-\caption{The network cost using Net2Plan.}
-\label{heuristicopaque_surv_ref_high}
+\includegraphics[width=10cm]{sdf/heuristic/figures/High_Network_Cost_Opaque}
+\caption{The hight traffic network cost using Net2Plan.}
+\label{High_Network_Cost_Opaque}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=5cm]{sdf/heuristic/figures/High_Network_Info_Opaque}
+\caption{The high traffic network info using Net2Plan.}
+\label{High_Network_Info_Opaque}
 \end{figure}

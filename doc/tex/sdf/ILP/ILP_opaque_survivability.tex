@@ -50,6 +50,8 @@ Before carrying out the description of the objective function we must take into 
 The objective function of following the ILP is a minimization of the CAPEX through the equation \ref{Capex} where in this case for the cost of nodes we only have in consideration the electric cost \ref{Capex_Node_EXC} because of the particularity previously mentioned.
 In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaque} for long-reach and by the equation \ref{EXC_pexc2_opaque} for short-reach.\\
 
+The traffic routing can be implemented in a network by two methods: non-bypass (link-by-link) and lightpath bypass. In the opaque transport mode (link-by-link approach), the lightpath entering any intermediate node is necessarily terminated, i.e., it is performed OEO (optical-electrical-optical) conversions at every intermediate node since origin to destination node.
+
 \newpage
 As previously mentioned, equation \ref{EXC_pexc1_opaque} refers to the number of long-reach ports, that is, the number of line ports of node n is calculated.
 
