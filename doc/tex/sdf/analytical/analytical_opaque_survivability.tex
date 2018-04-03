@@ -58,15 +58,15 @@ $<w>$ = $($ $\frac{10 * 1.533}{8}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 2\\
 
 Using equation \ref{amplifiers}:\\
 
-$N^R$ = $($ $\frac{500}{100}$-1 $)$ + $($ $\frac{500}{100}$-1$)$ + $($ $\frac{400}{100}$-1 $)$ + $($ $\frac{500}{100}$ -1$)$ + $($ $\frac{500}{100}$-1$)$ + $($ $\frac{600}{100}$-1$)$ + $($ $\frac{450}{100}$-1$)$ + $($ $\frac{550}{100}$-1$)$\\
+$N^R$ = $($ $\frac{460}{100}$-1 $)$ + $($ $\frac{640}{100}$-1$)$ + $($ $\frac{75}{100}$-1 $)$ + $($ $\frac{684}{100}$ -1$)$ + $($ $\frac{890}{100}$-1$)$ + $($ $\frac{103}{100}$-1$)$ + $($ $\frac{761}{100}$-1$)$ + $($ $\frac{361}{100}$-1$)$\\
 
-$N^R$ = 33\\
+$N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15000$)$ + $($2 * 8 * 5000 * 100 * 2$)$ + $($33 * 4000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 2$)$ + $($33 * 4 000$)$\\
 
-$C_L$ = \textbf{16 372 000 \euro}\\
+$C_L$ = \textbf{16 380 000 \euro}\\
 
 In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
@@ -78,63 +78,21 @@ $<P_{exc}>$ = 3.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ 
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10000 + $($1000 * 100 * 8.4425 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 8.4425 $)$ $)$\\
 
 $C_N$ = \textbf{5 125 500 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 16 372 000 + 5 125 500\\
+$CAPEX$ = 16 380 000 + 5 125 500\\
 
-$CAPEX$ = \textbf{21 497 500 \euro}\\
+$CAPEX$ = \textbf{21 505 500 \euro}\\
 
 \textbf{Medium Traffic Scenario}\\
 In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}.\\
 
 Using equation \ref{demands}:\\
 
-$D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{4200}{100}$ $)$ \qquad \qquad $D$ = 42\\
-
-replacing in equation \ref{optical_channels}:\\
-
-$<w>$ = $($ $\frac{42 * 1.533}{8}$ $)$ * $($ 1 + 0$)$ \qquad \quad $<w>$ = 9\\
-
-Using equation \ref{amplifiers}:\\
-
-$N^R$ = $($ $\frac{500}{100}$-1 $)$ + $($ $\frac{500}{100}$-1$)$ + $($ $\frac{400}{100}$-1 $)$ + $($ $\frac{500}{100}$ -1$)$ + $($ $\frac{500}{100}$-1$)$ + $($ $\frac{600}{100}$-1$)$ + $($ $\frac{450}{100}$-1$)$ + $($ $\frac{550}{100}$-1$)$\\
-
-$N^R$ = 33\\
-
-Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
-
-$C_L$ = $($2 * 8 * 15000$)$ + $($2 * 8 * 5000 * 100 * 9$)$ + $($33 * 4000$)$\\
-
-$C_L$ = \textbf{72 372 000 \euro}\\
-
-In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
-
-$<d>$ = $\frac{2 * 42}{6}$ \qquad \qquad $<d>$ = 14\\
-
-Replacing in equation \ref{Pexc_opaque}:\\
-
-$<P_{exc}>$ = 14 * $[$1 + $($ 1 + 0 $)$ * 1.533$]$ \qquad \qquad $<P_{exc}>$ = 35.462 \\
-
-Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
-
-$C_N$ = $C_{exc}$ = 6 * $($10000 + $($1000 * 100 * 35.462 $)$ $)$\\
-
-$C_N$ = \textbf{21 337 200 \euro}\\
-
-The CAPEX is:\\
-$CAPEX$ = 72 372 000 + 21 337 200\\
-
-$CAPEX$ = \textbf{93 709 200 \euro}\\
-
-\textbf{High Traffic Scenario}\\
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}.\\
-
-Using equation \ref{demands}:\\
-
-$D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{1000}{100}$ $)$ \qquad \qquad $D$ = 100\\
+$D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{10 000}{100}$ $)$ \qquad \qquad $D$ = 100\\
 
 replacing in equation \ref{optical_channels}:\\
 
@@ -142,15 +100,15 @@ $<w>$ = $($ $\frac{100 * 1.533}{8}$ $)$ * $($ 1 + 0$)$ \qquad \quad $<w>$ = 20\\
 
 Using equation \ref{amplifiers}:\\
 
-$N^R$ = $($ $\frac{500}{100}$-1 $)$ + $($ $\frac{500}{100}$-1$)$ + $($ $\frac{400}{100}$-1 $)$ + $($ $\frac{500}{100}$ -1$)$ + $($ $\frac{500}{100}$-1$)$ + $($ $\frac{600}{100}$-1$)$ + $($ $\frac{450}{100}$-1$)$ + $($ $\frac{550}{100}$-1$)$\\
+$N^R$ = $($ $\frac{460}{100}$-1 $)$ + $($ $\frac{640}{100}$-1$)$ + $($ $\frac{75}{100}$-1 $)$ + $($ $\frac{684}{100}$ -1$)$ + $($ $\frac{890}{100}$-1$)$ + $($ $\frac{103}{100}$-1$)$ + $($ $\frac{761}{100}$-1$)$ + $($ $\frac{361}{100}$-1$)$\\
 
-$N^R$ = 33\\
+$N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15000$)$ + $($2 * 8 * 5000 * 100 * 20$)$ + $($33 * 4000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 20$)$ + $($35 * 4 000$)$\\
 
-$C_L$ = \textbf{160 372 000 \euro}\\
+$C_L$ = \textbf{160 380 000 \euro}\\
 
 In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
@@ -158,16 +116,58 @@ $<d>$ = $\frac{2 * 100}{6}$ \qquad \qquad $<d>$ = 33.333\\
 
 Replacing in equation \ref{Pexc_opaque}:\\
 
-$<P_{exc}>$ = 33.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \qquad $<P_{exc}>$ = 84.4325 \\
+$<P_{exc}>$ = 33.333 * $[$1 + $($ 1 + 0 $)$ * 1.533$]$ \qquad \qquad $<P_{exc}>$ = 84.4325 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10000 + $($1000 * 100 * 84.4325 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 84.4325 $)$ $)$\\
 
 $C_N$ = \textbf{50 719 500 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 160 372 000 + 50 719 500\\
+$CAPEX$ = 160 380 000 + 50 719 500\\
 
-$CAPEX$ = \textbf{211 091 500 \euro}\\
+$CAPEX$ = \textbf{211 099 500 \euro}\\
+
+\textbf{High Traffic Scenario}\\
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}.\\
+
+Using equation \ref{demands}:\\
+
+$D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{100 000}{100}$ $)$ \qquad \qquad $D$ = 1 000\\
+
+replacing in equation \ref{optical_channels}:\\
+
+$<w>$ = $($ $\frac{1 000 * 1.533}{8}$ $)$ * $($ 1 + 0$)$ \qquad \quad $<w>$ = 192\\
+
+Using equation \ref{amplifiers}:\\
+
+$N^R$ = $($ $\frac{460}{100}$-1 $)$ + $($ $\frac{640}{100}$-1$)$ + $($ $\frac{75}{100}$-1 $)$ + $($ $\frac{684}{100}$ -1$)$ + $($ $\frac{890}{100}$-1$)$ + $($ $\frac{103}{100}$-1$)$ + $($ $\frac{761}{100}$-1$)$ + $($ $\frac{361}{100}$-1$)$\\
+
+$N^R$ = 35\\
+
+Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
+
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 192$)$ + $($35 * 4 000$)$\\
+
+$C_L$ = \textbf{1 536 380 000 \euro}\\
+
+In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
+
+$<d>$ = $\frac{2 * 1 000}{6}$ \qquad \qquad $<d>$ = 333.333\\
+
+Replacing in equation \ref{Pexc_opaque}:\\
+
+$<P_{exc}>$ = 333.333 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \qquad $<P_{exc}>$ = 844.3325 \\
+
+Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
+
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 844.3325 $)$ $)$\\
+
+$C_N$ = \textbf{506 659 500 \euro}\\
+
+The CAPEX is:\\
+$CAPEX$ = 1 536 380 000 + 506 659 500\\
+
+$CAPEX$ = \textbf{2 043 039 500 \euro}\\
 
