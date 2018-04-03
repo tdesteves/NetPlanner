@@ -1,4 +1,34 @@
-﻿2018-03-07
+﻿2018-04-03
+TO BE DONE
+	- melhorar a parte da amostragem dos resultados (topologias)
+
+        - refazer o caso de muito tráfego
+
+        - fazer analitica
+	
+	- anexos
+		- explicar como é que eu faço um script do matlab para codificar a função objetivo e as varias restriçoes
+
+10/4, 15h-16h
+
+2018-03-28
+TO BE DONE
+	- acertar melhor a informação que vou mostrar relativo ao dimensionamento do modo opaco s/ proteção (ver pdf)
+	- nomeadamente a inclusão das 3 topologias e da tabela detalhada.
+	- corrigir / melhor detaques
+
+	- anexos
+		- explicar como é que eu faço um script do matlab para codificar a função objetivo e as varias restriçoes
+
+Next meeting: 3/4, 16h-17h
+
+2018-03-21
+TO BE DONE
+	- incluir no report a percentagem do tráfego que foi possivel encaminhar, no caso em que fica tráfego por encaminhar especificar quais oa pedidos que não satisfeitos.
+        - melhorar a documentação
+	- melhorar as tabelas colocando uma coluna para o bit-rate e eliminar o número de transceiver
+
+2018-03-07
 TO BE DONE
 	melhorar a documentação
 

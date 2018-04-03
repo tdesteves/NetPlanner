@@ -26,12 +26,12 @@ The values indicated in the distance matrix, referred to below, are expressed in
 \[
 Dist=
   \begin{bmatrix}
-    0 & 500 & 500 & 0 & 0 & 0 \\
-    500 & 0 & 400 & 500 & 0 & 0 \\
-    500 & 400 & 0 & 0 & 500 & 0 \\
-    0 & 500 & 0 & 0 & 600 & 450 \\
-    0 & 0 & 500 & 600 & 0 & 550 \\
-    0 & 0 & 0 & 450 & 550 & 0
+    0 & 460 & 663 & 0 & 0 & 0 \\
+    460 & 0 & 75 & 684 & 0 & 0 \\
+    663 & 75 & 0 & 0 & 890 & 0 \\
+    0 & 684 & 0 & 0 & 103 & 764 \\
+    0 & 0 & 890 & 103 & 0 & 361 \\
+    0 & 0 & 0 & 764 & 361 & 0
   \end{bmatrix}
 \]
 
@@ -68,11 +68,11 @@ For this project has to take into consideration the table \ref{table_ref_net} be
 For a better interpretation of the later results we will assume three traffic models for this network.
 Being the first model with a low traffic scenario, the second with a medium traffic scenario and a last one with a high traffic scenario.
 For each scenario it will be necessary to create different traffic matrices and to know the traffic of the network we will use five matrices of traffic.
-These traffic matrices are represented by ODU0, ODU1, ODU2, ODU3 and ODU4 where each one has a certain data rate.
+These traffic matrices are represented by ODU0, ODU1, ODU2, ODU3 and ODU4 where each one has a certain bit rate.
 The ODU0 corresponds to 1.25 Gbits/s, the ODU1 corresponds to 2.5 Gbits/s, the ODU2 corresponds to 10 Gbits/s, the ODU3 corresponds to 40 Gbits/s and finally the ODU4 corresponds to 100 Gbits/s.
 As we can see below, these arrays are bi-directional because they are symmetric arrays and as such, the traffic sent in a certain direction must be the same traffic sent in that opposite direction.
 
-\subsection{Low traffic scenario}\label{low_traffic_scenario}
+\subsection{Low traffic scenario (0.5 Tbits/s)}\label{low_traffic_scenario}
 
 The traffic matrices for this scenario are:
 
@@ -86,7 +86,7 @@ ODU0=
     1 & 5 & 4 & 1 & 0 & 3 \\
     3 & 0 & 1 & 1 & 3 & 0
   \end{bmatrix}
-\quad ODU1=
+\qquad ODU1=
   \begin{bmatrix}
     0 & 2 & 4 & 2 & 0 & 5 \\
     2 & 0 & 0 & 3 & 1 & 1 \\
@@ -95,7 +95,9 @@ ODU0=
     0 & 1 & 1 & 1 & 0 & 1 \\
     5 & 1 & 0 & 3 & 1 & 0
   \end{bmatrix}
-\quad ODU2=
+\]
+\[
+ODU2=
   \begin{bmatrix}
     0 & 1 & 1 & 1 & 0 & 0 \\
     1 & 0 & 0 & 0 & 1 & 0 \\
@@ -104,9 +106,7 @@ ODU0=
     0 & 1 & 1 & 1 & 0 & 1 \\
     0 & 0 & 0 & 0 & 1 & 0
   \end{bmatrix}
-\]
-\[
-ODU3=
+\qquad ODU3=
   \begin{bmatrix}
     0 & 0 & 0 & 0 & 0 & 0 \\
     0 & 0 & 1 & 0 & 0 & 1 \\
@@ -115,7 +115,9 @@ ODU3=
     0 & 0 & 1 & 0 & 0 & 0 \\
     0 & 1 & 0 & 0 & 0 & 0
   \end{bmatrix}
-\qquad ODU4=
+\]
+\[
+ODU4=
   \begin{bmatrix}
     0 & 0 & 0 & 0 & 0 & 0 \\
     0 & 0 & 0 & 0 & 0 & 1 \\
@@ -141,74 +143,7 @@ $T$ = 1000/2 = \textbf{0.5 Tbits/s}\\
 
 Where the variable $T_1^x$ represents the unidirectional traffic of the ODUx, for example, $T_1^0$ represents the unidirectional traffic of the ODU0 and $T_1^1$ represents the unidirectional traffic of the ODU1. The variable $T_{1}$ represents the total of unidirectional traffic that is injected into the network and finally the variable $T$ represents the total of bidirectional traffic.\\
 
-\subsection{Medium traffic scenario}\label{medium_traffic_scenario}
-
-The traffic matrices for this scenario are:
-
-\[
-ODU0=
-  \begin{bmatrix}
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0
-  \end{bmatrix}
-\quad ODU1=
-  \begin{bmatrix}
-    0 & 2 & 0 & 4 & 6 & 0 \\
-    2 & 0 & 0 & 4 & 2 & 2 \\
-    0 & 0 & 0 & 2 & 2 & 2 \\
-    4 & 4 & 2 & 0 & 0 & 0 \\
-    6 & 2 & 2 & 0 & 0 & 6 \\
-    0 & 2 & 2 & 0 & 6 & 0
-  \end{bmatrix}
-\quad ODU2=
-  \begin{bmatrix}
-    0 & 0 & 2 & 6 & 0 & 0 \\
-    0 & 0 & 2 & 0 & 2 & 2 \\
-    2 & 2 & 0 & 0 & 4 & 2 \\
-    6 & 0 & 0 & 0 & 2 & 0 \\
-    0 & 2 & 4 & 2 & 0 & 0 \\
-    0 & 2 & 2 & 0 & 0 & 0
-  \end{bmatrix}
-\]
-\[
-ODU3=
-  \begin{bmatrix}
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0 \\
-    0 & 0 & 0 & 0 & 0 & 0
-  \end{bmatrix}
-\qquad ODU4=
-  \begin{bmatrix}
-    0 & 2 & 0 & 2 & 2 & 0 \\
-    2 & 0 & 4 & 2 & 0 & 2 \\
-    0 & 4 & 0 & 0 & 0 & 2 \\
-    2 & 2 & 0 & 0 & 2 & 0 \\
-    2 & 0 & 0 & 2 & 0 & 0 \\
-    0 & 2 & 2 & 0 & 0 & 0
-  \end{bmatrix}
-\]
-
-\newpage
-Through these ODU's we can calculate total network traffic for the low traffic scenario:\\
-
-$T_1^0$ = 0x1.25 = 0 Gbits/s \qquad
-$T_1^1$ = 64x2.5 = 160 Gbits/s \qquad
-$T_1^2$ = 44x10 = 440 Gbits/s \\
-
-$T_1^3$ = 0x40 = 0 Gbits/s \quad
-$T_1^4$ = 36x100 = 3600 Gbits/s \\
-
-$T_{1}$ = 0 + 160 + 440 + 0 + 3600 = 4200 Gbits/s \qquad
-$T$ = 4200/2 = \textbf{2.1 Tbits/s}\\
-
-\subsection{High traffic scenario}\label{high_traffic_scenario}
+\subsection{Medium traffic scenario (5 Tbits/s)}\label{medium_traffic_scenario}
 
 The traffic matrices for this scenario are:
 
@@ -265,7 +200,7 @@ ODU4=
 \]
 
 \vspace{17pt}
-Through these ODU's we can calculate total network traffic for the low traffic scenario:\\
+Through these ODU's we can calculate total network traffic for the medium traffic scenario:\\
 
 $T_1^0$ = 600x1.25 = 750 Gbits/s \quad
 $T_1^1$ = 500x2.5 = 1205 Gbits/s \quad
@@ -277,5 +212,74 @@ $T_1^4$ = 40x100 = 4000 Gbits/s \\
 $T_{1}$ = 750 + 1250 + 1600 + 2400 + 4000 = 10000 Gbits/s \qquad
 $T$ = 10000/2 = \textbf{5 Tbits/s}\\
 
+\subsection{High traffic scenario (50 Tbits/s)}\label{high_traffic_scenario}
 
+The traffic matrices for this scenario are:
+
+\[
+ODU0=
+  \begin{bmatrix}
+    0 & 500 & 100 & 300 & 100 & 300 \\
+    500 & 0 & 0 & 100 & 500 & 0 \\
+    100 & 0 & 0 & 100 & 400 & 100 \\
+    300 & 100 & 100 & 0 & 100 & 100 \\
+    100 & 500 & 400 & 100 & 0 & 300 \\
+    300 & 0 & 100 & 100 & 300 & 0
+  \end{bmatrix}
+\quad ODU1=
+  \begin{bmatrix}
+    0 & 200 & 400 & 200 & 0 & 500 \\
+    200 & 0 & 0 & 300 & 100 & 100 \\
+    400 & 0 & 0 & 100 & 100 & 0 \\
+    200 & 300 & 100 & 0 & 100 & 300 \\
+    0 & 100 & 100 & 100 & 0 & 100 \\
+    500 & 100 & 0 & 300 & 100 & 0
+  \end{bmatrix}
+\]
+\[
+ODU2=
+  \begin{bmatrix}
+    0 & 100 & 100 & 100 & 0 & 0 \\
+    100 & 0 & 0 & 0 & 100 & 0 \\
+    100 & 0 & 0 & 100 & 100 & 0 \\
+    100 & 0 & 100 & 0 & 100 & 0 \\
+    0 & 100 & 100 & 100 & 0 & 100 \\
+    0 & 0 & 0 & 0 & 100 & 0
+  \end{bmatrix}
+\quad ODU3=
+  \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 100 & 0 & 0 & 100 \\
+    0 & 100 & 0 & 0 & 100 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 100 & 0 & 0 & 0 \\
+    0 & 100 & 0 & 0 & 0 & 0
+  \end{bmatrix}
+\]
+\[
+ODU4=
+  \begin{bmatrix}
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 100 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 & 100 \\
+    0 & 100 & 0 & 0 & 100 & 0
+  \end{bmatrix}
+\]
+
+\vspace{17pt}
+Through these ODU's we can calculate total network traffic for the high traffic scenario:\\
+
+$T_1^0$ = 6000x1.25 = 7500 Gbits/s \qquad
+$T_1^1$ = 5000x2.5 = 12500 Gbits/s \\
+
+$T_1^2$ = 1600x10 = 16000 Gbits/s \qquad
+$T_1^3$ = 600x40 = 24000 Gbits/s \\
+
+$T_1^4$ = 400x100 = 40000 Gbits/s \\
+
+$T_{1}$ = 750 + 1250 + 1600 + 2400 + 4000 = 100000 Gbits/s \\
+
+$T$ = 100000/2 = \textbf{50 Tbits/s}\\
 

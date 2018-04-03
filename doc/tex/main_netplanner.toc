@@ -1,158 +1,87 @@
 \babel@toc {portuguese}{}
-\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}
-\contentsline {chapter}{\numberline {2}Simulator Structure}{5}{chapter.2}
-\contentsline {section}{\numberline {2.1}System}{5}{section.2.1}
-\contentsline {section}{\numberline {2.2}Blocks}{5}{section.2.2}
-\contentsline {section}{\numberline {2.3}Signals}{5}{section.2.3}
-\contentsline {chapter}{\numberline {3}Development Cycle}{6}{chapter.3}
-\contentsline {chapter}{\numberline {4}Reference Network Specification}{7}{chapter.4}
-\contentsline {section}{\numberline {4.1}Physical Topology}{8}{section.4.1}
-\contentsline {section}{\numberline {4.2}Traffic Matrices}{9}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Low traffic scenario}{9}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Medium traffic scenario}{10}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}High traffic scenario}{11}{subsection.4.2.3}
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
+\contentsline {chapter}{\numberline {2}Simulator Structure}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}System}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Blocks}{4}{section.2.2}
+\contentsline {section}{\numberline {2.3}Signals}{4}{section.2.3}
+\contentsline {chapter}{\numberline {3}Development Cycle}{5}{chapter.3}
+\contentsline {chapter}{\numberline {4}Reference Network Specification}{6}{chapter.4}
+\contentsline {section}{\numberline {4.1}Physical Topology}{7}{section.4.1}
+\contentsline {section}{\numberline {4.2}Traffic Matrices}{8}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Low traffic scenario (0.5 Tbits/s)}{8}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Medium traffic scenario (5 Tbits/s)}{9}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}High traffic scenario (50 Tbits/s)}{10}{subsection.4.2.3}
 \contentsline {chapter}{\numberline {5}Integer Linear Programming (ILP)}{12}{chapter.5}
 \contentsline {section}{\numberline {5.1}CAPEX}{13}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}Opaque without Survivability}{17}{subsection.5.1.1}
-\contentsline {subsubsection}{\numberline {5.1.1.1}Model description}{17}{subsubsection.5.1.1.1}
-\contentsline {subsubsection}{\numberline {5.1.1.2}Result description}{20}{subsubsection.5.1.1.2}
-\contentsline {subsection}{\numberline {5.1.2}Opaque with 1+1 Protection}{24}{subsection.5.1.2}
-\contentsline {subsubsection}{\numberline {5.1.2.1}Result description}{26}{subsubsection.5.1.2.1}
-\contentsline {subsection}{\numberline {5.1.3}Transparent without Survivability}{30}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}Transparent with 1+1 Protection}{32}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {5.1.5}Translucent without Survivability}{34}{subsection.5.1.5}
-\contentsline {subsection}{\numberline {5.1.6}Translucent with 1+1 Protection}{36}{subsection.5.1.6}
-\contentsline {chapter}{\numberline {6}Heuristic Models}{38}{chapter.6}
-\contentsline {section}{\numberline {6.1}CAPEX}{39}{section.6.1}
-\contentsline {subsubsection}{\numberline {6.1.0.1}Creation of traffic matrices}{39}{subsubsection.6.1.0.1}
-\contentsline {subsubsection}{\numberline {6.1.0.2}Creation of a network topological design}{40}{subsubsection.6.1.0.2}
-\contentsline {subsubsection}{\numberline {6.1.0.3}Join Traffic Matrices Algorithm}{40}{subsubsection.6.1.0.3}
-\contentsline {subsubsection}{\numberline {6.1.0.4}Logical Topology Algorithm}{41}{subsubsection.6.1.0.4}
-\contentsline {subsubsection}{\numberline {6.1.0.5}Grooming Algorithm}{42}{subsubsection.6.1.0.5}
-\contentsline {subsection}{\numberline {6.1.1}Opaque without Survivability}{44}{subsection.6.1.1}
-\contentsline {subsubsection}{\numberline {6.1.1.1}Model description}{44}{subsubsection.6.1.1.1}
-\contentsline {subsubsection}{\numberline {6.1.1.2}Result description}{44}{subsubsection.6.1.1.2}
-\contentsline {subsection}{\numberline {6.1.2}Opaque with 1+1 Protection}{47}{subsection.6.1.2}
-\contentsline {subsubsection}{\numberline {6.1.2.1}Model description}{47}{subsubsection.6.1.2.1}
-\contentsline {subsubsection}{\numberline {6.1.2.2}Result description}{47}{subsubsection.6.1.2.2}
-\contentsline {subsection}{\numberline {6.1.3}Transparent without Survivability}{50}{subsection.6.1.3}
-\contentsline {subsubsection}{\numberline {6.1.3.1}Model description}{50}{subsubsection.6.1.3.1}
-\contentsline {subsubsection}{\numberline {6.1.3.2}Result description}{50}{subsubsection.6.1.3.2}
-\contentsline {subsection}{\numberline {6.1.4}Transparent with 1+1 Protection}{51}{subsection.6.1.4}
-\contentsline {subsubsection}{\numberline {6.1.4.1}Model description}{51}{subsubsection.6.1.4.1}
-\contentsline {subsubsection}{\numberline {6.1.4.2}Result description}{51}{subsubsection.6.1.4.2}
-\contentsline {subsection}{\numberline {6.1.5}Translucent without Survivability}{52}{subsection.6.1.5}
-\contentsline {subsubsection}{\numberline {6.1.5.1}Model description}{52}{subsubsection.6.1.5.1}
-\contentsline {subsubsection}{\numberline {6.1.5.2}Result description}{52}{subsubsection.6.1.5.2}
-\contentsline {subsection}{\numberline {6.1.6}Translucent with 1+1 Protection}{53}{subsection.6.1.6}
-\contentsline {subsubsection}{\numberline {6.1.6.1}Model description}{53}{subsubsection.6.1.6.1}
-\contentsline {subsubsection}{\numberline {6.1.6.2}Result description}{53}{subsubsection.6.1.6.2}
-\contentsline {chapter}{\numberline {7}Analytical Models}{54}{chapter.7}
-\contentsline {section}{\numberline {7.1}CAPEX}{55}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Opaque without Survivability}{58}{subsection.7.1.1}
-\contentsline {subsubsection}{\numberline {7.1.1.1}Model description}{58}{subsubsection.7.1.1.1}
-\contentsline {subsubsection}{\numberline {7.1.1.2}Result description}{58}{subsubsection.7.1.1.2}
-\contentsline {subsection}{\numberline {7.1.2}Opaque with 1+1 Protection}{63}{subsection.7.1.2}
-\contentsline {subsection}{\numberline {7.1.3}Transparent without Survivability}{64}{subsection.7.1.3}
-\contentsline {subsection}{\numberline {7.1.4}Transparent with 1+1 Protection}{65}{subsection.7.1.4}
-\contentsline {subsection}{\numberline {7.1.5}Translucent without Survivability}{66}{subsection.7.1.5}
-\contentsline {subsection}{\numberline {7.1.6}Translucent with 1+1 Protection}{67}{subsection.7.1.6}
-\contentsline {chapter}{\numberline {8}Comparative Analysis}{68}{chapter.8}
-\contentsline {section}{\numberline {8.1}Opaque without Survivability}{69}{section.8.1}
-\contentsline {section}{\numberline {8.2}Opaque with 1+1 Protection}{71}{section.8.2}
-\contentsline {section}{\numberline {8.3}Transparent without Survivability}{72}{section.8.3}
-\contentsline {section}{\numberline {8.4}Transparent with 1+1 Protection}{73}{section.8.4}
-\contentsline {section}{\numberline {8.5}Translucent without Survivability}{74}{section.8.5}
-\contentsline {section}{\numberline {8.6}Translucent with 1+1 Protection}{75}{section.8.6}
-\contentsline {chapter}{\numberline {9}Case Studies}{76}{chapter.9}
-\contentsline {section}{\numberline {9.1}Opaque without Survivability - European Optical Network}{77}{section.9.1}
-\contentsline {subsection}{\numberline {9.1.1}Physical Network Topology}{77}{subsection.9.1.1}
-\contentsline {subsection}{\numberline {9.1.2}Dimensioning using Analytical Model}{83}{subsection.9.1.2}
-\contentsline {subsection}{\numberline {9.1.3}Dimensioning using ILP}{85}{subsection.9.1.3}
-\contentsline {subsection}{\numberline {9.1.4}Dimensioning using Heuristics}{87}{subsection.9.1.4}
-\contentsline {subsubsection}{\numberline {9.1.4.1}Heuristics Results}{87}{subsubsection.9.1.4.1}
-\contentsline {subsection}{\numberline {9.1.5}Comparative Analysis}{87}{subsection.9.1.5}
-\contentsline {section}{\numberline {9.2}Opaque with 1+1 Protection - Reference Network}{89}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Physical Network Topology}{89}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Dimensioning using ILP}{89}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}Dimensioning using Heuristics}{91}{subsection.9.2.3}
-\contentsline {subsubsection}{\numberline {9.2.3.1}Heuristics Results}{91}{subsubsection.9.2.3.1}
-\contentsline {subsection}{\numberline {9.2.4}Comparative Analysis}{91}{subsection.9.2.4}
-\contentsline {section}{\numberline {9.3}Opaque with 1+1 Protection - European Optical Network}{92}{section.9.3}
-\contentsline {subsection}{\numberline {9.3.1}Physical Network Topology}{92}{subsection.9.3.1}
-\contentsline {subsection}{\numberline {9.3.2}Dimensioning using ILP}{92}{subsection.9.3.2}
-\contentsline {subsection}{\numberline {9.3.3}Dimensioning using Heuristics}{96}{subsection.9.3.3}
-\contentsline {subsubsection}{\numberline {9.3.3.1}Heuristics Results}{96}{subsubsection.9.3.3.1}
-\contentsline {subsection}{\numberline {9.3.4}Comparative Analysis}{96}{subsection.9.3.4}
-\contentsline {section}{\numberline {9.4}Transparent without Survivability - Reference Network}{97}{section.9.4}
-\contentsline {subsection}{\numberline {9.4.1}Physical Network Topology}{97}{subsection.9.4.1}
-\contentsline {subsection}{\numberline {9.4.2}Dimensioning using ILP}{99}{subsection.9.4.2}
-\contentsline {subsubsection}{\numberline {9.4.2.1}Network costs}{99}{subsubsection.9.4.2.1}
-\contentsline {subsubsection}{\numberline {9.4.2.2}ILP Results}{100}{subsubsection.9.4.2.2}
-\contentsline {subsection}{\numberline {9.4.3}Dimensioning using Heuristics}{102}{subsection.9.4.3}
-\contentsline {subsubsection}{\numberline {9.4.3.1}Heuristics Results}{102}{subsubsection.9.4.3.1}
-\contentsline {subsection}{\numberline {9.4.4}Comparative Analysis}{102}{subsection.9.4.4}
-\contentsline {section}{\numberline {9.5}Transparent without Survivability - European Optical Network}{103}{section.9.5}
-\contentsline {subsection}{\numberline {9.5.1}Physical Network Topology}{103}{subsection.9.5.1}
-\contentsline {subsection}{\numberline {9.5.2}Dimensioning using ILP}{109}{subsection.9.5.2}
-\contentsline {subsection}{\numberline {9.5.3}Dimensioning using Heuristics}{113}{subsection.9.5.3}
-\contentsline {subsubsection}{\numberline {9.5.3.1}Heuristics Models}{113}{subsubsection.9.5.3.1}
-\contentsline {subsubsection}{\numberline {9.5.3.2}Heuristics Results}{113}{subsubsection.9.5.3.2}
-\contentsline {subsection}{\numberline {9.5.4}Comparative Analysis}{113}{subsection.9.5.4}
-\contentsline {section}{\numberline {9.6}Transparent with 1+1 Protection - Reference Network}{114}{section.9.6}
-\contentsline {subsection}{\numberline {9.6.1}Physical Network Topology}{114}{subsection.9.6.1}
-\contentsline {subsection}{\numberline {9.6.2}Dimensioning using ILP}{114}{subsection.9.6.2}
-\contentsline {subsection}{\numberline {9.6.3}Dimensioning using Heuristics}{116}{subsection.9.6.3}
-\contentsline {subsubsection}{\numberline {9.6.3.1}Heuristics Results}{116}{subsubsection.9.6.3.1}
-\contentsline {subsection}{\numberline {9.6.4}Comparative Analysis}{116}{subsection.9.6.4}
-\contentsline {section}{\numberline {9.7}Transparent with 1+1 Protection - European Optical Network}{117}{section.9.7}
-\contentsline {subsection}{\numberline {9.7.1}Physical Network Topology}{117}{subsection.9.7.1}
-\contentsline {subsection}{\numberline {9.7.2}Dimensioning using ILP}{118}{subsection.9.7.2}
-\contentsline {subsection}{\numberline {9.7.3}Dimensioning using Heuristics}{122}{subsection.9.7.3}
-\contentsline {subsubsection}{\numberline {9.7.3.1}Heuristics Models}{122}{subsubsection.9.7.3.1}
-\contentsline {subsubsection}{\numberline {9.7.3.2}Heuristics Results}{122}{subsubsection.9.7.3.2}
-\contentsline {subsection}{\numberline {9.7.4}Comparative Analysis}{122}{subsection.9.7.4}
-\contentsline {chapter}{\numberline {10}Appendices}{123}{chapter.10}
-\contentsline {section}{\numberline {10.1}Net2Plan Guide}{124}{section.10.1}
-\contentsline {section}{\numberline {10.2}Installing LPSOLVE for using in MatLab}{150}{section.10.2}
-\contentsline {section}{\numberline {10.3}Opaque with 1+1 protection appendices}{151}{section.10.3}
-\contentsline {subsection}{\numberline {10.3.1}Reference Network with Low Traffic}{151}{subsection.10.3.1}
-\contentsline {subsubsection}{\numberline {10.3.1.1}ILP using LPSolve}{151}{subsubsection.10.3.1.1}
-\contentsline {subsubsection}{\numberline {10.3.1.2}Result through Script using MatLab}{159}{subsubsection.10.3.1.2}
-\contentsline {subsection}{\numberline {10.3.2}Reference Network with High Traffic}{162}{subsection.10.3.2}
-\contentsline {subsubsection}{\numberline {10.3.2.1}ILP using LPSolve}{162}{subsubsection.10.3.2.1}
-\contentsline {subsubsection}{\numberline {10.3.2.2}Result through Script using MatLab}{170}{subsubsection.10.3.2.2}
-\contentsline {subsection}{\numberline {10.3.3}Realistic Network with Low Traffic}{173}{subsection.10.3.3}
-\contentsline {subsubsection}{\numberline {10.3.3.1}ILP using LPSolve}{173}{subsubsection.10.3.3.1}
-\contentsline {subsubsection}{\numberline {10.3.3.2}Result through Script using MatLab}{311}{subsubsection.10.3.3.2}
-\contentsline {subsection}{\numberline {10.3.4}Realistic Network with High Traffic}{337}{subsection.10.3.4}
-\contentsline {subsubsection}{\numberline {10.3.4.1}ILP using LPSolve}{337}{subsubsection.10.3.4.1}
-\contentsline {subsubsection}{\numberline {10.3.4.2}Result through Script using MatLab}{474}{subsubsection.10.3.4.2}
-\contentsline {section}{\numberline {10.4}Transparent with 1+1 protection appendices}{501}{section.10.4}
-\contentsline {subsection}{\numberline {10.4.1}Reference Network with Low Traffic}{501}{subsection.10.4.1}
-\contentsline {subsubsection}{\numberline {10.4.1.1}ILP using LPSolve}{501}{subsubsection.10.4.1.1}
-\contentsline {subsubsection}{\numberline {10.4.1.2}Result through Script using MatLab}{508}{subsubsection.10.4.1.2}
-\contentsline {subsection}{\numberline {10.4.2}Reference Network with High Traffic}{510}{subsection.10.4.2}
-\contentsline {subsubsection}{\numberline {10.4.2.1}ILP using LPSolve}{510}{subsubsection.10.4.2.1}
-\contentsline {subsubsection}{\numberline {10.4.2.2}Result through Script using MatLab}{517}{subsubsection.10.4.2.2}
-\contentsline {subsection}{\numberline {10.4.3}Realistic Network with Low Traffic}{519}{subsection.10.4.3}
-\contentsline {subsubsection}{\numberline {10.4.3.1}ILP using LPSolve}{519}{subsubsection.10.4.3.1}
-\contentsline {subsubsection}{\numberline {10.4.3.2}Result through Script using MatLab}{801}{subsubsection.10.4.3.2}
-\contentsline {subsection}{\numberline {10.4.4}Realistic Network with High Traffic}{813}{subsection.10.4.4}
-\contentsline {subsubsection}{\numberline {10.4.4.1}ILP using LPSolve}{813}{subsubsection.10.4.4.1}
-\contentsline {subsubsection}{\numberline {10.4.4.2}Result through Script using MatLab}{1094}{subsubsection.10.4.4.2}
-\contentsline {section}{\numberline {10.5}Translucent with 1+1 protection appendices}{1106}{section.10.5}
-\contentsline {subsection}{\numberline {10.5.1}Reference Network with Low Traffic}{1106}{subsection.10.5.1}
-\contentsline {subsubsection}{\numberline {10.5.1.1}ILP using LPSolve}{1106}{subsubsection.10.5.1.1}
-\contentsline {subsubsection}{\numberline {10.5.1.2}Result through Script using MatLab}{1106}{subsubsection.10.5.1.2}
-\contentsline {subsection}{\numberline {10.5.2}Reference Network with High Traffic}{1106}{subsection.10.5.2}
-\contentsline {subsubsection}{\numberline {10.5.2.1}ILP using LPSolve}{1106}{subsubsection.10.5.2.1}
-\contentsline {subsubsection}{\numberline {10.5.2.2}Result through Script using MatLab}{1106}{subsubsection.10.5.2.2}
-\contentsline {subsection}{\numberline {10.5.3}Realistic Network with Low Traffic}{1106}{subsection.10.5.3}
-\contentsline {subsubsection}{\numberline {10.5.3.1}ILP using LPSolve}{1106}{subsubsection.10.5.3.1}
-\contentsline {subsubsection}{\numberline {10.5.3.2}Result through Script using MatLab}{1106}{subsubsection.10.5.3.2}
-\contentsline {subsection}{\numberline {10.5.4}Realistic Network with High Traffic}{1106}{subsection.10.5.4}
-\contentsline {subsubsection}{\numberline {10.5.4.1}ILP using LPSolve}{1106}{subsubsection.10.5.4.1}
-\contentsline {subsubsection}{\numberline {10.5.4.2}Result through Script using MatLab}{1106}{subsubsection.10.5.4.2}
-\contentsline {chapter}{\numberline {11}Master Dissertations}{1107}{chapter.11}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{1108}{section*.109}
+\contentsline {subsection}{\numberline {5.1.1}Opaque without Survivability}{18}{subsection.5.1.1}
+\contentsline {subsubsection}{Model description}{18}{section*.9}
+\contentsline {subsubsection}{Result description}{20}{section*.11}
+\contentsline {subsection}{\numberline {5.1.2}Opaque with 1+1 Protection}{36}{subsection.5.1.2}
+\contentsline {subsubsection}{Result description}{38}{section*.47}
+\contentsline {subsection}{\numberline {5.1.3}Transparent without Survivability}{54}{subsection.5.1.3}
+\contentsline {subsubsection}{Model description}{54}{section*.83}
+\contentsline {subsubsection}{Result description}{56}{section*.85}
+\contentsline {subsection}{\numberline {5.1.4}Transparent with 1+1 Protection}{57}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.5}Translucent without Survivability}{59}{subsection.5.1.5}
+\contentsline {subsection}{\numberline {5.1.6}Translucent with 1+1 Protection}{61}{subsection.5.1.6}
+\contentsline {chapter}{\numberline {6}Heuristic Models}{63}{chapter.6}
+\contentsline {section}{\numberline {6.1}CAPEX}{64}{section.6.1}
+\contentsline {subsubsection}{Creation of traffic matrices}{64}{section*.87}
+\contentsline {subsubsection}{Creation of a network topological design}{65}{section*.89}
+\contentsline {subsubsection}{Join Traffic Matrices Algorithm}{65}{section*.91}
+\contentsline {subsubsection}{Logical Topology Algorithm}{66}{section*.93}
+\contentsline {subsubsection}{Grooming Algorithm}{67}{section*.95}
+\contentsline {subsection}{\numberline {6.1.1}Opaque without Survivability}{69}{subsection.6.1.1}
+\contentsline {subsubsection}{Model description}{69}{section*.97}
+\contentsline {subsubsection}{Result description}{69}{section*.98}
+\contentsline {subsection}{\numberline {6.1.2}Opaque with 1+1 Protection}{72}{subsection.6.1.2}
+\contentsline {subsubsection}{Model description}{72}{section*.102}
+\contentsline {subsubsection}{Result description}{72}{section*.103}
+\contentsline {subsection}{\numberline {6.1.3}Transparent without Survivability}{75}{subsection.6.1.3}
+\contentsline {subsubsection}{Model description}{75}{section*.107}
+\contentsline {subsubsection}{Result description}{75}{section*.108}
+\contentsline {subsection}{\numberline {6.1.4}Transparent with 1+1 Protection}{76}{subsection.6.1.4}
+\contentsline {subsubsection}{Model description}{76}{section*.109}
+\contentsline {subsubsection}{Result description}{76}{section*.110}
+\contentsline {subsection}{\numberline {6.1.5}Translucent without Survivability}{77}{subsection.6.1.5}
+\contentsline {subsubsection}{Model description}{77}{section*.111}
+\contentsline {subsubsection}{Result description}{77}{section*.112}
+\contentsline {subsection}{\numberline {6.1.6}Translucent with 1+1 Protection}{78}{subsection.6.1.6}
+\contentsline {subsubsection}{Model description}{78}{section*.113}
+\contentsline {subsubsection}{Result description}{78}{section*.114}
+\contentsline {chapter}{\numberline {7}Analytical Models}{79}{chapter.7}
+\contentsline {section}{\numberline {7.1}CAPEX}{80}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Opaque without Survivability}{83}{subsection.7.1.1}
+\contentsline {subsubsection}{Model description}{83}{section*.116}
+\contentsline {subsubsection}{Result description}{83}{section*.117}
+\contentsline {subsection}{\numberline {7.1.2}Opaque with 1+1 Protection}{87}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Transparent without Survivability}{88}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Transparent with 1+1 Protection}{89}{subsection.7.1.4}
+\contentsline {subsection}{\numberline {7.1.5}Translucent without Survivability}{90}{subsection.7.1.5}
+\contentsline {subsection}{\numberline {7.1.6}Translucent with 1+1 Protection}{91}{subsection.7.1.6}
+\contentsline {chapter}{\numberline {8}Comparative Analysis}{92}{chapter.8}
+\contentsline {section}{\numberline {8.1}Opaque without Survivability}{93}{section.8.1}
+\contentsline {section}{\numberline {8.2}Opaque with 1+1 Protection}{95}{section.8.2}
+\contentsline {section}{\numberline {8.3}Transparent without Survivability}{96}{section.8.3}
+\contentsline {section}{\numberline {8.4}Transparent with 1+1 Protection}{97}{section.8.4}
+\contentsline {section}{\numberline {8.5}Translucent without Survivability}{98}{section.8.5}
+\contentsline {section}{\numberline {8.6}Translucent with 1+1 Protection}{99}{section.8.6}
+\contentsline {chapter}{\numberline {9}Case Studies}{100}{chapter.9}
+\contentsline {section}{\numberline {9.1}Opaque without Survivability - European Optical Network}{101}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Physical Network Topology}{101}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Dimensioning using Analytical Model}{107}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}Dimensioning using ILP}{109}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}Dimensioning using Heuristics}{111}{subsection.9.1.4}
+\contentsline {subsubsection}{Heuristics Results}{111}{section*.127}
+\contentsline {subsection}{\numberline {9.1.5}Comparative Analysis}{111}{subsection.9.1.5}
+\contentsline {section}{\numberline {9.2}Opaque with 1+1 Protection - European Optical Network}{113}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Physical Network Topology}{113}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Dimensioning using ILP}{113}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}Dimensioning using Heuristics}{117}{subsection.9.2.3}
+\contentsline {subsubsection}{Heuristics Results}{117}{section*.131}
+\contentsline {subsection}{\numberline {9.2.4}Comparative Analysis}{117}{subsection.9.2.4}
+\contentsline {chapter}{\numberline {10}Appendices}{118}{chapter.10}
+\contentsline {section}{\numberline {10.1}Net2Plan Guide}{119}{section.10.1}
+\contentsline {section}{\numberline {10.2}Installing LPSOLVE for using in MatLab}{145}{section.10.2}
+\contentsline {chapter}{\numberline {11}Master Dissertations}{146}{chapter.11}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{147}{section*.173}

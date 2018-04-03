@@ -1,0 +1,94 @@
+\clearpage
+
+\subsection{Transparent with 1+1 Protection}\label{ILP_Transp_Protection}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the transparent transport mode with 1 plus 1 protection.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+Here, in this case, we must take into account table \ref{description_transp}, previously mentioned, in order to better understand the objective function.\\
+
+The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we have in consideration the electric cost and the optical cost.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_transparent} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_transparent}.\\
+
+Objective Function :\\
+$minimize$
+\begin{equation}
+\sum_{(i,j)}^N L_{ij} (2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R) + \sum_{n=1}^{N} N_{exc,n} (\gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 T_1) + \sum_{n=1}^{N} N_{oxc,n} (\gamma_{o0} + \gamma_{o1}(f_{ij}^{od} + W_{ij}))
+\label{ILPTransp}
+\end{equation}
+
+$subject$ $to$
+\begin{equation}
+100 \lambda_{od} \geq \sum_{c\in C} B\left(c\right) D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d
+\label{ILPTransp0}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTransp1}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTransp2}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTransp3}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTransp1p}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \sum_{j\textbackslash \{d\}} fp_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTransp2p}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} fp_{ji}^{od} = \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTransp3p}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od}  + fp_{ij}^{od}\right) \leq \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d), (i,j)
+\label{ILPTransp4p}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od}\right) \lambda_{od} \leq 80 G_{ij} L_{ij} \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPTransp4}
+\end{equation}
+
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} , fp_{ij}^{od} , fp_{ji}^{od} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPTransp5}
+\end{equation}
+
+\begin{equation}
+L_{i,j} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j)
+\label{ILPTranspL1}
+\end{equation}
+
+\vspace{10pt}
+
+The objective function, to be minimized, is the expression \ref{ILPTransp}. The flow conservation is performed by equations \ref{ILPTransp1}, \ref{ILPTransp2} and \ref{ILPTransp3} and by equations \ref{ILPTransp1p}, \ref{ILPTransp2p} and \ref{ILPTransp3p} for the protection case. The constraints \ref{ILPTransp1} and \ref{ILPTransp1p} ensures that, for all demand pairs (o,d), is equal to number of optical channels between this demand for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand. Equation \ref{ILPTransp3} and \ref{ILPTransp3p} is based on the same idea of \ref{ILPTransp1}, however applied in reverse direction. Assuming bidirectional traffic, so the number of flows in both directions of the link is the same \ref{ILPTransp2} and \ref{ILPTransp2p}. The inequality \ref{ILPTransp4} answers capacity constraint problem. Then, total flows times the traffic of the demands must be less or equal to the capacity of network links. The grooming of this model can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. Last constraint define the total number of flows must be zero if there is no demand, or two for a demand with traffic protection, and the number of optical channels must be a counting number.\\
+
