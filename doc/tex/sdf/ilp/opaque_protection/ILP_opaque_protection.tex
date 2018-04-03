@@ -131,7 +131,31 @@ The value of the CAPEX of the network will be calculated based on the costs of t
 
 \textbf{Low Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In table \ref{link_opaque_protec_ref_low} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
+In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}. In a first phase we will show the three topologies of the network, the first one already knew physical topology, the second the allowed optical topology and finally the resulting optical topology.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/physical_opaque_protec_ref_low}
+\caption{Physical topology of the reference network.}
+\label{physical_protec_ref_low}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/allowed_opaque_protec_ref_low}
+\caption{Allowed topology of the reference network.}
+\label{allowed_protec_ref_low}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/optical_opaque_protec_ref_low}
+\caption{Optical topology of the reference network.}
+\label{optical_protec_ref_low}
+\end{figure}
+
+
+To verify the resulting optical topology we can observe the results indicated below. In table \ref{link_opaque_protec_ref_low} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.\\
 
 \begin{table}[h!]
 \centering
@@ -142,14 +166,14 @@ In this scenario we have to take into account the traffic calculated in \ref{low
  \hline
  Bidirectional Link & Optical Channels & Amplifiers\\
  \hline
- Node 1 <-> Node 2 & 1 & 4 \\
- Node 1 <-> Node 3 & 1 & 6 \\
- Node 2 <-> Node 3 & 1 & 0 \\
- Node 2 <-> Node 4 & 2 & 6 \\
- Node 3 <-> Node 5 & 1 & 8 \\
- Node 4 <-> Node 5 & 1 & 1 \\
- Node 4 <-> Node 6 & 2 & 7 \\
- Node 5 <-> Node 6 & 2 & 3 \\
+ Node 1 <-> Node 2 & 5 & 4 \\
+ Node 1 <-> Node 3 & 5 & 6 \\
+ Node 2 <-> Node 3 & 0 & 0 \\
+ Node 2 <-> Node 4 & 5 & 6 \\
+ Node 3 <-> Node 5 & 5 & 8 \\
+ Node 4 <-> Node 5 & 0 & 1 \\
+ Node 4 <-> Node 6 & 5 & 7 \\
+ Node 5 <-> Node 6 & 5 & 3 \\
  \hline
 \end{tabular}
 \caption{Table with information regarding links}
@@ -166,14 +190,14 @@ In table \ref{node_opaque_protec_ref_low}  we can see the number of connections 
  \multicolumn{4}{|| c ||}{Information regarding nodes} \\
  \hline
  \hline
- Node & Connections & Line Ports & Tributary Ports\\
+ Node & Resulting Nodal Degree & Line Ports & Tributary Ports\\
  \hline
- 1 & 2 & 2 & 29 \\
- 2 & 3 & 4 & 23 \\
- 3 & 3 & 3 & 18 \\
- 4 & 3 & 5 & 20 \\
- 5 & 3 & 4 & 24 \\
- 6 & 2 & 4 & 22 \\
+ 1 & 2 & 10 & 29 \\
+ 2 & 2 & 10 & 23 \\
+ 3 & 2 & 10 & 18 \\
+ 4 & 2 & 10 & 20 \\
+ 5 & 2 & 10 & 24 \\
+ 6 & 2 & 10 & 22 \\
 \hline
 \end{tabular}
 \caption{Table with information regarding nodes}
@@ -182,6 +206,8 @@ In table \ref{node_opaque_protec_ref_low}  we can see the number of connections 
 
 \vspace{11pt}
 Through the information obtained previously on the nodes we can now create tables with detailed information about each node.\\
+In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
+
 
 \begin{table}[h!]
 \centering
@@ -190,8 +216,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
- \multirow{2}{*}{2 line ports} & 1 connect to Node 2 & \multirow{2}{*}{100 Gbits/s} \\
- & 1 connect to Node 3 & \\ \hline
+ \multirow{2}{*}{10 line ports} & 5 connect to Node 2 & \multirow{2}{*}{100 Gbits/s} \\
+ & 5 connect to Node 3 & \\ \hline
 \multirow{3}{*}{29 tributary ports} & 13 & ODU0 \\
  & 13 & ODU1 \\
  & 3 & ODU2 \\
@@ -208,9 +234,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
- \multirow{3}{*}{4 line ports} & 1 connect to Node 1 & \multirow{3}{*}{100 Gbits/s} \\
- & 1 connect to Node 3 & \\
- & 2 connect to Node 4 & \\ \hline
+ \multirow{2}{*}{10 line ports} & 5 connect to Node 1 & \multirow{2}{*}{100 Gbits/s} \\
+ & 5 connect to Node 4 & \\ \hline
 \multirow{5}{*}{23 tributary ports} & 11 & ODU0 \\
  & 7 & ODU1 \\
  & 2 & ODU2 \\
@@ -229,9 +254,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
- \multirow{3}{*}{3 line ports} & 1 connect to Node 1 & \multirow{3}{*}{100 Gbits/s}\\
- & 1 connect to Node 2 & \\
- & 1 connect to Node 5 & \\ \hline
+ \multirow{2}{*}{10 line ports} & 5 connect to Node 1 & \multirow{2}{*}{100 Gbits/s}\\
+ & 5 connect to Node 5 & \\ \hline
 \multirow{4}{*}{18 tributary ports} & 7 & ODU0 \\
  & 6 & ODU1\\
  & 3 & ODU2\\
@@ -249,9 +273,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
- \multirow{3}{*}{5 line ports} & 2 connect to Node 2 & \multirow{3}{*}{100 Gbits/s}\\
- & 1 connect to Node 5 & \\
- & 2 connect to Node 6 & \\ \hline
+ \multirow{2}{*}{10 line ports} & 5 connect to Node 2 & \multirow{2}{*}{100 Gbits/s}\\
+ & 5 connect to Node 6 & \\ \hline
 \multirow{3}{*}{20 tributary ports} & 7 & ODU0 \\
  & 10 & ODU1 \\
  & 3 & ODU2 \\
@@ -268,9 +291,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
- \multirow{3}{*}{4 line ports} & 1 connect to Node 3 & \multirow{3}{*}{100 Gbits/s}\\
- & 1 connect to Node 4 & \\
- & 2 connect to Node 6 & \\ \hline
+ \multirow{2}{*}{10 line ports} & 5 connect to Node 3 & \multirow{2}{*}{100 Gbits/s}\\
+ & 5 connect to Node 6 & \\ \hline
 \multirow{5}{*}{24 tributary ports} & 14 & ODU0 \\
  & 4 & ODU1 \\
  & 4 & ODU2 \\
@@ -281,7 +303,7 @@ Through the information obtained previously on the nodes we can now create table
 \caption{Table with detailed description of node 5}
 \end{table}
 
-\newpage
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -289,8 +311,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
- \multirow{2}{*}{4 line ports} & 2 connect to Node 4 & \multirow{2}{*}{100 Gbits/s}\\
- & 2 connect to Node 5 & \\ \hline
+ \multirow{2}{*}{10 line ports} & 5 connect to Node 4 & \multirow{2}{*}{100 Gbits/s}\\
+ &52 connect to Node 5 & \\ \hline
 \multirow{5}{*}{22 tributary ports} & 8 & ODU0 \\
  & 10 & ODU1 \\
  & 1 & ODU2 \\
@@ -301,55 +323,127 @@ Through the information obtained previously on the nodes we can now create table
 \caption{Table with detailed description of node 6}
 \end{table}
 
-In each table mentioned above we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
-
-Now let's focus on the path information. These paths are bidirectional paths so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_protec_ref_low} we can see all the paths obtained for all nodes.\\
+\vspace{13pt}
+Now through the table \ref{scriptopaque_protec_ref_low} we can see the result of CAPEX obtained with this ILP model.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c ||}
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
  \hline
- \multicolumn{2}{|| c ||}{Information regarding PATHS} \\
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
  \hline
  \hline
- Node1 <-> Node2 & -Link(1,2) \\
- Node1 <-> Node3 & -Link(1,3) \\
- Node1 <-> Node4 & -Link(1,2) -Link(2,4)\\
- Node1 <-> Node5 & -Link(1,3) -Link(3,5)\\
- Node1 <-> Node6 & -Link(1,3) -Link(3,5) -Link(5,6)\\
- Node2 <-> Node3 & -Link(2,3)\\
- Node2 <-> Node4 & -Link(2,4)\\
- Node2 <-> Node5 & -Link(2,3) -Link(3,5)\\
- Node2 <-> Node6 & -Link(2,4) -Link(4,6)\\
- Node3 <-> Node4 & -Link(3,2) -Link(2,4)\\
- Node3 <-> Node5 & -Link(3,5)\\
- Node3 <-> Node6 & -Link(3,5) -Link(5,6)\\
- Node4 <-> Node5 & -Link(4,5)\\
- Node4 <-> Node6 & -Link(4,6)\\
- Node5 <-> Node6 & -Link(5,6)\\
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 12 & 15 000 \euro & 180 000 \euro & \multirow{3}{*}{30 452 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 60 & 5 000 \euro/Gb/s & 30 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 68 & 4 000 \euro & 272 000 \euro & \\
+ \hline
+ \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{6 062 590 \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 60 & 8 \euro/Gb/s & 600 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 50 & 6 \euro/Gb/s & 750 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 16 & 3 \euro/Gb/s & 480 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 6 & 1.5 \euro/Gb/s & 360 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 4 & 1 \euro/Gb/s & 400 \euro & \\ \cline{3-6}
+ & & Line Ports & 60 & 1 000 \euro/Gb/s & 6 000 000 \euro & \\ \cline{2-6}
+ & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
+ & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 36 514 590 \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of capex}
+\label{scriptopaque_protec_ref_low}
+\end{table}
+
+
+Through the formulas mentioned below we can see how all the values of the quantity column were calculated.
+
+\begin{equation*}
+ OLTs: 2 \sum_{(i,j):i<j}L_{ij} \qquad \qquad
+ Transceivers: 2 \sum_{(i,j):i<j}W_{ij} \qquad \qquad
+ Amplifiers: \sum_{(i,j):i<j}N^R_{ij} L_{ij} \\
+\end{equation*}
+\begin{equation*}
+ EXCs: \sum_n^N N_{EXC,n} \qquad
+ ODU0: \sum_{(o,d)}^{N}D_{od,0} \qquad \qquad
+ ODU1: \sum_{(o,d)}^{N}D_{od,1} \qquad
+ ODU2: \sum_{(o,d)}^{N}D_{od,2}
+\end{equation*}
+\begin{equation*}
+ ODU3: \sum_{(o,d)}^{N}D_{od,3} \qquad \qquad
+ ODU4: \sum_{(o,d)}^{N}D_{od,4} \qquad \qquad
+ Line: \sum_{(i,j)}^{N}W_{ij}
+\end{equation*}
+
+\vspace{13pt}
+$OXCs: \sum_n^N N_{OXC,n}$ but as mentioned initially this result is always zero \\
+
+$Ports$: does not exist for this case then it is equal to zero \\
+
+\vspace{17pt}
+Finally let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_protec_ref_low} we can see all the routing obtained for all nodes.\\
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links \\
+ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{2} & \{(1,2)\} \\
+ & & \{(1,3),(3,5),(5,6),(6,4),(4,2)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{3} & \{(1,3)\} \\
+ & & \{(1,2),(2,4),(4,6),(6,5),(5,3)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,2),(2,4)\}\\
+ & & \{(1,3),(3,5),(5,6),(6,4)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{5} & \{(1,3),(3,5)\}\\
+ & & \{(1,2),(2,4),(4,6),(6,5)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,2),(2,4),(4,6)\}\\
+ & & \{(1,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,1),(1,3)\}\\
+ & & \{(2,4),(4,6),(6,5),(5,3)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{4} & \{(2,4)\}\\
+ & & \{(2,1),(1,3),(3,5),(5,6),(6,4)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{5} & \{(2,4),(4,6),(6,5)\}\\
+ & & \{(2,1),(1,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{6} & \{(2,4),(4,6)\}\\
+ & & \{(2,1),(1,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,1),(1,2),(2,4)\}\\
+ & & \{(3,5),(5,6),(6,4)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{5} & \{(3,5)\}\\
+ & & \{(3,1),(1,2),(2,4),(4,6),(6,5)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{6} & \{(3,5),(5,6)\}\\
+ & & \{(3,1),(1,2),(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{5} & \{(4,6),(6,5)\}\\
+ & & \{(4,2),(2,1),(1,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{6} & \{(4,6)\}\\
+ & & \{(4,2),(2,1),(1,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{5} & \multirow{2}{*}{6} & \{(5,6)\}\\
+ & & \{(5,3),(3,1),(1,2),(2,4),(4,6)\} \\
  \hline
 \end{tabular}
-\caption{Table with description of path}
+\caption{Table with description of routing}
 \label{path_opaque_protec_ref_low}
 \end{table}
 
 
-Finally, through the figure \ref{scriptopaque_protec_ref_low} we can see the result of CAPEX obtained with this ILP model.\\
-
 \newpage
-\begin{figure}[h!]
-\centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_low}
-\caption{The ILP script used in the low scenario with the network cost.}
-\label{scriptopaque_protec_ref_low}
-\end{figure}
-
-As we can see the cost of CAPEX for this scenario is \textbf{14 780 000 \euro}.\\
-
-
 \textbf{Medium Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In table \ref{link_opaque_protec_ref_medium} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase, we will show the various topologies of the network (physical topology, allowed optical topology and resulting optical topology) where in this specific case the three topologies are the same.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=13cm]{sdf/ilp/opaque_protection/figures/physical_opaque_protec_ref_low}
+\caption{Physical, allowed and optical topology of the reference network.}
+\label{physical_protec_ref_medium}
+\end{figure}
+
+
+To verify the resulting optical topology we can observe the results indicated below. In table \ref{link_opaque_protec_ref_medium} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.\\
 
 \begin{table}[h!]
 \centering
@@ -360,14 +454,14 @@ In this scenario we have to take into account the traffic calculated in \ref{med
  \hline
  Bidirectional Link & Optical Channels & Amplifiers\\
  \hline
- Node 1 <-> Node 2 & 4 & 4 \\
- Node 1 <-> Node 3 & 4 & 6 \\
- Node 2 <-> Node 3 & 4 & 0 \\
- Node 2 <-> Node 4 & 19 & 6 \\
- Node 3 <-> Node 5 & 9 & 8 \\
- Node 4 <-> Node 5 & 5 & 1 \\
- Node 4 <-> Node 6 & 16 & 7 \\
- Node 5 <-> Node 6 & 14 & 3 \\
+ Node 1 <-> Node 2 & 12 & 4 \\
+ Node 1 <-> Node 3 & 12 & 6 \\
+ Node 2 <-> Node 3 & 33 & 0 \\
+ Node 2 <-> Node 4 & 28 & 6 \\
+ Node 3 <-> Node 5 & 28 & 8 \\
+ Node 4 <-> Node 5 & 26 & 1 \\
+ Node 4 <-> Node 6 & 30 & 7 \\
+ Node 5 <-> Node 6 & 30 & 3 \\
  \hline
 \end{tabular}
 \caption{Table with information regarding links}
@@ -375,7 +469,7 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \end{table}
 
 In table \ref{node_opaque_protec_ref_medium} we can see the number of connections that each node has, the number of line ports and the number of tributary ports for each node.\\
-
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c ||}
@@ -385,19 +479,19 @@ In table \ref{node_opaque_protec_ref_medium} we can see the number of connection
  \hline
  Node & Connections & Line Ports & Tributary Ports\\
  \hline
- 1 & 2 & 8 & 290 \\
- 2 & 3 & 27 & 230 \\
- 3 & 3 & 17 & 180 \\
- 4 & 3 & 40 & 200 \\
- 5 & 3 & 28 & 240 \\
- 6 & 2 & 30 & 220 \\
+ 1 & 2 & 24 & 290 \\
+ 2 & 3 & 73 & 230 \\
+ 3 & 3 & 73 & 180 \\
+ 4 & 3 & 84 & 200 \\
+ 5 & 3 & 84 & 240 \\
+ 6 & 2 & 60 & 220 \\
 \hline
 \end{tabular}
 \caption{Table with information regarding nodes}
 \label{node_opaque_protec_ref_medium}
 \end{table}
 
-Through the information obtained previously on the nodes we can now create tables with detailed information about each node.\\
+Through the information obtained previously on the nodes we can now create tables with detailed information about each node. In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
 
 \begin{table}[h!]
 \centering
@@ -406,8 +500,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
-\multirow{2}{*}{8 line ports} & 4 connect to Node 2 & \multirow{2}{*}{100 Gbtis/s} \\
- & 4 connect to Node 3 & \\ \hline
+\multirow{2}{*}{24 line ports} & 12 connect to Node 2 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 12 connect to Node 3 & \\ \hline
 \multirow{3}{*}{290 tributary ports} & 130 & ODU0 \\
  & 130 & ODU1 \\
  & 30 & ODU2 \\
@@ -417,6 +511,7 @@ Through the information obtained previously on the nodes we can now create table
 \end{table}
 
 
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -424,9 +519,9 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
- \multirow{3}{*}{27 line ports} & 4 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 4 connect to Node 3 & \\
- & 19 connect to Node 4 & \\ \hline
+ \multirow{3}{*}{73 line ports} & 12 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 33 connect to Node 3 & \\
+ & 28 connect to Node 4 & \\ \hline
 \multirow{5}{*}{230 tributary ports} & 110 & ODU0 \\
  & 70 & ODU1 \\
  & 20 & ODU2 \\
@@ -445,9 +540,9 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
- \multirow{3}{*}{17 line ports} & 4 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 4 connect to Node 2 & \\
- & 9 connect to Node 5 & \\ \hline
+ \multirow{3}{*}{73 line ports} & 12 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 33 connect to Node 2 & \\
+ & 28 connect to Node 5 & \\ \hline
 \multirow{4}{*}{180 tributary ports} & 70 & ODU0 \\
  & 60 & ODU1\\
  & 30 & ODU2\\
@@ -458,6 +553,7 @@ Through the information obtained previously on the nodes we can now create table
 \end{table}
 
 
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -465,9 +561,9 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
-\multirow{3}{*}{40 line ports} & 19 connect to Node 2 & \multirow{3}{*}{100 Gbtis/s}\\
- & 5 connect to Node 5 & \\
- & 16 connect to Node 6 & \\ \hline
+\multirow{3}{*}{84 line ports} & 28 connect to Node 2 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 26 connect to Node 5 & \\
+ & 30 connect to Node 6 & \\ \hline
 \multirow{3}{*}{200 tributary ports} & 70 & ODU0 \\
  & 100 & ODU1 \\
  & 30 & ODU2 \\
@@ -477,6 +573,7 @@ Through the information obtained previously on the nodes we can now create table
 \end{table}
 
 
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -484,9 +581,9 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
- \multirow{3}{*}{28 line ports} & 9 connect to Node 3 & \multirow{3}{*}{100 Gbtis/s} \\
- & 5 connect to Node 4 & \\
- & 14 connect to Node 6 & \\ \hline
+ \multirow{3}{*}{84 line ports} & 28 connect to Node 3 & \multirow{3}{*}{100 Gbtis/s} \\
+ & 26 connect to Node 4 & \\
+ & 30 connect to Node 6 & \\ \hline
 \multirow{5}{*}{240 tributary ports} & 140 & ODU0 \\
  & 40 & ODU1 \\
  & 40 & ODU2 \\
@@ -505,8 +602,8 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
- \multirow{2}{*}{30 line ports} & 16 connect to Node 4 & \multirow{2}{*}{100 Gbtis/s} \\
- & 14 connect to Node 5 & \\ \hline
+ \multirow{2}{*}{60 line ports} & 30 connect to Node 4 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 30 connect to Node 5 & \\ \hline
 \multirow{5}{*}{220 tributary ports} & 80 & ODU0 \\
  & 100 & ODU1 \\
  & 10 & ODU2 \\
@@ -518,53 +615,127 @@ Through the information obtained previously on the nodes we can now create table
 \end{table}
 
 
-Now let's focus on the path information. These paths are bidirectional paths so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_protec_ref_medium} we can see all the paths obtained for all nodes.\\
+\vspace{13pt}
+Now through the table \ref{scriptopaque_protec_ref_medium} we can see the result of CAPEX obtained with this ILP model.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c ||}
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
  \hline
- \multicolumn{2}{|| c ||}{Information regarding paths} \\
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
  \hline
  \hline
- Node1 <-> Node2 & -Link(1,2) \\
- Node1 <-> Node3 & -Link(1,3) \\
- Node1 <-> Node4 & -Link(1,2) -Link(2,4)\\
- Node1 <-> Node5 & -Link(1,3) -Link(3,5)\\
- Node1 <-> Node6 & -Link(1,3) -Link(3,5) -Link(5,6)\\
- Node2 <-> Node3 & -Link(2,3)\\
- Node2 <-> Node4 & -Link(2,4)\\
- Node2 <-> Node5 & -Link(2,3) -Link(3,5)\\
- Node2 <-> Node6 & -Link(2,4) -Link(4,6)\\
- Node3 <-> Node4 & -Link(3,2) -Link(2,4)\\
- Node3 <-> Node5 & -Link(3,5)\\
- Node3 <-> Node6 & -Link(3,5) -Link(5,6)\\
- Node4 <-> Node5 & -Link(4,5)\\
- Node4 <-> Node6 & -Link(4,6)\\
- Node5 <-> Node6 & -Link(5,6)\\
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{199 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 398 & 5 000 \euro/Gb/s & 199 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{39 885 900 \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 600 & 8 \euro/Gb/s & 6 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 500 & 6 \euro/Gb/s & 7 500 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 160 & 3 \euro/Gb/s & 4 800 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 60 & 1.5 \euro/Gb/s & 3 600 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 40 & 1 \euro/Gb/s & 4 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 398 & 1 000 \euro/Gb/s & 39 800 000 \euro & \\ \cline{2-6}
+ & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
+ & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 239 405 900 \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of capex}
+\label{scriptopaque_protec_ref_medium}
+\end{table}
+
+
+Through the formulas mentioned below we can see how all the values of the quantity column were calculated.
+
+\begin{equation*}
+ OLTs: 2 \sum_{(i,j):i<j}L_{ij} \qquad \qquad
+ Transceivers: 2 \sum_{(i,j):i<j}W_{ij} \qquad \qquad
+ Amplifiers: \sum_{(i,j):i<j}N^R_{ij} L_{ij} \\
+\end{equation*}
+\begin{equation*}
+ EXCs: \sum_n^N N_{EXC,n} \qquad
+ ODU0: \sum_{(o,d)}^{N}D_{od,0} \qquad \qquad
+ ODU1: \sum_{(o,d)}^{N}D_{od,1} \qquad
+ ODU2: \sum_{(o,d)}^{N}D_{od,2}
+\end{equation*}
+\begin{equation*}
+ ODU3: \sum_{(o,d)}^{N}D_{od,3} \qquad \qquad
+ ODU4: \sum_{(o,d)}^{N}D_{od,4} \qquad \qquad
+ Line: \sum_{(i,j)}^{N}W_{ij}
+\end{equation*}
+
+\vspace{13pt}
+$OXCs: \sum_n^N N_{OXC,n}$ but as mentioned initially this result is always zero \\
+
+$Ports$: does not exist for this case then it is equal to zero \\
+
+\vspace{13pt}
+Finally let's focus on the routing information. In table \ref{path_opaque_protec_ref_medium} we can see all the routing obtained for all nodes.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links \\
+ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{2} & \{(1,2)\} \\
+ & & \{(1,3),(3,2)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{3} & \{(1,3)\} \\
+ & & \{(1,2),(2,3)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,2),(2,4)\}\\
+ & & \{(1,3),(3,5),(5,4)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{5} & \{(1,3),(3,5)\}\\
+ & & \{(1,2),(2,4),(4,5)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,2),(2,4),(4,6)\}\\
+ & & \{(1,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,3)\}\\
+ & & \{(2,1),(1,3)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{4} & \{(2,4)\}\\
+ & & \{(2,3),(3,5),(5,4)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{5} & \{(2,4),(4,5)\}\\
+ & & \{(2,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{6} & \{(2,4),(4,6)\}\\
+ & & \{(2,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,2),(2,4)\}\\
+ & & \{(3,5),(5,4)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{5} & \{(3,5)\}\\
+ & & \{(3,2),(2,4),(4,5)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{6} & \{(3,5),(5,6)\}\\
+ & & \{(3,2),(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{5} & \{(4,5)\}\\
+ & & \{(4,6),(6,5)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{6} & \{(4,6)\}\\
+ & & \{(4,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{5} & \multirow{2}{*}{6} & \{(5,6)\}\\
+ & & \{(5,4),(4,6)\} \\
  \hline
 \end{tabular}
-\caption{Table with description of path}
+\caption{Table with description of routing}
 \label{path_opaque_protec_ref_medium}
 \end{table}
 
 
-Finally, through the figure \ref{scriptopaque_protec_ref_medium} we can see the result of CAPEX obtained with this ILP model.\\
-
 \newpage
-\begin{figure}[h!]
-\centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_medium}
-\caption{The ILP script used in the medium scenario with the network cost.}
-\label{scriptopaque_protec_ref_medium}
-\end{figure}
-
-As we can see the cost of CAPEX for this scenario is \textbf{100 580 000 \euro}.\\
-
-
 \textbf{High Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In table \ref{link_opaque_protec_ref_high} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase, we will show the various topologies of the network (physical topology, allowed optical topology and resulting optical topology) where in this specific case the three topologies are the same.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=13cm]{sdf/ilp/opaque_protection/figures/physical_opaque_protec_ref_low}
+\caption{Physical, allowed and optical topology of the reference network.}
+\label{physical_protec_ref_high}
+\end{figure}
+
+\vspace{13pt}
+To verify the resulting optical topology we can observe the results indicated below. In table \ref{link_opaque_protec_ref_high} we can see the number of optical channels and the number of amplifiers for each link calculated through MatLab.\\
 
 \begin{table}[h!]
 \centering
@@ -575,14 +746,14 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
  \hline
  Bidirectional Link & Optical Channels & Amplifiers\\
  \hline
- Node 1 <-> Node 2 & 4 & 4 \\
- Node 1 <-> Node 3 & 4 & 6 \\
- Node 2 <-> Node 3 & 4 & 0 \\
- Node 2 <-> Node 4 & 19 & 6 \\
- Node 3 <-> Node 5 & 9 & 8 \\
- Node 4 <-> Node 5 & 5 & 1 \\
- Node 4 <-> Node 6 & 16 & 7 \\
- Node 5 <-> Node 6 & 14 & 3 \\
+ Node 1 <-> Node 2 & 119 & 4 \\
+ Node 1 <-> Node 3 & 119 & 6 \\
+ Node 2 <-> Node 3 & 325 & 0 \\
+ Node 2 <-> Node 4 & 279 & 6 \\
+ Node 3 <-> Node 5 & 279 & 8 \\
+ Node 4 <-> Node 5 & 258 & 1 \\
+ Node 4 <-> Node 6 & 299 & 7 \\
+ Node 5 <-> Node 6 & 299 & 3 \\
  \hline
 \end{tabular}
 \caption{Table with information regarding links}
@@ -600,19 +771,21 @@ In table \ref{node_opaque_protec_ref_high} we can see the number of connections 
  \hline
  Node & Connections & Line Ports & Tributary Ports\\
  \hline
- 1 & 2 & 8 & 290 \\
- 2 & 3 & 27 & 230 \\
- 3 & 3 & 17 & 180 \\
- 4 & 3 & 40 & 200 \\
- 5 & 3 & 28 & 240 \\
- 6 & 2 & 30 & 220 \\
+ 1 & 2 & 238 & 2 900 \\
+ 2 & 3 & 723 & 2 300 \\
+ 3 & 3 & 723 & 1 800 \\
+ 4 & 3 & 836 & 2 000 \\
+ 5 & 3 & 836 & 2 400 \\
+ 6 & 2 & 598 & 2 200 \\
 \hline
 \end{tabular}
 \caption{Table with information regarding nodes}
 \label{node_opaque_protec_ref_high}
 \end{table}
 
-Through the information obtained previously on the nodes we can now create tables with detailed information about each node.\\
+\vspace{13pt}
+In table \ref{node_opaque_protec_ref_high} we can see the number of connections that each node has, the number of line ports and the number of tributary ports for each node.\\
+In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
 
 \begin{table}[h!]
 \centering
@@ -621,17 +794,17 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
-\multirow{2}{*}{8 line ports} & 4 connect to Node 2 & \multirow{2}{*}{100 Gbtis/s} \\
- & 4 connect to Node 3 & \\ \hline
-\multirow{3}{*}{290 tributary ports} & 130 & ODU0 \\
- & 130 & ODU1 \\
- & 30 & ODU2 \\
+\multirow{2}{*}{238 line ports} & 119 connect to Node 2 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 119 connect to Node 3 & \\ \hline
+\multirow{3}{*}{2 900 tributary ports} & 1 300 & ODU0 \\
+ & 1 300 & ODU1 \\
+ & 300 & ODU2 \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of node 1}
 \end{table}
 
-
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -639,20 +812,20 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
- \multirow{3}{*}{27 line ports} & 4 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 4 connect to Node 3 & \\
- & 19 connect to Node 4 & \\ \hline
-\multirow{5}{*}{230 tributary ports} & 110 & ODU0 \\
- & 70 & ODU1 \\
- & 20 & ODU2 \\
- & 20 & ODU3 \\
- & 10 & ODU4 \\
+ \multirow{3}{*}{723 line ports} & 119 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 325 connect to Node 3 & \\
+ & 279 connect to Node 4 & \\ \hline
+\multirow{5}{*}{2 300 tributary ports} & 1 100 & ODU0 \\
+ & 700 & ODU1 \\
+ & 200 & ODU2 \\
+ & 200 & ODU3 \\
+ & 100 & ODU4 \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of node 2}
 \end{table}
-\newpage
 
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -660,19 +833,19 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
- \multirow{3}{*}{17 line ports} & 4 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 4 connect to Node 2 & \\
- & 9 connect to Node 5 & \\ \hline
-\multirow{4}{*}{180 tributary ports} & 70 & ODU0 \\
- & 60 & ODU1\\
- & 30 & ODU2\\
- & 20 & ODU3\\
+ \multirow{3}{*}{723 line ports} & 119 connect to Node 1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 325 connect to Node 2 & \\
+ & 279 connect to Node 5 & \\ \hline
+\multirow{4}{*}{1 800 tributary ports} & 700 & ODU0 \\
+ & 600 & ODU1\\
+ & 300 & ODU2\\
+ & 200 & ODU3\\
 \hline
 \end{tabular}
 \caption{Table with detailed description of node 3}
 \end{table}
 
-
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -680,18 +853,18 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
-\multirow{3}{*}{40 line ports} & 19 connect to Node 2 & \multirow{3}{*}{100 Gbtis/s}\\
- & 5 connect to Node 5 & \\
- & 16 connect to Node 6 & \\ \hline
-\multirow{3}{*}{200 tributary ports} & 70 & ODU0 \\
- & 100 & ODU1 \\
- & 30 & ODU2 \\
+\multirow{3}{*}{836 line ports} & 279 connect to Node 2 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 258 connect to Node 5 & \\
+ & 299 connect to Node 6 & \\ \hline
+\multirow{3}{*}{2 000 tributary ports} & 700 & ODU0 \\
+ & 1 000 & ODU1 \\
+ & 300 & ODU2 \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of node 4}
 \end{table}
 
-
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -699,14 +872,14 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
- \multirow{3}{*}{28 line ports} & 9 connect to Node 3 & \multirow{3}{*}{100 Gbtis/s} \\
- & 5 connect to Node 4 & \\
- & 14 connect to Node 6 & \\ \hline
-\multirow{5}{*}{240 tributary ports} & 140 & ODU0 \\
- & 40 & ODU1 \\
- & 40 & ODU2 \\
- & 10 & ODU3 \\
- & 10 & ODU4 \\
+ \multirow{3}{*}{836 line ports} & 279 connect to Node 3 & \multirow{3}{*}{100 Gbtis/s} \\
+ & 258 connect to Node 4 & \\
+ & 299 connect to Node 6 & \\ \hline
+\multirow{5}{*}{2 400 tributary ports} & 1 400 & ODU0 \\
+ & 400 & ODU1 \\
+ & 400 & ODU2 \\
+ & 100 & ODU3 \\
+ & 100 & ODU4 \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of node 5}
@@ -720,60 +893,122 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
- \multirow{2}{*}{30 line ports} & 16 connect to Node 4 & \multirow{2}{*}{100 Gbtis/s} \\
- & 14 connect to Node 5 & \\ \hline
-\multirow{5}{*}{220 tributary ports} & 80 & ODU0 \\
- & 100 & ODU1 \\
- & 10 & ODU2 \\
- & 10 & ODU3 \\
- & 20 & ODU4 \\
+ \multirow{2}{*}{598 line ports} & 299 connect to Node 4 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 299 connect to Node 5 & \\ \hline
+\multirow{5}{*}{2 200 tributary ports} & 800 & ODU0 \\
+ & 1 000 & ODU1 \\
+ & 100 & ODU2 \\
+ & 100 & ODU3 \\
+ & 200 & ODU4 \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of node 6}
 \end{table}
 
-In each table mentioned above we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
 
-Now let's focus on the path information. These paths are bidirectional paths so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_protec_ref_high} we can see all the paths obtained for all nodes.\\
+\vspace{13pt}
+Now through the table \ref{scriptopaque_protec_ref_high} we can see the result of CAPEX obtained with this ILP model.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c ||}
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
  \hline
- \multicolumn{2}{|| c ||}{Information regarding paths} \\
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
  \hline
  \hline
- Node1 <-> Node2 & -Link(1,2) \\
- Node1 <-> Node3 & -Link(1,3) \\
- Node1 <-> Node4 & -Link(1,2) -Link(2,4)\\
- Node1 <-> Node5 & -Link(1,3) -Link(3,5)\\
- Node1 <-> Node6 & -Link(1,3) -Link(3,5) -Link(5,6)\\
- Node2 <-> Node3 & -Link(2,3)\\
- Node2 <-> Node4 & -Link(2,4)\\
- Node2 <-> Node5 & -Link(2,3) -Link(3,5)\\
- Node2 <-> Node6 & -Link(2,4) -Link(4,6)\\
- Node3 <-> Node4 & -Link(3,2) -Link(2,4)\\
- Node3 <-> Node5 & -Link(3,5)\\
- Node3 <-> Node6 & -Link(3,5) -Link(5,6)\\
- Node4 <-> Node5 & -Link(4,5)\\
- Node4 <-> Node6 & -Link(4,6)\\
- Node5 <-> Node6 & -Link(5,6)\\
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{1 977 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 3 954 & 5 000 \euro/Gb/s & 1 977 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{395 719 000 \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 6 000 & 8 \euro/Gb/s & 60 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 5 000 & 6 \euro/Gb/s & 75 000 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 1 600 & 3 \euro/Gb/s & 48 000 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 600 & 1.5 \euro/Gb/s & 36 000 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 400 & 1 \euro/Gb/s & 40 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 3 954 & 1 000 \euro/Gb/s & 395 400 000 \euro & \\ \cline{2-6}
+ & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
+ & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 2 373 239 000 \euro \\
+\hline
 \end{tabular}
-\caption{Table with description of path}
-\label{path_opaque_protec_ref_high}
+\caption{Table with detailed description of capex}
+\label{scriptopaque_protec_ref_high}
 \end{table}
 
 
-Finally, through the figure \ref{scriptopaque_surv_protec_high} we can see the result of CAPEX obtained with this ILP model.\\
+Through the formulas mentioned below we can see how all the values of the quantity column were calculated.
 
-\newpage
-\begin{figure}[h!]
+\begin{equation*}
+ OLTs: 2 \sum_{(i,j):i<j}L_{ij} \qquad \qquad
+ Transceivers: 2 \sum_{(i,j):i<j}W_{ij} \qquad \qquad
+ Amplifiers: \sum_{(i,j):i<j}N^R_{ij} L_{ij} \\
+\end{equation*}
+\begin{equation*}
+ EXCs: \sum_n^N N_{EXC,n} \qquad
+ ODU0: \sum_{(o,d)}^{N}D_{od,0} \qquad \qquad
+ ODU1: \sum_{(o,d)}^{N}D_{od,1} \qquad
+ ODU2: \sum_{(o,d)}^{N}D_{od,2}
+\end{equation*}
+\begin{equation*}
+ ODU3: \sum_{(o,d)}^{N}D_{od,3} \qquad \qquad
+ ODU4: \sum_{(o,d)}^{N}D_{od,4} \qquad \qquad
+ Line: \sum_{(i,j)}^{N}W_{ij}
+\end{equation*}
+
+\vspace{13pt}
+$OXCs: \sum_n^N N_{OXC,n}$ but as mentioned initially this result is always zero \\
+
+$Ports$: does not exist for this case then it is equal to zero \\
+
+Finally let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_protec_ref_high} we can see all the routing obtained for all nodes.
+
+\begin{table}[h!]
 \centering
-\includegraphics[width=10cm]{sdf/ilp/opaque_protection/figures/script_opaque_protec_ref_high}
-\caption{The ILP script used in the high scenario with the network cost.}
-\label{scriptopaque_surv_protec_high}
-\end{figure}
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links \\
+ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{2} & \{(1,2)\} \\
+ & & \{(1,3),(3,2)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{3} & \{(1,3)\} \\
+ & & \{(1,2),(2,3)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,2),(2,4)\}\\
+ & & \{(1,3),(3,5),(5,4)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{5} & \{(1,3),(3,5)\}\\
+ & & \{(1,2),(2,4),(4,5)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,2),(2,4),(4,6)\}\\
+ & & \{(1,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,3)\}\\
+ & & \{(2,1),(1,3)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{4} & \{(2,4)\}\\
+ & & \{(2,3),(3,5),(5,4)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{5} & \{(2,4),(4,5)\}\\
+ & & \{(2,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{6} & \{(2,4),(4,6)\}\\
+ & & \{(2,3),(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,2),(2,4)\}\\
+ & & \{(3,5),(5,4)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{5} & \{(3,5)\}\\
+ & & \{(3,2),(2,4),(4,5)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{6} & \{(3,5),(5,6)\}\\
+ & & \{(3,2),(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{5} & \{(4,5)\}\\
+ & & \{(4,6),(6,5)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{6} & \{(4,6)\}\\
+ & & \{(4,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{5} & \multirow{2}{*}{6} & \{(5,6)\}\\
+ & & \{(5,4),(4,6)\} \\
+ \hline
+\end{tabular}
+\caption{Table with description of routing}
+\label{path_opaque_protec_ref_high}
+\end{table}
 
-As we can see the cost of CAPEX for this scenario is \textbf{100 432 000 \euro}.\\
 
