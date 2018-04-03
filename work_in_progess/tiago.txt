@@ -1,4 +1,17 @@
-﻿2018-03-28
+﻿2018-04-03
+TO BE DONE
+	- melhorar a parte da amostragem dos resultados (topologias)
+
+        - refazer o caso de muito tráfego
+
+        - fazer analitica
+	
+	- anexos
+		- explicar como é que eu faço um script do matlab para codificar a função objetivo e as varias restriçoes
+
+10/4, 15h-16h
+
+2018-03-28
 TO BE DONE
 	- acertar melhor a informação que vou mostrar relativo ao dimensionamento do modo opaco s/ proteção (ver pdf)
 	- nomeadamente a inclusão das 3 topologias e da tabela detalhada.
