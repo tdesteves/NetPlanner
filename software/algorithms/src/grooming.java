@@ -54,7 +54,7 @@ public class grooming implements IAlgorithm
     		/* Initialization */
     		int N = netPlan.getNumberOfNodes();
     		int E = netPlan.getNumberOfLinks(lowerLayer);
-    		int D = netPlan.getNumberOfDemands(lowerLayer);
+    		int D = netPlan.getNumberOfDemands(lowerLayer);	
     		
     		System.out.println("Number of nodes: " + N);
     		System.out.println("Number of links: " + E);
@@ -63,7 +63,6 @@ public class grooming implements IAlgorithm
     		netPlan.removeAllUnicastRoutingInformation();
     		netPlan.setRoutingType(RoutingType.SOURCE_ROUTING,upperLayer);
     		netPlan.setRoutingType(RoutingType.SOURCE_ROUTING,lowerLayer);
-    		
     		
     		if (N == 0 || E == 0 || D == 0) throw new Net2PlanException("This algorithm requires a topology and a demand set");
 
@@ -164,8 +163,8 @@ public class grooming implements IAlgorithm
     					Link p;
     					for(long e:linkIds) {
     						p=netPlan.getLinkFromId(e);
-    						double sumTraffic = p.getCarriedTrafficNotIncludingProtectionSegments()+p.getReservedCapacityForProtection();
-    						int nw = (int) Math.ceil(sumTraffic/wavelengthCapacity);
+    						double sumTraffic = p.getCarriedTrafficNotIncludingProtectionSegments() + p.getReservedCapacityForProtection();
+    						int nw = (int) Math.ceil((sumTraffic/2)/wavelengthCapacity);
     						String numberWavelengths = String.valueOf(nw);
     						p.setCapacity(nw*wavelengthCapacity);
     						p.setAttribute("nW", numberWavelengths);
@@ -263,14 +262,12 @@ public class grooming implements IAlgorithm
 								String nw = link.getAttribute("nW");
 								nW=0;
 								
-								
 								if(nw!=null)
 								{
 									
 									nW=Integer.parseInt(nw);
 									nW =(int) (nW+Math.ceil(totaltraffic/wavelengthCapacity));
 									link.setAttribute("nW",String.valueOf(nW));
-									
 									
 								}else
 								{
@@ -296,7 +293,7 @@ public class grooming implements IAlgorithm
 								String nw = link.getAttribute("nW");
 								if(nw!=null) {
 										nW=Integer.parseInt(nw);
-										nW =(int) (nW+Math.ceil(totaltraffic/wavelengthCapacity));
+										nW = (int) (nW+Math.ceil(totaltraffic/wavelengthCapacity));
 										link.setAttribute("nW",String.valueOf(nW));
 								} 
 								else {
@@ -304,12 +301,8 @@ public class grooming implements IAlgorithm
 										link.setAttribute("nW",String.valueOf(nW));
 								}
 							}
-													
-											
-						
-						
+															
 					}
-					
 	
 				}
 				for(long e:linkIds)
@@ -324,12 +317,9 @@ public class grooming implements IAlgorithm
 					}
 				
 				}
-				
-				
-					break;
-    							
+	
+					break;    							
     		}
-    	
     		
         return "Ok!";
     	}

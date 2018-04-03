@@ -24,56 +24,78 @@ We already have all the necessary formulas to obtain the CAPEX value for the ref
 
 \textbf{Low Traffic Scenario:}\\
 
-Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following figure \ref{Low_Network_Cost_Opaque}.
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following table:
 
-\begin{figure}[h!]
+\begin{table}[H]
 \centering
-\includegraphics[width=10cm]{sdf/heuristic/figures/Low_Network_Cost_Opaque}
-\caption{The low traffic network cost using Net2Plan.}
-\label{Low_Network_Cost_Opaque}
-\end{figure}
+\label{opaque_low_traffic}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Category}}                                                   & \textbf{Quantity} & \textbf{Unit Price} & \textbf{Cost} & \textbf{Total}             \\ \hline
+\multirow{3}{*}{\textbf{Link Cost}} & \multicolumn{2}{c|}{\textbf{OLT}}                   & 12                & 15.000              & 180.000       & \multirow{3}{*}{9.404.000} \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{Transponders}}          & 18                & 5.000               & 9.000.000     &                            \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{Amplifiers}}            & 56                & 4.000               & 224.000       &                            \\ \hline
+\multirow{8}{*}{\textbf{Node Cost}} & \multirow{6}{*}{\textbf{EXC}} & \textbf{PLine}      & 18                & 1.000                & 1.800.000     & \multirow{8}{*}{1.802.590} \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU0} & 60                & 8                   & 600           &                            \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU1} & 50                & 6                   & 750           &                            \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU2} & 16                & 3                   & 480           &                            \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU3} & 6                 & 1.5                 & 360           &                            \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU4} & 4                 & 1                   & 400           &                            \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{OXC}}                   & 0                 & 20.000              & 0             &                            \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{POXC}}                  & 0                 & 2.500               & 0             &                            \\ \hline
+\multicolumn{6}{|c|}{\textbf{Total Network Cost}}                                                                                                   & 11.206.590                 \\ \hline
+\end{tabular}
+\caption{Network Cost for Low Traffic Scenario.}
+\end{table}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=5cm]{sdf/heuristic/figures/Low_Network_Info_Opaque}
-\caption{The low traffic network info using Net2Plan.}
-\label{Low_Network_Info_Opaque}
-\end{figure}
-
-\newpage
 \textbf{Medium Traffic Scenario:}\\
 
-Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following figure \ref{Medium_Network_Cost_Opaque}.
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following table:
 
-\begin{figure}[h!]
+\begin{table}[H]
 \centering
-\includegraphics[width=10cm]{sdf/heuristic/figures/Medium_Network_Cost_Opaque}
-\caption{The medium traffic network cost using Net2Plan.}
-\label{Medium_Network_Cost_Opaque}
-\end{figure}
+\label{opaque_medium_traffic}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Category}}                                                   & \textbf{Quantity} & \textbf{Unit Price} & \textbf{Cost} & \textbf{Total}              \\ \hline
+\multirow{3}{*}{\textbf{Link Cost}} & \multicolumn{2}{c|}{\textbf{OLT}}                   & 12                & 15.000              & 180.000       & \multirow{3}{*}{59.404.000} \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{Transponders}}          & 118               & 5.000               & 59.000.000    &                             \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{Amplifiers}}            & 56                & 4.000               & 224.000       &                             \\ \hline
+\multirow{8}{*}{\textbf{Node Cost}} & \multirow{6}{*}{\textbf{EXC}} & \textbf{PLine}      & 118               & 1.000                & 11.800.000    & \multirow{8}{*}{11.802.590} \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU0} & 60                & 8                   & 600           &                             \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU1} & 50                & 6                   & 750           &                             \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU2} & 16                & 3                   & 480           &                             \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU3} & 6                 & 1.5                 & 360           &                             \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU4} & 4                 & 1                   & 400           &                             \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{OXC}}                   & 0                 & 20.000              & 0             &                             \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{POXC}}                  & 0                 & 2.500               & 0             &                             \\ \hline
+\multicolumn{6}{|c|}{\textbf{Total Network Cost}}                                                                                                   & 71.206.590                  \\ \hline
+\end{tabular}
+\caption{Network Cost for Medium Traffic Scenario.}
+\end{table}
 
-\begin{figure}[h!]
-\centering
-\includegraphics[width=5cm]{sdf/heuristic/figures/Medium_Network_Info_Opaque}
-\caption{The medium traffic network info using Net2Plan.}
-\label{Medium_Network_Info_Opaque}
-\end{figure}
-
-\newpage
 \textbf{High Traffic Scenario:}\\
 
-Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following figure \ref{High_Network_Cost_Opaque}.
+Following all the steps mentioned in the previous subsection and using all the data referring to this scenario, the obtained result can be consulted in the following table:
 
-\begin{figure}[h!]
+\begin{table}[H]
 \centering
-\includegraphics[width=10cm]{sdf/heuristic/figures/High_Network_Cost_Opaque}
-\caption{The hight traffic network cost using Net2Plan.}
-\label{High_Network_Cost_Opaque}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=5cm]{sdf/heuristic/figures/High_Network_Info_Opaque}
-\caption{The high traffic network info using Net2Plan.}
-\label{High_Network_Info_Opaque}
-\end{figure}
+\label{opaque_high_traffic}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{\textbf{Category}}                                                   & \textbf{Quantity} & \textbf{Unit Price} & \textbf{Cost} & \textbf{Total}               \\ \hline
+\multirow{3}{*}{\textbf{Link Cost}} & \multicolumn{2}{c|}{\textbf{OLT}}                   & 12                & 15.000              & 180.000       & \multirow{3}{*}{578.404.000} \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{Transponders}}          & 1.156             & 5.000               & 578.000.000   &                              \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{Amplifiers}}            & 56                & 4.000               & 224.000       &                              \\ \hline
+\multirow{8}{*}{\textbf{Node Cost}} & \multirow{6}{*}{\textbf{EXC}} & \textbf{PLine}      & 1.156             & 1.000                & 115.600.000   & \multirow{8}{*}{115.602.590} \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU0} & 60                & 8                   & 600           &                              \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU1} & 50                & 6                   & 750           &                              \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU2} & 16                & 3                   & 480           &                              \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU3} & 6                 & 1.5                 & 360           &                              \\ \cline{3-6}
+                                    &                               & \textbf{PTrib ODU4} & 4                 & 1                   & 400           &                              \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{OXC}}                   & 0                 & 20.000              & 0             &                              \\ \cline{2-6}
+                                    & \multicolumn{2}{c|}{\textbf{POXC}}                  & 0                 & 2.500               & 0             &                              \\ \hline
+\multicolumn{6}{|c|}{\textbf{Total Network Cost}}                                                                                                   & 694.006.590                  \\ \hline
+\end{tabular}
+\caption{Network Cost for High Traffic Scenario.}
+\end{table}
