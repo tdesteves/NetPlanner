@@ -1,4 +1,4 @@
-\select@language {portuguese}
+\babel@toc {portuguese}{}
 \contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}
 \contentsline {chapter}{\numberline {2}Simulator Structure}{4}{chapter.2}
 \contentsline {section}{\numberline {2.1}System}{4}{section.2.1}
