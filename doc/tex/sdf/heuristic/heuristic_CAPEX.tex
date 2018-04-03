@@ -13,7 +13,7 @@ The total CAPEX of a network, as it was already described in \ref{Capex}, is the
 
 In order to get the results for the heuristic approach, several algorithms are used which try to obtain the most near optimal solution for the six cases detailed in this chapter. The first step is to create the ODU matrices in the Net2Plan network design software as it is described below.
 
-\subsection{Creation of traffic matrices}\label{creation_traffic_matrices}
+\subsubsection{Creation of traffic matrices}\label{creation_traffic_matrices}
 
 Accordingly to the reference network in \label{Reference_Network_Traffic} and to the ODUs defined in \label{low_traffic_scenario} for the low, medium and high traffic scenario, we can create the traffic matrices with a constant traffic pattern. As all the network components are bidirectional, the amount of traffic that passes to all node pairs must be the same.
 
@@ -26,7 +26,7 @@ The next step is to choose the number of nodes, number of matrices and the const
 \label{traffic_matrix_design}
 \end{figure}
 
-\subsection{Creation of a network topological design}\label{creation_topological_design}
+\subsubsection{Creation of a network topological design}\label{creation_topological_design}
 
 \vspace{11pt}
 To create the network topological design that was defined before in \label{creation_traffic_matrices} it is needed to add the 6 nodes that were chosen and link them with bidirectional links as it is shown in the picture \label{network_topological_design} below.
@@ -69,7 +69,7 @@ It is also needed to add by the user the capacity that is used in each wavelengt
 \label{logical_topology}
 \end{figure}
 
-\subsection{Grooming Algorithm}\label{grooming_algorithm}
+\subsubsection{Grooming Algorithm}\label{grooming_algorithm}
 
 \vspace{11pt}
 The "Grooming" algorithm is a shortest-path heuristic algorithm that creates routes and protection paths based on hops or km, accordingly to the pre-defined logical topology. The goal of this grooming algorithm is to minimize the number of links for each path between all node pairs and this will lead to the reduction of the number of wavelengths to serve a set of connections and, consequently, to a lower cost of nodes and lower CAPEX.
