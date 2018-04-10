@@ -164,7 +164,7 @@ public class grooming implements IAlgorithm
     					for(long e:linkIds) {
     						p=netPlan.getLinkFromId(e);
     						double sumTraffic = p.getCarriedTrafficNotIncludingProtectionSegments() + p.getReservedCapacityForProtection();
-    						int nw = (int) Math.ceil((sumTraffic/2)/wavelengthCapacity);
+    						int nw = (int) Math.ceil(sumTraffic/wavelengthCapacity);
     						String numberWavelengths = String.valueOf(nw);
     						p.setCapacity(nw*wavelengthCapacity);
     						p.setAttribute("nW", numberWavelengths);

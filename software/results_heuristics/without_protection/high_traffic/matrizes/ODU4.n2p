@@ -16,7 +16,7 @@
 		<demand id="14" ingressNodeId="3" egressNodeId="4" offeredTraffic="0.0"/>
 		<demand id="15" ingressNodeId="3" egressNodeId="5" offeredTraffic="0.0"/>
 		<demand id="16" ingressNodeId="3" egressNodeId="6" offeredTraffic="0.0"/>
-		<demand id="17" ingressNodeId="3" egressNodeId="7" offeredTraffic="100.0"/>
+		<demand id="17" ingressNodeId="3" egressNodeId="7" offeredTraffic="20.0"/>
 		<demand id="18" ingressNodeId="4" egressNodeId="2" offeredTraffic="0.0"/>
 		<demand id="19" ingressNodeId="4" egressNodeId="3" offeredTraffic="0.0"/>
 		<demand id="20" ingressNodeId="4" egressNodeId="5" offeredTraffic="0.0"/>
@@ -31,12 +31,12 @@
 		<demand id="29" ingressNodeId="6" egressNodeId="3" offeredTraffic="0.0"/>
 		<demand id="30" ingressNodeId="6" egressNodeId="4" offeredTraffic="0.0"/>
 		<demand id="31" ingressNodeId="6" egressNodeId="5" offeredTraffic="0.0"/>
-		<demand id="32" ingressNodeId="6" egressNodeId="7" offeredTraffic="100.0"/>
+		<demand id="32" ingressNodeId="6" egressNodeId="7" offeredTraffic="20.0"/>
 		<demand id="33" ingressNodeId="7" egressNodeId="2" offeredTraffic="0.0"/>
-		<demand id="34" ingressNodeId="7" egressNodeId="3" offeredTraffic="100.0"/>
+		<demand id="34" ingressNodeId="7" egressNodeId="3" offeredTraffic="20.0"/>
 		<demand id="35" ingressNodeId="7" egressNodeId="4" offeredTraffic="0.0"/>
 		<demand id="36" ingressNodeId="7" egressNodeId="5" offeredTraffic="0.0"/>
-		<demand id="37" ingressNodeId="7" egressNodeId="6" offeredTraffic="100.0"/>
+		<demand id="37" ingressNodeId="7" egressNodeId="6" offeredTraffic="20.0"/>
 		<sourceRouting/>
 	</layer>
 </network>
