@@ -1,12 +1,25 @@
-﻿2018-04-03
+﻿2018-04-10
 TO BE DONE
-	- melhorar a parte da amostragem dos resultados (topologias)
+	melhorar a parte da edição
 
-        - refazer o caso de muito tráfego
+	obter resultados para os casos todos
 
-        - fazer analitica
+	escrever as conclusões para os casos todos
+
+	escrever os open issues para os casos todos
+
+Next Meeting: 17/4, 9h
+
+
+2018-04-03
+TO BE DONE
+	- melhorar a parte da amostragem dos resultados (topologias) ********* Feito-(Opaco_todos_casos'3+3') ************
+
+        - refazer o caso de muito tráfego ******** Feito -(Opaq_Surv_e_Protec, Transp_Surv) ************
+
+        - fazer analitica **************** Feito-(Opaco_todos_casos'3+3') ***************
 	
-	- anexos
+	- anexos **************** Feito *************** 
 		- explicar como é que eu faço um script do matlab para codificar a função objetivo e as varias restriçoes
 
 10/4, 15h-16h

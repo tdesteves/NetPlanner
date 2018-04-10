@@ -9,7 +9,7 @@
 \BOOKMARK [1][-]{section.4.2}{Traffic Matrices}{chapter.4}% 9
 \BOOKMARK [2][-]{subsection.4.2.1}{Low traffic scenario \(0.5 Tbits/s\)}{section.4.2}% 10
 \BOOKMARK [2][-]{subsection.4.2.2}{Medium traffic scenario \(5 Tbits/s\)}{section.4.2}% 11
-\BOOKMARK [2][-]{subsection.4.2.3}{High traffic scenario \(50 Tbits/s\)}{section.4.2}% 12
+\BOOKMARK [2][-]{subsection.4.2.3}{High traffic scenario \(10 Tbits/s\)}{section.4.2}% 12
 \BOOKMARK [0][-]{chapter.5}{Integer Linear Programming \(ILP\)}{}% 13
 \BOOKMARK [1][-]{section.5.1}{CAPEX}{chapter.5}% 14
 \BOOKMARK [2][-]{subsection.5.1.1}{Opaque without Survivability}{section.5.1}% 15
@@ -56,5 +56,6 @@
 \BOOKMARK [0][-]{chapter.10}{Appendices}{}% 56
 \BOOKMARK [1][-]{section.10.1}{Net2Plan Guide}{chapter.10}% 57
 \BOOKMARK [1][-]{section.10.2}{Installing LPSOLVE for using in MatLab}{chapter.10}% 58
-\BOOKMARK [0][-]{chapter.11}{Master Dissertations}{}% 59
-\BOOKMARK [1][-]{section*.181}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.11}% 60
+\BOOKMARK [1][-]{section.10.3}{Codify ILP in MatLab}{chapter.10}% 59
+\BOOKMARK [0][-]{chapter.11}{Master Dissertations}{}% 60
+\BOOKMARK [1][-]{section*.241}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.11}% 61
