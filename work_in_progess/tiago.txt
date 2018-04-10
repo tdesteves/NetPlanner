@@ -1,4 +1,17 @@
-﻿2018-04-03
+﻿2018-04-10
+TO BE DONE
+	melhorar a parte da edição
+
+	obter resultados para os casos todos
+
+	escrever as conclusões para os casos todos
+
+	escrever os open issues para os casos todos
+
+Next Meeting: 17/4, 9h
+
+
+2018-04-03
 TO BE DONE
 	- melhorar a parte da amostragem dos resultados (topologias) ********* Feito-(Opaco_todos_casos'3+3') ************
 
