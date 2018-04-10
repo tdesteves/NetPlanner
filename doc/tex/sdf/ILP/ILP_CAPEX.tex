@@ -1,0 +1,220 @@
+\clearpage
+
+\section{CAPEX}\label{ILP_CAPEX}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement of the ILP model to obtain the best possible CAPEX of a given network.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+The cost of a telecommunications network can be divided into CAPEX and OPEX.
+CAPEX is the amount of money needed to set up and install a particular network.
+OPEX is the amount of money needed to run this network as well as its maintenance and operation over time.
+In this section we will only focus on CAPEX, that is, the costs of installing a particular network.
+As we know the telecommunications networks are made up of links and nodes, so it is possible to define the CAPEX as being the sum of the cost of links and cost of nodes.
+This can be said that the value of CAPEX is given by the equation \ref{Capex}.
+
+\begin{equation}
+C_C = C_L + C_N
+\label{Capex}
+\end{equation}
+
+
+\begin{itemize}
+\item{$C_C$				$\rightarrow$	CAPEX cost in monetary units (e.g. euros, or dollars)}
+\item{$C_L$				$\rightarrow$	Link cost in monetary units (e.g. euros, or dollars)}
+\item{$C_N$				$\rightarrow$	Node cost in monetary units (e.g. euros, or dollars)}
+\end{itemize}
+
+
+\vspace{11pt}
+For this calculation first let's focus on the cost of the links and for this we have to take into account the figure \ref{link_design} where we can see the design of a link. In this figure we can see that a link consists of two optical line terminals (one at each end), it also has several amplifiers (this number depends on the length of the link) placed at a certain distance (span) and finally it also consists of several optical channels each with a certain wavelength.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{sdf/ILP/figures/link_design}
+\caption{Design of a link.}
+\label{link_design}
+\end{figure}
+
+\newpage
+Thus, through the previous image, we can conclude that the link cost is calculated by the equation \ref{Capex_Link}.
+
+\begin{equation}
+C_L = \sum_{i=1}^N \sum_{j=i+1}^N L_{ij} \left( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R \right)
+\label{Capex_Link}
+\end{equation}
+
+\begin{itemize}
+\item{$C_L$				$\rightarrow$	Links cost in monetary units (e.g. euros, or dollars)}
+\item{$i$               $\rightarrow$   Index for start node of a physical link}
+\item{$j$               $\rightarrow$   Index for end node of a physical link}
+\item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
+\item{$L_{ij}$			$\rightarrow$	Binary variable indicating if link between the nodes $i$ and $j$ is used, $L_{ij} \in {0, 1}$}
+\item{$\gamma_0^{OLT}$	$\rightarrow$	OLT cost in monetary units (e.g. euros, or dollars)}
+\item{$\gamma_1^{OLT}$	$\rightarrow$	Transponder cost in monetary units (e.g. euros, or dollars)}
+\item{$\tau$		    $\rightarrow$	Line bit-rate}
+\item{$W_{ij}$          $\rightarrow$   Number of optical channels in link $i$ $j$}
+\item{$N^R_{ij}$    	$\rightarrow$	Number of optical amplifiers in link $i$ $j$}
+\item{$c^R$				$\rightarrow$	Optical amplifiers cost in monetary units (e.g. euros, or dollars)}
+\end{itemize}
+
+
+The next step is to take into account the cost of the nodes, but for this we must first know how a node is constituted. The nodes have an electrical part and an optical part so we can conclude that the cost of the nodes is given by the sum of these two parts thus obtaining the equation \ref{Capex_Node}.
+
+\begin{equation}
+C_N = C_{EXC} + C_{OXC}
+\label{Capex_Node}
+\end{equation}
+
+\vspace{11pt}
+In relation to the electric part we can see the figure \ref{exc_design} where it shows its constitution.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{sdf/ILP/figures/exc_design}
+\caption{Design of a electrical switching.}
+\label{exc_design}
+\end{figure}
+
+
+Thus, through the previous image, we can conclude in a simple way that the electric cost is the sum of the fixed cost of the electrical connection with the total cost of all the electric ports.
+Therefore the electric cost is given by equation \ref{Capex_Node_EXC}.
+
+\begin{equation}
+C_{EXC} = \sum_{n=1}^{N} N_{exc,n} \left( \gamma_{e0} + \sum_{c=-1}^B \gamma_{e1,c} P_{exc,c,n} \right)
+\label{Capex_Node_EXC}
+\end{equation}
+
+\begin{itemize}
+\item{$C_{EXC}$			$\rightarrow$	Electrical cost in monetary units (e.g. euros, or dollars)}
+\item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
+\item{$N_{exc,n}$		$\rightarrow$	Binary variable indicating if node $n$ is used, $N_{exc,n} \in {0, 1}$}
+\item{$\gamma_{e0}$ 	$\rightarrow$	EXC cost in monetary units (e.g. euros, or dollars)}
+\item{$\gamma_{e1,c}$	$\rightarrow$	EXC port cost in monetary units (e.g. euros, or dollars) with bit-rate $B$ and with a given transceiver reach}
+\item{$P_{exc,c,n}$	    $\rightarrow$	Number of ports of the electrical switch}
+\item{$B$           	$\rightarrow$	A natural number corresponding to the maximum index of short-reach ports, see table below}
+\end{itemize}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|}
+  \hline
+  Index & Bit rate \\
+ \hline\hline
+  -1 & 100 Gbits/s line bit-rate (long-reach port) \\
+  0 & 1.25 Gbits/s tributary bit-rate (short-reach port) \\
+  1 & 2.5 Gbits/s tributary bit-rate (short-reach port) \\
+  2 & 10 Gbits/s tributary bit-rate (short-reach port) \\
+  3 & 40 Gbits/s tributary bit-rate (short-reach port) \\
+  4 & 100 Gbits/s tributary bit-rate (short-reach port) \\
+  \hline
+\end{tabular}
+\caption{Table with index and your corresponding bit rate}
+\label{table_bitrate}
+\end{table}
+
+\vspace{11pt}
+In relation to the optical part we can see the figure \ref{oxc_design} where it shows its constitution.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{sdf/ILP/figures/oxc_design}
+\caption{Design of a optical switching.}
+\label{oxc_design}
+\end{figure}
+
+
+Thus, through the previous image, we can conclude in a simple way that the electric cost is the sum of the fixed cost of the optical connection with the total cost of all the optical ports.
+Therefore the optical cost is given by equation \ref{Capex_Node_OXC}.
+
+\begin{equation}
+C_{OXC} = \sum_{n=1}^{N} N_{oxc,n} \left( \gamma_{o0} + \gamma_{o1} P_{oxc,n} \right)
+\label{Capex_Node_OXC}
+\end{equation}
+
+\begin{itemize}
+\item{$C_{OXC}$			$\rightarrow$	Optical cost in monetary units (e.g. euros, or dollars)}
+\item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
+\item{$N_{oxc,n}$		$\rightarrow$	Binary variable indicating if node $n$ is used, $N_{oxc,n} \in {0, 1}$}
+\item{$\gamma_{o0}$ 	$\rightarrow$	OXC cost in monetary units (e.g. euros, or dollars)}
+\item{$\gamma_{o1}$ 	$\rightarrow$	OXC port cost in monetary units (e.g. euros, or dollars) }
+\item{$P_{oxc,n}$	    $\rightarrow$	Number of ports of the optical switch}
+\end{itemize}
+
+
+\vspace{10pt}
+We have to take into account that the calculated value for the variable $P_{exc,c,n}$ and $P_{oxc,n}$ will depend on the mode of transport used (opaque, transparent or translucent) but later on it will be explained how these values are calculated for each specific transport mode.\\
+
+To obtain the best possible value, it will be necessary to minimize the cost of the capex mentioned above so that we can obtain the objective function \ref{ILPOpaque_CAPEX}.
+
+\begin{equation}
+minimize \qquad \qquad C_C
+\label{ILPOpaque_CAPEX}
+\end{equation}
+
+\vspace{11pt}
+Subject to the following restrictions where these restrictions are the flow conservation constraints.
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = Z  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPOpaque1_CAPEX}
+\end{equation}
+
+This constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(i,j)$ when $j$ is not equal to the origin of the demand. The variable Z depends of the transport mode and survivability mechanism.
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPOpaque2_CAPEX}
+\end{equation}
+
+In this constraint, assuming bidirectional traffic, so the number of flows in both directions of the link is the same.
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = Z  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPOpaque3_CAPEX}
+\end{equation}
+
+This constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(j,i)$ when $i$ is not equal to the destination of the demand. The variable Z depends of the transport mode and survivability mechanism.
+
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPOpaque6_CAPEX}
+\end{equation}
+
+The number of flows per demand can be a natural number depending the considered traffic.\\
+
+Finally, one aspect to be taken into account is the cost of the equipment used in the network. Through the table \ref{table_cost_ilp} we can see the cost in euros of the equipment.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c||}
+ \hline
+ Equipment & Symbol & Cost \\
+ \hline\hline
+ OLT without transponders & $\gamma_0^{OLT}$ & 15000 \euro \\
+ Transponder & $\gamma_1^{OLT}$ & 5000 \euro/Gb \\
+ Unidirectional Optical Amplifier & $c^R$ & 4000 \euro \\
+ EXC & $\gamma_{e0}$ & 10000 \euro \\
+ OXC & $\gamma_{o0}$ & 20000 \euro \\
+ EXC Port for line ports & $\gamma_{e1,-1}$ & 1000 \euro /Gb/s\\
+ EXC Port for ODU0 & $\gamma_{e1,0}$ & 8 \euro /Gb/s\\
+ EXC Port for ODU1 & $\gamma_{e1,1}$ & 6 \euro /Gb/s\\
+ EXC Port for ODU2 & $\gamma_{e1,2}$ & 3 \euro /Gb/s\\
+ EXC Port for ODU3 & $\gamma_{e1,3}$ & 1.5 \euro /Gb/s\\
+ EXC Port for ODU4 & $\gamma_{e1,4}$ & 1 \euro /Gb/s\\
+ OXC Port & $\gamma_{o1}$ & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost_ilp}
+\end{table}
+
+
+

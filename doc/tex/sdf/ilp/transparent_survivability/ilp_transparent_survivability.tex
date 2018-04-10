@@ -1,0 +1,147 @@
+\clearpage
+
+\subsection{Transparent without Survivability}\label{ILP_Transp_Survivability}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement the ILP model for the transparent transport mode without survivability.
+\end{tabular}
+\end{tcolorbox}
+
+\subsubsection{Model description}
+
+First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transp} will be created with all indexes, inputs and variables and with their respective description.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |p{1cm}||p{13cm}|}
+ \hline
+ \multicolumn{2}{|c|}{Description of notation used in the objective function} \\
+ \hline
+ \hline
+ $i$ & index for start node of a physical link \\
+ $j$ & index for end node of a physical link \\
+ $o$ & index for node that is origin of a demand \\
+ $d$ & index for node that is destination of a demand \\
+ $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+ $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $fp_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows with protection) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
+ $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
+ $\lambda_{od}$ & number of optical channels between the nodes $o$ and $d$\\
+ G & Network topology in form of adjacency matrix \\
+ \hline
+\end{tabular}
+\caption{Table with description of variables}
+\label{description_transp}
+\end{table}
+
+Before carrying out the description of the objective function we must take into account the following particularity of this mode of transport:
+\begin{itemize}
+  \item $N_{OXC,n}$ = 1, \quad $\forall$ n that process traffic
+  \item $N_{EXC,n}$ = 1, \quad $\forall$ n that process traffic
+\end{itemize}
+
+\vspace{11pt}
+The objective function of following the ILP is a minimization of the CAPEX through the equation \ref{Capex} where in this case for the cost of nodes we have in consideration the electric cost \ref{Capex_Node_EXC} and the optical cost \ref{Capex_Node_OXC}.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_transparent} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_transparent}.\\
+
+\newpage
+The equation \ref{EXC_pexc_transparent} refers to the number of sort-reach ports, that is, the number of tributary ports with bit-rate c in node n is calculated.
+
+\begin{equation}
+P_{exc,c,n} = 2 \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc_transparent}
+\end{equation}
+
+\begin{itemize}
+\item{$P_{exc,c,n}$	$\rightarrow$	Number of ports of the electrical switch}
+\item{$D_{nj,c}$	$\rightarrow$	client demands between nodes $n$ and $d$ with bit rate $c$}
+\end{itemize}
+
+\vspace{11pt}
+In this case there is the following particularity:
+
+\begin{itemize}
+  \item When $n$=$j$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
+\end{itemize}
+
+\vspace{11pt}
+The equation \ref{OXC_poxc_transparent} refers to the number of line ports and the number of adding ports. So this number are calculated for all the nodes.
+
+\begin{equation}
+P_{oxc,n} = \sum_{j=1}^{N} f_{nj} + \sum_{j=1}^{N} \lambda_{nj}
+\label{OXC_poxc_transparent}
+\end{equation}
+
+\begin{itemize}
+\item{$P_{oxc,n}$	    $\rightarrow$	Number of ports of the optical switch}
+\item{$f_{nj}$			$\rightarrow$	Number of 100 Gbit/s optical channels between node $n$ and node $j$ (number of line ports)}
+\item{$\lambda_{nj}$	$\rightarrow$	Number of optical channels between node $n$ and node $j$ (number of adding ports)}
+\end{itemize}
+
+\vspace{17pt}
+The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}.\\
+
+$subject$ $to$
+\begin{equation}
+100 \lambda_{od} \geq \sum_{c\in C} B\left(c\right) D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d
+\label{ILPTransp0_surv}
+\end{equation}
+
+This restriction is considered grooming constraint and for this model the grooming can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes.
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTransp1_surv}
+\end{equation}
+
+This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTransp2_surv}
+\end{equation}
+
+This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTransp3_surv}
+\end{equation}
+
+This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od}\right) \leq 80 G_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j
+\label{ILPTransp4_surv}
+\end{equation}
+
+This restriction answers capacity constraint problem. Then, total flows must be less or equal to the capacity of network links.
+
+\begin{equation}
+f_{ij}^{od} , f_{ji}^{od} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPTransp5_surv}
+\end{equation}
+
+Last constraint define the total number of flows and the number of optical channels must be a counting number.\\
+
+
+\subsubsection{Result description}
+
+To perform the calculations using the implementation of the models described previously it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.\\
+We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.
+The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost_ilp}.\\
+
+
+\textbf{Low Traffic Scenario:}\\
+
+\textbf{Medium Traffic Scenario:}\\
+
+\textbf{High Traffic Scenario:}\\

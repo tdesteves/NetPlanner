@@ -1,26 +1,128 @@
-﻿2017-11-21
+﻿2018-04-10
+TO BE DONE
+	melhorar a parte da edição
+
+	obter resultados para os casos todos
+
+	escrever as conclusões para os casos todos
+
+	escrever os open issues para os casos todos
+
+Next Meeting: 17/4, 9h
+
+
+2018-04-03
+TO BE DONE
+	- melhorar a parte da amostragem dos resultados (topologias) ********* Feito-(Opaco_todos_casos'3+3') ************
+
+        - refazer o caso de muito tráfego ******** Feito -(Opaq_Surv_e_Protec, Transp_Surv) ************
+
+        - fazer analitica **************** Feito-(Opaco_todos_casos'3+3') ***************
+	
+	- anexos **************** Feito *************** 
+		- explicar como é que eu faço um script do matlab para codificar a função objetivo e as varias restriçoes
+
+10/4, 15h-16h
+
+2018-03-28
+TO BE DONE
+	- acertar melhor a informação que vou mostrar relativo ao dimensionamento do modo opaco s/ proteção (ver pdf)
+	- nomeadamente a inclusão das 3 topologias e da tabela detalhada.
+	- corrigir / melhor detaques
+
+	- anexos
+		- explicar como é que eu faço um script do matlab para codificar a função objetivo e as varias restriçoes
+
+Next meeting: 3/4, 16h-17h
+
+2018-03-21
+TO BE DONE
+	- incluir no report a percentagem do tráfego que foi possivel encaminhar, no caso em que fica tráfego por encaminhar especificar quais oa pedidos que não satisfeitos.
+        - melhorar a documentação
+	- melhorar as tabelas colocando uma coluna para o bit-rate e eliminar o número de transceiver
+
+2018-03-07
+TO BE DONE
+	melhorar a documentação
+
+	focar no caso opaco com e sem proteção produzir um report o mais detalhado
+
+	comparar com as heuristicas
+
+Next meeting: 14/3, 16h
+
+
+2018-03-01
+TO BE DONE
+
+	regorganizar o documento
+		- rede de referência
+		- Analiticos (rede de referência)
+		- ILPs (rede de referência)
+		- Heuristicas (rede de referência)
+		- Análise comparativa (rede de referência)
+		- Cases Studies
+	
+
+Next meeting: 7/3, 16h
+
+
+2018-02-21
+TO BE DONE
+
+
+	terminar o modelo do ILP do modo opaco sem sobrevivencia
+
+Next meeting: 1/3, 11h
+
+2018-02-07
+TO BE DONE
+	refinar o modelo, parte geral e a parte especifica para cada modo de transporte.
+
+Next meeting: 14/2, 16h
+
+2018-01-31
+TO BE DONE
+	- trabalhar na função objetivo (opáco)(CL+CN)
+
+Next meeting: 7/2/2018, 11h
+
+2018-01-24
+TO BE DONE
+	- organizar o documento (acrecentar uma secção sobre assessement)
+	- incluir no documento os casos concluidos para irmos discutindo
+
+Next meeting: 31/1/2018, 11h
+
+
+2018-01-12
+TO BE DONE
+	- organizar o documento
+
+Next meeting: 24/1/2018
+
+2017-11-21
 TO BE DONE
 	- finalize the ILP dimensioning for
 		opaco, both networks in both scenarios
 			reference network, low traffic -> DONE
 			reference network, high traffic -> DONE
-			realistic network, low traffic -> MIssing (to be done)
-			realistic network, high traffic -> MIssing (to be done)
+			realistic network, low traffic -> Running
+			realistic network, high traffic -> Running
 
 		transparent, both networks in both scenarios
-			reference network, low traffic -> Missing (to be done)
+			reference network, low traffic -> DONE
 			reference network, high traffic -> Missing (to be done)
-			realistic network, low traffic -> MIssing (to be done)
-			realistic network, high traffic -> MIssing (to be done)
+			realistic network, low traffic -> Running
+			realistic network, high traffic -> Missing (to be done)
 
 	- finalize the ILP for the translucent for reference network with 1+1
-			- perceber o algoritmo ->finish
-			- definir as variaveis ->finish
-			- ajustar a notação ->finish
-			- implementar no Matlab ->finish
+			- perceber o algoritmo ->finish 		DONE
+			- definir as variaveis ->finish 		DONE
+			- ajustar a notação ->finish 			DONE
+			- implementar no Matlab ->finish 		DONE
 				
-			 -> preparar apresentação (5/6 slides) 
-
+			 -> preparar apresentação (5/6 slides) 	DONE 
 
 2017-11-14
 TO BE DONE
@@ -37,10 +139,6 @@ TO BE DONE
 		- definir as variaveis ----- quase feito -----
 		- ajustar a notação ----- feito -----
 		- implementar no Matlab ----- quase feito -----
-
-
-
-	
 
 2017-11-07
 TO BE DONE

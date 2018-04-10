@@ -1,0 +1,159 @@
+\clearpage
+
+\section{CAPEX}\label{analytical_CAPEX}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Implement of the analytical model to obtain the best possible CAPEX of a given network.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+The cost of a telecommunications network can be divided into CAPEX and OPEX.
+CAPEX is the amount of money needed to set up and install a particular network.
+OPEX is the amount of money needed to run this network as well as its maintenance and operation over time.
+In this section we will only focus on CAPEX, that is, the costs of installing a particular network.
+As we know the telecommunications networks are made up of links and nodes, so it is possible to define the CAPEX as being the sum of the cost of links and cost of nodes.
+This can be said that the value of CAPEX is given by the equation \ref{analytical_Capex}.
+
+\begin{equation}
+C_C = C_L + C_N
+\label{analytical_Capex}
+\end{equation}
+
+\begin{itemize}
+\item{$C_C$				$\rightarrow$	CAPEX cost}
+\item{$C_L$				$\rightarrow$	Link cost}
+\item{$C_N$				$\rightarrow$	Node cost}
+\end{itemize}
+
+\vspace{11pt}
+For this calculation first let's focus on the cost of the links. Where to calculate the cost of the Links we will use the equation \ref{analytical_linkCosts}.
+
+\begin{equation}
+C_L = \left(2 \times L \times \gamma_0^{OLT}\right) + \left(2 \times L \times \gamma_1^{OLT} \times \tau \times <w>\right) + \left(N^R \times c^R\right)
+\label{analytical_linkCosts}
+\end{equation}
+
+
+\begin{itemize}
+\item{$C_L$				$\rightarrow$	Links cost}
+\item{$\gamma_0^{OLT}$	$\rightarrow$	OLT cost in euros}
+\item{$L$				$\rightarrow$	Number of unidirectional links}
+\item{$\gamma_1^{OLT}$	$\rightarrow$	Transponder cost in euros}
+\item{$<w>$             $\rightarrow$   Average number of optical channels}
+\item{$\tau$		    $\rightarrow$	Traffic per port}
+\item{$N^R$				$\rightarrow$	Total number of optical amplifiers}
+\item{$c^R$				$\rightarrow$	Optical amplifiers cost in euros}
+\end{itemize}
+
+Looking at the equation \ref{analytical_linkCosts} we can see that we already have practically all the values of the variables used. Assuming that $\tau$ is 100 Gbits/s is thus only missing the number of optical amplifiers and the number of optical channels where they can be calculated by equation \ref{amplifiers} and \ref{optical_channels} respectively.
+
+\begin{equation}
+N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
+\label{amplifiers}
+\end{equation}
+
+
+\begin{itemize}
+\item{$N^R$			$\rightarrow$ Total number of regenerators/amplifiers}
+\item{$len_l$		$\rightarrow$ Length of link l}
+\item{$span$		$\rightarrow$ Distance between amplifiers}	
+\end{itemize}	
+
+
+\begin{equation}
+<w> = \left( \frac{\lceil D \times <h> \rceil}{L} \right) \times \left( 1 + <k>\right)
+\label{optical_channels}
+\end{equation}
+
+
+\begin{itemize}
+\item{$<w>$		$\rightarrow$ Average number of optical channels}
+\item{$D$  		$\rightarrow$ Number of bidirectional demands}
+\item{$L$		$\rightarrow$ Number of Links}	
+\item{$<k>$		$\rightarrow$ Survivability coefficient}
+\end{itemize}	
+
+
+where:
+
+\begin{equation}
+D = \left(\frac{1}{2}\right) \times \left( 1 + \xi \right) \times \left(\frac{T_1}{\tau}\right)
+\label{demands}
+\end{equation}
+
+
+\begin{itemize}
+\item{$D$  		$\rightarrow$ Number of bidirectional demands}
+\item{$\xi$		$\rightarrow$ Coefficient}
+\item{$T_1$		$\rightarrow$ Total unidirectional traffic}	
+\item{$\tau$	$\rightarrow$ Traffic per port}
+\end{itemize}
+
+\vspace{11pt}
+The next step is to take into account the cost of the nodes, but for this we must first know how a node is constituted. The nodes have an electrical part and an optical part so we can conclude that the cost of the nodes is given by the sum of these two parts thus obtaining the equation \ref{analytical_Capex_Node}.
+
+\begin{equation}
+C_N = C_{EXC} + C_{OXC}
+\label{analytical_Capex_Node}
+\end{equation}
+
+\vspace{11pt}
+To know the electric cost of the nodes that is given by equation \ref{analytical_electricalCost}.
+
+\begin{equation}
+C_{exc} = N \times \left( \gamma_{e0} + \left( \gamma_{e1} \times \tau \times <P_{exc}> \right) \right)
+\label{analytical_electricalCost}
+\end{equation}
+
+
+\begin{itemize}
+\item{$C_{exc}$		$\rightarrow$	Electrical ports cost}
+\item{$N$			$\rightarrow$	Number of nodes}
+\item{$\gamma_{e0}$	$\rightarrow$	EXC cost in euros}
+\item{$\gamma_{e1}$	$\rightarrow$	EXC port cost in euros}
+\item{$\tau$		$\rightarrow$	Traffic per port}
+\item{$<P_{exc}>$   $\rightarrow$   Average number of ports of the electrical switch}
+\end{itemize}
+
+\vspace{11pt}
+In relation to the optical part to know the optical cost of the nodes that is given by equation \ref{analytical_opticalCost}.
+
+\begin{equation}
+C_{oxc} = N \times \left( \gamma_{o0} + \left( \gamma_{o1} \times <P_{oxc}> \right) \right)
+\label{analytical_opticalCost}
+\end{equation}
+
+
+\begin{itemize}
+\item{$C_{oxc}$		$\rightarrow$	Optical ports cost}
+\item{$N$			$\rightarrow$	Number of nodes}
+\item{$\gamma_{o0}$	$\rightarrow$	OXC cost in euros}
+\item{$\gamma_{o1}$	$\rightarrow$	OXC port cost in euros}
+\item{$<P_{oxc}>$   $\rightarrow$   Average number of ports of the optical switch}
+\end{itemize}
+
+\vspace{10pt}
+We have to take into account that the calculated value for the variable $<P_{exc}>$ and $<P_{oxc}>$ will depend on the mode of transport used (opaque, transparent or translucent) but later on it will be explained how these values are calculated for each specific transport mode.
+Finally, for this we will also have to take into account the cost of the equipment used that can be consulted in table \ref{table_cost_analytical}.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c||}
+ \hline
+ Equipment & Cost \\
+ \hline\hline
+ OLT without transponders & 15000 \euro \\
+ Transponder & 5000 \euro/Gb \\
+ Optical Amplifier & 4000 \euro \\
+ EXC & 10000 \euro \\
+ OXC & 20000 \euro \\
+ EXC Port & 1000 \euro /Gb/s\\
+ OXC Port & 2500 \euro /porto \\
+ \hline
+\end{tabular}
+\caption{Table with costs}
+\label{table_cost_analytical}
+\end{table}
+

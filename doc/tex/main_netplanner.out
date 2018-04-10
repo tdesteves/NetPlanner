@@ -4,24 +4,58 @@
 \BOOKMARK [1][-]{section.2.2}{Blocks}{chapter.2}% 4
 \BOOKMARK [1][-]{section.2.3}{Signals}{chapter.2}% 5
 \BOOKMARK [0][-]{chapter.3}{Development Cycle}{}% 6
-\BOOKMARK [0][-]{chapter.4}{Case Studies}{}% 7
-\BOOKMARK [1][-]{section.4.1}{Opaque with 1+1 Protection}{chapter.4}% 8
-\BOOKMARK [2][-]{subsection.4.1.1}{Physical Network Topology}{section.4.1}% 9
-\BOOKMARK [2][-]{subsection.4.1.2}{Dimensioning using ILP}{section.4.1}% 10
-\BOOKMARK [2][-]{subsection.4.1.3}{Dimensioning using Heuristics}{section.4.1}% 11
-\BOOKMARK [2][-]{subsection.4.1.4}{Analysis and comparison of results}{section.4.1}% 12
-\BOOKMARK [1][-]{section.4.2}{Transparent with 1+1 Protection}{chapter.4}% 13
-\BOOKMARK [2][-]{subsection.4.2.1}{Physical Network Topology}{section.4.2}% 14
-\BOOKMARK [2][-]{subsection.4.2.2}{Dimensioning using ILP}{section.4.2}% 15
-\BOOKMARK [2][-]{subsection.4.2.3}{Dimensioning using Heuristics}{section.4.2}% 16
-\BOOKMARK [2][-]{subsection.4.2.4}{Analysis and comparison of results}{section.4.2}% 17
-\BOOKMARK [1][-]{section.4.3}{Translucent with 1+1 Protection}{chapter.4}% 18
-\BOOKMARK [2][-]{subsection.4.3.1}{Physical Network Topology}{section.4.3}% 19
-\BOOKMARK [2][-]{subsection.4.3.2}{Dimensioning using ILP}{section.4.3}% 20
-\BOOKMARK [2][-]{subsection.4.3.3}{Dimensioning using Heuristics}{section.4.3}% 21
-\BOOKMARK [2][-]{subsection.4.3.4}{Analysis and comparison of results}{section.4.3}% 22
-\BOOKMARK [0][-]{chapter.5}{Appendices}{}% 23
-\BOOKMARK [1][-]{section.5.1}{Net2Plan Guide}{chapter.5}% 24
-\BOOKMARK [1][-]{section.5.2}{ILP scenarios}{chapter.5}% 25
-\BOOKMARK [0][-]{chapter.6}{Master Dissertations}{}% 26
-\BOOKMARK [1][-]{section*.63}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.6}% 27
+\BOOKMARK [0][-]{chapter.4}{Reference Network Specification}{}% 7
+\BOOKMARK [1][-]{section.4.1}{Physical Topology}{chapter.4}% 8
+\BOOKMARK [1][-]{section.4.2}{Traffic Matrices}{chapter.4}% 9
+\BOOKMARK [2][-]{subsection.4.2.1}{Low traffic scenario \(0.5 Tbits/s\)}{section.4.2}% 10
+\BOOKMARK [2][-]{subsection.4.2.2}{Medium traffic scenario \(5 Tbits/s\)}{section.4.2}% 11
+\BOOKMARK [2][-]{subsection.4.2.3}{High traffic scenario \(10 Tbits/s\)}{section.4.2}% 12
+\BOOKMARK [0][-]{chapter.5}{Integer Linear Programming \(ILP\)}{}% 13
+\BOOKMARK [1][-]{section.5.1}{CAPEX}{chapter.5}% 14
+\BOOKMARK [2][-]{subsection.5.1.1}{Opaque without Survivability}{section.5.1}% 15
+\BOOKMARK [2][-]{subsection.5.1.2}{Opaque with 1+1 Protection}{section.5.1}% 16
+\BOOKMARK [2][-]{subsection.5.1.3}{Transparent without Survivability}{section.5.1}% 17
+\BOOKMARK [2][-]{subsection.5.1.4}{Transparent with 1+1 Protection}{section.5.1}% 18
+\BOOKMARK [2][-]{subsection.5.1.5}{Translucent without Survivability}{section.5.1}% 19
+\BOOKMARK [2][-]{subsection.5.1.6}{Translucent with 1+1 Protection}{section.5.1}% 20
+\BOOKMARK [0][-]{chapter.6}{Heuristic Models}{}% 21
+\BOOKMARK [1][-]{section.6.1}{CAPEX}{chapter.6}% 22
+\BOOKMARK [2][-]{subsection.6.1.1}{Opaque without Survivability}{section.6.1}% 23
+\BOOKMARK [2][-]{subsection.6.1.2}{Opaque with 1+1 Protection}{section.6.1}% 24
+\BOOKMARK [2][-]{subsection.6.1.3}{Transparent without Survivability}{section.6.1}% 25
+\BOOKMARK [2][-]{subsection.6.1.4}{Transparent with 1+1 Protection}{section.6.1}% 26
+\BOOKMARK [2][-]{subsection.6.1.5}{Translucent without Survivability}{section.6.1}% 27
+\BOOKMARK [2][-]{subsection.6.1.6}{Translucent with 1+1 Protection}{section.6.1}% 28
+\BOOKMARK [0][-]{chapter.7}{Analytical Models}{}% 29
+\BOOKMARK [1][-]{section.7.1}{CAPEX}{chapter.7}% 30
+\BOOKMARK [2][-]{subsection.7.1.1}{Opaque without Survivability}{section.7.1}% 31
+\BOOKMARK [2][-]{subsection.7.1.2}{Opaque with 1+1 Protection}{section.7.1}% 32
+\BOOKMARK [2][-]{subsection.7.1.3}{Transparent without Survivability}{section.7.1}% 33
+\BOOKMARK [2][-]{subsection.7.1.4}{Transparent with 1+1 Protection}{section.7.1}% 34
+\BOOKMARK [2][-]{subsection.7.1.5}{Translucent without Survivability}{section.7.1}% 35
+\BOOKMARK [2][-]{subsection.7.1.6}{Translucent with 1+1 Protection}{section.7.1}% 36
+\BOOKMARK [0][-]{chapter.8}{Comparative Analysis}{}% 37
+\BOOKMARK [1][-]{section.8.1}{Opaque without Survivability}{chapter.8}% 38
+\BOOKMARK [1][-]{section.8.2}{Opaque with 1+1 Protection}{chapter.8}% 39
+\BOOKMARK [1][-]{section.8.3}{Transparent without Survivability}{chapter.8}% 40
+\BOOKMARK [1][-]{section.8.4}{Transparent with 1+1 Protection}{chapter.8}% 41
+\BOOKMARK [1][-]{section.8.5}{Translucent without Survivability}{chapter.8}% 42
+\BOOKMARK [1][-]{section.8.6}{Translucent with 1+1 Protection}{chapter.8}% 43
+\BOOKMARK [0][-]{chapter.9}{Case Studies}{}% 44
+\BOOKMARK [1][-]{section.9.1}{Opaque without Survivability - European Optical Network}{chapter.9}% 45
+\BOOKMARK [2][-]{subsection.9.1.1}{Physical Network Topology}{section.9.1}% 46
+\BOOKMARK [2][-]{subsection.9.1.2}{Dimensioning using Analytical Model}{section.9.1}% 47
+\BOOKMARK [2][-]{subsection.9.1.3}{Dimensioning using ILP}{section.9.1}% 48
+\BOOKMARK [2][-]{subsection.9.1.4}{Dimensioning using Heuristics}{section.9.1}% 49
+\BOOKMARK [2][-]{subsection.9.1.5}{Comparative Analysis}{section.9.1}% 50
+\BOOKMARK [1][-]{section.9.2}{Opaque with 1+1 Protection - European Optical Network}{chapter.9}% 51
+\BOOKMARK [2][-]{subsection.9.2.1}{Physical Network Topology}{section.9.2}% 52
+\BOOKMARK [2][-]{subsection.9.2.2}{Dimensioning using ILP}{section.9.2}% 53
+\BOOKMARK [2][-]{subsection.9.2.3}{Dimensioning using Heuristics}{section.9.2}% 54
+\BOOKMARK [2][-]{subsection.9.2.4}{Comparative Analysis}{section.9.2}% 55
+\BOOKMARK [0][-]{chapter.10}{Appendices}{}% 56
+\BOOKMARK [1][-]{section.10.1}{Net2Plan Guide}{chapter.10}% 57
+\BOOKMARK [1][-]{section.10.2}{Installing LPSOLVE for using in MatLab}{chapter.10}% 58
+\BOOKMARK [1][-]{section.10.3}{Codify ILP in MatLab}{chapter.10}% 59
+\BOOKMARK [0][-]{chapter.11}{Master Dissertations}{}% 60
+\BOOKMARK [1][-]{section*.241}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{chapter.11}% 61

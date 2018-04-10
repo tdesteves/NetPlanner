@@ -1,0 +1,95 @@
+\clearpage
+
+\section{Opaque with 1+1 Protection}\label{comparative_Opaque_Protection}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Tiago Esteves    (October 03, 2017 - )\\
+\textbf{Goal}          &:& Comparative analysis of the results of the models used for the opaque transport mode with 1 plus 1 protection.
+\end{tabular}
+\end{tcolorbox}
+\vspace{11pt}
+
+
+In this section we will compare the CAPEX values obtained for the three scenarios in the three types of dimensioning. For a better analysis of the results will be created the table \ref{table_comparative_opaque_protec_ref_1} (scenario 1), the table \ref{table_comparative_opaque_protec_ref_2} (scenario 2) and the table \ref{table_comparative_opaque_protec_ref_3} (scenario 3) with the different values obtained.\\
+
+\textbf{Low traffic scenario:}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+   & Analytical & ILP & Heuristic \\
+ \hline\hline
+ Link Cost & 32 380 000 \euro & 30 452 000 \euro & 29 520 000 \euro \\
+ Node Cost & 8 191 200 \euro & 6 062 590 \euro & 5 862 590 \euro \\
+ CAPEX & \textbf{40 571 200 \euro} & \textbf{36 514 590 \euro} & \textbf{35 382 590 \euro} \\
+ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX }
+\label{table_comparative_opaque_protec_ref_1}
+\end{table}
+
+\vspace{11pt}
+Looking at the previous table we can make some comparisons between the several different models of dimensioning and finally draw some conclusions.
+
+\begin{itemize}
+  \item We can conclude that in this case the dimensioning using ILP is the best (lowest cost).
+  \item In comparison with the analytical model we can see that there is a difference considered with a 32\% error, this value is mainly due to the number of optical channels because in the analytical model more optical channels are calculated and used than those required in the ILP model.
+  \item In comparison with the heuristic model we can see that there is a small difference with a 11\% error, much smaller than the previous one.
+\end{itemize}
+
+\vspace{11pt}
+\textbf{Medium traffic scenario:}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+   & Analytical & ILP & Heuristic \\
+ \hline\hline
+ Link Cost & 308 380 000 \euro & 199 520 000 \euro & 250 520 000 \euro \\
+ Node Cost & 81 379 200 \euro & 39 885 900 \euro & 50 062 590 \euro \\
+ CAPEX & \textbf{389 759 200 \euro} & \textbf{239 405 900 \euro} & \textbf{300 582 590 \euro} \\
+ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX }
+\label{table_comparative_opaque_protec_ref_2}
+\end{table}
+
+\vspace{11pt}
+Looking at the previous table we can make some comparisons between the several different models of dimensioning and finally draw some conclusions.
+
+\begin{itemize}
+  \item We can conclude that in this case the dimensioning using ILP is the best (lowest cost).
+  \item In comparison with the analytical model we can see that there is a difference considered with a 50\% error.
+  \item In comparison with the heuristic model we can see that there is a smaller difference with a 3\% error.
+\end{itemize}
+
+
+\vspace{11pt}
+\textbf{High traffic scenario:}\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+   & Analytical & ILP & Heuristic \\
+ \hline\hline
+ Link Cost & 614 380 000 \euro & 397 520 000 \euro & 497 520 000 \euro \\
+ Node Cost & 162 700 800 \euro & 79 511 800 \euro & 99 462 590 \euro \\
+ CAPEX & \textbf{777 080 800 \euro} & \textbf{477 031 800 \euro} & \textbf{596 982 590 \euro} \\
+ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX }
+\label{table_comparative_opaque_protec_ref_3}
+\end{table}
+
+\vspace{11pt}
+Looking at the previous table we can make some comparisons between the several different models of dimensioning and finally draw some conclusions.
+
+\begin{itemize}
+  \item We can conclude that in this case the dimensioning using ILP is the best (lowest cost).
+  \item In comparison with the analytical model we can see that there is a difference considered with a 66\% error.
+  \item In comparison with the heuristic model we can see that there is a smaller difference with a 2\% error.
+\end{itemize}
+

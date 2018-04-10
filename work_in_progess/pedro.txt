@@ -1,0 +1,29 @@
+2018-04-10
+TO BE DONE
+
+	- mehorar a edição (fazer análogo ao Tiago)
+
+	- apresentares as heuristicas Vasco2016
+
+	- obter os resultados para as heuristicas Vasco2016
+
+Next meeting: 17/4, 9h
+
+2018-04-03
+TO BE DONE
+
+	- melhor a documentação, fazer de forma análoga ao Tiago
+
+	- mostrar as várias topologias retirando print scream diretos do Net2Plan
+
+	- repetir os resultados considerando todas as ligações na topologia ótica
+
+Next meeting: 10/4, 15h-16h
+
+2018-03-01
+TO BE DONE
+
+- obter resultados usando o Net2Plan (Heuristicas) para o caso mais simples (opaco sem proteção)
+- pull request
+
+Next meeting: 7/3, 16h
