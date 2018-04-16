@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  16 APR 2018 21:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  17 APR 2018 00:24
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -3510,7 +3510,7 @@ Package babel Info: Redefining portuges shorthand "|
 Package babel Info: Redefining portuges shorthand "|
 (babel)             in language  on input line 447.
  [95]
-Overfull \hbox (36.4064pt too wide) in paragraph at lines 452--476
+Overfull \hbox (47.35638pt too wide) in paragraph at lines 452--476
  [][] 
  []
 
@@ -10106,7 +10106,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 68.
 Here is how much of TeX's memory you used:
  28523 strings out of 493323
  540923 string characters out of 3139065
- 692822 words of memory out of 3000000
+ 692820 words of memory out of 3000000
  30436 multiletter control sequences out of 15000+200000
  26285 words of font info for 62 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -10130,7 +10130,7 @@ msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (309 pages, 12075236 bytes).
+Output written on main_netplanner.pdf (309 pages, 12075287 bytes).
 PDF statistics:
  5330 PDF objects out of 6186 (max. 8388607)
  759 named destinations out of 1000 (max. 500000)
