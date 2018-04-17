@@ -14,16 +14,15 @@ CAPEX is the amount of money needed to set up and install a particular network.
 OPEX is the amount of money needed to run this network as well as its maintenance and operation over time.
 In this section we will only focus on CAPEX, that is, the costs of installing a particular network.
 As we know the telecommunications networks are made up of links and nodes, so it is possible to define the CAPEX as being the sum of the cost of links and cost of nodes.
-This can be said that the value of CAPEX is given by the equation \ref{Capex}.
+This can be said that the CAPEX cost in monetary units (e.g. euros, or dollars), $C_C$, is given by the equation \ref{Capex}
 
 \begin{equation}
 C_C = C_L + C_N
 \label{Capex}
 \end{equation}
 
-
+where:
 \begin{itemize}
-\item{$C_C$				$\rightarrow$	CAPEX cost in monetary units (e.g. euros, or dollars)}
 \item{$C_L$				$\rightarrow$	Link cost in monetary units (e.g. euros, or dollars)}
 \item{$C_N$				$\rightarrow$	Node cost in monetary units (e.g. euros, or dollars)}
 \end{itemize}
@@ -40,15 +39,15 @@ For this calculation first let's focus on the cost of the links and for this we 
 \end{figure}
 
 \newpage
-Thus, through the previous image, we can conclude that the link cost is calculated by the equation \ref{Capex_Link}.
+Thus, through the previous image, we can conclude that the link cost in monetary units (e.g. euros, or dollars), $C_L$, is calculated by the equation \ref{Capex_Link}
 
 \begin{equation}
 C_L = \sum_{i=1}^N \sum_{j=i+1}^N L_{ij} \left( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R \right)
 \label{Capex_Link}
 \end{equation}
 
+where:
 \begin{itemize}
-\item{$C_L$				$\rightarrow$	Links cost in monetary units (e.g. euros, or dollars)}
 \item{$i$               $\rightarrow$   Index for start node of a physical link}
 \item{$j$               $\rightarrow$   Index for end node of a physical link}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
@@ -61,8 +60,8 @@ C_L = \sum_{i=1}^N \sum_{j=i+1}^N L_{ij} \left( 2 \gamma_0^{OLT} + 2 \gamma_1^{O
 \item{$c^R$				$\rightarrow$	Optical amplifiers cost in monetary units (e.g. euros, or dollars)}
 \end{itemize}
 
-
-The next step is to take into account the cost of the nodes, but for this we must first know how a node is constituted. The nodes have an electrical part and an optical part so we can conclude that the cost of the nodes is given by the sum of these two parts thus obtaining the equation \ref{Capex_Node}.
+\vspace{11pt}
+The next step is to take into account the cost of the nodes, but for this we must first know how a node is constituted. The nodes have an electrical part, $C_{EXC}$, and an optical part, $C_{OXC}$, so we can conclude that the cost of the nodes, $C_N$, is given by the sum of these two parts thus obtaining the equation \ref{Capex_Node}.
 
 \begin{equation}
 C_N = C_{EXC} + C_{OXC}
@@ -81,15 +80,15 @@ In relation to the electric part we can see the figure \ref{exc_design} where it
 
 
 Thus, through the previous image, we can conclude in a simple way that the electric cost is the sum of the fixed cost of the electrical connection with the total cost of all the electric ports.
-Therefore the electric cost is given by equation \ref{Capex_Node_EXC}.
+Therefore the electric cost in monetary units (e.g. euros, or dollars), $C_{EXC}$, is given by equation \ref{Capex_Node_EXC}
 
 \begin{equation}
 C_{EXC} = \sum_{n=1}^{N} N_{exc,n} \left( \gamma_{e0} + \sum_{c=-1}^B \gamma_{e1,c} P_{exc,c,n} \right)
 \label{Capex_Node_EXC}
 \end{equation}
 
+where:
 \begin{itemize}
-\item{$C_{EXC}$			$\rightarrow$	Electrical cost in monetary units (e.g. euros, or dollars)}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
 \item{$N_{exc,n}$		$\rightarrow$	Binary variable indicating if node $n$ is used, $N_{exc,n} \in {0, 1}$}
 \item{$\gamma_{e0}$ 	$\rightarrow$	EXC cost in monetary units (e.g. euros, or dollars)}
@@ -128,15 +127,15 @@ In relation to the optical part we can see the figure \ref{oxc_design} where it 
 
 
 Thus, through the previous image, we can conclude in a simple way that the electric cost is the sum of the fixed cost of the optical connection with the total cost of all the optical ports.
-Therefore the optical cost is given by equation \ref{Capex_Node_OXC}.
+Therefore the optical cost in monetary units (e.g. euros, or dollars), $C_{OXC}$, is given by equation \ref{Capex_Node_OXC}
 
 \begin{equation}
 C_{OXC} = \sum_{n=1}^{N} N_{oxc,n} \left( \gamma_{o0} + \gamma_{o1} P_{oxc,n} \right)
 \label{Capex_Node_OXC}
 \end{equation}
 
+where:
 \begin{itemize}
-\item{$C_{OXC}$			$\rightarrow$	Optical cost in monetary units (e.g. euros, or dollars)}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
 \item{$N_{oxc,n}$		$\rightarrow$	Binary variable indicating if node $n$ is used, $N_{oxc,n} \in {0, 1}$}
 \item{$\gamma_{o0}$ 	$\rightarrow$	OXC cost in monetary units (e.g. euros, or dollars)}
