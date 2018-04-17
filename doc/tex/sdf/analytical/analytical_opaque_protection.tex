@@ -14,39 +14,37 @@ Before carrying out the detailed description we must take into account the follo
 \begin{itemize}
   \item $C_{oxc}$ = 0
   \item $\xi$ = 1
-  \item $<k>$ = 1
+  \item $<k>$ = $<kp>$
 \end{itemize}
 
 \vspace{11pt}
-The first particularity exists because in this mode of transport there is no optical cost, in the case of the second we are assuming that the coefficient has value 1 and finally in the last particularity we are assuming that the survivability coefficient is 1 because it is with protection 1+1.\\
+The first particularity exists because in this mode of transport there is no optical cost, in the case of the second we are assuming that the coefficient has value 1 and finally in the last particularity we are assuming that the survivability coefficient is $<kp>$ because it is with protection 1+1 where
 
-Finally looking at the equation \ref{analytical_electricalCost} we can see that we already have practically all the values with the exception of the number of ports the electrical switch that can be calculated through the equation \ref{Pexc_opaque_protec}.
+\begin{equation}
+<kp> = \frac{<h'>}{<h>}
+\label{coefficient_protec}
+\end{equation}
+
+\vspace{11pt}
+Finally looking at the equation \ref{analytical_electricalCost}  we can see that we already have practically all the values with the exception of the average number of ports the electrical switch,$<P_{exc}>$, that can be calculated as
 
 \begin{equation}
 <P_{exc}> = <d> \times [1 + \left(1 + <k>\right) \times <h>]
 \label{Pexc_opaque_protec}
 \end{equation}
 
-\begin{itemize}
-\item{$<P_{exc}>$ $\rightarrow$ Average number of ports of the electrical switch}
-\item{$<d>$		  $\rightarrow$ Average number of demands}
-\item{$<k>$		  $\rightarrow$ Survivability coefficient}	
-\item{$<h>$	      $\rightarrow$ Average number of hops}
-\end{itemize}
-
-Where:
-\begin{equation}
-<d> = \frac{2 \times D}{N}
-\label{average_demand_protec}
-\end{equation}
+where $<d>$ is the average number of demands, $<k>$	is the survivability coefficient and $<h>$ is the average number of hops.\\
 
 
 \subsubsection{Result description}
 
 We already have all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.\\
+First for all scenarios we have to take into account the survivability coefficient \ref{coefficient_protec}.\\
+
+$<kp>$ = $\frac{2.467}{1.533}$ = 1.609
 
 \textbf{Low Traffic Scenario:}\\
-In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}.\\
+In this scenario we have to take into account the traffic calculated in \ref{low_scenario}.\\
 
 Using equation \ref{demands}:\\
 
@@ -54,7 +52,7 @@ $D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{1000}{100}$ $)$ \qquad \qquad $
 
 Replacing in equation \ref{optical_channels}:\\
 
-$<w>$ = $($ $\frac{10 * 1.533}{8}$ $)$ * $($ 1 + 1$)$ \qquad \qquad $<w>$ = 4\\
+$<w>$ = $($ $\frac{10 * 1.533}{8}$ $)$ * $($ 1 + 1.609$)$ \qquad \qquad $<w>$ = 5.218\\
 
 Using equation \ref{amplifiers}:\\
 
@@ -64,28 +62,28 @@ $N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 4$)$ + $($35 * 4 000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 5.218$)$ + $($35 * 4 000$)$\\
 
-$C_L$ = \textbf{32 380 000 \euro}\\
+$C_L$ = \textbf{42 124 000 \euro}\\
 
-In relation to the cost of the nodes we first use the equation \ref{average_demand_protec}:\\
+In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
 $<d>$ = $\frac{2 * 10}{6}$ \qquad \qquad $<d>$ = 3.333\\
 
 Replacing in equation \ref{Pexc_opaque_protec}:\\
 
-$<P_{exc}>$ = 3.333 * $[$1 + $($1 + $1$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 13.5520 \\
+$<P_{exc}>$ = 3.333 * $[$1 + $($1 + $1.609$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 16.6637 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 13.5520 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 16.6637 $)$ $)$\\
 
-$C_N$ = \textbf{8 191 200 \euro}\\
+$C_N$ = \textbf{10 058 220 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 32 380 000 + 8 191 200\\
+$CAPEX$ = 42 124 000 + 10 058 220\\
 
-$CAPEX$ = \textbf{40 571 200 \euro}\\
+$CAPEX$ = \textbf{52 182 220 \euro}\\
 
 \textbf{Medium Traffic Scenario}\\
 In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}.\\
@@ -96,7 +94,7 @@ $D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{10000}{100}$ $)$ \qquad \qquad 
 
 Replacing in equation \ref{optical_channels}:\\
 
-$<w>$ = $($ $\frac{100 * 1.533}{8}$ $)$ * $($ 1 + 1$)$ \qquad \qquad $<w>$ = 38.5\\
+$<w>$ = $($ $\frac{100 * 1.533}{8}$ $)$ * $($ 1 + 1.609$)$ \qquad \qquad $<w>$ = 50.22\\
 
 Using equation \ref{amplifiers}:\\
 
@@ -106,28 +104,28 @@ $N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 38.5$)$ + $($35 * 4 000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 50.22$)$ + $($35 * 4 000$)$\\
 
-$C_L$ = \textbf{308 380 000 \euro}\\
+$C_L$ = \textbf{402 140 000 \euro}\\
 
-In relation to the cost of the nodes we first use the equation \ref{average_demand_protec}:\\
+In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
 $<d>$ = $\frac{2 * 100}{6}$ \qquad \qquad $<d>$ = 33.333\\
 
 Replacing in equation \ref{Pexc_opaque_protec}:\\
 
-$<P_{exc}>$ = 33.333 * $[$1 + $($1 + $1$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 135.5320 \\
+$<P_{exc}>$ = 33.333 * $[$1 + $($1 + $1.609$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 166.6516 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 135.5320 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 166.6516 $)$ $)$\\
 
-$C_N$ = \textbf{81 379 200 \euro}\\
+$C_N$ = \textbf{100 050 960 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 308 380 000 + 81 379 200\\
+$CAPEX$ = 402 140 000 + 100 050 960\\
 
-$CAPEX$ = \textbf{389 759 200 \euro}\\
+$CAPEX$ = \textbf{502 190 960 \euro}\\
 
 \textbf{High Traffic Scenario}\\
 In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}.\\
@@ -138,7 +136,7 @@ $D$ = $\frac{1}{2}$ * $($ 1 + 1 $)$ * $($ $\frac{20000}{100}$ $)$ \qquad \qquad 
 
 Replacing in equation \ref{optical_channels}:\\
 
-$<w>$ = $($ $\frac{200 * 1.533}{8}$ $)$ * $($ 1 + 1$)$ \qquad \qquad $<w>$ = 76.75\\
+$<w>$ = $($ $\frac{200 * 1.533}{8}$ $)$ * $($ 1 + 1.609$)$ \qquad \qquad $<w>$ = 100.120\\
 
 Using equation \ref{amplifiers}:\\
 
@@ -148,26 +146,26 @@ $N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 76.75$)$ + $($35 * 4 000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 100.120$)$ + $($35 * 4 000$)$\\
 
-$C_L$ = \textbf{614 380 000 \euro}\\
+$C_L$ = \textbf{800 960 000 \euro}\\
 
-In relation to the cost of the nodes we first use the equation \ref{average_demand_protec}:\\
+In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
 $<d>$ = $\frac{2 * 200}{6}$ \qquad \qquad $<d>$ = 66.667\\
 
 Replacing in equation \ref{Pexc_opaque_protec}:\\
 
-$<P_{exc}>$ = 66.667 * $[$1 + $($1 + $1$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 271.0680 \\
+$<P_{exc}>$ = 66.667 * $[$1 + $($1 + $1.609$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 333.3081 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 271.0680 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 333.3081 $)$ $)$\\
 
-$C_N$ = \textbf{162 700 800 \euro}\\
+$C_N$ = \textbf{200 044 860 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 614 380 000 + 162 700 800\\
+$CAPEX$ = 800 960 000 + 200 044 860\\
 
-$CAPEX$ = \textbf{777 080 800 \euro}\\
+$CAPEX$ = \textbf{1 001 004 860 \euro}\\
 

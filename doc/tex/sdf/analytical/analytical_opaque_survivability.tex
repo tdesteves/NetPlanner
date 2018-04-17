@@ -20,21 +20,18 @@ Before carrying out the detailed description we must take into account the follo
 \vspace{11pt}
 The first particularity exists because in this mode of transport there is no optical cost, in the case of the second we are assuming that the coefficient has value 1 and finally in the last particularity we are assuming that the survivability coefficient is zero because it is without survivability.\\
 
-Finally looking at the equation \ref{analytical_electricalCost} we can see that we already have practically all the values with the exception of the number of ports the electrical switch that can be calculated through the equation \ref{Pexc_opaque}.
+Finally looking at the equation \ref{analytical_electricalCost} we can see that we already have practically all the values with the exception of the average number of ports the electrical switch,$<P_{exc}>$, that can be calculated as
 
 \begin{equation}
 <P_{exc}> = <d> \times [1 + \left(1 + <k>\right) \times <h>]
 \label{Pexc_opaque}
 \end{equation}
+\vspace{11pt}
 
-\begin{itemize}
-\item{$<P_{exc}>$ $\rightarrow$ Average number of ports of the electrical switch}
-\item{$<d>$		  $\rightarrow$ Average number of demands}
-\item{$<k>$		  $\rightarrow$ Survivability coefficient}	
-\item{$<h>$	      $\rightarrow$ Average number of hops}
-\end{itemize}
+where $<d>$ is the average number of demands, $<k>$	is the survivability coefficient and $<h>$ is the average number of hops.\\
 
-Where:
+The variable $<d>$ is calculated through the equation \ref{average_demand}.
+
 \begin{equation}
 <d> = \frac{2 \times D}{N}
 \label{average_demand}
@@ -46,7 +43,7 @@ Where:
 We already have all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.\\
 
 \textbf{Low Traffic Scenario:}\\
-In this scenario we have to take into account the traffic calculated in \ref{low_traffic_scenario}.\\
+In this scenario we have to take into account the traffic calculated in \ref{low_scenario}.\\
 
 Using equation \ref{demands}:\\
 
