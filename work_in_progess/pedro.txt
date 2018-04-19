@@ -1,3 +1,10 @@
+2018-04-17
+TO BE DONE
+
+	- alterar as heuristicas de forma a garantir que o número de canais é o mesmo nos dois sentidos
+
+Next meeting: 24/4, 9h
+
 2018-04-10
 TO BE DONE
 

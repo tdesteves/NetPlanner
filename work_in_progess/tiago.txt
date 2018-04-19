@@ -1,4 +1,12 @@
-﻿2018-04-10
+﻿2018-04-17
+TO BE DONE
+	derivar uma expressão a partir das tabelas e comparar com a derivação analitica
+
+	modo transparente ver a formulação
+
+Next meeting: 24/4, 9h
+
+2018-04-10
 TO BE DONE
 	melhorar a parte da edição 							**** Feito ****
 
