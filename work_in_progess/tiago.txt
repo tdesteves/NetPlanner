@@ -1,12 +1,20 @@
-﻿2018-04-10
+﻿2018-04-17
 TO BE DONE
-	melhorar a parte da edição
+	derivar uma expressão a partir das tabelas e comparar com a derivação analitica
 
-	obter resultados para os casos todos
+	modo transparente ver a formulação
 
-	escrever as conclusões para os casos todos
+Next meeting: 24/4, 9h
 
-	escrever os open issues para os casos todos
+2018-04-10
+TO BE DONE
+	melhorar a parte da edição 							**** Feito ****
+
+	obter resultados para os casos todos 				**** Feito-(Opaq_Surv_e_Protec, Transp_Surv_e_Protec) ****
+
+	escrever as conclusões para os casos todos 			**** Feito-(Opaq_Surv_e_Protec) ****
+
+	escrever os open issues para os casos todos 		**** Feito-(Opaq_Surv_e_Protec) ****
 
 Next Meeting: 17/4, 9h
 
