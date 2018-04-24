@@ -14,85 +14,94 @@ Here, in this case, we must take into account table \ref{description_transluc}, 
 The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we have in consideration the electric cost and the optical cost.
 In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_translucent} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_translucent}.\\
 
-Objective Function:\\
-$minimize$
-\begin{equation}
-\sum_{(i,j)}^N L_{ij} (2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R) + \sum_{n=1}^{N} N_{exc,n} (\gamma_{e0} + \sum_{c=-1}^4 \gamma_{e1,c} 2 \tau W + \sum_{n=1}^{N} N_{oxc,n} (\gamma_{o0} + \gamma_{o1}(f_{ij}^{od} + W_{ij}))
-\label{ILPTransluc}
-\end{equation}
+\vspace{17pt}
+The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}.\\
 
 $subject$ $to$
-
 \begin{equation}
-\sum_{j \textbackslash \{o\} } L_{ij}^{od} = D_{odc}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (o,d):o<d
-\label{ILPTransluc1}
+\sum_{j\textbackslash \{o\}} Ls_{ij}^{od} = D_{odc}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTranslucp1}
 \end{equation}
 
 \begin{equation}
-\sum_{j \textbackslash \{o\} } L_{ij}^{od} = \sum_{j \textbackslash \{d\} } L_{ji}^{od}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (o,d):o<d , \forall i : i \neq o,d
-\label{ILPTransluc2}
+\sum_{j\textbackslash \{i,o\}} Ls_{ij}^{od} = \sum_{j\textbackslash \{i,d\}} Ls_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTranslucp2}
 \end{equation}
 
 \begin{equation}
-\sum_{j \textbackslash \{d\} } L_{ji}^{od} = D_{odc}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (o,d):o<d
-\label{ILPTransluc3}
+\sum_{j\textbackslash \{d\}} Ls_{ji}^{od} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTranslucp3}
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d):o<d} \left( B(c) \times L_{ij}^{od}\right) \leq  100 W_{ij}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{(o,d):o<d} B(c) Ls_{ij}^{od} \leq  100 \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j)
-\label{ILPTransluc4}
+\label{ILPTranslucp4}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTranslucp6}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTranslucp7}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} f_{ji}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTranslucp8}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = o
+\label{ILPTranslucp6a}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i \neq o,d
+\label{ILPTranslucp7a}
+\end{equation}
+
+\begin{equation}
+\sum_{j\textbackslash \{d\}} fp_{ji}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d) : o < d, \forall i: i = d
+\label{ILPTranslucp8a}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left(f_{ij}^{od}  + fp_{ij}^{od}\right) \leq \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (o,d), (i,j)
+\label{ILPTranslucpx}
+\end{equation}
+
+\begin{equation}
+\sum_{(o,d):o<d} \left( f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od} \right) \leq K_{ij} G_{ij}
+\qquad \qquad \qquad \qquad \qquad
+\forall (i,j) : i < j
+\label{ILPTranslucp9}
 \end{equation}
 
 \begin{equation}
 L_{ij}^{od} \geq 0;
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j) , \forall (o,d) : o < d
-\label{ILPTransluc5}
+\label{ILPTranslucp5}
 \end{equation}
 
 \begin{equation}
-\sum_{j \textbackslash \{o\} } f_{ij}^{od} = \lambda_{od}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (o,d):o<d
-\label{ILPTransluc6}
-\end{equation}
-
-\begin{equation}
-\sum_{j \textbackslash \{o\} } f_{ij}^{od} = \sum_{j \textbackslash \{d\} } f_{ji}^{od}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (o,d):o<d , \forall i : i \neq o,d
-\label{ILPTransluc7}
-\end{equation}
-
-\begin{equation}
-\sum_{j \textbackslash \{d\} } f_{ji}^{od} = \lambda_{od}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (o,d):o<d
-\label{ILPTransluc8}
-\end{equation}
-
-\begin{equation}
-\sum_{(o,d):o<d} \left( f_{ij}^{od} + f_{ji}^{od}\right) \leq 80 G_{ij}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (i,j) : i < j
-\label{ILPTransluc9}
-\end{equation}
-
-\begin{equation}
-f_{ij}^{od} \geq 0
+f_{ij}^{od}, fp_{ij}^{od} \geq 0
 \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j) \forall (o,d)
-\label{ILPTransluc10}
+\label{ILPTranslucp10}
 \end{equation}	
 
-\vspace{10pt}
-
-The objective function, to be minimized, is the expression \ref{ILPTransluc}............

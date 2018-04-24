@@ -108,7 +108,7 @@ This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of 1.
 \newpage
 \begin{equation}
-\sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od} + f_{ji}^{od}\right) \sum_{c\in C} (B\left(c\right) D_{odc}\leq \tau W_{ij} G_{ij} \qquad \qquad \qquad
+\sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od} + f_{ji}^{od}\right) \sum_{c\in C} (B\left(c\right) D_{odc}\leq \tau W_{ij} G_{ij} \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPOpaque4_Surv}
 \end{equation}
@@ -123,7 +123,7 @@ W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qqu
 This restriction concerns the capacity of the optical channels which must be less or equal to the maximum number of optical channels. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad 
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPOpaque6_Surv}
 \end{equation}
@@ -171,35 +171,35 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_low}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_low}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU2_low}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU3_low}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU4_low}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_low}
 \end{figure}
 
@@ -218,7 +218,7 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \end{figure}
 
 \vspace{15pt}
-In table \ref{link_opaque_surv_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{amplifiers}.\\
+In table \ref{link_opaque_surv_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
 
 \begin{table}[h!]
 \centering
@@ -429,14 +429,14 @@ Now through the table \ref{scriptopaque_surv_ref_low} we can see the result of C
  & \multicolumn{2}{ c |}{Amplifiers} & 56 & 4 000 \euro & 224 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{1 862 590 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 60 & 8 \euro/Gb/s & 600 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 50 & 6 \euro/Gb/s & 750 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 16 & 3 \euro/Gb/s & 480 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 6 & 1.5 \euro/Gb/s & 360 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 4 & 1 \euro/Gb/s & 400 \euro & \\ \cline{3-6}
- & & Line Ports & 18 & 1 000 \euro/Gb/s & 1 800 000 \euro & \\ \cline{2-6}
+ & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 6 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
+ & & Line Ports & 18 & 100 000 \euro/port & 1 800 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
- & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
+ & & Ports & 0 & 2 500 \euro/port & 0 \euro & \\
  \hline
  \multicolumn{6}{|| c |}{Total Network Cost} & 11 266 590 \euro \\
 \hline
@@ -446,25 +446,26 @@ Now through the table \ref{scriptopaque_surv_ref_low} we can see the result of C
 \end{table}
 
 \newpage
-Through the formulas mentioned in table \ref{formulas_opaque_surv_ref_low} we can see how all the values previously indicated in the quantity column were calculated.\\
+All the values calculated in the previous table were obtained through the equations \ref{Capex_Link} and \ref{Capex_Node} referred to in section \ref{ILP_CAPEX}, but for a more detailed analysis we created table \ref{formulas_opaque_surv_ref_low} where we can see how all the parameters are calculated individually.\\
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c ||}
  \hline
-  & Quantity \\ \hline
- OLTs: & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \) \\ \hline
- Transceivers: & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} W_{ij} \) \\ \hline
- Amplifiers: & \(\displaystyle \sum_{i=1}^{N}\sum_{j=i+1}^{N} N^R_{ij} L_{ij} \) \\ \hline
- EXCs: & \(\displaystyle \sum_n^N N_{EXC,n} \) \\ \hline
- ODU0: & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,0} \) \\ \hline
- ODU1: & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,1} \) \\ \hline
- ODU2: & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,2} \)\\ \hline
- ODU3: & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,3} \) \\ \hline
- ODU4: & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,4} \) \\ \hline
- Line: & \(\displaystyle \sum_{i=1}^{N}\sum_{j=1}^{N} W_{ij} \) \\ \hline
- OXCs: & As mentioned initially this result is always zero. \\ \hline
- Ports: & Does not exist for this case then it is equal to zero. \\
+  & Equation used to calculate the cost \\ \hline
+ OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \gamma_0^{OLT} \) \\ \hline
+ Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} W_{ij} \gamma_1^{OLT} \tau \) \\ \hline
+ Amplifiers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} N^R_{ij} c^R \) \\ \hline
+ EXCs & \(\displaystyle \sum_{n=1}^N N_{exc,n} \gamma_{e0} \) \\ \hline
+ ODU0 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
+ ODU1 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
+ ODU2 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
+ ODU3 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
+ ODU4 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
+ Line & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} w_{nj} \gamma_{e1,-1} \) \\ \hline
+ OXCs & For opaque transport mode this parameter is always zero. \\ \hline
+ $P_{oxc}$ & Does not exist for this case then it is equal to zero. \\ \hline
+ CAPEX & The final cost is calculated by summing all previous results. \\
  \hline
  \end{tabular}
 \caption{Table with description of calculation}
@@ -526,35 +527,35 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \begin{figure}[h!]
 \centering
 \includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_medium}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_medium}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU2_medium}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU3_medium}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU4_medium}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_medium}
 \end{figure}
 \newpage
@@ -573,7 +574,8 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \end{figure}
 
 \vspace{17pt}
-In table \ref{link_opaque_surv_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{Capex} and the number of amplifiers for each link calculated using \ref{amplifiersLink}.\\
+In table \ref{link_opaque_surv_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{Capex} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
+
 In table \ref{node_opaque_surv_ref_medium} we can see the resulting nodal degree at the physical layer, the number of line ports and the number of tributary ports for each node.\\
 \newpage
 \begin{table}[h!]
@@ -782,14 +784,14 @@ Now through the table \ref{scriptopaque_surv_ref_medium} we can see the result o
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{15 085 900 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 600 & 8 \euro/Gb/s & 6 000 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 500 & 6 \euro/Gb/s & 7 500 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 160 & 3 \euro/Gb/s & 4 800 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 60 & 1.5 \euro/Gb/s & 3 600 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 40 & 1 \euro/Gb/s & 4 000 \euro & \\ \cline{3-6}
- & & Line Ports & 150 & 1 000 \euro/Gb/s & 15 000 000 \euro & \\ \cline{2-6}
+ & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 60 & 60 \euro/port & 3 600 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 150 & 100 000 \euro/port & 15 000 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
- & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
+ & & Ports & 0 & 2 500 \euro/port & 0 \euro & \\
  \hline
  \multicolumn{6}{|| c |}{Total Network Cost} & 90 605 900 \euro \\
 \hline
@@ -853,35 +855,35 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_high}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_high}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU2_high}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU3_high}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU4_high}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_high}
 \end{figure}
 
@@ -928,6 +930,7 @@ In table \ref{link_opaque_surv_ref_high} we can see the number of optical channe
 
 \vspace{15pt}
 In table \ref{node_opaque_surv_ref_high} we can see the resulting nodal degree at the physical layer, the number of line ports and the number of tributary ports for each node.\\
+
 In each table mentioned next with detailed information we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
 \newpage
 \begin{table}[h!]
@@ -1111,14 +1114,14 @@ Now through the table \ref{scriptopaque_surv_ref_high} we can see the result of 
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{29 711 800 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 1 200 & 8 \euro/Gb/s & 12 000 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 1 000 & 6 \euro/Gb/s & 15 000 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 320 & 3 \euro/Gb/s & 9 600 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 120 & 1.5 \euro/Gb/s & 7 200 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 80 & 1 \euro/Gb/s & 8 000 \euro & \\ \cline{3-6}
- & & Line Ports & 296 & 1 000 \euro/Gb/s & 29 600 000 \euro & \\ \cline{2-6}
+ & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 120 & 60 \euro/port & 7 200 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 296 & 100 000 \euro/port & 29 600 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
- & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
+ & & Ports & 0 & 2 500 \euro/port & 0 \euro & \\
  \hline
  \multicolumn{6}{|| c |}{Total Network Cost} & 178 231 800 \euro \\
 \hline
@@ -1201,14 +1204,14 @@ Looking at the previous table we can make some comparisons between the several s
 
 \subsubsection{Opens Issues}
 
-The creation of this model for any scenario, started considering some considerations and some open issues being:
+The creation of this model for any scenario, started with some considerations and some open issues being:
 
 \begin{itemize}
   \item Allow blocking.
   \subitem The presented model assume that the solution is possible or impossible.
   \item Allow multiple transmission system.
-  \subitem Each link only supports one transmission system.
+  \subitem The presented model for each link only supports one transmission system.
   \item Allowing multi-path routing.
-  \subitem All demands sharing the same node pairs have to follow the same path.
+  \subitem The presented model for all demands sharing the same node pairs have to follow the same path.
 \end{itemize}
 
