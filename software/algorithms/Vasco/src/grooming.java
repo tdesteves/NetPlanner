@@ -102,7 +102,7 @@ public class grooming implements IAlgorithm
 				netPlan.getLinkFromId(links).removeAllAttributes();
 				netPlan.getLinkFromId(links).setCapacity(0);
 			}
-   		
+   		    		
     		switch(type)
     		{
     			// Opaque Transport Mode
@@ -111,12 +111,12 @@ public class grooming implements IAlgorithm
     					for (Demand d : netPlan.getDemands(lowerLayer))	{	
     						boolean odd=true;
     						int counter=0;
-    								
+    						    						
     						Set<Route> droutes = d.getRoutes();
     						System.out.println("droutes: " + droutes.size());
-
+    						
     						for(Route c: droutes) {
-    							counter++;	
+    							counter++;
     							boolean jump=false;
     								
     							if(odd)	{
@@ -166,7 +166,7 @@ public class grooming implements IAlgorithm
     						int nw = (int) (Math.ceil(sumTraffic/wavelengthCapacity));
     						String numberWavelengths = String.valueOf(nw);
     						p.setCapacity(nw*wavelengthCapacity);
-    						p.setAttribute("nW", numberWavelengths);
+    						p.setAttribute("nW", numberWavelengths);  						
     					}
     					break; 
     						
@@ -232,7 +232,7 @@ public class grooming implements IAlgorithm
 				ProtectionSegment compare1=null;
 				List<Link> path;
 				int nW=0;
-				
+								
 				for (long tNodeId : tNodeIds)	{
 					in = netPlan.getNodeFromId(tNodeId);		
 					for (long tNodeId1 : tNodeIds)	{
@@ -249,7 +249,7 @@ public class grooming implements IAlgorithm
 						for(Route d:groomRoute)
 						{
 							totaltraffic = totaltraffic + d.getCarriedTraffic();
-					    	compare=d;			     			    	
+					    	compare=d;			     		    	
 						}
 						
 							path=compare.getSeqLinksRealPath();
@@ -260,8 +260,7 @@ public class grooming implements IAlgorithm
 								nW=0;
 								
 								if(nw!=null)
-								{
-									
+								{		
 									nW=Integer.parseInt(nw);
 									nW = (int) (nW+Math.ceil(totaltraffic/wavelengthCapacity));
 									link.setAttribute("nW",String.valueOf(nW));
@@ -283,7 +282,8 @@ public class grooming implements IAlgorithm
 						    	compare1 = protect;
 							}
 							System.out.println("POINT5B");
-							if (protection)	path=compare1.getSeqLinks();
+							if (protection)
+								path=compare1.getSeqLinks();
 							System.out.println("POINT6");
 							for (Link link:path) {
 								String nw = link.getAttribute("nW");
