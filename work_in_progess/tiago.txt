@@ -1,4 +1,19 @@
-﻿2018-04-17
+﻿2018-04-24
+TO BE DONE
+
+	melhorar o texto
+
+	concluir o transparente
+
+	fazer o translúcido
+
+	refazer o analitico
+
+	fazer para uma rede realista o translúcido ( com e sem proteção, tráfico low, medium, high)
+
+Next meeting: quinta-feira, de manhã
+
+2018-04-17
 TO BE DONE
 	derivar uma expressão a partir das tabelas e comparar com a derivação analitica   **** Feito ****
 
