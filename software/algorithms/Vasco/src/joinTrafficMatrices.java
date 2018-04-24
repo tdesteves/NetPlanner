@@ -45,16 +45,25 @@ import javax.xml.transform.stream.StreamResult;
  
 public class joinTrafficMatrices implements IAlgorithm {
 	
-	private double traf = 0;
-	 
-	public void sendToFile() {
+	private double sum[] = new double[5];
+	
+	public void sendToFile(String entryfile) {
 		
         try {
-            File traffic = new File("C:/Users/Asus/Documents/algorithms/src/traffic.txt");
+        	String file = "C:/Users/Asus/Documents/algorithms/src/";
+        	file += entryfile;
+            File traffic = new File(file);
             FileOutputStream is = new FileOutputStream(traffic);
             OutputStreamWriter osw = new OutputStreamWriter(is);
-            Writer w = new BufferedWriter(osw);
-            w.write(String.valueOf(traf));
+            BufferedWriter w = new BufferedWriter(osw);
+            String s = "";
+            
+            for (int i=0; i < sum.length; i++) {
+            	s = String.valueOf(sum[i]);
+            	w.write(s);
+            	w.newLine();
+			}
+            
             w.close();
         } catch (IOException e) {
             System.err.println("Problem writing to the file traffic.txt");
@@ -85,6 +94,8 @@ public class joinTrafficMatrices implements IAlgorithm {
 			throw new Net2PlanException("Must have matrices to add");
 		}
 
+		double aux = 0;
+		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			Document doc1 = factory.newDocumentBuilder().parse(
@@ -97,43 +108,41 @@ public class joinTrafficMatrices implements IAlgorithm {
 			NodeList entrylist = doc1.getElementsByTagName("demand");
 			for (int i = 0; i < entrylist.getLength(); i++) {
 				Node n = entrylist.item(i);
-				String id_string = n.getAttributes().getNamedItem("id")
-						.getNodeValue();
+				String id_string = n.getAttributes().getNamedItem("id").getNodeValue();
 				int id_int = Integer.parseInt(id_string);
 				max_id = Math.max(max_id, id_int);
-				String offeredTraffic_string = n.getAttributes()
-						.getNamedItem("offeredTraffic").getNodeValue();
-				double offeredTraffic_int = Double
-						.parseDouble(offeredTraffic_string) * traffic[parameters.get(0)];
-				traf += offeredTraffic_int;
-				((Element) n).setAttribute("offeredTraffic",
-						((Double) offeredTraffic_int).toString());
+				String offeredTraffic_string = n.getAttributes().getNamedItem("offeredTraffic").getNodeValue();
+				double offeredTraffic_int = Double.parseDouble(offeredTraffic_string) * traffic[parameters.get(0)];
+				((Element) n).setAttribute("offeredTraffic",((Double) offeredTraffic_int).toString());
 				Element attribute = doc1.createElement("attribute");
 				attribute.setAttribute("key", "ODU");
 				attribute.setAttribute("value", "" + parameters.get(0));
 				n.appendChild(attribute);
-				System.out.print(traf);
-
+				
+				sum[0] += Double.parseDouble(offeredTraffic_string);
+				aux = Double.parseDouble(entrylist.item(entrylist.getLength()-1).getAttributes().getNamedItem("offeredTraffic").getNodeValue());
+				aux = aux * traffic[parameters.get(0)];
 			}
+			
 			max_id++;
-
+			double aux2 = 0;
+			
 			for (int k = 1; k < parameters.size(); k++) {
 				Document doc = factory.newDocumentBuilder().parse(
 						new File(algorithmParameters.get("trafficMatrix"
 								+ (parameters.get(k) + 1))));
 				entrylist = doc.getElementsByTagName("demand");
-
 				// Add demands from ODU matrix
 				for (int i = 0; i < entrylist.getLength(); i++) {
 
 					Node n = doc1.importNode(entrylist.item(i), false);
+							
 					((Element) n).setAttribute("id",
 							((Integer) max_id).toString());
 					String offeredTraffic_string = n.getAttributes()
 							.getNamedItem("offeredTraffic").getNodeValue();
 					double offeredTraffic_int = Double
 							.parseDouble(offeredTraffic_string) * traffic[parameters.get(k)];
-					traf += offeredTraffic_int;
 					((Element) n).setAttribute("offeredTraffic",
 							((Double) offeredTraffic_int).toString());
 					Element attribute = doc1.createElement("attribute");
@@ -142,8 +151,21 @@ public class joinTrafficMatrices implements IAlgorithm {
 					max_id++;
 					element.appendChild(n);
 					n.appendChild(attribute);
+					
+					aux2 += Double.parseDouble(offeredTraffic_string);
 				}
+				if(k<6) {
+					sum[k] = aux2;
+					aux2=0;
+				}
+							
 			}
+			
+			for (int i = 0; i < sum.length; i++) {
+				System.out.println(sum[i]+ " ");
+			}
+			
+			sendToFile("traffic.txt");
 			
 			// Create matrix with demands
 			Transformer t = TransformerFactory.newInstance().newTransformer();
@@ -151,9 +173,7 @@ public class joinTrafficMatrices implements IAlgorithm {
 					algorithmParameters.get("trafficMatrix6")));
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
 
-			t.transform(new DOMSource(doc1), ouput);
-			
-			sendToFile();
+			t.transform(new DOMSource(doc1), ouput);			
 			
 		} catch (Throwable t) {
 			t.printStackTrace();
