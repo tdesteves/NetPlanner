@@ -1,3 +1,13 @@
+2018-04-24
+TO BE DONE
+
+	- fluxograma para as heuristicas
+	- verificar quais as heuristicas (translucido ?)
+
+	- obter os resultados com as heuristicas Vasco2016
+
+Next meeting: quinta, de manhã
+
 2018-04-17
 TO BE DONE
 

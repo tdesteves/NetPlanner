@@ -54,7 +54,7 @@ The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}
 
 $subject$ $to$
 \begin{equation}
-\tau \lambda_{od} \geq \sum_{c\in C} B\left(c\right) D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{c\in C} B\left(c\right) D_{odc} \leq \tau \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d
 \label{ILPTransp0}
 \end{equation}
@@ -62,7 +62,7 @@ $subject$ $to$
 This restriction is considered grooming constraint and for this model the grooming can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. The variable  $\tau$ is always 100.
 
 \begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPTransp1}
 \end{equation}
@@ -94,7 +94,7 @@ This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that
 This flow conservation ensures that, for all demand pairs ($o$,$d$), is equal to number of optical channels between this demand for all bidirectional links ($i$,$j$) when $j$ is not equal to the origin of the demand.
 
 \begin{equation}
-\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \sum_{j\textbackslash \{d\}} fp_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \sum_{j\textbackslash \{d\}} fp_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPTransp2p}
 \end{equation}
@@ -126,7 +126,7 @@ This constraint assures us that the variable $f_{ij}^{od}$ (working flow) and $f
 This restriction answers capacity constraint problem. Then, total flows must be less or equal to the capacity of network links. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} , fp_{ij}^{od} , fp_{ji}^{od} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad \qquad
+f_{ij}^{od} , f_{ji}^{od} , fp_{ij}^{od} , fp_{ji}^{od} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPTransp5}
 \end{equation}
@@ -215,7 +215,7 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \label{optical2_protectionlow}
 \end{figure}
 
-In table \ref{link_transp_protec_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{amplifiers}.
+In table \ref{link_transp_protec_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.
 
 \begin{table}[h!]
 \centering
@@ -226,14 +226,14 @@ In table \ref{link_transp_protec_ref_low} we can see the number of optical chann
  \hline
  Bidirectional Link & Optical Channels & Amplifiers\\
  \hline
- Node 1 <-> Node 2 & 3 & 4 \\
- Node 1 <-> Node 3 & 7 & 6 \\
- Node 2 <-> Node 3 & 14 & 0 \\
- Node 2 <-> Node 4 & 18 & 6 \\
- Node 3 <-> Node 5 & 24 & 8 \\
- Node 4 <-> Node 5 & 33 & 1 \\
- Node 4 <-> Node 6 & 37 & 7 \\
- Node 5 <-> Node 6 & 44 & 3 \\
+ Node 1 <-> Node 2 & 6 & 4 \\
+ Node 1 <-> Node 3 & 6 & 6 \\
+ Node 2 <-> Node 3 & 10 & 0 \\
+ Node 2 <-> Node 4 & 10 & 6 \\
+ Node 3 <-> Node 5 & 10 & 8 \\
+ Node 4 <-> Node 5 & 10 & 1 \\
+ Node 4 <-> Node 6 & 8 & 7 \\
+ Node 5 <-> Node 6 & 8 & 3 \\
  \hline
 \end{tabular}
 \caption{Table with information regarding links}
@@ -251,12 +251,12 @@ In table \ref{node_transp_protec_ref_low} we can see the resulting nodal degree 
  \hline
  Node & Resulting Nodal Degree & Line Ports & Add Ports & Tributary Ports\\
  \hline
- 1 & 2 & 10 & 5 & 29 \\
- 2 & 3 & 35 & 6 & 23 \\
- 3 & 3 & 45 & 5 & 18 \\
- 4 & 3 & 88 & 5 & 20 \\
- 5 & 3 & 101 & 6 & 24 \\
- 6 & 2 & 81 & 7 & 22 \\
+ 1 & 2 & 12 & 5 & 29 \\
+ 2 & 3 & 26 & 6 & 23 \\
+ 3 & 3 & 26 & 5 & 18 \\
+ 4 & 3 & 28 & 5 & 20 \\
+ 5 & 3 & 28 & 6 & 24 \\
+ 6 & 2 & 16 & 7 & 22 \\
 \hline
 \end{tabular}
 \caption{Table with information regarding nodes}
@@ -275,8 +275,8 @@ Through the information obtained previously on the nodes we can now create table
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{2}{*}{10 line ports} & 1  <---- 3 ---->  2 & \multirow{7}{*}{100 Gbits/s} \\
-  & 1  <---- 7 ---->  3 & \\ \cline{1-2}
+ \multirow{2}{*}{12 line ports} & 1  <---- 6 ---->  2 & \multirow{7}{*}{100 Gbits/s} \\
+  & 1  <---- 6 ---->  3 & \\ \cline{1-2}
  \multirow{5}{*}{5 add ports} & 1  <---- 1 ---->  2 & \\
   & 1  <---- 1 ---->  3 & \\
   & 1  <---- 1 ---->  4 & \\
@@ -303,9 +303,9 @@ Through the information obtained previously on the nodes we can now create table
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{35 line ports} & 2  <---- 3 ---->  1 & \multirow{8}{*}{100 Gbits/s} \\
-  & 2  <---- 14 ---->  3 & \\
-  & 2  <---- 18 ---->  4 & \\ \cline{1-2}
+ \multirow{3}{*}{26 line ports} & 2  <---- 6 ---->  1 & \multirow{8}{*}{100 Gbits/s} \\
+  & 2  <---- 10 ---->  3 & \\
+  & 2  <---- 10 ---->  4 & \\ \cline{1-2}
  \multirow{5}{*}{6 add ports} & 2  <---- 1 ---->  1 & \\
   & 2  <---- 1 ---->  3 & \\
   & 2  <---- 1 ---->  4 & \\
@@ -334,9 +334,9 @@ Through the information obtained previously on the nodes we can now create table
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{45 line ports} & 3  <---- 7 ---->  1 & \multirow{8}{*}{100 Gbits/s} \\
-  & 3  <---- 14 ---->  2 & \\
-  & 3  <---- 24 ---->  3 & \\ \cline{1-2}
+ \multirow{3}{*}{26 line ports} & 3  <---- 6 ---->  1 & \multirow{8}{*}{100 Gbits/s} \\
+  & 3  <---- 10 ---->  2 & \\
+  & 3  <---- 10 ---->  3 & \\ \cline{1-2}
  \multirow{5}{*}{5 add ports} & 3  <---- 1 ---->  1 & \\
   & 3  <---- 1 ---->  2 & \\
   & 3  <---- 1 ---->  4 & \\
@@ -364,9 +364,9 @@ Through the information obtained previously on the nodes we can now create table
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{88 line ports} & 4  <---- 18 ---->  2 & \multirow{8}{*}{100 Gbits/s} \\
-  & 4  <---- 33 ---->  5 & \\
-  & 4  <---- 37 ---->  6 & \\ \cline{1-2}
+ \multirow{3}{*}{28 line ports} & 4  <---- 10 ---->  2 & \multirow{8}{*}{100 Gbits/s} \\
+  & 4  <---- 10 ---->  5 & \\
+  & 4  <---- 8 ---->  6 & \\ \cline{1-2}
  \multirow{5}{*}{5 add ports} & 4  <---- 1 ---->  1 & \\
   & 4  <---- 1 ---->  2 & \\
   & 4  <---- 1 ---->  3 & \\
@@ -393,9 +393,9 @@ Through the information obtained previously on the nodes we can now create table
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{101 line ports} & 5  <---- 24 ---->  3 & \multirow{8}{*}{100 Gbits/s} \\
-  & 5  <---- 33 ---->  4 & \\
-  & 5  <---- 44 ---->  6 & \\ \cline{1-2}
+ \multirow{3}{*}{28 line ports} & 5  <---- 10 ---->  3 & \multirow{8}{*}{100 Gbits/s} \\
+  & 5  <---- 10 ---->  4 & \\
+  & 5  <---- 8 ---->  6 & \\ \cline{1-2}
  \multirow{5}{*}{6 add ports} & 5  <---- 1 ---->  1 & \\
   & 5  <---- 1 ---->  2 & \\
   & 5  <---- 1 ---->  3 & \\
@@ -424,8 +424,8 @@ Through the information obtained previously on the nodes we can now create table
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{2}{*}{81 line ports} & 6  <---- 37 ---->  4 & \multirow{7}{*}{100 Gbits/s} \\
-  & 6  <---- 44 ---->  5 & \\ \cline{1-2}
+ \multirow{2}{*}{16 line ports} & 6  <---- 8 ---->  4 & \multirow{7}{*}{100 Gbits/s} \\
+  & 6  <---- 8 ---->  5 & \\ \cline{1-2}
  \multirow{5}{*}{7 add ports} & 6  <---- 1 ---->  1 & \\
   & 6  <---- 2 ---->  2 & \\
   & 6  <---- 1 ---->  3 & \\
@@ -456,23 +456,81 @@ Now through the table \ref{scripttransp_protec_ref_low} we can see the result of
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{180 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 360 & 5 000 \euro/Gb/s & 180 000 000 \euro & \\ \cline{2-6}
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{68 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 136 & 5 000 \euro/Gb/s & 68 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{6}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{1 170 180 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 120 & 8 \euro/Gb/s & 1 200 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 100 & 6 \euro/Gb/s & 1 500 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 32 & 3 \euro/Gb/s & 960 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 12 & 1.5 \euro/Gb/s & 720 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 8 & 1 \euro/Gb/s & 800 \euro & \\ \cline{2-6}
+ \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{14 547 590 \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 8 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
+ & & Line Ports & 136 & 1 000 \euro/Gb/s & 13 600 000 \euro & \\ \cline{2-6}
  & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & Line Ports & 360 & 2 500 \euro/porto & 900 000 \euro & \\ \cline{3-6}
- & & Add Ports & 34 & 2 500 \euro/porto & 85 000 \euro & \\
+ & & Line Ports & 272 & 2 500 \euro/port & 680 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 34 & 2 500 \euro/port & 85 000 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 181 690 180 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 83 067 590 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX}
 \label{scripttransp_protec_ref_low}
 \end{table}
+
+
+\vspace{11pt}
+Finally let's focus on the routing information. In table \ref{path_transp_protec_ref_low} we can see all the routing obtained for all nodes.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links \\
+ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{2} & \{(1,3),(3,2)\} \\
+ & & \{(1,2)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{3} & \{(1,2),(2,3)\} \\
+ & & \{(1,3)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,3),(3,5),(5,4)\} \\
+ & & \{(1,2),(2,4)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{5} & \{(1,2),(2,4),(4,5)\} \\
+ & & \{(1,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,3),(3,5),(5,6)\} \\
+ & & \{(1,2),(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,1),(1,3)\} \\
+ & & \{(2,3)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{4} & \{(2,3),(3,5),(5,4)\} \\
+ & & \{(2,4)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{5} & \{(2,4),(4,5)\} \\
+ & & \{(2,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{6} & \{(2,3),(3,5),(5,6)\} \\
+ & & \{(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,5),(5,4)\} \\
+ & & \{(3,2),(2,4)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{5} & \{(3,2),(2,4),(4,5)\} \\
+ & & \{(3,5)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{6} & \{(3,2),(2,4),(4,6)\} \\
+ & & \{(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{5} & \{(4,6),(6,5)\} \\
+ & & \{(4,5)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{6} & \{(4,5),(5,6)\} \\
+ & & \{(4,6)\} \\ \hline
+ \multirow{2}{*}{5} & \multirow{2}{*}{6} & \{(5,4),(4,6)\} \\
+ & & \{(5,6)\} \\
+ \hline
+\end{tabular}
+\caption{Table with description of routing}
+\label{path_transp_protec_ref_low}
+\end{table}
+
+
+\newpage
+\textbf{Medium Traffic Scenario:}\\
+
+
+
+\textbf{High Traffic Scenario:}\\

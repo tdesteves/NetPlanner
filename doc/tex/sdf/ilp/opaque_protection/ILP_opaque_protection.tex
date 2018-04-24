@@ -80,7 +80,7 @@ This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of 2 (work and protection).
 
 \begin{equation}
-\sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od} + f_{ji}^{od}\right) \sum_{c\in C} (B\left(c\right) D_{odc}\leq \tau W_{ij} G_{ij} \qquad \qquad \qquad
+\sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od} + f_{ji}^{od}\right) \sum_{c\in C} (B\left(c\right) D_{odc}\leq \tau W_{ij} G_{ij} \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPOpaque4}
 \end{equation}
@@ -95,7 +95,7 @@ W_{ij} \leq K_{ij} L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qqua
 This restriction concerns the capacity of the optical channels which must be less or equal to the maximum number of optical channels. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
-L_{ij} , f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+L_{ij} , f_{ij}^{od} , f_{ji}^{od} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPOpaque6}
 \end{equation}
@@ -139,35 +139,35 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[h!]
 \centering
 \includegraphics[width=11cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU0_low}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_protectionlow}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=11cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU1_low}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_protectionlow}
 \end{figure}
 \newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU2_low}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_protectionlow}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU3_low}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_protectionlow}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU4_low}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_protectionlow}
 \end{figure}
 
@@ -399,12 +399,12 @@ Now in next page, through the table \ref{scriptopaque_protec_ref_low} we can see
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{4 462 590 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 60 & 8 \euro/Gb/s & 600 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 50 & 6 \euro/Gb/s & 750 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 16 & 3 \euro/Gb/s & 480 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 6 & 1.5 \euro/Gb/s & 360 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 4 & 1 \euro/Gb/s & 400 \euro & \\ \cline{3-6}
- & & Line Ports & 44 & 1 000 \euro/Gb/s & 4 400 000 \euro & \\ \cline{2-6}
+ & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 6 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
+ & & Line Ports & 44 & 100 000 \euro/port & 4 400 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
  \hline
@@ -489,35 +489,35 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU0_medium}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_protectionmedium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU1_medium}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_protectionmedium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU2_medium}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_protectionmedium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU3_medium}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_protectionmedium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU4_medium}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_protectionmedium}
 \end{figure}
 
@@ -747,12 +747,12 @@ Now through the table \ref{scriptopaque_protec_ref_medium}we can see the result 
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{39 885 900 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 600 & 8 \euro/Gb/s & 6 000 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 500 & 6 \euro/Gb/s & 7 500 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 160 & 3 \euro/Gb/s & 4 800 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 60 & 1.5 \euro/Gb/s & 3 600 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 40 & 1 \euro/Gb/s & 4 000 \euro & \\ \cline{3-6}
- & & Line Ports & 398 & 1 000 \euro/Gb/s & 39 800 000 \euro & \\ \cline{2-6}
+ & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 60 & 60 \euro/port & 3 600 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 398 & 100 000 \euro/port & 39 800 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
  \hline
@@ -834,35 +834,35 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU0_high}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_protectionhigh}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU1_high}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_protectionhigh}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU2_high}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_protectionhigh}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU3_high}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_protectionhigh}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_protection/figures/logical_topology_ODU4_high}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_protectionhigh}
 \end{figure}
 
@@ -1092,12 +1092,12 @@ Now through the table \ref{scriptopaque_protec_ref_high} we can see the result o
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{79 511 800 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 1 200 & 8 \euro/Gb/s & 12 000 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 1 000 & 6 \euro/Gb/s & 15 000 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 320 & 3 \euro/Gb/s & 9 600 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 120 & 1.5 \euro/Gb/s & 7 200 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 80 & 1 \euro/Gb/s & 8 000 \euro & \\ \cline{3-6}
- & & Line Ports & 794 & 1 000 \euro/Gb/s & 79 400 000 \euro & \\ \cline{2-6}
+ & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 120 & 60 \euro/port & 7 200 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 794 & 100 000 \euro/port & 79 400 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
  \hline
@@ -1194,14 +1194,13 @@ Looking at the previous table we can make some comparisons between the several s
 
 \subsubsection{Opens Issues}
 
-The creation of this model for any scenario, started considering some considerations and some open issues being:
+The creation of this model for any scenario, started with some considerations and some open issues being:
 
 \begin{itemize}
   \item Allow blocking.
   \subitem The presented model assume that the solution is possible or impossible.
   \item Allow multiple transmission system.
-  \subitem Each link only supports one transmission system.
+  \subitem The presented model for each link only supports one transmission system.
   \item Allowing multi-path routing.
-  \subitem All demands sharing the same node pairs have to follow the same path.
-\end{itemize}
-
+  \subitem The presented model for all demands sharing the same node pairs have to follow the same path.
+\end{itemize} 
