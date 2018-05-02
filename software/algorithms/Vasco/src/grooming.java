@@ -158,7 +158,7 @@ public class grooming implements IAlgorithm
     								//if (c.getNumberOfHops() == 0) throw new Net2PlanException ("The network is not connected");
     								
     					}
-    							
+    				
     					Link p;
     					for(long e:linkIds) {
     						p=netPlan.getLinkFromId(e);
@@ -166,7 +166,7 @@ public class grooming implements IAlgorithm
     						int nw = (int) (Math.ceil(sumTraffic/wavelengthCapacity));
     						String numberWavelengths = String.valueOf(nw);
     						p.setCapacity(nw*wavelengthCapacity);
-    						p.setAttribute("nW", numberWavelengths);  						
+    						p.setAttribute("nW", numberWavelengths); 						
     					}
     					break; 
     						
@@ -313,8 +313,7 @@ public class grooming implements IAlgorithm
 					}
 				
 				}
-	
-					break;    							
+				   							
     		}
     		
         return "Ok!";
@@ -324,9 +323,9 @@ public class grooming implements IAlgorithm
 	{
 		List<Triple<String, String, String>> parameters = new ArrayList<Triple<String, String, String>>();
 		parameters.add(Triple.of("shortestPathType", "hops", "Each demand is routed according to the shortest path according to this type. Can be 'km' or 'hops'"));
-		parameters.add(Triple.of("wavelengthCapacity", "80", "ODU0 Capacity per Wavelength"));
-		parameters.add(Triple.of("numberofroutes", "10", "total number of routes per demand"));
-		parameters.add(Triple.of("protection", "yes", "1+1 protection (yes/no)"));
+		parameters.add(Triple.of("wavelengthCapacity", "100", "Capacity per wavelength"));
+		parameters.add(Triple.of("numberofroutes", "10", "Total number of routes per demand"));
+		parameters.add(Triple.of("protection", "no", "1+1 protection (yes/no)"));
 		return parameters;
 	}
 
