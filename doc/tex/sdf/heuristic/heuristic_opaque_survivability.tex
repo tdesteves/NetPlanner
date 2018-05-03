@@ -13,11 +13,9 @@
 \vspace{11pt}
 In the opaque transport mode (link-by-link approach), the lightpath entering any intermediate node is necessarily terminated, i.e., there are performed OEO (optical-electrical-optical) conversions at every intermediate node since the origin to the destination node. These conversions are used for every wavelength at every node.
 
-Contrary to the opaque with dedicated 1+1 protection technique, the opaque without survivability technique does not have a backup path, so if there is a network failure it is more likely to suffer large data losses, which consequently leads to higher network costs. However, the CAPEX will be significantly lower, because that not includes a secondary path that would increase several network elements.
+Contrary to the opaque with dedicated 1+1 protection technique, the opaque without survivability technique does not have a backup path, so if there is a network failure it is more likely to suffer large data losses, which consequently leads to higher network costs. However, the CAPEX will be significantly lower, because that not includes a secondary path that will increase several network elements.
 
-For this model, after the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. For the "Logical Topology" algorithm, the user must insert "Opaque" in the "logicalTopology" value and for the "Grooming" algorithm, the user must insert "no" in the parameter value "protection".
-
-At the end, the "Cost Report" algorithm will be applied to obtain the best CAPEX result for the network in question.
+After the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. In the end, a report algorithm will be applied to obtain the best CAPEX result for the network in question.
 
 Firstly, in the opaque transport mode, the optical node cost is 0 because all the ports in the network are electrical. Consequently, to calculate the nodes' cost in this transport mode it only has to be considered the electrical nodes' cost:
 
@@ -69,56 +67,56 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/allowed_physical_low}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/allowed_optical_low}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
 \label{allowed_optical_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/logical_topology_odu0_low}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/logical_topology_odu1_low}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/logical_topology_odu2_low}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/logical_topology_odu3_low}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/logical_topology_odu4_low}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_surv_ref_low_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/low/physical_topology_low}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_topology_surv_ref_low_heuristic}
 \end{figure}
 
@@ -133,45 +131,47 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{13 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 26 & 5 000 \euro/Gb/s & 13 000 000 \euro & \\ \cline{2-6}
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{12 020 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 23 & 5 000 \euro/Gb/s & 11 500 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{2 662 590 \euro} \\ \cline{3-6}
+ \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{2 362 590 \euro} \\ \cline{3-6}
  & & ODU0 Ports & 60 & 10 \euro & 600 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 50 & 15 \euro & 750 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 16 & 30 \euro & 480 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 6 & 60 \euro & 360 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 4 & 100 \euro & 400 \euro & \\ \cline{3-6}
- & & Line Ports & 26 & 1 000 \euro/Gb/s & 2 600 000 \euro & \\ \cline{2-6}
+ & & Line Ports & 23 & 1 000 \euro/Gb/s & 2 300 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 16 182 590 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 14 382 590 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
 \label{scriptopaque_surv_ref_low_heuristic}
 \end{table}
 
-Through the formulas mentioned below we can see how all the values of the quantity column were calculated.
+All the values calculated in the previous table were obtained through the equations \ref{Capex_Link_heuristic} and \ref{Capex_Node_heuristic} referred to in section \ref{Heuristic_CAPEX}, but for a more detailed analysis we created table \ref{formulas_opaque_surv_ref_low_heuristic} where we can see how all the parameters are calculated individually.\\
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c ||}
  \hline
- OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \) \\ \hline
- Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} W_{ij} \) \\ \hline
- Amplifiers & \(\displaystyle \sum_{i=1}^{N}\sum_{j=i+1}^{N} N^R_{ij} L_{ij} \) \\ \hline
- EXCs & \(\displaystyle \sum_{n=1}^N N_{EXC,n} \) \\ \hline
- ODU0 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,0} \) \\ \hline
- ODU1 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,1} \) \\ \hline
- ODU2 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,2} \)\\ \hline
- ODU3 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,3} \) \\ \hline
- ODU4 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,4} \) \\ \hline
- Line & \(\displaystyle \sum_{i=1}^{N}\sum_{j=1}^{N} W_{ij} \) \\ \hline
+  & Equation used to calculate the cost \\ \hline
+ OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \gamma_0^{OLT} \) \\ \hline
+ Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} w_{ij} \gamma_1^{OLT} \tau \) \\ \hline
+ Amplifiers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} N^R_{ij} c^R \) \\ \hline
+ EXCs & \(\displaystyle \sum_{n=1}^N N_{exc,n} \gamma_{e0} \) \\ \hline
+ ODU0 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
+ ODU1 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
+ ODU2 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
+ ODU3 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
+ ODU4 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
+ Line & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} w_{nj} \gamma_{e1,-1} \) \\ \hline
  OXCs & For opaque transport mode this parameter is always zero. \\ \hline
- $P_{OXC}$ & Does not exist for this case then it is equal to zero. \\
+ $P_{oxc}$ & For opaque transport mode this parameter is always zero. \\ \hline
+ CAPEX & The final cost is calculated by summing all previous results. \\
  \hline
  \end{tabular}
 \caption{Table with description of calculation}
@@ -186,56 +186,56 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/allowed_physical_medium}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/allowed_optical_medium}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
 \label{allowed_optical_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/logical_topology_odu0_medium}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/logical_topology_odu1_medium}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/logical_topology_odu2_medium}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/logical_topology_odu3_medium}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/logical_topology_odu4_medium}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_surv_ref_medium_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/medium/physical_topology_medium}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_topology_surv_ref_medium_heuristic}
 \end{figure}
 
@@ -250,45 +250,47 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{94 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 188 & 5 000 \euro/Gb/s & 94 000 000 \euro & \\ \cline{2-6}
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{77 020 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 153 & 5 000 \euro/Gb/s & 76 500 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{18 885 900 \euro} \\ \cline{3-6}
+ \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{15 385 900 \euro} \\ \cline{3-6}
  & & ODU0 Ports & 600 & 10 \euro & 6 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 500 & 15 \euro & 7 500 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 160 & 30 \euro & 4 800 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 60 & 60 \euro & 3 600 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 40 & 100 \euro & 4 000 \euro & \\ \cline{3-6}
- & & Line Ports & 188 & 1 000 \euro/Gb/s & 18 800 000 \euro & \\ \cline{2-6}
+ & & Line Ports & 153 & 1 000 \euro/Gb/s & 15 300 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 113 405 900 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 92 405 900 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
 \label{scriptopaque_surv_ref_medium_heuristic}
 \end{table}
 
-Through the formulas mentioned below we can see how all the values of the quantity column were calculated.
+All the values calculated in the previous table were obtained through the equations \ref{Capex_Link_heuristic} and \ref{Capex_Node_heuristic} referred to in section \ref{Heuristic_CAPEX}, but for a more detailed analysis we created table \ref{formulas_opaque_surv_ref_medium_heuristic} where we can see how all the parameters are calculated individually.\\
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c ||}
  \hline
- OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \) \\ \hline
- Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} W_{ij} \) \\ \hline
- Amplifiers & \(\displaystyle \sum_{i=1}^{N}\sum_{j=i+1}^{N} N^R_{ij} L_{ij} \) \\ \hline
- EXCs & \(\displaystyle \sum_{n=1}^N N_{EXC,n} \) \\ \hline
- ODU0 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,0} \) \\ \hline
- ODU1 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,1} \) \\ \hline
- ODU2 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,2} \)\\ \hline
- ODU3 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,3} \) \\ \hline
- ODU4 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,4} \) \\ \hline
- Line & \(\displaystyle \sum_{i=1}^{N}\sum_{j=1}^{N} W_{ij} \) \\ \hline
+  & Equation used to calculate the cost \\ \hline
+ OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \gamma_0^{OLT} \) \\ \hline
+ Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} w_{ij} \gamma_1^{OLT} \tau \) \\ \hline
+ Amplifiers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} N^R_{ij} c^R \) \\ \hline
+ EXCs & \(\displaystyle \sum_{n=1}^N N_{exc,n} \gamma_{e0} \) \\ \hline
+ ODU0 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
+ ODU1 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
+ ODU2 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
+ ODU3 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
+ ODU4 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
+ Line & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} w_{nj} \gamma_{e1,-1} \) \\ \hline
  OXCs & For opaque transport mode this parameter is always zero. \\ \hline
- $P_{OXC}$ & Does not exist for this case then it is equal to zero. \\
+ $P_{oxc}$ & For opaque transport mode this parameter is always zero. \\ \hline
+ CAPEX & The final cost is calculated by summing all previous results. \\
  \hline
  \end{tabular}
 \caption{Table with description of calculation}
@@ -302,56 +304,56 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/allowed_physical_high}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/allowed_optical_high}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
 \label{allowed_optical_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/logical_topology_odu0_high}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/logical_topology_odu1_high}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/logical_topology_odu2_high}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/logical_topology_odu3_high}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/logical_topology_odu4_high}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_surv_ref_high_heuristic}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/high/physical_topology_high}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_topology_surv_ref_high_heuristic}
 \end{figure}
 
@@ -366,47 +368,102 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{186 020 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 371 & 5 000 \euro/Gb/s & 185 500 000 \euro & \\ \cline{2-6}
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{149 020 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 297 & 5 000 \euro/Gb/s & 148 500 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{37 211 800 \euro} \\ \cline{3-6}
+ \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{29 814 200 \euro} \\ \cline{3-6}
  & & ODU0 Ports & 1 200 & 10 \euro & 12 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 1 000 & 15 \euro & 15 000 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 320 & 30 \euro & 9 600 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 120 & 60 \euro & 7 200 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 80 & 100 \euro & 8 000 \euro & \\ \cline{3-6}
- & & Line Ports & 371 & 1 000 \euro/Gb/s & 37 100 000 \euro & \\ \cline{2-6}
+ & & Line Ports & 297 & 1 000 \euro/Gb/s & 29 700 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/porto & 0 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 223 231 800 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 178 834 200 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
 \label{scriptopaque_surv_ref_high_heuristic}
 \end{table}
 
-Through the formulas mentioned below we can see how all the values of the quantity column were calculated.
+All the values calculated in the previous table were obtained through the equations \ref{Capex_Link_heuristic} and \ref{Capex_Node_heuristic} referred to in section \ref{Heuristic_CAPEX}, but for a more detailed analysis we created table \ref{formulas_opaque_surv_ref_high_heuristic} where we can see how all the parameters are calculated individually.\\
 
-\begin{table}[H]
+\begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c ||}
  \hline
- OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \) \\ \hline
- Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} W_{ij} \) \\ \hline
- Amplifiers & \(\displaystyle \sum_{i=1}^{N}\sum_{j=i+1}^{N} N^R_{ij} L_{ij} \) \\ \hline
- EXCs & \(\displaystyle \sum_{n=1}^N N_{EXC,n} \) \\ \hline
- ODU0 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,0} \) \\ \hline
- ODU1 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,1} \) \\ \hline
- ODU2 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,2} \)\\ \hline
- ODU3 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,3} \) \\ \hline
- ODU4 & \(\displaystyle \sum_{o=1}^{N}\sum_{d=1}^{N} D_{od,4} \) \\ \hline
- Line & \(\displaystyle \sum_{i=1}^{N}\sum_{j=1}^{N} W_{ij} \) \\ \hline
+  & Equation used to calculate the cost \\ \hline
+ OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \gamma_0^{OLT} \) \\ \hline
+ Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} w_{ij} \gamma_1^{OLT} \tau \) \\ \hline
+ Amplifiers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} N^R_{ij} c^R \) \\ \hline
+ EXCs & \(\displaystyle \sum_{n=1}^N N_{exc,n} \gamma_{e0} \) \\ \hline
+ ODU0 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
+ ODU1 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
+ ODU2 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
+ ODU3 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
+ ODU4 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
+ Line & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} w_{nj} \gamma_{e1,-1} \) \\ \hline
  OXCs & For opaque transport mode this parameter is always zero. \\ \hline
- $P_{OXC}$ & Does not exist for this case then it is equal to zero. \\
+ $P_{oxc}$ & For opaque transport mode this parameter is always zero. \\ \hline
+ CAPEX & The final cost is calculated by summing all previous results. \\
  \hline
  \end{tabular}
 \caption{Table with description of calculation}
 \label{formulas_opaque_surv_ref_high_heuristic}
-\end{table} 
+\end{table}
+
+\vspace{15pt}
+
+\subsubsection{Conclusions}
+
+Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_opaque_surv_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+   & Low Traffic & Medium Traffic  & High Traffic \\
+ \hline\hline
+ Traffic value & 0.5 Tbit/s & 5 Tbit/s & 10 Tbit/s \\ \hline
+ Bidirectional Links used & 8 & 8 & 8 \\ \hline
+ Number of Line ports & 23 & 153 & 297 \\ \hline
+ Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
+ Number of Transceivers & 23 & 153 & 297 \\ \hline
+ Link Cost & 12 020 000 \euro & 77 020 000 \euro & 149 020 000 \euro \\ \hline
+ Node Cost & 2 362 590 \euro & 15 385 900 \euro & 29 814 200 \euro \\ \hline
+ CAPEX & \textbf{14 382 590 \euro} & \textbf{92 405 900 \euro} & \textbf{178 834 200 \euro} \\ \hline
+ CAPEX/bit & \textbf{28 765 180 \euro} & \textbf{18 481 180 \euro} & \textbf{17 883 420 \euro} \\
+ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX for this case.}
+\label{table_comparative_opaque_surv_heuristic}
+\end{table}
+
+Looking at the previous table we can make some comparisons between the several scenario:
+
+\begin{itemize}
+  \item Comparing the low traffic with the others we can see that despite having an increase of factor ten (medium traffic) and factor twenty (high traffic), the same increase does not occur in the final cost (it is lower);
+  \subitem This happens because the number of the transceivers is lower than expected which leads by carrying the traffic with less network components and, consequently, the network CAPEX is lower;
+  \item Comparing the medium traffic with the high traffic we can see that the increase of the factor is double and in the final cost this factor is very close but still inferior;
+  \subitem This happens because the number of the transceivers is also lower but very close to the expected;
+  \item Comparing the CAPEX cost per bit we can see that in the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is very similar;
+  \subitem This happens because the lower the traffic, the higher CAPEX/bit will be. We can see that in medium and high traffic the results tend to be one closer value.
+\end{itemize}
+
+\vspace{13pt}
+
+\subsubsection{Opens Issues}
+
+The creation of this model for any scenario, started with some considerations and some open issues being:
+
+\begin{itemize}
+  \item Allow blocking.
+  \subitem The presented model assume that the solution is possible or impossible, does not support a partial solution where some demands are not routed (are blocked);
+  \item Allow multiple transmission system.
+  \subitem The presented model for each link only supports one transmission system;
+  \item Allowing multi-path routing.
+  \subitem The presented model for all demands sharing the same node pairs have to follow the same path.
+\end{itemize} 
