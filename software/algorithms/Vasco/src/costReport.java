@@ -315,7 +315,7 @@ public class costReport implements IReport
 			
 			nodeInformationTable.append("</table>");	
 		}
-		portsTotal= Math.max(IntUtils.sum(portsTotalIn), IntUtils.sum(portsTotalOut));
+		portsTotal = Math.max(IntUtils.sum(portsTotalIn), IntUtils.sum(portsTotalOut));
 		html = html.replaceFirst("#nodeInformationTable#", nodeInformationTable.toString()); 		
 
 		// Network Cost
@@ -338,7 +338,9 @@ public class costReport implements IReport
 				active=false;
 			}
 
-			if(active==true)capacity=link.getCapacity();
+			if(active==true)
+				capacity=link.getCapacity();
+			
 			nlink++;
 		}
 		
@@ -359,10 +361,9 @@ public class costReport implements IReport
 		
 		double[] CostPTribODU = new double[5];
 		double[] unitPriceODU = {10, 15, 30, 60, 100};
-		double[] trafficODU = {1.25, 2.5, 10, 40, 100};
 
 		for (int i = 0; i < ODU.length; i++) {
-			CostPTribODU[i] = ODU[i] * unitPriceODU[i] * trafficODU[i];
+			CostPTribODU[i] = ODU[i] * unitPriceODU[i];
 		}
 
 		double Tau = 100;
