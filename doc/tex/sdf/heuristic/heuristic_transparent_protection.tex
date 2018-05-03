@@ -11,9 +11,9 @@
 \subsubsection{Model description}
 
 \vspace{11pt}
-For this model, after the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. For the "Logical Topology" algorithm, the user must insert "Transparent" in the "logicalTopology" value and for the "Grooming" algorithm, the user must insert "no" in the parameter value "protection".
+Contrary to the transparent without survivability transport mode, the transparent with 1+1 protection technique has a backup path, so if there is a network failure it is more likely to not suffer large data losses. The backup paths are always different from the primary ones and they prevent that the information going through optical channels could be lost in these occasions. However, the CAPEX will be significantly higher (more than the double), because that includes a secondary path that will increase several network elements.
 
-At the end, the "Cost Report" algorithm will be applied to obtain the best CAPEX result for the network in question.
+After the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. In the end, a report algorithm will be applied to obtain the best CAPEX result for the network in question.
 
 We also must take into account the following particularity of this mode of transport:
 \begin{itemize}
@@ -69,56 +69,56 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/allowed_physical_low}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/allowed_optical_low}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
 \label{allowed_optical_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/logical_topology_odu0_low}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/logical_topology_odu1_low}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/logical_topology_odu2_low}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/logical_topology_odu3_low}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/logical_topology_odu4_low}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_protection_ref_low_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/low/physical_topology_low}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_topology_protection_ref_low_heuristic_transparent}
 \end{figure}
 
@@ -162,56 +162,56 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/allowed_physical_medium}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/allowed_optical_medium}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
 \label{allowed_optical_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/logical_topology_odu0_medium}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/logical_topology_odu1_medium}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/logical_topology_odu2_medium}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/logical_topology_odu3_medium}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/logical_topology_odu4_medium}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/medium/physical_topology_medium}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_topology_protection_ref_medium_heuristic_transparent}
 \end{figure}
 
@@ -255,56 +255,56 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/allowed_physical_high}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/allowed_optical_high}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
 \label{allowed_optical_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/logical_topology_odu0_high}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/logical_topology_odu1_high}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/logical_topology_odu2_high}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/logical_topology_odu3_high}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/logical_topology_odu4_high}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_protection_ref_high_heuristic_transparent}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=13cm]{sdf/heuristic/transparent_protection/high/physical_topology_high}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_topology_protection_ref_high_heuristic_transparent}
 \end{figure}
 
@@ -340,3 +340,55 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
 \label{scripttransp_protec_ref_high_heuristic}
 \end{table}
+
+\vspace{15pt}
+
+\subsubsection{Conclusions}
+
+Once we have obtained the results for all the scenarios for transparent without survivability and transparent with 1+1 protection we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transparent_protec_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+ & Low Traffic & Medium Traffic & High Traffic \\
+ \hline\hline
+ Traffic value & 0.5 Tbit/s & 5 Tbit/s & 10 Tbit/s \\ \hline
+ Bidirectional Links used & 8 & 8 & 8 \\ \hline
+ Number of Line ports & 136 & 566 & 1060 \\ \hline
+ Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
+ Number of Transceivers & 136 & 566 & 1060 \\ \hline
+ Link Cost & 68 520 000 \euro & 283 520 000 \euro & 530 520 000 \euro \\ \hline
+ Node Cost & 14 547 590 \euro & 59 990 900 \euro & 112 201 800 \euro \\ \hline
+ CAPEX without survivability & \textbf{32 247 590 \euro} & \textbf{128 130 900 \euro} & \textbf{238 581 800 \euro} \\ \hline
+ CAPEX/bit without survivability & \textbf{64 495 180 \euro} & \textbf{25 626 180 \euro} & \textbf{23 858 180 \euro} \\
+ \hline
+ CAPEX with 1+1 protection & \textbf{83 067 590 \euro} & \textbf{343 510 900 \euro} & \textbf{642 721 800 \euro} \\ \hline
+ CAPEX/bit with 1+1 protection & \textbf{166 135 180 \euro} & \textbf{68 702 180 \euro} & \textbf{64 272 180 \euro} \\
+ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX for this case.}
+\label{table_comparative_transp_protec_heuristic}
+\end{table}
+
+Looking at the previous table we can make some comparisons between the transparent with 1+1 protection scenario:
+
+\begin{itemize}
+  \item Comparing the low traffic with the others we can see that despite having an increase of factor ten (medium traffic) and factor twenty (high traffic), the same increase does not occur in the final cost (it is lower);
+  \subitem This happens because the number of the transceivers is lower than expected which leads by carrying the traffic with less network components and, consequently, the network CAPEX is lower;
+  \item Comparing the medium traffic with the high traffic we can see that the increase of the factor is double and in the final cost this factor is very close but still inferior;
+  \subitem This happens because the number of the transceivers is also lower but very close to the expected;
+  \item Comparing the CAPEX cost per bit we can see that in the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is very similar;
+  \subitem This happens because the lower the traffic, the higher CAPEX/bit will be. We can see that in medium and high traffic the results tend to be one closer value.
+\end{itemize}
+
+We can also make some comparisons between the transparent without survivability and transparent with 1+1 protection scenarios:
+
+\begin{itemize}
+  \item We can see that in the transparent with 1+1 protection the CAPEX cost for all the three traffic is more than the double;
+    \subitem This happens because in the transparent with 1+1 protection there is a need of having a primary and a backup path, in case of a network failure, and the backup path is typically longer and normally uses more than the double of the capacity of the primary;
+  \item The number of the network components and the CAPEX cost are directly proportional to the traffic value. The higher the traffic value, the higher the network CAPEX cost;
+  \subitem This happens because if the traffic value is higher, the network components have to be in more quantity to carry all the traffic end-to-end, both in the primary and backup paths;
+  \item Comparing the CAPEX cost per bit we can see that has a similar case in both of the two scenarios. In the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is very similar;
+  \subitem This happens because the lower the traffic, the higher CAPEX/bit will be. We can see that in medium and high traffic the results tend to be one closer value.
+\end{itemize} 

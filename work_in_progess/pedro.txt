@@ -1,3 +1,17 @@
+2018-05-03
+TO BE DONE
+
+	- fluxograma para as heuristicas (opaco e transparente)
+
+	- obter os resultados com as heuristicas Vasco2016
+
+	- colocar na tabela de comparação
+
+Next meeting: terça, 15/5, 10h30m
+
+
+
+
 2018-04-24
 TO BE DONE
 
