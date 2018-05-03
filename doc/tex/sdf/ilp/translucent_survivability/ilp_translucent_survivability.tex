@@ -7,9 +7,10 @@
 \textbf{Goal}          &:& Implement the ILP model for the translucent transport mode without survivability.
 \end{tabular}
 \end{tcolorbox}
-\vspace{11pt}
 
-First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transluc} will be created with all the variables and their description. \\
+\subsubsection{Model description}
+
+First, for a better understanding of the functions and variables used in the ILP, a table \ref{description_transluc} will be created with all indexes, inputs and variables and with their respective description.\\
 
 \begin{table}[h!]
 \centering
@@ -22,15 +23,16 @@ First, for a better understanding of the functions and variables used in the ILP
  $j$ & index for end node of a physical link \\
  $o$ & index for node that is origin of a demand \\
  $d$ & index for node that is destination of a demand \\
+ $c$ & index for bit rate of the client signal \\
  $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
  $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
- $c$ & Client traffic Type $($ 1 to 5 $)$ \\
+ $C$ & set of the client signal \\
  $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
  $Ls_{ij}^{od}$ & Number of ODU-o low speed signals from node $o$ to node $d$ employing lightpath ($i$,$j$) \\
  $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
  $\lambda_{od}$ & Number of lightpath channels between the nodes $o$ and $d$ \\
  $B$ & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
- $D_{od}$ & Client traffic demands between the nodes $o$ and $d$ \\
+ $D_{odc}$ & Client traffic demands between the nodes $o$ and $d$ with bit rate $c$ \\
  $G$ & Network topology in form of adjacency matrix \\
  \hline
 \end{tabular}
@@ -38,54 +40,80 @@ First, for a better understanding of the functions and variables used in the ILP
 \label{description_transluc}
 \end{table}
 
-The objective function of following the ILP is a minimization of the sum of two equations: the cost of the links \ref{Capex_Link} and cost of the nodes \ref{Capex_Node} where in this case we have in consideration the electric cost and the optical cost.
-In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_translucent} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_translucent}.
-
-\begin{equation}
-P_{exc,c,n} = 2 \tau W
-\label{EXC_pexc_translucent}
-\end{equation}
-
+Before carrying out the description of the objective function we must take into account the following particularity of this mode of transport:
 \begin{itemize}
-\item{$P_{exc,c,n}$	    $\rightarrow$	Number of ports of the electrical switch}
-\item{$\tau$			$\rightarrow$	Traffic per port assuming 100Gbits/s}
-\item{$W$				$\rightarrow$	Total number of optical channels}
+  \item $N_{OXC,n}$ = 1, \quad $\forall$ n that process traffic
+  \item $N_{EXC,n}$ = 1, \quad $\forall$ n that process traffic
 \end{itemize}
 
+\vspace{11pt}
+The objective function of following the ILP is a minimization of the CAPEX through the equation \ref{Capex} where in this case for the cost of nodes we have in consideration the electric cost \ref{Capex_Node_EXC} and the optical cost \ref{Capex_Node_OXC}.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_transluc} for short-reach and by the equation \ref{EXC_pexc2_transluc} for long-reach and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_transluc}.\\
+
+The equation \ref{EXC_pexc1_transluc} refers to the number of sort-reach ports of the electrical switch with bit-rate $c$ in node $n$, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate $c$ in node $n$ which can be calculated as
+
 \begin{equation}
-P_{oxc,n} = P_{ADD} + P_{LINE}
-\label{OXC_poxc_translucent}
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc1_transluc}
 \end{equation}
+
+\vspace{11pt}
+where $D_{nd,c}$ are the client demands between nodes $n$ and $d$ with bit rate $c$.
+
+\vspace{11pt}
+In this case there is the following particularity:
+
 \begin{itemize}
-\item{$P_{oxc,n}$	    $\rightarrow$	Number of ports of the optical switch}
-\item{$P_{ADD}$			$\rightarrow$	Number of adding ports}
-\item{$P_{LINE}$		$\rightarrow$	Number of line ports}
+  \item When $n$=$d$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
 \end{itemize}
 
-\vspace{17pt}
+\vspace{14pt}
+As previously mentioned, the equation \ref{EXC_pexc2_transluc} refers to the number of long-reach ports of the electrical switch with bit-rate -1 in node n, $P_{exc,-1,n}$, i.e. the number of line ports of node n which can be calculated as
+
+\begin{equation}
+P_{exc,-1,n} = \sum_{j=1}^{N} f_{nj}^{od}
+\label{EXC_pexc2_transluc}
+\end{equation}
+
+\vspace{11pt}
+where $f_{nj}^{od}$ is the number of optical channels between node $n$ and node $j$ for all demand pairs (od).
+
+\vspace{14pt}
+The equation \ref{OXC_poxc_transluc} refers to the number of long-reach ports of the optical switch in node n, $P_{oxc,n}$, i.e. the number of line ports and the number of adding ports of node n which can be calculated as
+
+\begin{equation}
+P_{oxc,n} = \sum_{j=1}^{N} 2 f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
+\label{OXC_poxc_transluc}
+\end{equation}
+
+\vspace{11pt}
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of adding ports.
+
+
+\vspace{20pt}
 The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}.\\
 
 $subject$ $to$
 \begin{equation}
-\sum_{j\textbackslash \{o\}} Ls_{ij}^{od} = D_{odc}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{o\}} Ls_{ij}^{odc} = D_{odc}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPTransluc1}
 \end{equation}
 
 \begin{equation}
-\sum_{j\textbackslash \{i,o\}} Ls_{ij}^{od} = \sum_{j\textbackslash \{i,d\}} Ls_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{i,o\}} Ls_{ij}^{odc} = \sum_{j\textbackslash \{i,d\}} Ls_{ji}^{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPTransluc2}
 \end{equation}
 
 \begin{equation}
-\sum_{j\textbackslash \{d\}} Ls_{ji}^{od} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{j\textbackslash \{d\}} Ls_{ji}^{odc} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPTransluc3}
 \end{equation}
 
 \begin{equation}
-\sum_{(o,d):o<d} B(c) Ls_{ij}^{od} \leq  100 \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad 
+\sum_{o=1} \sum_{d=o+1} B(c) Ls_{ij}^{odc} \leq  100 \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j)
 \label{ILPTransluc4}
 \end{equation}
@@ -96,11 +124,15 @@ $subject$ $to$
 \label{ILPTransluc6}
 \end{equation}
 
+This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
+
 \begin{equation}
 \sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPTransluc7}
 \end{equation}
+
+This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 
 \begin{equation}
 \sum_{j\textbackslash \{d\}} f_{ji}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -108,24 +140,28 @@ $subject$ $to$
 \label{ILPTransluc8}
 \end{equation}
 
+This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
+
 \begin{equation}
-\sum_{(o,d):o<d} \left( f_{ij}^{od} + f_{ji}^{od}\right) \leq K_{ij} G_{ij}
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{o=1} \sum_{d=o+1} \left( f_{ij}^{od} + f_{ji}^{od}\right) \leq K_{ij} G_{ij} L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j) : i < j
 \label{ILPTransluc9}
 \end{equation}
 
+This restriction answers capacity constraint problem. Then, total flows must be less or equal to the capacity of network links. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
+
 \begin{equation}
-L_{ij}^{od} \geq 0;
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (i,j) , \forall (o,d) : o < d
-\label{ILPTransluc5}
+f_{ij}^{od} , f_{ji}^{od} , Ls_{ij}^{odc} , Ls_{ji}^{odc} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad
+\forall(i,j) : i < j, \forall(o,d) : o < d
+\label{ILPTransluc10}
 \end{equation}
 
-\begin{equation}
-f_{ij}^{od} \geq 0
-\qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (i,j) \forall (o,d)
-\label{ILPTransluc10}
-\end{equation}	
+This constraint defines that these variables must be a counting number.
 
+\begin{equation}
+L_{i,j} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(i,j)
+\label{ILPTransluc11}
+\end{equation}
+
+Last constraint refers to the use of the link where this variable can be zero if it is not being used or one if is being used.\\

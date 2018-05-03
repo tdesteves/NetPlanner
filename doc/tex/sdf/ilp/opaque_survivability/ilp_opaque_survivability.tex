@@ -31,7 +31,7 @@ First, for a better understanding of the functions and variables used in the ILP
  $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
  $W_{ij}$ & number of optical channels between the nodes $i$ and $j$\\
  $B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
- $D_{odc}$ & client demands with bit rate $c$ between nodes $o$ and $d$ \\
+ $D_{odc}$ & client demands between nodes $o$ and $d$ with bit rate $c$\\
  $G_{ij}$ & network topology in form of adjacency matrix \\
  \hline
 \end{tabular}
@@ -123,7 +123,7 @@ W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qqu
 This restriction concerns the capacity of the optical channels which must be less or equal to the maximum number of optical channels. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad 
+f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPOpaque6_Surv}
 \end{equation}
@@ -155,7 +155,7 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[h!]
 \centering
 \includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/allowed_physical_topology}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_low}
 \end{figure}
 
@@ -163,7 +163,7 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[h!]
 \centering
 \includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/allowed_optical_topology}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
 \label{allowed_optical_low}
 \end{figure}
 
@@ -171,54 +171,54 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_low}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_low}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU2_low}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU3_low}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU4_low}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/physical_topology_low}
-\caption{Physical Topology after dimensioning.}
+\caption{Physical topology after dimensioning.}
 \label{physical_low}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/optical_topology_low}
-\caption{Optical Topology after dimensioning.}
+\caption{Optical topology after dimensioning.}
 \label{optical_low}
 \end{figure}
 
 \vspace{15pt}
-In table \ref{link_opaque_surv_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
+In table \ref{link_opaque_surv_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}. In the case where there are no optical channels we assume that the number of amplifiers is zero.\\
 
 \begin{table}[h!]
 \centering
@@ -230,11 +230,11 @@ In table \ref{link_opaque_surv_ref_low} we can see the number of optical channel
  Bidirectional Link & Optical Channels & Amplifiers\\
  \hline
  Node 1 <-> Node 2 & 1 & 4 \\
- Node 1 <-> Node 3 & 0 & 6 \\
+ Node 1 <-> Node 3 & 0 & 0 \\
  Node 2 <-> Node 3 & 1 & 0 \\
  Node 2 <-> Node 4 & 2 & 6 \\
  Node 3 <-> Node 5 & 1 & 8 \\
- Node 4 <-> Node 5 & 0 & 1 \\
+ Node 4 <-> Node 5 & 0 & 0 \\
  Node 4 <-> Node 6 & 2 & 7 \\
  Node 5 <-> Node 6 & 2 & 3 \\
  \hline
@@ -244,7 +244,7 @@ In table \ref{link_opaque_surv_ref_low} we can see the number of optical channel
 \end{table}
 
 \vspace{15pt}
-In table \ref{node_opaque_surv_ref_low} we can see the resulting nodal degree at the physical layer, the number of line ports and the number of tributary ports for each node.\\
+In table \ref{node_opaque_surv_ref_low} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports calculated using \ref{EXC_pexc1_opaque} and the number of tributary ports calculated using \ref{EXC_pexc2_opaque} for each node.\\
 \newpage
 \begin{table}[h!]
 \centering
@@ -413,7 +413,40 @@ Through the information obtained previously on the nodes we can now create table
 \end{table}
 
 \vspace{17pt}
-Now through the table \ref{scriptopaque_surv_ref_low} we can see the result of CAPEX obtained with this ILP model.\\
+In next step let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_low} we can see all the routing obtained for all nodes.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{8}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links & ODU0 & ODU1 & ODU2 & ODU3 & ODU4 \\
+ \hline
+ 1 & 2 & \{(1,2)\} & 5 & 2 & 1 & 0 & 0 \\ \hline
+ 1 & 3 & \{(1,2),(2,3)\} & 1 & 4 & 1 & 0 & 0\\ \hline
+ 1 & 4 & \{(1,2),(2,4)\} & 3 & 2 & 1 & 0 & 0\\ \hline
+ 1 & 5 & \{(1,2),(2,3),(3,5)\} & 1 & 0 & 0 & 0 & 0\\ \hline
+ 1 & 6 & \{(1,2),(2,4),(4,6)\} & 3 & 5 & 0 & 0 & 0\\ \hline
+ 2 & 3 & \{(2,3)\} & 0 & 0 & 0 & 1 & 0 \\ \hline
+ 2 & 4 & \{(2,4)\} & 1 & 3 & 0 & 0 & 0\\ \hline
+ 2 & 5 & \{(2,3),(3,5)\} & 5 & 1 & 1 & 0 & 0 \\ \hline
+ 2 & 6 & \{(2,4),(4,6)\} & 0 & 1 & 0 & 1 & 1 \\ \hline
+ 3 & 4 & \{(3,2),(2,4)\} & 1 & 1 & 1 & 0 & 0 \\ \hline
+ 3 & 5 & \{(3,5)\} & 4 & 1 & 1 & 1 & 0 \\ \hline
+ 3 & 6 & \{(3,5),(5,6)\} & 1 & 0 & 0 & 0 & 0\\ \hline
+ 4 & 5 & \{(4,6),(6,5)\} & 1 & 1 & 1 & 0 & 0\\ \hline
+ 4 & 6 & \{(4,6)\} & 1 & 3 & 0 & 0 & 0\\ \hline
+ 5 & 6 & \{(5,6)\} & 3 & 1 & 1 & 0 & 1\\
+ \hline
+\end{tabular}
+\caption{Table with description of demands routing. We are assuming that between a pair of nodes all demands follow the same route.}
+\label{path_opaque_surv_ref_low}
+\end{table}
+
+\newpage
+Finally and most importantly through table \ref{scriptopaque_surv_ref_low} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above.\\
 
 \begin{table}[h!]
 \centering
@@ -425,7 +458,7 @@ Now through the table \ref{scriptopaque_surv_ref_low} we can see the result of C
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
  \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 12 & 15 000 \euro & 180 000 \euro & \multirow{3}{*}{9 404 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 18 & 5 000 \euro/Gb/s & 9 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 18 & 5 000 \euro/Gbit/s & 9 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 56 & 4 000 \euro & 224 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{1 862 590 \euro} \\ \cline{3-6}
@@ -445,139 +478,105 @@ Now through the table \ref{scriptopaque_surv_ref_low} we can see the result of C
 \label{scriptopaque_surv_ref_low}
 \end{table}
 
+\vspace{17pt}
+All the values calculated in the previous table were obtained through the equations \ref{Capex_Link} and \ref{Capex_Node} referred to in section \ref{ILP_CAPEX}, but for a more detailed analysis we created table \ref{formulas_opaque} where we can see how all the parameters are calculated individually.\\
 \newpage
-All the values calculated in the previous table were obtained through the equations \ref{Capex_Link} and \ref{Capex_Node} referred to in section \ref{ILP_CAPEX}, but for a more detailed analysis we created table \ref{formulas_opaque_surv_ref_low} where we can see how all the parameters are calculated individually.\\
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c ||}
  \hline
   & Equation used to calculate the cost \\ \hline
  OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \gamma_0^{OLT} \) \\ \hline
- Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} W_{ij} \gamma_1^{OLT} \tau \) \\ \hline
+ Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} w_{ij} \gamma_1^{OLT} \tau \) \\ \hline
  Amplifiers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} N^R_{ij} c^R \) \\ \hline
  EXCs & \(\displaystyle \sum_{n=1}^N N_{exc,n} \gamma_{e0} \) \\ \hline
- ODU0 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
- ODU1 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
- ODU2 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
- ODU3 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
- ODU4 & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
- Line & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} w_{nj} \gamma_{e1,-1} \) \\ \hline
+ ODU0 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
+ ODU1 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
+ ODU2 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
+ ODU3 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
+ ODU4 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
+ Line Port & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} w_{nj} \gamma_{e1,-1} \) \\ \hline
  OXCs & For opaque transport mode this parameter is always zero. \\ \hline
- $P_{oxc}$ & Does not exist for this case then it is equal to zero. \\ \hline
+ $P_{oxc}$ & For opaque transport mode this parameter is always zero. \\ \hline
  CAPEX & The final cost is calculated by summing all previous results. \\
  \hline
  \end{tabular}
 \caption{Table with description of calculation}
-\label{formulas_opaque_surv_ref_low}
+\label{formulas_opaque}
 \end{table}
 
-\vspace{17pt}
-Finally let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_low} we can see all the routing obtained for all nodes.\\
+
 \newpage
-\begin{table}[h!]
-\centering
-\begin{tabular}{|| c | c | c ||}
- \hline
- \multicolumn{3}{|| c ||}{Routing} \\
- \hline
- \hline
- o & d & Links \\
- \hline
- 1 & 2 & \{(1,2)\} \\ \hline
- 1 & 3 & \{(1,2),(2,3)\} \\ \hline
- 1 & 4 & \{(1,2),(2,4)\}\\ \hline
- 1 & 5 & \{(1,2),(2,3),(3,5)\}\\ \hline
- 1 & 6 & \{(1,2),(2,4),(4,6)\}\\ \hline
- 2 & 3 & \{(2,3)\}\\ \hline
- 2 & 4 & \{(2,4)\}\\ \hline
- 2 & 5 & \{(2,3),(3,5)\}\\ \hline
- 2 & 6 & \{(2,4),(4,6)\}\\ \hline
- 3 & 4 & \{(3,2),(2,4)\}\\ \hline
- 3 & 5 & \{(3,5)\}\\ \hline
- 3 & 6 & \{(3,5),(5,6)\}\\ \hline
- 4 & 5 & \{(4,6),(6,5)\}\\ \hline
- 4 & 6 & \{(4,6)\}\\ \hline
- 5 & 6 & \{(5,6)\}\\
- \hline
-\end{tabular}
-\caption{Table with description of routing}
-\label{path_opaque_surv_ref_low}
-\end{table}
-
-\vspace{13pt}
 \textbf{Medium Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. \\
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first
+phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology. \\
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/allowed_physical_topology}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/allowed_optical_topology}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
+\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/allowed_optical_topology}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
 \label{allowed_optical_medium}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
-\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_medium}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_medium}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_medium}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU2_medium}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU3_medium}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU4_medium}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_medium}
-\end{figure}
-\newpage
-\begin{figure}[h!]
-\centering
-\includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/physical_topology}
-\caption{Physical Topology after dimensioning.}
-\label{physical_medium}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/optical_topology_medium}
-\caption{Optical Topology after dimensioning.}
+\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
+\label{physical_medium}
+\end{figure}
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/optical_topology_medium}
+\caption{Optical topology after dimensioning.}
 \label{optical_medium}
 \end{figure}
 
-\vspace{17pt}
-In table \ref{link_opaque_surv_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{Capex} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
+In table \ref{link_opaque_surv_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{Capex} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.
 
-In table \ref{node_opaque_surv_ref_medium} we can see the resulting nodal degree at the physical layer, the number of line ports and the number of tributary ports for each node.\\
-\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -601,6 +600,8 @@ In table \ref{node_opaque_surv_ref_medium} we can see the resulting nodal degree
 \label{link_opaque_surv_ref_medium}
 \end{table}
 
+In table \ref{node_opaque_surv_ref_medium} we can see the resulting nodal degree at the physical layer, the number of line ports using \ref{EXC_pexc1_opaque} and the number of tributary ports using \ref{EXC_pexc2_opaque} for each node.
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c ||}
@@ -622,6 +623,7 @@ In table \ref{node_opaque_surv_ref_medium} we can see the resulting nodal degree
 \label{node_opaque_surv_ref_medium}
 \end{table}
 
+\newpage
 Through the information obtained previously on the nodes we can now create tables with detailed information about each node.
 In each table with detailed information we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
 
@@ -646,7 +648,7 @@ In each table with detailed information we can see how many ports are connected 
 \caption{Table with detailed description of node 1}
 \end{table}
 
-\newpage
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -671,7 +673,7 @@ In each table with detailed information we can see how many ports are connected 
 \caption{Table with detailed description of node 2}
 \end{table}
 
-\vspace{17pt}
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -695,7 +697,7 @@ In each table with detailed information we can see how many ports are connected 
 \caption{Table with detailed description of node 3}
 \end{table}
 
-\vspace{17pt}
+\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -718,7 +720,7 @@ In each table with detailed information we can see how many ports are connected 
 \caption{Table with detailed description of node 4}
 \end{table}
 
-\newpage
+\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -743,7 +745,7 @@ In each table with detailed information we can see how many ports are connected 
 \caption{Table with detailed description of node 5}
 \end{table}
 
-\vspace{17pt}
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -768,8 +770,42 @@ In each table with detailed information we can see how many ports are connected 
 \end{table}
 
 \vspace{17pt}
-Now through the table \ref{scriptopaque_surv_ref_medium} we can see the result of CAPEX obtained with this ILP model. In table \ref{formulas_opaque_surv_ref_low} mentioned in previous scenario we can see how all the values of the quantity column were calculated.\\
+In next step let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_medium} we can see all the routing obtained for all nodes.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{8}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links & ODU0 & ODU1 & ODU2 & ODU3 & ODU4 \\
+ \hline
+ 1 & 2 & \{(1,2)\} & 50 & 20 & 10 & 0 & 0 \\ \hline
+ 1 & 3 & \{(1,3)\} & 10 & 40 & 10 & 0 & 0\\ \hline
+ 1 & 4 & \{(1,2),(2,4)\} & 30 & 20 & 10 & 0 & 0\\ \hline
+ 1 & 5 & \{(1,3),(3,5)\} & 10 & 0 & 0 & 0 & 0\\ \hline
+ 1 & 6 & \{(1,3),(3,5),(5,6)\} & 30 & 50 & 0 & 0 & 0\\ \hline
+ 2 & 3 & \{(2,3)\} & 0 & 0 & 0 & 10 & 0 \\ \hline
+ 2 & 4 & \{(2,4)\} & 10 & 30 & 0 & 0 & 0\\ \hline
+ 2 & 5 & \{(2,4),(4,5)\} & 50 & 10 & 10 & 0 & 0 \\ \hline
+ 2 & 6 & \{(2,4),(4,6)\} & 0 & 10 & 0 & 10 & 10 \\ \hline
+ 3 & 4 & \{(3,5),(5,4)\} & 10 & 10 & 10 & 0 & 0 \\ \hline
+ 3 & 5 & \{(3,5)\} & 40 & 10 & 10 & 10 & 0 \\ \hline
+ 3 & 6 & \{(3,5),(5,6)\} & 10 & 0 & 0 & 0 & 0\\ \hline
+ 4 & 5 & \{(4,5)\} & 10 & 10 & 10 & 0 & 0\\ \hline
+ 4 & 6 & \{(4,6)\} & 10 & 30 & 0 & 0 & 0\\ \hline
+ 5 & 6 & \{(5,6)\} & 30 & 10 & 10 & 0 & 10\\
+ \hline
+\end{tabular}
+\caption{Table with description of demands routing. We are assuming that between a pair of nodes all demands follow the same route.}
+\label{path_opaque_surv_ref_medium}
+\end{table}
+
 \newpage
+Finally and most importantly through table \ref{scriptopaque_surv_ref_medium} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above.
+In table \ref{formulas_opaque} mentioned in previous scenario we can see how all the values were calculated.\\
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c | c | c | c ||}
@@ -780,7 +816,7 @@ Now through the table \ref{scriptopaque_surv_ref_medium} we can see the result o
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
  \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{75 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 150 & 5 000 \euro/Gb/s & 75 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 150 & 5 000 \euro/Gbit/s & 75 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{15 085 900 \euro} \\ \cline{3-6}
@@ -800,109 +836,78 @@ Now through the table \ref{scriptopaque_surv_ref_medium} we can see the result o
 \label{scriptopaque_surv_ref_medium}
 \end{table}
 
-Finally let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_medium} we can see all the routing obtained for all nodes.
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|| c | c | c ||}
- \hline
- \multicolumn{3}{|| c ||}{Routing} \\
- \hline
- \hline
- o & d & Links \\
- \hline
- 1 & 2 & \{(1,2)\} \\ \hline
- 1 & 3 & \{(1,3)\} \\ \hline
- 1 & 4 & \{(1,2),(2,4)\}\\ \hline
- 1 & 5 & \{(1,3),(3,5)\}\\ \hline
- 1 & 6 & \{(1,3),(3,5),(5,6)\}\\ \hline
- 2 & 3 & \{(2,3)\}\\ \hline
- 2 & 4 & \{(2,4)\}\\ \hline
- 2 & 5 & \{(2,4),(4,5)\}\\ \hline
- 2 & 6 & \{(2,4),(4,6)\}\\ \hline
- 3 & 4 & \{(3,5),(5,4)\}\\ \hline
- 3 & 5 & \{(3,5)\}\\ \hline
- 3 & 6 & \{(3,5),(5,6)\}\\ \hline
- 4 & 5 & \{(4,5)\}\\ \hline
- 4 & 6 & \{(4,6)\}\\ \hline
- 5 & 6 & \{(5,6)\}\\
- \hline
-\end{tabular}
-\caption{Table with description of routing}
-\label{path_opaque_surv_ref_medium}
-\end{table}
-
-
-\newpage
+\vspace{15pt}
 \textbf{High Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/allowed_physical_topology}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/allowed_physical_topology}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_high}
-\end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/allowed_optical_topology}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
-\label{allowed_optical_high}
 \end{figure}
 \newpage
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_high}
-\caption{ODU0 Logical Topology defined by the ODU0 traffic matrix.}
+\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/allowed_optical_topology}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (opaque transport mode in this case). It is assumed that each transmission system supports up to 100 optical channels.}
+\label{allowed_optical_high}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU0_high}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical_ODU0_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_high}
-\caption{ODU1 Logical Topology defined by the ODU1 traffic matrix.}
+\includegraphics[width=11cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU1_high}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical_ODU1_high}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU2_high}
-\caption{ODU2 Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical_ODU2_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU3_high}
-\caption{ODU3 Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical_ODU3_high}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/logical_topology_ODU4_high}
-\caption{ODU4 Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical_ODU4_high}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/physical_topology}
-\caption{Physical Topology after dimensioning.}
+\includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
 \label{physical_high}
 \end{figure}
 
+\vspace{25pt}
+
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/opaque_survivability/figures/optical_topology_high}
-\caption{Optical Topology after dimensioning.}
+\includegraphics[width=13cm]{sdf/ilp/opaque_survivability/figures/optical_topology_high}
+\caption{Optical topology after dimensioning.}
 \label{optical_high}
 \end{figure}
 
-
-\vspace{20pt}
+\newpage
 In table \ref{link_opaque_surv_ref_high} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{Capex} and the number of amplifiers for each link calculated using \ref{amplifiers}.\\
 
 \begin{table}[h!]
@@ -928,11 +933,9 @@ In table \ref{link_opaque_surv_ref_high} we can see the number of optical channe
 \label{link_opaque_surv_ref_high}
 \end{table}
 
-\vspace{15pt}
-In table \ref{node_opaque_surv_ref_high} we can see the resulting nodal degree at the physical layer, the number of line ports and the number of tributary ports for each node.\\
+\vspace{13pt}
+In table \ref{node_opaque_surv_ref_high} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports calculated using \ref{EXC_pexc1_opaque} and the number of tributary ports calculated using \ref{EXC_pexc2_opaque} for each node.\\
 
-In each table mentioned next with detailed information we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
-\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c ||}
@@ -954,7 +957,9 @@ In each table mentioned next with detailed information we can see how many ports
 \label{node_opaque_surv_ref_high}
 \end{table}
 
-\vspace{17pt}
+\vspace{13pt}
+In each table mentioned next with detailed information we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -976,7 +981,7 @@ In each table mentioned next with detailed information we can see how many ports
 \caption{Table with detailed description of node 1}
 \end{table}
 
-\vspace{17pt}
+\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1001,7 +1006,7 @@ In each table mentioned next with detailed information we can see how many ports
 \caption{Table with detailed description of node 2}
 \end{table}
 
-\newpage
+\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1025,7 +1030,7 @@ In each table mentioned next with detailed information we can see how many ports
 \caption{Table with detailed description of node 3}
 \end{table}
 
-\vspace{17pt}
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1048,7 +1053,7 @@ In each table mentioned next with detailed information we can see how many ports
 \caption{Table with detailed description of node 4}
 \end{table}
 
-\vspace{17pt}
+\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1073,7 +1078,7 @@ In each table mentioned next with detailed information we can see how many ports
 \caption{Table with detailed description of node 5}
 \end{table}
 
-\newpage
+\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1097,9 +1102,43 @@ In each table mentioned next with detailed information we can see how many ports
 \caption{Table with detailed description of node 6}
 \end{table}
 
-\vspace{17pt}
-Now through the table \ref{scriptopaque_surv_ref_high} we can see the result of CAPEX obtained with this ILP model. In table \ref{formulas_opaque_surv_ref_low} mentioned in previous scenario we can see how all the values of the quantity column were calculated.\\
+\newpage
+In next step let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_high} we can see all the routing obtained for all nodes.\\
 
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{8}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links & ODU0 & ODU1 & ODU2 & ODU3 & ODU4 \\
+ \hline
+ 1 & 2 & \{(1,2)\} & 100 & 40 & 20 & 0 & 0 \\ \hline
+ 1 & 3 & \{(1,3)\} & 20 & 80 & 20 & 0 & 0\\ \hline
+ 1 & 4 & \{(1,2),(2,4)\} & 60 & 40 & 20 & 0 & 0\\ \hline
+ 1 & 5 & \{(1,3),(3,5)\} & 20 & 0 & 0 & 0 & 0\\ \hline
+ 1 & 6 & \{(1,3),(3,5),(5,6)\} & 60 & 100 & 0 & 0 & 0\\ \hline
+ 2 & 3 & \{(2,3)\} & 0 & 0 & 0 & 20 & 0 \\ \hline
+ 2 & 4 & \{(2,4)\} & 20 & 60 & 0 & 0 & 0\\ \hline
+ 2 & 5 & \{(2,3),(3,5)\} & 100 & 20 & 20 & 0 & 0 \\ \hline
+ 2 & 6 & \{(2,4),(4,6)\} & 0 & 20 & 0 & 20 & 20 \\ \hline
+ 3 & 4 & \{(3,2),(2,4)\} & 20 & 20 & 20 & 0 & 0 \\ \hline
+ 3 & 5 & \{(3,5)\} & 80 & 20 & 20 & 20 & 0 \\ \hline
+ 3 & 6 & \{(3,5),(5,6)\} & 20 & 0 & 0 & 0 & 0\\ \hline
+ 4 & 5 & \{(4,5)\} & 20 & 20 & 20 & 0 & 0\\ \hline
+ 4 & 6 & \{(4,6)\} & 20 & 60 & 0 & 0 & 0\\ \hline
+ 5 & 6 & \{(5,6)\} & 60 & 20 & 20 & 0 & 20\\
+ \hline
+\end{tabular}
+\caption{Table with description of demands routing. We are assuming that between a pair of nodes all demands follow the same route.}
+\label{path_opaque_surv_ref_high}
+\end{table}
+
+\vspace{13pt}
+Finally and most importantly through table \ref{scriptopaque_surv_ref_high} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above.
+In table \ref{formulas_opaque} mentioned in previous scenario we can see how all the values were calculated.\\
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c | c | c | c ||}
@@ -1110,7 +1149,7 @@ Now through the table \ref{scriptopaque_surv_ref_high} we can see the result of 
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
  \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{148 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 296 & 5 000 \euro/Gb/s & 148 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 296 & 5 000 \euro/Gbit/s & 148 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
  \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{29 711 800 \euro} \\ \cline{3-6}
@@ -1130,41 +1169,7 @@ Now through the table \ref{scriptopaque_surv_ref_high} we can see the result of 
 \label{scriptopaque_surv_ref_high}
 \end{table}
 
-\vspace{17pt}
-Finally let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_opaque_surv_ref_high} we can see all the routing obtained for all nodes.\\
-\newpage
-\begin{table}[h!]
-\centering
-\begin{tabular}{|| c | c | c ||}
- \hline
- \multicolumn{3}{|| c ||}{Routing} \\
- \hline
- \hline
- o & d & Links \\
- \hline
- 1 & 2 & \{(1,2)\} \\ \hline
- 1 & 3 & \{(1,3)\} \\ \hline
- 1 & 4 & \{(1,2),(2,4)\}\\ \hline
- 1 & 5 & \{(1,3),(3,5)\}\\ \hline
- 1 & 6 & \{(1,3),(3,5),(5,6)\}\\ \hline
- 2 & 3 & \{(2,3)\}\\ \hline
- 2 & 4 & \{(2,4)\}\\ \hline
- 2 & 5 & \{(2,3),(3,5)\}\\ \hline
- 2 & 6 & \{(2,4),(4,6)\}\\ \hline
- 3 & 4 & \{(3,2),(2,4)\}\\ \hline
- 3 & 5 & \{(3,5)\}\\ \hline
- 3 & 6 & \{(3,5),(5,6)\}\\ \hline
- 4 & 5 & \{(4,5)\}\\ \hline
- 4 & 6 & \{(4,6)\}\\ \hline
- 5 & 6 & \{(5,6)\}\\
- \hline
-\end{tabular}
-\caption{Table with description of routing}
-\label{path_opaque_surv_ref_high}
-\end{table}
-
-\vspace{15pt}
-
+\vspace{13pt}
 \subsubsection{Conclusions}
 
 Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_opaque_surv} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
@@ -1173,15 +1178,17 @@ Once we have obtained the results for all the scenarios we will now draw some co
 \centering
 \begin{tabular}{| c | c | c | c |}
  \hline
-   & Low Scenario & Medium Scenario  & High Scenario \\
+  & Low Traffic & Medium Traffic  & High Traffic \\
  \hline\hline
+ Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
  Bidirectional Links used & 6 & 8 & 8 \\ \hline
  Number of Line ports & 18 & 150 & 296 \\ \hline
- Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
+ Number of Tributary ports & 138 & 1 380 & 2 760 \\ \hline
  Number of Transceivers & 18 & 150 & 296 \\ \hline
  Link Cost & 9 404 000 \euro & 75 520 000 \euro & 148 520 000 \euro \\ \hline
  Node Cost & 1 862 590 \euro & 15 085 900 \euro & 29 711 800 \euro \\ \hline
- CAPEX & \textbf{11 266 590 \euro} & \textbf{90 605 900 \euro} & \textbf{178 231 800 \euro} \\
+ CAPEX & \textbf{11 266 590 \euro} & \textbf{90 605 900 \euro} & \textbf{178 231 800 \euro} \\ \hline
+ CAPEX/Gbit/s & \textbf{22 533.18 \euro/Gbit/s} & \textbf{18 121.18 \euro/Gbit/s} & \textbf{17 823.18 \euro/Gbit/s}\\
  \hline
 \end{tabular}
 \caption{Table with different value of CAPEX for this case.}
@@ -1189,26 +1196,24 @@ Once we have obtained the results for all the scenarios we will now draw some co
 \end{table}
 
 \newpage
-Looking at the previous table we can make some comparisons between the several scenarios.
+Looking at the previous table we can make some comparisons between the several scenarios:
 
 \begin{itemize}
-  \item Low scenario uses less links than the other two scenarios.
-  \subitem This happens because as it has low traffic it is possible to carry this traffic throughout the network without having to use all available links.
-  \item Comparing the Low scenario with the others we can see that despite having an increase of factor ten (medium scenario) and factor twenty (high scenario) the same increase does not occur in the final cost (it is lower).
-  \subitem This happens because the number of transceivers is smaller than expected (medium scenario would be expected 180 and high scenario would be expected 360).
-  \item Comparing the Medium scenario with the High scenario we can see that the increase of the factor is double and in the final cost this factor is very close but still inferior.
-  \subitem Again this happens because the number of transceivers is lower but very close to the expected (high scenario would be expected 300).
+  \item Low traffic scenario uses less links than the other two scenarios. This happens because as it has low traffic it is possible to carry this traffic throughout the network without having to use all available links;
+  \item Comparing the low traffic scenario with the others we can see that despite having an increase of factor ten (medium scenario) and factor twenty (high scenario) the same increase does not occur in the final cost (it is lower). This happens because the number of transceivers is smaller than expected (medium scenario would be expected 180 and high scenario would be expected 360);
+  \item Comparing the medium traffic scenario with the high traffic scenario we can see that the increase of the factor is double and in the final cost this factor is very close but still inferior. Again this happens because the number of transceivers is lower but very close to the expected (high scenario would be expected 300).
+  \item Comparing the cost with traffic we see that as traffic increases the cost per traffic decreases. Soon we can conclude that it becomes more expensive a scenario of low traffic than a scenario of high traffic.
 \end{itemize}
 
-\vspace{13pt}
 
+\vspace{13pt}
 \subsubsection{Opens Issues}
 
 The creation of this model for any scenario, started with some considerations and some open issues being:
 
 \begin{itemize}
   \item Allow blocking.
-  \subitem The presented model assume that the solution is possible or impossible.
+  \subitem The presented model assume that the solution is possible or impossible, does not support a partial solution where some demands are not routed (are blocked).
   \item Allow multiple transmission system.
   \subitem The presented model for each link only supports one transmission system.
   \item Allowing multi-path routing.
