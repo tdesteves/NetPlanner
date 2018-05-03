@@ -19,13 +19,13 @@ Before carrying out the description of the objective function we must take into 
 
 \vspace{11pt}
 The objective function of following the ILP is a minimization of the CAPEX through the equation \ref{Capex} where in this case for the cost of nodes we have in consideration the electric cost \ref{Capex_Node_EXC} and the optical cost \ref{Capex_Node_OXC}.
-In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_transparentp} and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_transparentp}.\\
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_transparentp} for short-reach and by the equation \ref{EXC_pexc2_transparentp} for long-reach and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_transparentp}.\\
 
-The equation \ref{EXC_pexc_transparentp} refers to the number of sort-reach ports of the electrical switch with bit-rate $c$ in node $n$, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate $c$ in node $n$ which can be calculated as
+The equation \ref{EXC_pexc1_transparentp} refers to the number of sort-reach ports of the electrical switch with bit-rate $c$ in node $n$, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate $c$ in node $n$ which can be calculated as
 
 \begin{equation}
-P_{exc,c,n} = 2 \sum_{d=1}^{N} D_{nd,c}
-\label{EXC_pexc_transparentp}
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc1_transparentp}
 \end{equation}
 
 \vspace{11pt}
@@ -39,15 +39,27 @@ In this case there is the following particularity:
 \end{itemize}
 
 \vspace{11pt}
+As previously mentioned, the equation \ref{EXC_pexc2_transparentp} refers to the number of long-reach ports of the electrical switch with bit-rate -1 in node n, $P_{exc,-1,n}$, i.e. the number of line ports of node n which can be calculated as
+
+\begin{equation}
+P_{exc,-1,n} = \sum_{j=1}^{N} f_{nj}^{od}
+\label{EXC_pexc2_transparentp}
+\end{equation}
+
+\vspace{11pt}
+where $f_{nj}^{od}$ is the number of optical channels between node $n$ and node $j$ for all demand pairs (od).
+
+\vspace{11pt}
 The equation \ref{OXC_poxc_transparentp} refers to the number of long-reach ports of the optical switch in node n, $P_{oxc,n}$, i.e. the number of line ports and the number of adding ports of node n which can be calculated as
 
 \begin{equation}
-P_{oxc,n} = \sum_{j=1}^{N} f_{nj} + \sum_{j=1}^{N} \lambda_{nj}
+P_{oxc,n} = \sum_{j=1}^{N} 2 f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
 \label{OXC_poxc_transparentp}
 \end{equation}
 
 \vspace{11pt}
-where $f_{nj}$ refers to the number of line ports and $\lambda_{nj}$ refers to the number of adding ports.
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of adding ports.
+
 
 \vspace{17pt}
 The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}.\\
@@ -84,7 +96,7 @@ This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 \end{equation}
 
 This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
-
+\newpage
 \begin{equation}
 \sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = o
@@ -100,7 +112,7 @@ This flow conservation ensures that, for all demand pairs ($o$,$d$), is equal to
 \end{equation}
 
 This flow conservation ensures that, assuming bidirectional traffic, so the number of flows in both directions of the link is the same.
-\newpage
+
 \begin{equation}
 \sum_{j\textbackslash \{d\}} fp_{ji}^{od} = \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
@@ -110,7 +122,7 @@ This flow conservation ensures that, assuming bidirectional traffic, so the numb
 This flow conservation is based on the same idea of \ref{ILPTransp1p}, however applied in reverse direction.
 
 \begin{equation}
-\sum_{(o,d):o<d} \left(f_{ij}^{od}  + fp_{ij}^{od}\right) \leq \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od}  + fp_{ij}^{od}\right) \leq \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (o,d), (i,j)
 \label{ILPTransp4p}
 \end{equation}
@@ -118,7 +130,7 @@ This flow conservation is based on the same idea of \ref{ILPTransp1p}, however a
 This constraint assures us that the variable $f_{ij}^{od}$ (working flow) and $fp_{ij}^{od}$ (protection flow) are different.
 
 \begin{equation}
-\sum_{(o,d):o<d} \left(f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od}\right) \leq K_{ij} G_{ij} L_{ij} \qquad \qquad \qquad \qquad
+\sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od} + f_{ji}^{od} + fp_{ij}^{od} + fp_{ji}^{od}\right) \leq K_{ij} G_{ij} L_{ij} \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j
 \label{ILPTransp4}
 \end{equation}
@@ -146,7 +158,7 @@ Last constraint refers to the use of the link where this variable can be zero if
 
 To perform the calculations using the implementation of the models described previously it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface. We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX. The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost_ilp}.\\
 
-\newpage
+\vspace{17pt}
 \textbf{Low Traffic Scenario:}\\
 
 In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
@@ -154,69 +166,73 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \begin{figure}[h!]
 \centering
 \includegraphics[width=13cm]{sdf/ilp/transparent_protection/figures/allowed_physical_topology}
-\caption{Allowed Physical Topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed2_physical_protectionlow}
 \end{figure}
-
-\begin{figure}[h!]
-\centering
-\includegraphics[width=13cm]{sdf/ilp/transparent_protection/figures/allowed_optical_topology}
-\caption{Allowed Optical Topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
-\label{allowed2_optical_protectionlow}
-\end{figure}
-
 \newpage
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU0_low}
-\caption{Logical Topology defined by the ODU0 traffic matrix.}
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/allowed_optical_topology}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\label{allowed2_optical_protectionlow}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU0_low}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
 \label{logical2_ODU0_protectionlow}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU1_low}
-\caption{Logical Topology defined by the ODU1 traffic matrix.}
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU1_low}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical2_ODU1_protectionlow}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU2_low}
-\caption{Logical Topology defined by the ODU2 traffic matrix.}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical2_ODU2_protectionlow}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU3_low}
-\caption{Logical Topology defined by the ODU3 traffic matrix.}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
 \label{logical2_ODU3_protectionlow}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU4_low}
-\caption{Logical Topology defined by the ODU4 traffic matrix.}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical2_ODU4_protectionlow}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/physical_topology}
-\caption{Physical Topology after dimensioning.}
+\includegraphics[width=13cm]{sdf/ilp/transparent_protection/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
 \label{physical2_protectionlow}
 \end{figure}
 
+\vspace{17pt}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/optical_topology_low}
-\caption{Optical Topology after dimensioning.}
+\includegraphics[width=13cm]{sdf/ilp/transparent_protection/figures/optical_topology_low}
+\caption{Optical topology after dimensioning.}
 \label{optical2_protectionlow}
 \end{figure}
 
-In table \ref{link_transp_protec_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.
+\vspace{17pt}
+In table \ref{link_transp_protec_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
 
+In table \ref{node_transp_protec_ref_low} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports for the optical part and the number of add ports calculated using \ref{OXC_poxc_transparentp} the number of line ports for the electrical part calculated using \ref{EXC_pexc2_transparentp} and the number of tributary ports calculated using \ref{EXC_pexc1_transparentp} for each node.\\
+
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -240,32 +256,33 @@ In table \ref{link_transp_protec_ref_low} we can see the number of optical chann
 \label{link_transp_protec_ref_low}
 \end{table}
 
-In table \ref{node_transp_protec_ref_low} we can see the resulting nodal degree at the physical layer, the number of line ports the number of add ports and the number of tributary ports for each node.
-
+\vspace{15pt}
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c | c | c | c ||}
+\begin{tabular}{|| c | c | c | c | c | c ||}
  \hline
- \multicolumn{5}{|| c ||}{Information regarding nodes} \\
+ \multicolumn{6}{|| c ||}{Information regarding nodes} \\
  \hline
  \hline
- Node & Resulting Nodal Degree & Line Ports & Add Ports & Tributary Ports\\
+ \multicolumn{2}{|| c |}{ } & \multicolumn{2}{ c |}{Optical part} & \multicolumn{2}{ c ||}{Electrical part} \\
  \hline
- 1 & 2 & 12 & 5 & 29 \\
- 2 & 3 & 26 & 6 & 23 \\
- 3 & 3 & 26 & 5 & 18 \\
- 4 & 3 & 28 & 5 & 20 \\
- 5 & 3 & 28 & 6 & 24 \\
- 6 & 2 & 16 & 7 & 22 \\
+ Node & Resulting Nodal Degree & Line Ports & Add Ports & Line Ports & Tributary Ports\\
+ \hline
+ 1 & 2 & 24 & 5 & 12 & 29 \\
+ 2 & 3 & 52 & 6 & 26 & 23 \\
+ 3 & 3 & 52 & 5 & 26 & 18 \\
+ 4 & 3 & 56 & 5 & 28 & 20 \\
+ 5 & 3 & 56 & 6 & 28 & 24 \\
+ 6 & 2 & 32 & 7 & 16 & 22 \\
 \hline
 \end{tabular}
 \caption{Table with information regarding nodes}
 \label{node_transp_protec_ref_low}
 \end{table}
 
-\newpage
+\vspace{15pt}
 Through the information obtained previously on the nodes we can now create tables with detailed information about each node. In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports and the add ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
-
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -273,10 +290,11 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{2}{*}{12 line ports} & 1  <---- 6 ---->  2 & \multirow{7}{*}{100 Gbits/s} \\
-  & 1  <---- 6 ---->  3 & \\ \cline{1-2}
+ \multirow{3}{*}{24 line ports} & 1  <---- 6 ---->  2 & \multirow{8}{*}{100 Gbits/s} \\
+  & 1  <---- 6 ---->  3 & \\
+  & OXC <---- 12 ----> EXC & \\ \cline{1-2}
  \multirow{5}{*}{5 add ports} & 1  <---- 1 ---->  2 & \\
   & 1  <---- 1 ---->  3 & \\
   & 1  <---- 1 ---->  4 & \\
@@ -284,16 +302,16 @@ Through the information obtained previously on the nodes we can now create table
   & 1  <---- 1 ---->  6 & \\
  \hline
  \hline
-  & Number of tributary ports & Bit rate \\ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
 \multirow{3}{*}{29 tributary ports} & 13 & ODU0 \\
  & 13 & ODU1 \\
  & 3 & ODU2 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 1}
+\caption{Table with detailed description of node 1. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
 \end{table}
 
-\vspace{13pt}
+\vspace{20pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -301,11 +319,12 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{26 line ports} & 2  <---- 6 ---->  1 & \multirow{8}{*}{100 Gbits/s} \\
+ \multirow{4}{*}{52 line ports} & 2  <---- 6 ---->  1 & \multirow{9}{*}{100 Gbits/s} \\
   & 2  <---- 10 ---->  3 & \\
-  & 2  <---- 10 ---->  4 & \\ \cline{1-2}
+  & 2  <---- 10 ---->  4 & \\
+  & OXC <---- 26 ----> EXC & \\ \cline{1-2}
  \multirow{5}{*}{6 add ports} & 2  <---- 1 ---->  1 & \\
   & 2  <---- 1 ---->  3 & \\
   & 2  <---- 1 ---->  4 & \\
@@ -313,7 +332,7 @@ Through the information obtained previously on the nodes we can now create table
   & 2  <---- 2 ---->  6 & \\
  \hline
  \hline
-  & Number of tributary ports & Bit rate \\ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
 \multirow{5}{*}{23 tributary ports} & 11 & ODU0 \\
  & 7 & ODU1 \\
  & 2 & ODU2 \\
@@ -321,7 +340,7 @@ Through the information obtained previously on the nodes we can now create table
  & 1 & ODU4 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 2}
+\caption{Table with detailed description of node 2. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
 \end{table}
 
 \newpage
@@ -332,11 +351,12 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{26 line ports} & 3  <---- 6 ---->  1 & \multirow{8}{*}{100 Gbits/s} \\
+ \multirow{4}{*}{52 line ports} & 3  <---- 6 ---->  1 & \multirow{9}{*}{100 Gbits/s} \\
   & 3  <---- 10 ---->  2 & \\
-  & 3  <---- 10 ---->  3 & \\ \cline{1-2}
+  & 3  <---- 10 ---->  5 & \\
+  & OXC <---- 26 ----> EXC & \\ \cline{1-2}
  \multirow{5}{*}{5 add ports} & 3  <---- 1 ---->  1 & \\
   & 3  <---- 1 ---->  2 & \\
   & 3  <---- 1 ---->  4 & \\
@@ -344,14 +364,14 @@ Through the information obtained previously on the nodes we can now create table
   & 3  <---- 1 ---->  6 & \\
  \hline
  \hline
-  & Number of tributary ports & Bit rate \\ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
 \multirow{4}{*}{18 tributary ports} & 7 & ODU0 \\
  & 6 & ODU1\\
  & 3 & ODU2\\
  & 2 & ODU3\\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 3}
+\caption{Table with detailed description of node 3. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
 \end{table}
 
 \vspace{20pt}
@@ -362,11 +382,12 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{28 line ports} & 4  <---- 10 ---->  2 & \multirow{8}{*}{100 Gbits/s} \\
+ \multirow{4}{*}{56 line ports} & 4  <---- 10 ---->  2 & \multirow{9}{*}{100 Gbits/s} \\
   & 4  <---- 10 ---->  5 & \\
-  & 4  <---- 8 ---->  6 & \\ \cline{1-2}
+  & 4  <---- 8 ---->  6 & \\
+  & OXC <---- 28 ----> EXC & \\ \cline{1-2}
  \multirow{5}{*}{5 add ports} & 4  <---- 1 ---->  1 & \\
   & 4  <---- 1 ---->  2 & \\
   & 4  <---- 1 ---->  3 & \\
@@ -374,13 +395,13 @@ Through the information obtained previously on the nodes we can now create table
   & 4  <---- 1 ---->  6 & \\
  \hline
  \hline
-  & Number of tributary ports & Bit rate \\ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
 \multirow{3}{*}{20 tributary ports} & 7 & ODU0 \\
  & 10 & ODU1 \\
  & 3 & ODU2 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 4}
+\caption{Table with detailed description of node 4. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
 \end{table}
 
 \newpage
@@ -391,11 +412,12 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{28 line ports} & 5  <---- 10 ---->  3 & \multirow{8}{*}{100 Gbits/s} \\
+ \multirow{4}{*}{56 line ports} & 5  <---- 10 ---->  3 & \multirow{9}{*}{100 Gbits/s} \\
   & 5  <---- 10 ---->  4 & \\
-  & 5  <---- 8 ---->  6 & \\ \cline{1-2}
+  & 5  <---- 8 ---->  6 & \\
+  & OXC <---- 28 ----> EXC & \\ \cline{1-2}
  \multirow{5}{*}{6 add ports} & 5  <---- 1 ---->  1 & \\
   & 5  <---- 1 ---->  2 & \\
   & 5  <---- 1 ---->  3 & \\
@@ -403,7 +425,7 @@ Through the information obtained previously on the nodes we can now create table
   & 5  <---- 2 ---->  6 & \\
  \hline
  \hline
-  & Number of tributary ports & Bit rate \\ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
 \multirow{5}{*}{24 tributary ports} & 14 & ODU0 \\
  & 4 & ODU1 \\
  & 4 & ODU2 \\
@@ -411,7 +433,7 @@ Through the information obtained previously on the nodes we can now create table
  & 1 & ODU4 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 5}
+\caption{Table with detailed description of node 5. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
 \end{table}
 
 \vspace{20pt}
@@ -422,10 +444,11 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{2}{*}{16 line ports} & 6  <---- 8 ---->  4 & \multirow{7}{*}{100 Gbits/s} \\
-  & 6  <---- 8 ---->  5 & \\ \cline{1-2}
+ \multirow{3}{*}{32 line ports} & 6  <---- 8 ---->  4 & \multirow{8}{*}{100 Gbits/s} \\
+  & 6  <---- 8 ---->  5 & \\
+  & OXC <---- 16 ----> EXC & \\ \cline{1-2}
  \multirow{5}{*}{7 add ports} & 6  <---- 1 ---->  1 & \\
   & 6  <---- 2 ---->  2 & \\
   & 6  <---- 1 ---->  3 & \\
@@ -433,7 +456,7 @@ Through the information obtained previously on the nodes we can now create table
   & 6  <---- 2 ---->  5 & \\
  \hline
  \hline
-  & Number of tributary ports & Bit rate \\ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
 \multirow{5}{*}{22 tributary ports} & 8 & ODU0 \\
  & 10 & ODU1 \\
  & 1 & ODU2 \\
@@ -441,46 +464,11 @@ Through the information obtained previously on the nodes we can now create table
  & 2 & ODU4 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 6}
+\caption{Table with detailed description of node 6. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
 \end{table}
 
 \newpage
-Now through the table \ref{scripttransp_protec_ref_low} we can see the result of CAPEX obtained with this ILP model.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{|| c | c | c | c | c | c | c ||}
- \hline
- \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
- \hline
- \hline
- \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
- \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{68 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gb/s Transceivers} & 136 & 5 000 \euro/Gb/s & 68 000 000 \euro & \\ \cline{2-6}
- & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
- \hline
- \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{14 547 590 \euro} \\ \cline{3-6}
- & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
- & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
- & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
- & & ODU3 Ports & 8 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
- & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
- & & Line Ports & 136 & 1 000 \euro/Gb/s & 13 600 000 \euro & \\ \cline{2-6}
- & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & Line Ports & 272 & 2 500 \euro/port & 680 000 \euro & \\ \cline{3-6}
- & & Add Ports & 34 & 2 500 \euro/port & 85 000 \euro & \\
- \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 83 067 590 \euro \\
-\hline
-\end{tabular}
-\caption{Table with detailed description of CAPEX}
-\label{scripttransp_protec_ref_low}
-\end{table}
-
-
-\vspace{11pt}
-Finally let's focus on the routing information. In table \ref{path_transp_protec_ref_low} we can see all the routing obtained for all nodes.
+In next step let's focus on the routing information. These paths are bidirectional so the path from one node to another is the same path in the opposite direction. In table \ref{path_transp_protec_ref_low} we can see all the routing obtained for all nodes.\\
 
 \begin{table}[h!]
 \centering
@@ -528,9 +516,879 @@ Finally let's focus on the routing information. In table \ref{path_transp_protec
 \end{table}
 
 
-\newpage
+Finally and most importantly through table \ref{scripttransp_protec_ref_low} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above. In table \ref{formulas_transp} mentioned in previous model we can see how all the values were calculated.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
+ \hline
+ \hline
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{68 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 136 & 5 000 \euro/Gbit/s & 68 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{14 547 590 \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 8 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
+ & & Line Ports & 136 & 100 000 \euro/port & 13 600 000 \euro & \\ \cline{2-6}
+ & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 272 & 2 500 \euro/port & 680 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 34 & 2 500 \euro/port & 85 000 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 83 067 590 \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of CAPEX}
+\label{scripttransp_protec_ref_low}
+\end{table}
+
+
+\vspace{13pt}
 \textbf{Medium Traffic Scenario:}\\
 
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/allowed_physical_topology}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed2_physical_protectionmedium}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/allowed_optical_topology}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\label{allowed2_optical_protectionmedium}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU0_medium}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
+\label{logical2_ODU0_protectionmedium}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU1_medium}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
+\label{logical2_ODU1_protectionmedium}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU2_medium}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
+\label{logical2_ODU2_protectionmedium}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU3_medium}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
+\label{logical2_ODU3_protectionmedium}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU4_medium}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
+\label{logical2_ODU4_protectionmedium}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
+\label{physical2_protectionmedium}
+\end{figure}
+
+\vspace{17pt}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/optical_topology_medium}
+\caption{Optical topology after dimensioning.}
+\label{optical2_protectionmedium}
+\end{figure}
 
 
+\vspace{17pt}
+In table \ref{link_transp_protec_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
+
+In table \ref{node_transp_protec_ref_medium} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports for the optical part and the number of add ports calculated using \ref{OXC_poxc_transparentp} the number of line ports for the electrical part calculated using \ref{EXC_pexc2_transparentp} and the number of tributary ports calculated using \ref{EXC_pexc1_transparentp} for each node.\\
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Information regarding links} \\
+ \hline
+ \hline
+ Bidirectional Link & Optical Channels & Amplifiers\\
+ \hline
+ Node 1 <-> Node 2 & x & 4 \\
+ Node 1 <-> Node 3 & x & 6 \\
+ Node 2 <-> Node 3 & x & 0 \\
+ Node 2 <-> Node 4 & x & 6 \\
+ Node 3 <-> Node 5 & x & 8 \\
+ Node 4 <-> Node 5 & x & 1 \\
+ Node 4 <-> Node 6 & x & 7 \\
+ Node 5 <-> Node 6 & x & 3 \\
+ \hline
+\end{tabular}
+\caption{Table with information regarding links}
+\label{link_transp_protec_ref_medium}
+\end{table}
+
+\vspace{15pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{6}{|| c ||}{Information regarding nodes} \\
+ \hline
+ \hline
+ \multicolumn{2}{|| c |}{ } & \multicolumn{2}{ c |}{Optical part} & \multicolumn{2}{ c ||}{Electrical part} \\
+ \hline
+ Node & Resulting Nodal Degree & Line Ports & Add Ports & Line Ports & Tributary Ports\\
+ \hline
+ 1 & 2 & x & 11 & x & 290 \\
+ 2 & 3 & x & 25 & x & 230 \\
+ 3 & 3 & x & 16 & x & 180 \\
+ 4 & 3 & x & 8 & x & 200 \\
+ 5 & 3 & x & 23 & x & 240 \\
+ 6 & 2 & x & 31 & x & 220 \\
+\hline
+\end{tabular}
+\caption{Table with information regarding nodes}
+\label{node_transp_protec_ref_medium}
+\end{table}
+
+\vspace{15pt}
+Through the information obtained previously on the nodes we can now create tables with detailed information about each node. In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports and the add ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{3}{*}{x line ports} & 1  <---- x ---->  2 & \multirow{8}{*}{100 Gbits/s} \\
+  & 1  <---- x ---->  3 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{11 add ports} & 1  <---- 3 ---->  2 & \\
+  & 1  <---- 3 ---->  3 & \\
+  & 1  <---- 2 ---->  4 & \\
+  & 1  <---- 1 ---->  5 & \\
+  & 1  <---- 2 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{3}{*}{290 tributary ports} & 130 & ODU0 \\
+ & 130 & ODU1 \\
+ & 30 & ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 1. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\vspace{20pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 2  <---- x ---->  1 & \multirow{9}{*}{100 Gbits/s} \\
+  & 2  <---- x ---->  3 & \\
+  & 2  <---- x ---->  4 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{25 add ports} & 2  <---- 3 ---->  1 & \\
+  & 2  <---- 4 ---->  3 & \\
+  & 2  <---- 1 ---->  4 & \\
+  & 2  <---- 2 ---->  5 & \\
+  & 2  <---- 15 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{5}{*}{230 tributary ports} & 110 & ODU0 \\
+ & 70 & ODU1 \\
+ & 20 & ODU2 \\
+ & 20 & ODU3 \\
+ & 10 & ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 2. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 3  <---- x ---->  1 & \multirow{9}{*}{100 Gbits/s} \\
+  & 3  <---- x ---->  2 & \\
+  & 3  <---- x ---->  5 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{16 add ports} & 3  <---- 3 ---->  1 & \\
+  & 3  <---- 4 ---->  2 & \\
+  & 3  <---- 2 ---->  4 & \\
+  & 3  <---- 6 ---->  5 & \\
+  & 3  <---- 1 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{4}{*}{180 tributary ports} & 70 & ODU0 \\
+ & 60 & ODU1\\
+ & 30 & ODU2\\
+ & 20 & ODU3\\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 3. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\vspace{20pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 4  <---- x ---->  2 & \multirow{9}{*}{100 Gbits/s} \\
+  & 4  <---- x ---->  5 & \\
+  & 4  <---- x ---->  6 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{8 add ports} & 4  <---- 2 ---->  1 & \\
+  & 4  <---- 1 ---->  2 & \\
+  & 4  <---- 2 ---->  3 & \\
+  & 4  <---- 2 ---->  5 & \\
+  & 4  <---- 1 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{3}{*}{200 tributary ports} & 70 & ODU0 \\
+ & 100 & ODU1 \\
+ & 30 & ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 4. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 5  <---- x ---->  3 & \multirow{9}{*}{100 Gbits/s} \\
+  & 5  <---- x ---->  4 & \\
+  & 5  <---- x ---->  6 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{23 add ports} & 5  <---- 1 ---->  1 & \\
+  & 5  <---- 2 ---->  2 & \\
+  & 5  <---- 6 ---->  3 & \\
+  & 5  <---- 2 ---->  4 & \\
+  & 5  <---- 12 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{5}{*}{240 tributary ports} & 140 & ODU0 \\
+ & 40 & ODU1 \\
+ & 40 & ODU2 \\
+ & 10 & ODU3 \\
+ & 10 & ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 5. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\vspace{20pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{3}{*}{x line ports} & 6  <---- x ---->  4 & \multirow{8}{*}{100 Gbits/s} \\
+  & 6  <---- x ---->  5 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{31 add ports} & 6  <---- 2 ---->  1 & \\
+  & 6  <---- 15 ---->  2 & \\
+  & 6  <---- 1 ---->  3 & \\
+  & 6  <---- 1 ---->  4 & \\
+  & 6  <---- 12 ---->  5 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{5}{*}{220 tributary ports} & 80 & ODU0 \\
+ & 100 & ODU1 \\
+ & 10 & ODU2 \\
+ & 10 & ODU3 \\
+ & 20 & ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 6. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+
+In next step let's focus on the routing information. These paths are bidirectional so the
+path from one node to another is the same path in the opposite direction. In table \ref{path_transp_protec_ref_medium} we can see all the routing obtained for all nodes.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links \\
+ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{2} & \{(1,3),(3,2)\} \\
+ & & \{(1,2)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{3} & \{(1,2),(2,3)\} \\
+ & & \{(1,3)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,3),(3,5),(5,4)\} \\
+ & & \{(1,2),(2,4)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{5} & \{(1,2),(2,4),(4,5)\} \\
+ & & \{(1,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,3),(3,5),(5,6)\} \\
+ & & \{(1,2),(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,1),(1,3)\} \\
+ & & \{(2,3)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{4} & \{(2,3),(3,5),(5,4)\} \\
+ & & \{(2,4)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{5} & \{(2,4),(4,5)\} \\
+ & & \{(2,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{6} & \{(2,3),(3,5),(5,6)\} \\
+ & & \{(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,5),(5,4)\} \\
+ & & \{(3,2),(2,4)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{5} & \{(3,2),(2,4),(4,5)\} \\
+ & & \{(3,5)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{6} & \{(3,2),(2,4),(4,6)\} \\
+ & & \{(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{5} & \{(4,6),(6,5)\} \\
+ & & \{(4,5)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{6} & \{(4,5),(5,6)\} \\
+ & & \{(4,6)\} \\ \hline
+ \multirow{2}{*}{5} & \multirow{2}{*}{6} & \{(5,4),(4,6)\} \\
+ & & \{(5,6)\} \\
+ \hline
+\end{tabular}
+\caption{Table with description of routing}
+\label{path_transp_protec_ref_medium}
+\end{table}
+
+
+Finally and most importantly through table \ref{scripttransp_protec_ref_medium} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above. In table \ref{formulas_transp} mentioned in previous model we can see how all the values were calculated.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
+ \hline
+ \hline
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{xxxxxxxxx \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & xx & 5 000 \euro/Gbit/s & xxxxxxxxx \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{xxx xxxx xxx \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 80 & 60 \euro/port & 3 600 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
+ & & Line Ports & xx & 100 000 \euro/port & xxxxxxxx \euro & \\ \cline{2-6}
+ & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
+ & & Line Ports & xx & 2 500 \euro/port & xxxxxxx \euro & \\ \cline{3-6}
+ & & Add Ports & 114 & 2 500 \euro/port & 285 000 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & xxxxxxx \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of CAPEX}
+\label{scripttransp_protec_ref_medium}
+\end{table}
+
+
+\vspace{13pt}
 \textbf{High Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/allowed_physical_topology}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed2_physical_protectionhigh}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/allowed_optical_topology}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\label{allowed2_optical_protectionhigh}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU0_high}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
+\label{logical2_ODU0_protectionhigh}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=11cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU1_high}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
+\label{logical2_ODU1_protectionhigh}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU2_high}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
+\label{logical2_ODU2_protectionhigh}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU3_high}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
+\label{logical2_ODU3_protectionhigh}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/logical_topology_ODU4_high}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
+\label{logical2_ODU4_protectionhigh}
+\end{figure}
+
+\newpage
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
+\label{physical2_protectionhigh}
+\end{figure}
+
+\vspace{17pt}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=12cm]{sdf/ilp/transparent_protection/figures/optical_topology_high}
+\caption{Optical topology after dimensioning.}
+\label{optical2_protectionhigh}
+\end{figure}
+
+
+\vspace{17pt}
+In table \ref{link_transp_protec_ref_high} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
+
+In table \ref{node_transp_protec_ref_high} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports for the optical part and the number of add ports calculated using \ref{OXC_poxc_transparentp} the number of line ports for the electrical part calculated using \ref{EXC_pexc2_transparentp} and the number of tributary ports calculated using \ref{EXC_pexc1_transparentp} for each node.\\
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Information regarding links} \\
+ \hline
+ \hline
+ Bidirectional Link & Optical Channels & Amplifiers\\
+ \hline
+ Node 1 <-> Node 2 & x & 4 \\
+ Node 1 <-> Node 3 & x & 6 \\
+ Node 2 <-> Node 3 & x & 0 \\
+ Node 2 <-> Node 4 & x & 6 \\
+ Node 3 <-> Node 5 & x & 8 \\
+ Node 4 <-> Node 5 & x & 1 \\
+ Node 4 <-> Node 6 & x & 7 \\
+ Node 5 <-> Node 6 & x & 3 \\
+ \hline
+\end{tabular}
+\caption{Table with information regarding links}
+\label{link_transp_protec_ref_high}
+\end{table}
+
+\vspace{20pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{6}{|| c ||}{Information regarding nodes} \\
+ \hline
+ \hline
+ \multicolumn{2}{|| c |}{ } & \multicolumn{2}{ c |}{Optical part} & \multicolumn{2}{ c ||}{Electrical part} \\
+ \hline
+ Node & Resulting Nodal Degree & Line Ports & Add Ports & Line Ports & Tributary Ports\\
+ \hline
+ 1 & 2 & x & 19 & x & 580 \\
+ 2 & 3 & x & 48 & x & 460 \\
+ 3 & 3 & x & 29 & x & 360 \\
+ 4 & 3 & x & 14 & x & 400 \\
+ 5 & 3 & x & 44 & x & 480 \\
+ 6 & 2 & x & 60 & x & 440 \\
+\hline
+\end{tabular}
+\caption{Table with information regarding nodes}
+\label{node_transp_protec_ref_high}
+\end{table}
+
+\vspace{20pt}
+Through the information obtained previously on the nodes we can now create tables with detailed information about each node. In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports and the add ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{3}{*}{x line ports} & 1  <---- x ---->  2 & \multirow{8}{*}{100 Gbits/s} \\
+  & 1  <---- x ---->  3 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{19 add ports} & 1  <---- 5 ---->  2 & \\
+  & 1  <---- 5 ---->  3 & \\
+  & 1  <---- 4 ---->  4 & \\
+  & 1  <---- 1 ---->  5 & \\
+  & 1  <---- 4 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{3}{*}{580 tributary ports} & 260 & ODU0 \\
+ & 260 & ODU1 \\
+ & 60 & ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 1. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\vspace{15pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 2  <---- x ---->  1 & \multirow{9}{*}{100 Gbits/s} \\
+  & 2  <---- x ---->  3 & \\
+  & 2  <---- x ---->  4 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{48 add ports} & 2  <---- 5 ---->  1 & \\
+  & 2  <---- 8 ---->  3 & \\
+  & 2  <---- 2 ---->  4 & \\
+  & 2  <---- 4 ---->  5 & \\
+  & 2  <---- 29 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{5}{*}{460 tributary ports} & 220 & ODU0 \\
+ & 140 & ODU1 \\
+ & 40 & ODU2 \\
+ & 40 & ODU3 \\
+ & 20 & ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 2. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 3  <---- x ---->  1 & \multirow{9}{*}{100 Gbits/s} \\
+  & 3  <---- x ---->  2 & \\
+  & 3  <---- x ---->  5 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{29 add ports} & 3  <---- 5 ---->  1 & \\
+  & 3  <---- 8 ---->  2 & \\
+  & 3  <---- 3 ---->  4 & \\
+  & 3  <---- 12 ---->  5 & \\
+  & 3  <---- 1 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{4}{*}{360 tributary ports} & 140 & ODU0 \\
+ & 120 & ODU1\\
+ & 60 & ODU2\\
+ & 40 & ODU3\\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 3. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\vspace{15pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 4  <---- x ---->  2 & \multirow{9}{*}{100 Gbits/s} \\
+  & 4  <---- x ---->  5 & \\
+  & 4  <---- x ---->  6 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{14 add ports} & 4  <---- 4 ---->  1 & \\
+  & 4  <---- 2 ---->  2 & \\
+  & 4  <---- 3 ---->  3 & \\
+  & 4  <---- 3 ---->  5 & \\
+  & 4  <---- 2 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{3}{*}{400 tributary ports} & 140 & ODU0 \\
+ & 200 & ODU1 \\
+ & 60 & ODU2 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 4. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{4}{*}{x line ports} & 5  <---- x ---->  3 & \multirow{9}{*}{100 Gbits/s} \\
+  & 5  <---- x ---->  4 & \\
+  & 5  <---- x ---->  6 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{44 add ports} & 5  <---- 1 ---->  1 & \\
+  & 5  <---- 4 ---->  2 & \\
+  & 5  <---- 12 ---->  3 & \\
+  & 5  <---- 3 ---->  4 & \\
+  & 5  <---- 24 ---->  6 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{5}{*}{480 tributary ports} & 280 & ODU0 \\
+ & 80 & ODU1 \\
+ & 80 & ODU2 \\
+ & 20 & ODU3 \\
+ & 20 & ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 5. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\vspace{15pt}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
+ \hline
+ \hline
+ Optical part & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{3}{*}{x line ports} & 6  <---- x ---->  4 & \multirow{8}{*}{100 Gbits/s} \\
+  & 6  <---- x ---->  5 & \\
+  & OXC <---- x ----> EXC & \\ \cline{1-2}
+ \multirow{5}{*}{60 add ports} & 6  <---- 4 ---->  1 & \\
+  & 6  <---- 29 ---->  2 & \\
+  & 6  <---- 1 ---->  3 & \\
+  & 6  <---- 2 ---->  4 & \\
+  & 6  <---- 24 ---->  5 & \\
+ \hline
+ \hline
+ Electrical part & Number of tributary ports & Bit rate \\ \hline
+\multirow{5}{*}{440 tributary ports} & 160 & ODU0 \\
+ & 200 & ODU1 \\
+ & 20 & ODU2 \\
+ & 20 & ODU3 \\
+ & 40 & ODU4 \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of node 6. Regarding the electrical part the line ports were not mentioned because they are all connected with the optical part.}
+\end{table}
+
+\newpage
+Now let's focus on the routing information in table \ref{path_transp_protec_ref_high}. These paths are bidirectional so the path from one node to another is the same path in the opposite direction.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ \multicolumn{3}{|| c ||}{Routing} \\
+ \hline
+ \hline
+ o & d & Links \\
+ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{2} & \{(1,3),(3,2)\} \\
+ & & \{(1,2)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{3} & \{(1,2),(2,3)\} \\
+ & & \{(1,3)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,3),(3,5),(5,4)\} \\
+ & & \{(1,2),(2,4)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{5} & \{(1,2),(2,4),(4,5)\} \\
+ & & \{(1,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,3),(3,5),(5,6)\} \\
+ & & \{(1,2),(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,1),(1,3)\} \\
+ & & \{(2,3)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{4} & \{(2,3),(3,5),(5,4)\} \\
+ & & \{(2,4)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{5} & \{(2,4),(4,5)\} \\
+ & & \{(2,3),(3,5)\} \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{6} & \{(2,3),(3,5),(5,6)\} \\
+ & & \{(2,4),(4,6)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,5),(5,4)\} \\
+ & & \{(3,2),(2,4)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{5} & \{(3,2),(2,4),(4,5)\} \\
+ & & \{(3,5)\} \\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{6} & \{(3,2),(2,4),(4,6)\} \\
+ & & \{(3,5),(5,6)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{5} & \{(4,6),(6,5)\} \\
+ & & \{(4,5)\} \\ \hline
+ \multirow{2}{*}{4} & \multirow{2}{*}{6} & \{(4,5),(5,6)\} \\
+ & & \{(4,6)\} \\ \hline
+ \multirow{2}{*}{5} & \multirow{2}{*}{6} & \{(5,4),(4,6)\} \\
+ & & \{(5,6)\} \\
+ \hline
+\end{tabular}
+\caption{Table with description of routing}
+\label{path_transp_protec_ref_high}
+\end{table}
+
+Finally and most importantly through table \ref{scripttransp_surv_ref_high} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above. In table \ref{formulas_transp} mentioned in previous scenario we can see how all the values were calculated.\\
+\newpage
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
+ \hline
+ \hline
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{xxxxx \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & xx & 5 000 \euro/Gbit/s & xxxxxxxxxx \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{xxxxxxxxx \euro} \\ \cline{3-6}
+ & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 160 & 60 \euro/port & 7 200 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
+ & & Line Ports & xxx & 100 000 \euro/port & xxxxxxxx \euro & \\ \cline{2-6}
+ & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
+ & & Line Ports & xxx & 2 500 \euro/port & xxxxxxxx \euro & \\ \cline{3-6}
+ & & Add Ports & 214 & 2 500 \euro/port & 535 000 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & xxxxxxx \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of CAPEX}
+\label{scripttransp_protec_ref_high}
+\end{table}
+
+
+\subsubsection{Conclusions}
+
+Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transp_surv}.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+  & Low Traffic & Medium Traffic  & High Traffic \\
+ \hline\hline
+ CAPEX survivability & 32 247 590 \euro & 102 650 900 \euro & 191 256 800 \euro \\ \hline
+ CAPEX/Gbit/s survivability & 64 495.18 \euro/Gbit/s & 20 530.18 \euro/Gbit/s & 19 125.68 \euro/Gbit/s \\ \hline
+ Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
+ Number of Add ports & 34 & 114 & 214 \\ \hline
+ Number of Line ports & 136 & xx & xx \\ \hline
+ Number of Tributary ports & 138 & 1 380 & 2 760 \\ \hline
+ Number of Transceivers & 136 & xx & xx \\ \hline
+ Link Cost & 68 520 000 \euro & xxxxxxxx \euro & xxxxxxx \euro \\ \hline
+ Node Cost & 14 547 590 \euro & xxxxxxxx \euro & xxxxxxx \euro \\ \hline
+ CAPEX & \textbf{83 067 590 \euro} & \textbf{xxxxxxxx\euro} & \textbf{xxxxxxxx \euro} \\ \hline
+ CAPEX/Gbit/s & \textbf{166 135.18 \euro/Gbit/s} & \textbf{xxxxxxxx \euro/Gbit/s} & \textbf{xxxxxxxx \euro/Gbit/s}\\
+ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX for this case.}
+\label{table_comparative_transp_protec}
+\end{table}
+
+\newpage
+Looking at the previous table we can make some comparisons between the several scenarios:
+
+\begin{itemize}
+    \item Comparing the low traffic scenario with the others, we can see that, despite having an increase of factor ten (average scenario) and factor twenty (high scenario), the same increase does not occur in the final cost (it is lower). This happens because the number of transceivers is smaller than expected (an average scenario of 520 would be expected and a high scenario would be expected in 1040);
+    \item Comparing the average traffic scenario with the high traffic scenario, we can see that the factor increase is double and in the final cost this factor is very close but still lower. Again, this happens because the number of transceivers is smaller, but very close to what was expected (the high scenario would be expected at 336);
+    \item Comparing the cost with the traffic, we see that, for the low traffic scenario, the cost per traffic is very high in relation to the other two. We can conclude that a low traffic scenario becomes more expensive than a high traffic scenario.
+\end{itemize}
+
+
+\vspace{13pt}
+\subsubsection{Opens Issues}
+
+The creation of this model for any scenario, started with some considerations and some open issues being:
+
+\begin{itemize}
+  \item Allow blocking.
+  \subitem The presented model assume that the solution is possible or impossible, does not support a partial solution where some demands are not routed (are blocked).
+  \item Allow multiple transmission system.
+  \subitem The presented model for each link only supports one transmission system.
+\end{itemize}
+
