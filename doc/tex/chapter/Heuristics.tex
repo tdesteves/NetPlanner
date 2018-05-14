@@ -1,20 +1,18 @@
 % ------------------------------------------------------------------------
 \chapter{Heuristic Models}
 
-Heuristic algorithms are used in this report with an objective to minimize the total CAPEX of the network. It is important to have these comparison results with the linear programming ones, because these formulations are faster than the optimal methods and can generate also a near optimal solution. Another advantage of the heuristic approach is that heuristic solutions leads to good performances in practical network scenarios when we present a sufficiently feasible solution, instead of an optimal solution.
-
-In order to get the total network cost for the reference network, the CAPEX is calculated by routing and grooming heuristic algorithms implemented in Java and it is considered that all network equipment is bidirectional. These algorithms are tested in a network design software called Net2Plan.
-
+Heuristic algorithms are used in this report with an objective to minimize the total CAPEX of the network. It is important to have these comparison results with the linear programming ones, because these formulations are faster than the optimal methods and can generate also a near optimal solution. Another advantage of the heuristic approach is that heuristic solutions leads to good performances in practical network scenarios when we present a sufficiently feasible solution, instead of an optimal solution.\\
+In order to get the total network cost for the reference network, the CAPEX is calculated by routing and grooming heuristic algorithms implemented in Java and it is considered that all network equipment is bidirectional. These algorithms are tested in a network design software called Net2Plan.\\
 This chapter consists in demonstrating how the matrices are created, how the heuristic algorithms work and analyzing the results. It is divided in six subsections and the results differ into three different transport modes: opaque (link-by-link grooming method), transparent (single-hop grooming method) and translucent (multi-hop grooming method). Each one of these transport methods are also distinguished and compared by the possibility of being without survivability or with 1+1 protection and for the cases of low, medium and high traffic in the network.
 
 %Section CAPEX
 \input{./sdf/heuristic/heuristic_CAPEX}
 %Subsection with the different transport mode
-\input{./sdf/heuristic/heuristic_opaque_survivability}
-\input{./sdf/heuristic/heuristic_opaque_protection}
-\input{./sdf/heuristic/heuristic_transparent_survivability}
-\input{./sdf/heuristic/heuristic_transparent_protection}
-\input{./sdf/heuristic/heuristic_translucent_survivability}
-\input{./sdf/heuristic/heuristic_translucent_protection}
+\input{./sdf/heuristic/opaque_survivability/heuristic_opaque_survivability}
+\input{./sdf/heuristic/opaque_protection/heuristic_opaque_protection}
+\input{./sdf/heuristic/transparent_survivability/heuristic_transparent_survivability}
+\input{./sdf/heuristic/transparent_protection/heuristic_transparent_protection}
+\input{./sdf/heuristic/translucent_survivability/heuristic_translucent_survivability}
+\input{./sdf/heuristic/translucent_protection/heuristic_translucent_protection}
 %Section OPEX
 %Subsection with the different transport mode 
