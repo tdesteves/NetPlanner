@@ -30,9 +30,9 @@ P_{exc,-1,n} = \sum_{j=1}^{N} w_{nj}
 \end{equation}
 
 \vspace{11pt}
-where $w_{nj}$ is the number of optical channels between node $n$ and node $j$.
+\noindent
+where $w_{nj}$ is the number of optical channels between node $n$ and node $j$.\\
 
-\vspace{11pt}
 As previously mentioned, equation \ref{EXC_pexc2_opaque} refers to the number of sort-reach ports of the electrical switch with bit-rate c in node n, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate c in node n which can be calculated as
 
 \begin{equation}
@@ -41,9 +41,9 @@ P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
 \end{equation}
 
 \vspace{11pt}
-where $D_{nd,c}$ are the client demands between nodes $n$ and $d$ with bit rate $c$.
+\noindent
+where $D_{nd,c}$ are the client demands between nodes $n$ and $d$ with bit rate $c$.\\
 
-\vspace{11pt}
 In this case there is the following particularity:
 
 \begin{itemize}
@@ -52,7 +52,10 @@ In this case there is the following particularity:
 
 
 \vspace{17pt}
-The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}.\\
+The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}, i.e.,
+\begin{equation*}
+  minimize \qquad \Big\{ \quad C_C \quad \Big\}
+\end{equation*}
 
 $subject$ $to$
 \begin{equation}
@@ -107,9 +110,9 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 \forall(i,j) : i < j\label{ILPOpaque7}
 \end{equation}
 
-The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.\\
+The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.
 
-
+\newpage
 \subsubsection{Result description}
 
 To perform the calculations using the implementation of the models described in previous subsection it is necessary to use the MATLAB once more. \\
@@ -188,7 +191,7 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 \end{figure}
 
 \vspace{13pt}
-In table \ref{link_opaque_protec_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{amplifiers}.\\
+In table \ref{link_opaque_protec_ref_low} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
 
 In table \ref{node_opaque_protec_ref_low} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports calculated using \ref{EXC_pexc1_opaquep} and the number of tributary ports calculated using \ref{EXC_pexc2_opaquep} for each node.\\
 \newpage
@@ -211,7 +214,7 @@ In table \ref{node_opaque_protec_ref_low} we can see the resulting nodal degree 
  Node 5 <-> Node 6 & 3 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with information regarding links}
+\caption{Table with information regarding links for opaque mode with 1+1 protection.}
 \label{link_opaque_protec_ref_low}
 \end{table}
 
@@ -233,7 +236,7 @@ In table \ref{node_opaque_protec_ref_low} we can see the resulting nodal degree 
  6 & 2 & 6 & 22 \\
 \hline
 \end{tabular}
-\caption{Table with information regarding nodes}
+\caption{Table with information regarding nodes for opaque mode with 1+1 protection.}
 \label{node_opaque_protec_ref_low}
 \end{table}
 
@@ -247,19 +250,19 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
- \hline
- \multirow{2}{*}{4 line ports} & 1  <---- 2 ---->  2 & \multirow{2}{*}{100 Gbits/s} \\
- & 1  <---- 2 ---->  3 & \\
- \hline
- \hline
   & Number of tributary ports & Bit rate \\ \hline
 \multirow{3}{*}{29 tributary ports} & 13 & ODU0 \\
  & 13 & ODU1 \\
  & 3 & ODU2 \\
+ \hline
+ \hline
+  & Node<--Optical Channels-->Node & Bit rate \\
+ \hline
+ \multirow{2}{*}{4 line ports} & 1  <---- 2 ---->  2 & \multirow{2}{*}{100 Gbits/s} \\
+ & 1  <---- 2 ---->  3 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 1}
+\caption{Table with detailed description of node 1. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{low_scenario}.}
 \end{table}
 \newpage
 \begin{table}[h!]
@@ -269,25 +272,23 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
-  & Node<--Optical Channels-->Node & Bit rate \\
- \hline
- \multirow{3}{*}{8 line ports} & 2  <---- 2 ---->  1 & \multirow{3}{*}{100 Gbits/s} \\
- & 2  <---- 3 ---->  3 & \\
- & 2  <---- 3 ---->  4 & \\
- \hline
- \hline
-  & Number of tributary ports & Bit rate \\ \hline
+  & Number of total demands & Bit rate \\ \hline
 \multirow{5}{*}{23 tributary ports} & 11 & ODU0 \\
  & 7 & ODU1 \\
  & 2 & ODU2 \\
  & 2 & ODU3 \\
  & 1 & ODU4 \\
+ \hline
+ \hline
+  & Node<--Optical Channels-->Node & Bit rate \\ \hline
+ \multirow{3}{*}{8 line ports} & 2  <---- 2 ---->  1 & \multirow{3}{*}{100 Gbits/s} \\
+ & 2  <---- 3 ---->  3 & \\
+ & 2  <---- 3 ---->  4 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 2}
+\caption{Table with detailed description of node 2. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{low_scenario}.}
 \end{table}
 
-\vspace{15pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -295,24 +296,22 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
-   & Node<--Optical Channels-->Node & Bit rate \\
- \hline
- \multirow{3}{*}{8 line ports} & 3  <---- 2 ---->  1 & \multirow{3}{*}{100 Gbits/s}\\
- & 3  <---- 3 ---->  2 & \\
- & 3  <---- 3 ---->  5 & \\
- \hline
- \hline
-  & Number of tributary ports & Bit rate \\ \hline
+  & Number of total demands & Bit rate \\ \hline
 \multirow{4}{*}{18 tributary ports} & 7 & ODU0 \\
  & 6 & ODU1\\
  & 3 & ODU2\\
  & 2 & ODU3\\
+ \hline
+ \hline
+   & Node<--Optical Channels-->Node & Bit rate \\ \hline
+ \multirow{3}{*}{8 line ports} & 3  <---- 2 ---->  1 & \multirow{3}{*}{100 Gbits/s}\\
+ & 3  <---- 3 ---->  2 & \\
+ & 3  <---- 3 ---->  5 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 3}
+\caption{Table with detailed description of node 3. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{low_scenario}.}
 \end{table}
 
-\vspace{15pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -320,20 +319,19 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
-   & Node<--Optical Channels-->Node & Bit rate \\
- \hline
- \multirow{3}{*}{9 line ports} & 4  <---- 3 ---->  2 & \multirow{3}{*}{100 Gbits/s}\\
- & 4  <---- 3 ---->  5 & \\
- & 4  <---- 3 ---->  6 & \\
- \hline
- \hline
-  & Number of tributary ports & Bit rate \\ \hline
+  & Number of total demands & Bit rate \\ \hline
 \multirow{3}{*}{20 tributary ports} & 7 & ODU0 \\
  & 10 & ODU1 \\
  & 3 & ODU2 \\
+ \hline
+ \hline
+   & Node<--Optical Channels-->Node & Bit rate \\ \hline
+ \multirow{3}{*}{9 line ports} & 4  <---- 3 ---->  2 & \multirow{3}{*}{100 Gbits/s}\\
+ & 4  <---- 3 ---->  5 & \\
+ & 4  <---- 3 ---->  6 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 4}
+\caption{Table with detailed description of node 4.}
 \end{table}
 
 \newpage
@@ -344,22 +342,21 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
-   & Node<--Optical Channels-->Node & Bit rate \\
- \hline
- \multirow{3}{*}{9 line ports} & 5  <---- 3 ---->  2 & \multirow{3}{*}{100 Gbits/s}\\
- & 5  <---- 3 ---->  4 & \\
- & 5  <---- 3 ---->  6 & \\
- \hline
- \hline
-  & Number of tributary ports & Bit rate \\ \hline
+  & Number of total demands & Bit rate \\ \hline
 \multirow{5}{*}{24 tributary ports} & 14 & ODU0 \\
  & 4 & ODU1 \\
  & 4 & ODU2 \\
  & 1 & ODU3 \\
  & 1 & ODU4 \\
+ \hline
+ \hline
+   & Node<--Optical Channels-->Node & Bit rate \\ \hline
+ \multirow{3}{*}{9 line ports} & 5  <---- 3 ---->  2 & \multirow{3}{*}{100 Gbits/s}\\
+ & 5  <---- 3 ---->  4 & \\
+ & 5  <---- 3 ---->  6 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 5}
+\caption{Table with detailed description of node 5. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{low_scenario}.}
 \end{table}
 
 \vspace{17pt}
@@ -370,21 +367,20 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
-   & Node<--Optical Channels-->Node & Bit rate \\
- \hline
- \multirow{2}{*}{6 line ports} & 6  <---- 3 ---->  4 & \multirow{2}{*}{100 Gbits/s}\\
- & 6  <---- 3 ---->  5 & \\
- \hline
- \hline
-  & Number of tributary ports & Bit rate \\ \hline
+  & Number of total demands & Bit rate \\ \hline
 \multirow{5}{*}{22 tributary ports} & 8 & ODU0 \\
  & 10 & ODU1 \\
  & 1 & ODU2 \\
  & 1 & ODU3 \\
  & 2 & ODU4 \\
+ \hline
+ \hline
+   & Node<--Optical Channels-->Node & Bit rate \\ \hline
+ \multirow{2}{*}{6 line ports} & 6  <---- 3 ---->  4 & \multirow{2}{*}{100 Gbits/s}\\
+ & 6  <---- 3 ---->  5 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 6}
+\caption{Table with detailed description of node 6. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{low_scenario}.}
 \end{table}
 
 \vspace{17pt}
@@ -466,7 +462,7 @@ In table \ref{formulas_opaque} mentioned in first model we can see how all the v
  \multicolumn{6}{|| c |}{Total Network Cost} & 26 982 590 \euro \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of CAPEX}
+\caption{Table with detailed description of CAPEX for this scenario.}
 \label{scriptopaque_protec_ref_low}
 \end{table}
 
@@ -542,7 +538,7 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 \end{figure}
 
 \vspace{15pt}
-In table \ref{link_opaque_protec_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}. In the case where there are no optical channels we assume that the number of amplifiers is zero.\\
+In table \ref{link_opaque_protec_ref_medium} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}.\\
 
 In table \ref{node_opaque_protec_ref_medium} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports calculated using \ref{EXC_pexc1_opaquep} and the number of tributary ports calculated using \ref{EXC_pexc2_opaquep} for each node.\\
 
@@ -566,7 +562,7 @@ In table \ref{node_opaque_protec_ref_medium} we can see the resulting nodal degr
  Node 5 <-> Node 6 & 30 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with information regarding links}
+\caption{Table with information regarding links for opaque mode with 1+1 protection.}
 \label{link_opaque_protec_ref_medium}
 \end{table}
 
@@ -587,7 +583,7 @@ In table \ref{node_opaque_protec_ref_medium} we can see the resulting nodal degr
  6 & 2 & 60 & 220 \\
 \hline
 \end{tabular}
-\caption{Table with information regarding nodes}
+\caption{Table with information regarding nodes for opaque mode with 1+1 protection.}
 \label{node_opaque_protec_ref_medium}
 \end{table}
 
@@ -601,18 +597,18 @@ In each table mentioned below we can see how many ports are connected to a given
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
-\multirow{2}{*}{24 line ports} & 1  <---- 12 ---->  2 & \multirow{2}{*}{100 Gbtis/s} \\
- & 1  <---- 12 ---->  3 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{3}{*}{290 tributary ports} & 130 & ODU0 \\
  & 130 & ODU1 \\
  & 30 & ODU2 \\
+ \hline
+ \hline
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+\multirow{2}{*}{24 line ports} & 1  <---- 12 ---->  2 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 1  <---- 12 ---->  3 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 1}
+\caption{Table with detailed description of node 1. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{medium_traffic_scenario}.}
 \end{table}
 
 \newpage
@@ -623,24 +619,23 @@ In each table mentioned below we can see how many ports are connected to a given
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{3}{*}{73 line ports} & 2  <---- 12 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 2  <---- 33 ---->  3 & \\
- & 2  <---- 28 ---->  4 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{5}{*}{230 tributary ports} & 110 & ODU0 \\
  & 70 & ODU1 \\
  & 20 & ODU2 \\
  & 20 & ODU3 \\
  & 10 & ODU4 \\
+ \hline
+ \hline
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{3}{*}{73 line ports} & 2  <---- 12 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 2  <---- 33 ---->  3 & \\
+ & 2  <---- 28 ---->  4 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 2}
+\caption{Table with detailed description of node 2. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{medium_traffic_scenario}.}
 \end{table}
 
-\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -648,23 +643,20 @@ In each table mentioned below we can see how many ports are connected to a given
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{3}{*}{73 line ports} & 3  <---- 12 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 3  <---- 33 ---->  2 & \\
- & 3  <---- 28 ---->  5 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{4}{*}{180 tributary ports} & 70 & ODU0 \\
  & 60 & ODU1\\
  & 30 & ODU2\\
  & 20 & ODU3\\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{3}{*}{73 line ports} & 3  <---- 12 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 3  <---- 33 ---->  2 & \\
+ & 3  <---- 28 ---->  5 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 3}
+\caption{Table with detailed description of node 3. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{medium_traffic_scenario}.}
 \end{table}
 
-\vspace{13pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -672,19 +664,17 @@ In each table mentioned below we can see how many ports are connected to a given
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
+  & Number of total demands & bit rate \\ \hline
+\multirow{3}{*}{200 tributary ports} & 70 & ODU0 \\
+ & 100 & ODU1 \\
+ & 30 & ODU2 \\
   & Node <-- Optical Channels --> Node & bit rate \\ \hline
 \multirow{3}{*}{84 line ports} & 4  <---- 28 ---->  2 & \multirow{3}{*}{100 Gbtis/s}\\
  & 4  <---- 26 ---->  5 & \\
  & 4  <---- 30 ---->  6 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
-\multirow{3}{*}{200 tributary ports} & 70 & ODU0 \\
- & 100 & ODU1 \\
- & 30 & ODU2 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 4}
+\caption{Table with detailed description of node 4.}
 \end{table}
 
 \newpage
@@ -695,21 +685,19 @@ In each table mentioned below we can see how many ports are connected to a given
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{3}{*}{84 line ports} & 5  <---- 28 ---->  3 & \multirow{3}{*}{100 Gbtis/s} \\
- & 5  <---- 26 ---->  4 & \\
- & 5  <---- 30 ---->  6 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{5}{*}{240 tributary ports} & 140 & ODU0 \\
  & 40 & ODU1 \\
  & 40 & ODU2 \\
  & 10 & ODU3 \\
  & 10 & ODU4 \\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{3}{*}{84 line ports} & 5  <---- 28 ---->  3 & \multirow{3}{*}{100 Gbtis/s} \\
+ & 5  <---- 26 ---->  4 & \\
+ & 5  <---- 30 ---->  6 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 5}
+\caption{Table with detailed description of node 5. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{medium_traffic_scenario}.}
 \end{table}
 
 \vspace{17pt}
@@ -720,20 +708,18 @@ In each table mentioned below we can see how many ports are connected to a given
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{2}{*}{60 line ports} & 6  <---- 30 ---->  4 & \multirow{2}{*}{100 Gbtis/s} \\
- & 6  <---- 30 ---->  5 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{5}{*}{220 tributary ports} & 80 & ODU0 \\
  & 100 & ODU1 \\
  & 10 & ODU2 \\
  & 10 & ODU3 \\
  & 20 & ODU4 \\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{2}{*}{60 line ports} & 6  <---- 30 ---->  4 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 6  <---- 30 ---->  5 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 6}
+\caption{Table with detailed description of node 6. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{medium_traffic_scenario} .}
 \end{table}
 
 \vspace{17pt}
@@ -814,7 +800,7 @@ Finally and most importantly through table \ref{scriptopaque_protec_ref_medium} 
  \multicolumn{6}{|| c |}{Total Network Cost} & 239 405 900 \euro \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of CAPEX}
+\caption{Table with detailed description of CAPEX for this scenario.}
 \label{scriptopaque_protec_ref_medium}
 \end{table}
 
@@ -913,7 +899,7 @@ In table \ref{node_opaque_protec_ref_high} we can see the resulting nodal degree
  Node 5 <-> Node 6 & 60 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with information regarding links}
+\caption{Table with information regarding links for opaque mode with 1+1 protection.}
 \label{link_opaque_protec_ref_high}
 \end{table}
 
@@ -935,7 +921,7 @@ In table \ref{node_opaque_protec_ref_high} we can see the resulting nodal degree
  6 & 2 & 120 & 440 \\
 \hline
 \end{tabular}
-\caption{Table with information regarding nodes}
+\caption{Table with information regarding nodes for opaque mode with 1+1 protection.}
 \label{node_opaque_protec_ref_high}
 \end{table}
 
@@ -949,18 +935,16 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 1} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
-\multirow{2}{*}{48 line ports} & 1  <---- 24 ---->  2 & \multirow{2}{*}{100 Gbtis/s} \\
- & 1  <---- 24 ---->  3 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{3}{*}{580 tributary ports} & 260 & ODU0 \\
  & 260 & ODU1 \\
  & 60 & ODU2 \\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+\multirow{2}{*}{48 line ports} & 1  <---- 24 ---->  2 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 1  <---- 24 ---->  3 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 1}
+\caption{Table with detailed description of node 1. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
 
 \newpage
@@ -971,24 +955,21 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 2} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{3}{*}{145 line ports} & 2  <---- 24 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 2  <---- 65 ---->  3 & \\
- & 2  <---- 56 ---->  4 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{5}{*}{460 tributary ports} & 220 & ODU0 \\
  & 140 & ODU1 \\
  & 40 & ODU2 \\
  & 40 & ODU3 \\
  & 20 & ODU4 \\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{3}{*}{145 line ports} & 2  <---- 24 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 2  <---- 65 ---->  3 & \\
+ & 2  <---- 56 ---->  4 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 2}
+\caption{Table with detailed description of node 2. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
 
-\vspace{15pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -996,23 +977,20 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 3} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{3}{*}{145 line ports} & 3  <---- 24 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
- & 3  <---- 65 ---->  2 & \\
- & 3  <---- 56 ---->  5 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{4}{*}{360 tributary ports} & 140 & ODU0 \\
  & 120 & ODU1\\
  & 60 & ODU2\\
  & 40 & ODU3\\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{3}{*}{145 line ports} & 3  <---- 24 ---->  1 & \multirow{3}{*}{100 Gbtis/s}\\
+ & 3  <---- 65 ---->  2 & \\
+ & 3  <---- 56 ---->  5 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 3}
+\caption{Table with detailed description of node 3. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
 
-\vspace{15pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1020,19 +998,17 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 4} \\
  \hline
  \hline
+  & Number of total demands & bit rate \\ \hline
+\multirow{3}{*}{400 tributary ports} & 140 & ODU0 \\
+ & 200 & ODU1 \\
+ & 60 & ODU2 \\
   & Node <-- Optical Channels --> Node & bit rate \\ \hline
 \multirow{3}{*}{168 line ports} & 4  <---- 56 ---->  2 & \multirow{3}{*}{100 Gbtis/s}\\
  & 4  <---- 52 ---->  5 & \\
  & 4  <---- 60 ---->  6 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
-\multirow{3}{*}{400 tributary ports} & 140 & ODU0 \\
- & 200 & ODU1 \\
- & 60 & ODU2 \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 4}
+\caption{Table with detailed description of node 4.}
 \end{table}
 
 \newpage
@@ -1043,21 +1019,19 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 5} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{3}{*}{168 line ports} & 5  <---- 56 ---->  3 & \multirow{3}{*}{100 Gbtis/s} \\
- & 5  <---- 52 ---->  4 & \\
- & 5  <---- 60 ---->  6 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{5}{*}{480 tributary ports} & 280 & ODU0 \\
  & 80 & ODU1 \\
  & 80 & ODU2 \\
  & 20 & ODU3 \\
  & 20 & ODU4 \\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{3}{*}{168 line ports} & 5  <---- 56 ---->  3 & \multirow{3}{*}{100 Gbtis/s} \\
+ & 5  <---- 52 ---->  4 & \\
+ & 5  <---- 60 ---->  6 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 5}
+\caption{Table with detailed description of node 5. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
 
 \vspace{15pt}
@@ -1068,20 +1042,18 @@ Through the information obtained previously on the nodes we can now create table
  \multicolumn{3}{|| c ||}{Detailed description of Node 6} \\
  \hline
  \hline
-  & Node <-- Optical Channels --> Node & bit rate \\ \hline
- \multirow{2}{*}{120 line ports} & 6  <---- 60 ---->  4 & \multirow{2}{*}{100 Gbtis/s} \\
- & 6  <---- 60 ---->  5 & \\
- \hline
- \hline
-  & Number of tributary ports & bit rate \\ \hline
+  & Number of total demands & bit rate \\ \hline
 \multirow{5}{*}{440 tributary ports} & 160 & ODU0 \\
  & 200 & ODU1 \\
  & 20 & ODU2 \\
  & 20 & ODU3 \\
  & 40 & ODU4 \\
+  & Node <-- Optical Channels --> Node & bit rate \\ \hline
+ \multirow{2}{*}{120 line ports} & 6  <---- 60 ---->  4 & \multirow{2}{*}{100 Gbtis/s} \\
+ & 6  <---- 60 ---->  5 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 6}
+\caption{Table with detailed description of node 6. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
 
 
@@ -1163,7 +1135,7 @@ Finally and most importantly through table \ref{scriptopaque_protec_ref_high} we
  \multicolumn{6}{|| c |}{Total Network Cost} & 477 031 800 \euro \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of CAPEX}
+\caption{Table with detailed description of CAPEX for this scenario.}
 \label{scriptopaque_protec_ref_high}
 \end{table}
 
@@ -1183,14 +1155,14 @@ Once we have obtained the results for all the scenarios we will now draw some co
  Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
  Bidirectional Links used & 8 & 8 & 8 \\ \hline
  Number of Line ports & 44 & 398 & 794 \\ \hline
- Number of Tributary ports & 138 & 1 380 & 2 760 \\ \hline
+ Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
  Number of Transceivers & 44 & 398 & 794 \\ \hline
  Link Cost & 22 520 000 \euro & 199 520 000 \euro & 397 520 000 \euro \\ \hline
  Node Cost & 4 462 590 \euro & 39 885 900 \euro & 79 511 800 \euro \\ \hline
  CAPEX & \textbf{26 982 590 \euro} & \textbf{239 405 900 \euro} & \textbf{477 031 800 \euro} \\ \hline
  CAPEX/Gbit/s & \textbf{53 965.18 \euro/Gbit/s} & \textbf{47 881.18 \euro/Gbit/s} & \textbf{47 703.18 \euro/Gbit/s}\\ \hline
 \end{tabular}
-\caption{Table with different value of CAPEX for this case.}
+\caption{Table with the various CAPEX values obtained in the different traffic scenarios.}
 \label{table_comparative_opaque_protec}
 \end{table}
 
@@ -1201,6 +1173,7 @@ Looking at the previous table we can make some comparisons between the several s
   \item All scenarios uses all available links. This is because in this case regardless of traffic we always need two possible paths.
   \item Comparing the low traffic scenario with the others we can see that despite having an increase of factor ten (medium traffic scenario) and factor twenty (high traffic scenario) the same increase does not occur in the final cost (it is lower). This happens because the number of transceivers is smaller than expected.
   \item Comparing the medium traffic scenario with the high traffic scenario we can see that the increase of the factor is double and in the final cost this factor is very close but still inferior. Again this happens because the number of transceivers is lower but very close to the expected (has two less than expected).
+  \item Comparing the cost with the traffic, we see that, as the traffic increases the cost per Gbit/s is decreasing. We can conclude that the higher the traffic the lower the cost per Gbit/s.
   \item Comparing this cost with survivability cost we can conclude that protection is significantly more expensive. As can be seen in the table this increase is more than double soon with 1+1 protection we have a cost more than twice the cost without protection.
 \end{itemize}
 
