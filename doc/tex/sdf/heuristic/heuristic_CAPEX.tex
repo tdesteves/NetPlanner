@@ -13,28 +13,30 @@ The total CAPEX of a network, as it was already described in \ref{Capex}, is the
 
 In order to get the results for the heuristic approach, routing and grooming algorithms are used which try to obtain the most near optimal solution for the six cases detailed in this chapter. Then, it will be applied a cost report with all the detailed information about the costs of the network. The final CAPEX depends on the transport mode (opaque, transparent and translucent), possibility of the network having a dedicated 1+1 protection scheme or not and the network traffic (low - 0.5 Tbit/s, medium - 5 Tbit/s and high - 10 Tbit/s).
 
-To calculate the total network cost it has to be considered the links cost and the nodes cost. The CAPEX value of a network, $C_C$, in monetary units (e.g. euros, or dollars), is calculated by the equation \ref{Capex_heuristic}.
+To calculate the total network cost it has to be considered the links cost and the nodes cost. The CAPEX value of a network, $C_C$, in monetary units (e.g. euros, or dollars), is calculated by the equation \ref{Capex_heuristic}
 
 \begin{equation}
 C_C = C_L + C_N
 \label{Capex_heuristic}
 \end{equation}
 
-Where
+\noindent
+where
 
 \begin{itemize}
 \item{$C_L$				$\rightarrow$	Link cost in monetary units (e.g. euros, or dollars)}
 \item{$C_N$				$\rightarrow$	Node cost in monetary units (e.g. euros, or dollars)}
 \end{itemize}
 
-On the first hand, the links' cost, $C_L$, in monetary units (e.g. euros, or dollars), is calculated by the equation \ref{Capex_Link_heuristic}. If the length of the link is longer, the resulting costs will be higher due to of the necessity of having more components which carry all the traffic from all origin nodes to all destination nodes.
+On the first hand, the links' cost, $C_L$, in monetary units (e.g. euros, or dollars), is calculated by the equation \ref{Capex_Link_heuristic}. If the length of the link is longer, the resulting costs will be higher due to of the necessity of having more components which carry all the traffic from all origin nodes to all destination nodes
 
 \begin{equation}
 C_L = \sum_{i=1}^N \sum_{j=i+1}^N L_{ij} \left( 2 \gamma_0^{OLT} + 2 \gamma_1^{OLT} \tau W_{ij} + N^R_{ij} c^R \right)
 \label{Capex_Link_heuristic}
 \end{equation}
 
-Where
+\noindent
+where
 
 \begin{itemize}
 \item{$i$               $\rightarrow$   Index for start node of a physical link}
@@ -49,16 +51,15 @@ Where
 \item{$c^R$				$\rightarrow$	Optical amplifiers cost in monetary units (e.g. euros, or dollars)}
 \end{itemize}
 
-The line bit-rate that is used in this report has the value of 100. It represents the separation between regeneration stages in km.
-
-On the other hand, the nodes' cost, $C_N$, in monetary units (e.g. euros, or dollars), is calculated by the equation \ref{Capex_Node_heuristic}.
+The line bit-rate that is used in this report has the value of 100. It represents the separation between regeneration stages in km. On the other hand, the nodes' cost, $C_N$, in monetary units (e.g. euros, or dollars), is calculated by the equation \ref{Capex_Node_heuristic}
 
 \begin{equation}
 C_N = C_{EXC} + C_{OXC}
 \label{Capex_Node_heuristic}
 \end{equation}
 
-Where
+\noindent
+where
 
 \begin{itemize}
 \item {$C_{EXC}$        $\rightarrow$   Electrical node cost in monetary units (e.g. euros, or dollars)}
@@ -66,16 +67,15 @@ Where
 \end{itemize}
 
 \vspace{11pt}
-As all the nodes have an electrical part and an optical part, so it is necessary to calculate both with their respective formulas and sum the results.
-
-The electrical nodes' cost, $C_{EXC}$, in monetary units (e.g. euros, or dollars), is given by the equation \ref{Capex_Node_EXC_heuristic}.
+As all the nodes have an electrical part and an optical part, it is necessary to calculate both with their respective formulas and sum the results. The electrical nodes' cost, $C_{EXC}$, in monetary units (e.g. euros, or dollars), is given by the equation \ref{Capex_Node_EXC_heuristic}
 
 \begin{equation}
 C_{EXC} = \sum_{n=1}^{N} N_{exc,n} \left( \gamma_{e0} + \sum_{c=-1}^B \gamma_{e1,c} P_{exc,c,n} \right)
 \label{Capex_Node_EXC_heuristic}
 \end{equation}
 
-Where
+\noindent
+where
 
 \begin{itemize}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
@@ -104,16 +104,15 @@ Where
 \label{table_bitrate_heuristic}
 \end{table}
 
-The constitution of the electrical node part can be seen in the Integer Linear Programming section \ref{exc_design}.
-
-Finally, the optical nodes' cost, $C_{OXC}$, in monetary units (e.g. euros, or dollars), is given by the equation \ref{Capex_Node_OXC_heuristic}.
+The constitution of the electrical node part can be seen in the Integer Linear Programming section \ref{exc_design}. Finally, the optical nodes' cost, $C_{OXC}$, in monetary units (e.g. euros, or dollars), is given by the equation \ref{Capex_Node_OXC_heuristic}
 
 \begin{equation}
 C_{OXC} = \sum_{n=1}^{N} N_{oxc,n} \left( \gamma_{o0} + \gamma_{o1} P_{oxc,n} \right)
 \label{Capex_Node_OXC_heuristic}
 \end{equation}
 
-Where
+\noindent
+where
 
 \begin{itemize}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
@@ -123,9 +122,7 @@ Where
 \item{$P_{oxc,n}$	    $\rightarrow$	Number of ports of the optical switch}
 \end{itemize}
 
-The constitution of the optical node part can be seen in the Integer Linear Programming section \ref{oxc_design}.
-
-To obtain the best possible value, it will be necessary to minimize the cost of the CAPEX mentioned above so that we can obtain the objective function \ref{Minimize_Heuristic_CAPEX}.
+The constitution of the optical node part can be seen in the Integer Linear Programming section \ref{oxc_design}. To obtain the best possible value, it will be necessary to minimize the cost of the CAPEX mentioned above so that we can obtain the objective function \ref{Minimize_Heuristic_CAPEX}.
 
 \begin{equation}
 minimize \qquad \qquad C_C
@@ -157,12 +154,3 @@ After all the formulas needed to calculate the CAPEX of a network are demonstrat
 \caption{Table with costs}
 \label{table_cost_heuristic}
 \end{table}
-
-In the next page it is shown the heuristic algorithms approach used in the programming softwares Eclipse and Net2Plan. We can see the most important aspects to take into account by using these algorithms and the arguments and differences used in each of them. The argument "t" \space refers to the transport mode.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=15cm]{sdf/heuristic/figures/heuristic_fluxogram}
-\caption{Fluxogram with heuristic algorithms approach.}
-\label{fluxogram_heuristic}
-\end{figure}
