@@ -21,6 +21,7 @@ C_C = C_L + C_N
 \label{Capex}
 \end{equation}
 
+\noindent
 where
 \begin{itemize}
 \item{$C_L$				$\rightarrow$	Link cost in monetary units (e.g. euros, or dollars)}
@@ -46,6 +47,7 @@ C_L = \sum_{i=1}^N \sum_{j=i+1}^N L_{ij} \bigg( 2 \gamma_0^{OLT} + 2 \gamma_1^{O
 \label{Capex_Link}
 \end{equation}
 
+\noindent
 where
 \begin{itemize}
 \item{$i$               $\rightarrow$   Index for start node of a physical link}
@@ -69,6 +71,7 @@ N^R_{ij} = \sum_{i=1}\sum\limits_{j=i+1}\left(\left\lceil\frac{len_{ij}}{span}\r
 \end{equation}
 
 \vspace{11pt}
+\noindent
 where the variable $len_{ij}$ is the length of link $ij$ in kilometers and the $span$ is the distance between amplifiers also in kilometers. For all cases this distance is always 100 km.\\
 
 \vspace{13pt}
@@ -98,6 +101,7 @@ C_{EXC} = \sum_{n=1}^{N} N_{exc,n} \left( \gamma_{e0} + \sum_{c=-1}^B \gamma_{e1
 \label{Capex_Node_EXC}
 \end{equation}
 
+\noindent
 where
 \begin{itemize}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
@@ -145,6 +149,7 @@ C_{OXC} = \sum_{n=1}^{N} N_{oxc,n} \bigg( \gamma_{o0} + \gamma_{o1} P_{oxc,n} \b
 \label{Capex_Node_OXC}
 \end{equation}
 
+\noindent
 where
 \begin{itemize}
 \item{$N$				$\rightarrow$	Total number of nodes, N $\in \mathbb{N}$}
@@ -156,7 +161,7 @@ where
 
 
 \vspace{10pt}
-We have to take into account that the calculated value for the variable $P_{exc,c,n}$ and $P_{oxc,n}$ will depend on the mode of transport used (opaque, transparent or translucent) but later on it will be explained how these values are calculated for each specific transport mode..\\
+We have to take into account that the calculated value for the variable $P_{exc,c,n}$ and $P_{oxc,n}$ will depend on the mode of transport used (opaque, transparent or translucent) but later on it will be explained how these values are calculated for each specific transport mode.\\
 
 To obtain the best possible value, it will be necessary to minimize the cost of the capex mentioned above so that we can obtain the objective function \ref{ILPOpaque_CAPEX}.
 
@@ -166,6 +171,7 @@ minimize \qquad \Big\{ \quad C_C \quad \Big\}
 \end{equation}
 
 \vspace{11pt}
+\noindent
 Subject to the following restrictions where these restrictions are the flow conservation constraints.
 
 \begin{equation}
