@@ -373,10 +373,11 @@ public class costReport implements IReport
 		double transponderCost = Double.parseDouble(reportParameters.get("Transponder")) * Tau * nOpticalChannels;  //Tau * nOpticalChannels
 		double Cl = OLTCost + amplifiersCost + transponderCost;
 		double CostPLineElectrical = nOpticalChannels * Double.parseDouble(reportParameters.get("EXCPort")) * Tau;
-		double CostPLineOptical = 2 * nOpticalChannels * Double.parseDouble(reportParameters.get("OXCPort"));
+		double CostPLineOptical = nOpticalChannels * Double.parseDouble(reportParameters.get("OXCPort"));
 		double CostPEXC = N * Double.parseDouble(reportParameters.get("EXC"));
 		double CostPOXC = N * Double.parseDouble(reportParameters.get("OXC"));
-		double CostPadd = Padd * Double.parseDouble(reportParameters.get("OXCPort"));
+		double CostPaddElectrical = Padd * Double.parseDouble(reportParameters.get("EXCPort")) * Tau;
+		double CostPaddOptical = Padd * Double.parseDouble(reportParameters.get("OXCPort"));
 		double Cexc = 0;
 		double Coxc = 0;
 		
@@ -389,15 +390,15 @@ public class costReport implements IReport
 			costInformationTable.append("<table border='1'>");
 			costInformationTable.append("<tr><th colspan=4><b>Category</b></th><th><b>Quantity</b></th><th><b>Unit Price</b></th><th><b>Cost</b></th><th><b>Total</b></th></tr>");
 			costInformationTable.append(String.format("<tr> <td rowspan=3><b>Link Cost</b></td> <td colspan=3><b>OLTs</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td> <td rowspan=3>%s €</td>",Integer.toString(lUsed),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OLT"))),NumberFormat.getIntegerInstance().format(OLTCost),NumberFormat.getIntegerInstance().format(Cl)));
-			costInformationTable.append(String.format("<tr> <td colspan=3><b>100 Gb/s Transceivers</b></td> <td>%s</td> <td>%s €/Gb/s</td> <td>%s €</td>",Integer.toString(nOpticalChannels),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("Transponder"))),NumberFormat.getIntegerInstance().format(transponderCost)));
+			costInformationTable.append(String.format("<tr> <td colspan=3><b>100 Gb/s Transceivers</b></td> <td>%s</td> <td>%s €/Gbit/s</td> <td>%s €</td>",Integer.toString(nOpticalChannels),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("Transponder"))),NumberFormat.getIntegerInstance().format(transponderCost)));
 			costInformationTable.append(String.format("<tr> <td colspan=3><b>Amplifiers</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(numberAmplifiers),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("opticalAmplifier"))),NumberFormat.getIntegerInstance().format(amplifiersCost)));
 			costInformationTable.append(String.format("<tr> <td rowspan=9><b>Node Cost</b></td> <td colspan=2 rowspan=7><b>Electrical</b></td> <td><b>EXCs</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td> <td rowspan=9>%s €</td>", NumberFormat.getIntegerInstance().format(N), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("EXC"))), NumberFormat.getIntegerInstance().format(CostPEXC), NumberFormat.getIntegerInstance().format(Cexc + Coxc)));
-			costInformationTable.append(String.format("<tr> <td><b>ODU0 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[0], (int) unitPriceODU[0], NumberFormat.getIntegerInstance().format(CostPTribODU[0])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU1 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[1], (int) unitPriceODU[1], NumberFormat.getIntegerInstance().format(CostPTribODU[1])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU2 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[2], (int) unitPriceODU[2], NumberFormat.getIntegerInstance().format(CostPTribODU[2])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU3 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[3], (int) unitPriceODU[3], NumberFormat.getIntegerInstance().format(CostPTribODU[3])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU4 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[4], (int) unitPriceODU[4], NumberFormat.getIntegerInstance().format(CostPTribODU[4])));
-			costInformationTable.append(String.format("<tr> <td><b>Line Ports</b></td> <td>%s</td> <td>%s €/Gb/s</td> <td>%s €</td>", NumberFormat.getIntegerInstance().format((IntUtils.sum(portsLineOut))), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("EXCPort"))), NumberFormat.getIntegerInstance().format(CostPLineElectrical)));
+			costInformationTable.append(String.format("<tr> <td><b>ODU0 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[0], (int) unitPriceODU[0], NumberFormat.getIntegerInstance().format(CostPTribODU[0])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU1 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[1], (int) unitPriceODU[1], NumberFormat.getIntegerInstance().format(CostPTribODU[1])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU2 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[2], (int) unitPriceODU[2], NumberFormat.getIntegerInstance().format(CostPTribODU[2])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU3 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[3], (int) unitPriceODU[3], NumberFormat.getIntegerInstance().format(CostPTribODU[3])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU4 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[4], (int) unitPriceODU[4], NumberFormat.getIntegerInstance().format(CostPTribODU[4])));
+			costInformationTable.append(String.format("<tr> <td><b>LR Transponders</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", NumberFormat.getIntegerInstance().format((IntUtils.sum(portsLineOut))), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("EXCPort")) * Tau), NumberFormat.getIntegerInstance().format(CostPLineElectrical)));
 			costInformationTable.append(String.format("<tr> <td rowspan=2><b>Optical</b></td> <td colspan=2><b>OXCs</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(Coxc),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXC"))),NumberFormat.getIntegerInstance().format(Coxc)));
 			costInformationTable.append(String.format("<tr> <td colspan=2><b>Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(Coxc),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXCPort"))),NumberFormat.getIntegerInstance().format(Coxc)));
 			costInformationTable.append(String.format("<tr> <th colspan=7><b>Total Network Cost</b></th> <td>%s</td>",NumberFormat.getIntegerInstance().format(Cl + Coxc + Cexc)));
@@ -407,25 +408,25 @@ public class costReport implements IReport
 		
 		if(type.equals(transparent))
 		{
-			Coxc = CostPOXC + CostPLineOptical + CostPadd;
-			Cexc = CostPEXC + CostPLineElectrical + CostPTribODU[0] + CostPTribODU[1] + CostPTribODU[2] + CostPTribODU[3] + CostPTribODU[4];
+			Coxc = CostPOXC + CostPLineOptical + CostPaddOptical;
+			Cexc = CostPEXC + CostPaddElectrical + CostPTribODU[0] + CostPTribODU[1] + CostPTribODU[2] + CostPTribODU[3] + CostPTribODU[4];
 			//Cexc = (Double.parseDouble(reportParameters.get("EXC"))*N)+(Padd*2*Tau*Double.parseDouble(reportParameters.get("EXCPort")));
 		
 			costInformationTable.append("<table border='1'>");
 			costInformationTable.append("<tr><th colspan=4><b>Category</b></th><th><b>Quantity</b></th><th><b>Unit Price</b></th><th><b>Cost</b></th><th><b>Total</b></th></tr>");
 			costInformationTable.append(String.format("<tr> <td rowspan=3><b>Link Cost</b></td> <td colspan=3><b>OLTs</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td> <td rowspan=3>%s €</td>",Integer.toString(lUsed),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OLT"))),NumberFormat.getIntegerInstance().format(OLTCost),NumberFormat.getIntegerInstance().format(Cl)));
-			costInformationTable.append(String.format("<tr> <td colspan=3><b>100 Gb/s Transceivers</b></td> <td>%s</td> <td>%s €/Gb/s</td> <td>%s €</td>",Integer.toString(nOpticalChannels),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("Transponder"))),NumberFormat.getIntegerInstance().format(transponderCost)));
+			costInformationTable.append(String.format("<tr> <td colspan=3><b>100 Gb/s Transceivers</b></td> <td>%s</td> <td>%s €/Gbit/s</td> <td>%s €</td>",Integer.toString(nOpticalChannels),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("Transponder"))),NumberFormat.getIntegerInstance().format(transponderCost)));
 			costInformationTable.append(String.format("<tr> <td colspan=3><b>Amplifiers</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(numberAmplifiers),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("opticalAmplifier"))),NumberFormat.getIntegerInstance().format(amplifiersCost)));
 			costInformationTable.append(String.format("<tr> <td rowspan=10><b>Node Cost</b></td> <td colspan=2 rowspan=7><b>Electrical</b></td> <td><b>EXCs</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td> <td rowspan=10>%s €</td>", NumberFormat.getIntegerInstance().format(N), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("EXC"))), NumberFormat.getIntegerInstance().format(CostPEXC), NumberFormat.getIntegerInstance().format(Cexc + Coxc)));
-			costInformationTable.append(String.format("<tr> <td><b>ODU0 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[0], (int) unitPriceODU[0], NumberFormat.getIntegerInstance().format(CostPTribODU[0])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU1 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[1], (int) unitPriceODU[1], NumberFormat.getIntegerInstance().format(CostPTribODU[1])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU2 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[2], (int) unitPriceODU[2], NumberFormat.getIntegerInstance().format(CostPTribODU[2])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU3 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[3], (int) unitPriceODU[3], NumberFormat.getIntegerInstance().format(CostPTribODU[3])));
-			costInformationTable.append(String.format("<tr> <td><b>ODU4 Ports</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>", (int) ODU[4], (int) unitPriceODU[4], NumberFormat.getIntegerInstance().format(CostPTribODU[4])));
-			costInformationTable.append(String.format("<tr> <td><b>Line Ports</b></td> <td>%s</td> <td>%s €/Gb/s</td> <td>%s €</td>", NumberFormat.getIntegerInstance().format((IntUtils.sum(portsLineOut))), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("EXCPort"))), NumberFormat.getIntegerInstance().format(CostPLineElectrical)));
+			costInformationTable.append(String.format("<tr> <td><b>ODU0 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[0], (int) unitPriceODU[0], NumberFormat.getIntegerInstance().format(CostPTribODU[0])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU1 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[1], (int) unitPriceODU[1], NumberFormat.getIntegerInstance().format(CostPTribODU[1])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU2 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[2], (int) unitPriceODU[2], NumberFormat.getIntegerInstance().format(CostPTribODU[2])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU3 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[3], (int) unitPriceODU[3], NumberFormat.getIntegerInstance().format(CostPTribODU[3])));
+			costInformationTable.append(String.format("<tr> <td><b>ODU4 Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", (int) ODU[4], (int) unitPriceODU[4], NumberFormat.getIntegerInstance().format(CostPTribODU[4])));
+			costInformationTable.append(String.format("<tr> <td><b>Add Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", NumberFormat.getIntegerInstance().format(Padd), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("EXCPort")) * Tau), NumberFormat.getIntegerInstance().format(CostPaddElectrical)));
 			costInformationTable.append(String.format("<tr> <td rowspan=3><b>Optical</b></td> <td colspan=2><b>OXCs</b></td> <td>%s</td> <td>%s €</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(N),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXC"))), NumberFormat.getIntegerInstance().format(N * Double.parseDouble(reportParameters.get("OXC")))));
-			costInformationTable.append(String.format("<tr> <td colspan=2><b>Line Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", NumberFormat.getIntegerInstance().format(2 * nOpticalChannels), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXCPort"))), NumberFormat.getIntegerInstance().format(CostPLineOptical)));
-			costInformationTable.append(String.format("<tr> <td colspan=2><b>Add Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(Padd),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXCPort"))), NumberFormat.getIntegerInstance().format(CostPadd)));
+			costInformationTable.append(String.format("<tr> <td colspan=2><b>LR Transponders</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>", NumberFormat.getIntegerInstance().format(nOpticalChannels), NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXCPort"))), NumberFormat.getIntegerInstance().format(CostPLineOptical)));
+			costInformationTable.append(String.format("<tr> <td colspan=2><b>Add Ports</b></td> <td>%s</td> <td>%s €/port</td> <td>%s €</td>",NumberFormat.getIntegerInstance().format(Padd),NumberFormat.getIntegerInstance().format(Double.parseDouble(reportParameters.get("OXCPort"))), NumberFormat.getIntegerInstance().format(CostPaddOptical)));
 			costInformationTable.append(String.format("<tr> <th colspan=7><b>Total Network Cost</b></th> <td>%s</td>",NumberFormat.getIntegerInstance().format(Cl + Coxc + Cexc)));
 			costInformationTable.append("</table>");
 		
