@@ -1,3 +1,16 @@
+2018-05-22
+TO BE DONE
+
+	- mais detalhe fluxograma para as heuristicas (opaco e transparente)
+
+	- melhor a edição do textto tabelas
+
+	- colocar na tabela de comparação
+
+	- começar a pensar no translucido
+
+Next meeting: terça, 22/5, 16h30m
+
 2018-05-03
 TO BE DONE
 
