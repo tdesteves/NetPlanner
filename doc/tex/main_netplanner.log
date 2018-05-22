@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.5)  21 MAY 2018 18:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6600 64-bit) (preloaded format=pdflatex 2018.3.5)  22 MAY 2018 16:36
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -5844,7 +5844,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 279--280
  []
 
 
-Overfull \hbox (25.16078pt too wide) in paragraph at lines 283--308
+Overfull \hbox (30.63577pt too wide) in paragraph at lines 283--308
  [][] 
  []
 
@@ -6204,7 +6204,7 @@ pdfTeX warning: pdflatex.exe (file ./sdf/heuristic/transparent_protection/figur
 es/physical_topology.pdf): PDF inclusion: invalid other resource which is no di
 ct (key 'ProcSets', type <array>); ignored.
 >]
-Overfull \hbox (25.16078pt too wide) in paragraph at lines 136--161
+Overfull \hbox (30.63577pt too wide) in paragraph at lines 136--161
  [][] 
  []
 
@@ -12000,7 +12000,7 @@ public/amsfonts/symbols/msbm10.pfb><C:/Users/Asus/AppData/Local/Programs/MiKTeX
 iKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Users/Asus/AppData/Local/Prog
 rams/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Users/Asus/AppData/Loca
 l/Programs/MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (408 pages, 13809647 bytes).
+Output written on main_netplanner.pdf (408 pages, 13809447 bytes).
 PDF statistics:
  6951 PDF objects out of 7423 (max. 8388607)
  1071 named destinations out of 1200 (max. 500000)
