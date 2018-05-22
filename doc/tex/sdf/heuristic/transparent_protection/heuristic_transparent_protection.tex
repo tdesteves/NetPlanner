@@ -3,7 +3,7 @@
 \subsection{Transparent with 1+1 Protection}\label{heuristic_Transp_Protection}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
-\textbf{Student Name}  &:& Pedro Coelho    (March 01, 2018 - )\\
+\textbf{Student Name}  &:& Pedro Coelho    (01/03/2018 - )\\
 \textbf{Goal}          &:& Implement the heuristic model for the transparent transport mode with 1 plus 1 protection.
 \end{tabular}
 \end{tcolorbox}
@@ -71,7 +71,7 @@ In this chapter will be demonstrated the results by Vasco's heuristics from 2016
 
 \textbf{Low Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
 
 \begin{figure}[H]
 \centering
@@ -140,22 +140,22 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{68 520 000 \euro} \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{136 520 000 \euro} \\ \cline{2-6}
  & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 136 & 5 000 \euro/Gbit/s & 68 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{4 007 590 \euro} \\ \cline{3-6}
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{4 347 590 \euro} \\ \cline{3-6}
   & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 6 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
- & & Add Ports & 34 & 100 000 \euro/port & 3 400 000 \euro & \\ \cline{3-6}
+ & & Transponders & 34 & 100 000 \euro/port & 3 400 000 \euro & \\ \cline{2-6}
  & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & LR Transponders & 136 & 2 500 \euro/port & 340 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 272 & 2 500 \euro/port & 680 000 \euro & \\ \cline{3-6}
  & & Add Ports & 34 & 2 500 \euro/port & 85 000 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 72 527 590 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 140 867 590 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
@@ -164,7 +164,7 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 
 \textbf{Medium Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
 
 \begin{figure}[H]
 \centering
@@ -233,22 +233,22 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{226 520 000 \euro} \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{452 520 000 \euro} \\ \cline{2-6}
  & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 452 & 5 000 \euro/Gbit/s & 226 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{15 890 900 \euro} \\ \cline{3-6}
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{14 150 900 \euro} \\ \cline{3-6}
  & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 60 & 60 \euro/port & 3 600 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
- & & Add Ports & 142 & 100 000 \euro/port & 14 200 000 \euro & \\ \cline{3-6}
+ & & Transponders & 114 & 100 000 \euro/port & 11 400 000 \euro & \\ \cline{2-6}
  & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & LR Transponders & 452 & 2 500 \euro/port & 1 130 000 \euro & \\ \cline{3-6}
- & & Add Ports & 142 & 2 500 \euro/port & 355 000 \euro & \\
+ & & Line Ports & 904 & 2 500 \euro/port & 2 260 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 114 & 2 500 \euro/port & 285 000 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 242 410 900 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 466 670 900 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
@@ -257,7 +257,7 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 
 \textbf{High Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
 
 \begin{figure}[H]
 \centering
@@ -326,22 +326,22 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{424 520 000 \euro} \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{848 520 000 \euro} \\ \cline{2-6}
  & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 848 & 5 000 \euro/Gbit/s & 424 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{10}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{29 821 800 \euro} \\ \cline{3-6}
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{26 406 800 \euro} \\ \cline{3-6}
   & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 120 & 60 \euro/port & 7 200 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
- & & Add Ports & 268 & 100 000 \euro/port & 26 800 000 \euro & \\ \cline{3-6}
+ & & Transponders & 214 & 100 000 \euro/port & 21 400 000 \euro & \\ \cline{2-6}
  & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & LR Transponders & 848 & 2 500 \euro/port & 2 120 000 \euro & \\ \cline{3-6}
- & & Add Ports & 268 & 2 500 \euro/port & 670 000 \euro & \\
+ & & Line Ports & 1 696 & 2 500 \euro/port & 4 240 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 214 & 2 500 \euro/port & 535 000 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 454 341 800 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 874 926 800 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX of Vasco's 2016 results.}
@@ -360,18 +360,18 @@ Once we have obtained the results for all the scenarios for transparent without 
  \hline
  & Low Traffic & Medium Traffic & High Traffic \\
  \hline\hline
- CAPEX survivability & 30 317 590 \euro & 99 700 900 \euro & 186 006 800 \euro \\ \hline
- CAPEX/Gbit/s survivability & 60 635.18 \euro/Gbit/s & 19 940.18 \euro/Gbit/s & 18 600.68 \euro/Gbit/s \\ \hline
+ \makecell{CAPEX \\ without survivability} & 56 447 590 \euro & 181 250 900 \euro & 338 256 800 \euro \\ \hline
+ \makecell{CAPEX/Gbit/s \\ without survivability} & 112 895 \euro/Gbit/s & 36 250 \euro/Gbit/s & 33 825 \euro/Gbit/s \\ \hline
  Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
  Bidirectional Links used & 8 & 8 & 8 \\ \hline
- Number of Add ports & 34 & 142 & 268 \\ \hline
- Number of Line ports & 136 & 452 & 848 \\ \hline
+ Number of Add ports & 34 & 114 & 214 \\ \hline
+ Number of Line ports & 272 & 904 & 1 696 \\ \hline
  Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
- Number of Transceivers & 136 & 452 & 848 \\ \hline
- Link Cost & 68 520 000 \euro & 226 520 000 \euro & 424 520 000 \euro \\ \hline
- Node Cost & 4 007 590 \euro & 15 890 900 \euro & 29 821 800 \euro \\ \hline
- CAPEX & \textbf{72 527 590 \euro} & \textbf{242 410 900 \euro} & \textbf{454 341 800 \euro} \\ \hline
- CAPEX/Gbit/s & \textbf{145 055.18 \euro/Gbit/s} & \textbf{48 482.18 \euro/Gbit/s} & \textbf{45 434.18 \euro/Gbit/s} \\ \hline
+ Number of Transceivers & 272 & 904 & 1 696 \\ \hline
+ Link Cost & 136 520 000 \euro & 452 520 000 \euro & 848 520 000 \euro \\ \hline
+ Node Cost & 4 347 590 \euro & 14 150 900 \euro & 26 406 800 \euro \\ \hline
+ CAPEX & \textbf{140 867 590 \euro} & \textbf{466 670 900 \euro} & \textbf{874 926 800 \euro} \\ \hline
+ CAPEX/Gbit/s & \textbf{281 735 \euro/Gbit/s} & \textbf{93 334 \euro/Gbit/s} & \textbf{87 492 \euro/Gbit/s} \\ \hline
 \end{tabular}
 \caption{Table with different value of CAPEX for this case.}
 \label{table_comparative_transp_protec_heuristic}
@@ -394,9 +394,7 @@ We can also make some comparisons between the transparent without survivability 
 
 \begin{itemize}
   \item We can see that in the transparent with 1+1 protection the CAPEX cost for all the three traffic is more than the double;
-    \subitem This happens because in the transparent with 1+1 protection there is a need of having a primary and a backup path, in case of a network failure, and the backup path is typically longer and normally uses more than the double of the capacity of the primary;
-  \item The number of the network components and the CAPEX cost are directly proportional to the traffic value. The higher the traffic value, the higher the network CAPEX cost;
-  \subitem This happens because if the traffic value is higher, the network components have to be in more quantity to carry all the traffic end-to-end, both in the primary and backup paths;
+    \subitem This happens because in the transparent with 1+1 protection there is a need of having a primary and a backup path, in case of a network failure, and the backup path is typically longer;
   \item Comparing the CAPEX cost per bit we can see that has a similar case in both of the two scenarios. In the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is similar;
   \subitem This happens because the lower the traffic, the higher CAPEX/bit will be. We can see that in medium and high traffic the results tend to be one closer and lower value.
 \end{itemize}
