@@ -1,13 +1,13 @@
 ﻿2018-05-15
 TO BE DONE
 	
-	melhorar o texto
+	melhorar o texto ##### Feito #####
 	
-	concluir a parte do transparente
+	concluir a parte do transparente ##### Feito #####
 
-	iniciar o translucido
+	iniciar o translucido #### Feito ######
 
-	analítico (tabela passo a passo)
+	analítico (tabela passo a passo) #### Feito ######
 
 Next meeting: terça, 22/5, 16h30m
 
