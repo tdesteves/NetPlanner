@@ -100,17 +100,23 @@ $subject$ $to$
 \label{ILPTransluc1}
 \end{equation}
 
+This constraint are the virtual flow conservation constraints and ensure that, for all (o,d) pairs with bit rate $c$ we routes demand traffic of flow from node $o$ to node $d$ with bit rate $c$ for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand.
+
 \begin{equation}
 \sum_{j\textbackslash \{i,o\}} Ls_{ij}^{odc} = \sum_{j\textbackslash \{i,d\}} Ls_{ji}^{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPTransluc2}
 \end{equation}
 
+In this constraint, assuming bidirectional traffic, so the demand traffic of flow in both directions of the link is the same.
+
 \begin{equation}
 \sum_{j\textbackslash \{d\}} Ls_{ji}^{odc} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPTransluc3}
 \end{equation}
+
+This constraint are the virtual flow conservation constraints and ensure that, for all (o,d) pairs with bit rate $c$ we routes demand traffic of flow from node $o$ to node $d$ with bit rate $c$ for all bidirectional links (j,i) when $i$ is not equal to the destination of the demand.
 
 \begin{equation}
 \sum_{o=1} \sum_{d=o+1} B(c) Ls_{ij}^{odc} \leq  \tau \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -166,21 +172,20 @@ L_{i,j} \in \{0,1\} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qqu
 \label{ILPTransluc11}
 \end{equation}
 
-Last constraint refers to the use of the link where this variable can be zero if it is not being used or one if is being used.\\
+Last constraint refers to the use of the link where this variable can be zero if it is not being used or one if is being used.
 
 \subsubsection{Result description}
 
-To perform the calculations using the implementation of the models described previously it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.\\
-We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.
-The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost_ilp}.\\
+To perform the calculations using the implementation of the models described previously it is necessary to use a mathematical software tool. For this we will use MATLAB which is ideal for dealing with linear programming problems and can call the LPsolve through an external interface.
+We already have all the necessary to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic so we have to obtain three different CAPEX. The value of the CAPEX of the network will be calculated based on the costs of the equipment present in the table \ref{table_cost_ilp}.\\
 
 \textbf{Low Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=12cm]{sdf/ilp/translucent_survivability/figures/allowed_physical_topology}
+\includegraphics[width=11cm]{sdf/ilp/translucent_survivability/figures/allowed_physical_topology}
 \caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed3_physical_low}
 \end{figure}
@@ -266,12 +271,11 @@ In table \ref{node_transluc_surv_ref_low} we can see the resulting nodal degree 
  Node 5 <-> Node 6 & 2 & 3 \\
  \hline
 \end{tabular}
-\caption{Table with information regarding links for transparent mode.}
+\caption{Table with information regarding links for translucent mode without survivability.}
 \label{link_transluc_surv_ref_low}
 \end{table}
 
-
-
+\vspace{17pt}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c | c | c ||}
@@ -283,16 +287,17 @@ In table \ref{node_transluc_surv_ref_low} we can see the resulting nodal degree 
  \hline
  Node & Resulting Nodal Degree & Tributary Ports & LR Transponders & Add Ports & Line Ports\\
  \hline
- 1 & 2 & 29 & 8 & 8 & 8 \\
+ 1 & 1 & 29 & 8 & 8 & 8 \\
  2 & 3 & 23 & 12 & 12 & 16 \\
- 3 & 3 & 18 & 7 & 7 & 7 \\
- 4 & 3 & 20 & 5 & 5 & 5 \\
+ 3 & 2 & 18 & 7 & 7 & 7 \\
+ 4 & 2 & 20 & 5 & 5 & 5 \\
  5 & 3 & 24 & 6 & 6 & 6 \\
- 6 & 2 & 22 & 2 & 2 & 2 \\
+ 6 & 1 & 22 & 2 & 2 & 2 \\
 \hline
 \end{tabular}
-\caption{Table with information regarding nodes for transparent mode.}
+\caption{Table with information regarding nodes for translucent mode without survivability.}
 \label{node_transluc_surv_ref_low}
 \end{table}
 
+\vspace{17pt}
 Through the information obtained previously on the nodes we can now create tables with detailed information about each node. In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\

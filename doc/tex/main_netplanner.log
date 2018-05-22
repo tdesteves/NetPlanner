@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  22 MAY 2018 12:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350) (preloaded format=pdflatex 2017.10.12)  22 MAY 2018 16:17
 entering extended mode
 **./main_netplanner.tex
 (main_netplanner.tex
@@ -4606,69 +4606,59 @@ Underfull \hbox (badness 10000) in paragraph at lines 88--90
 LaTeX Warning: Command \textbackslash invalid in math mode on input line 98.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 104.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 106.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 104.
-
-
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 110.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 106.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 109.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 113.
+(babel)             in language  on input line 109.
 [156]
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 124.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 114.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 132.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 130.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 132.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 138.
 
 
-LaTeX Warning: Command \textbackslash invalid in math mode on input line 140.
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 138.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 169--170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 173--176
-
- []
+LaTeX Warning: Command \textbackslash invalid in math mode on input line 146.
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 176.
+(babel)             in language  on input line 173.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 176.
+(babel)             in language  on input line 173.
 [157]
-Underfull \hbox (badness 10000) in paragraph at lines 177--178
+Underfull \hbox (badness 10000) in paragraph at lines 179--181
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 179--180
+Underfull \hbox (badness 10000) in paragraph at lines 182--183
 
  []
 
 
 <sdf/ilp/translucent_survivability/figures/allowed_physical_topology.pdf, id=30
-11, 344.28625pt x 171.64125pt>
+09, 344.28625pt x 171.64125pt>
 File: sdf/ilp/translucent_survivability/figures/allowed_physical_topology.pdf G
 raphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/allowed_physical_topology.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/allowed_phys
-ical_topology.pdf used on input line 183.
-(pdftex.def)             Requested size: 341.43306pt x 170.21867pt.
+ical_topology.pdf used on input line 188.
+(pdftex.def)             Requested size: 312.9803pt x 156.034pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 188.
+(babel)             in language  on input line 193.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 188.
+(babel)             in language  on input line 193.
 
 [158 <./sdf/ilp/translucent_survivability/figures/allowed_physical_topology.pdf
 
@@ -4684,7 +4674,7 @@ aphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/allowed_optical_topology.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/allowed_opti
-cal_topology.pdf used on input line 191.
+cal_topology.pdf used on input line 196.
 (pdftex.def)             Requested size: 312.9803pt x 152.38408pt.
 
 <sdf/ilp/translucent_survivability/figures/logical_topology_ODU0_low.pdf, id=30
@@ -4694,7 +4684,7 @@ raphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/logical_topology_ODU0_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/logical_topo
-logy_ODU0_low.pdf used on input line 198.
+logy_ODU0_low.pdf used on input line 203.
 (pdftex.def)             Requested size: 312.9803pt x 152.38408pt.
 
 <sdf/ilp/translucent_survivability/figures/logical_topology_ODU1_low.pdf, id=30
@@ -4704,12 +4694,12 @@ raphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/logical_topology_ODU1_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/logical_topo
-logy_ODU1_low.pdf used on input line 205.
+logy_ODU1_low.pdf used on input line 210.
 (pdftex.def)             Requested size: 312.9803pt x 152.38408pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 210.
+(babel)             in language  on input line 215.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 210.
+(babel)             in language  on input line 215.
 
 [159 <./sdf/ilp/translucent_survivability/figures/allowed_optical_topology.pdf
 
@@ -4734,7 +4724,7 @@ raphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/logical_topology_ODU2_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/logical_topo
-logy_ODU2_low.pdf used on input line 213.
+logy_ODU2_low.pdf used on input line 218.
 (pdftex.def)             Requested size: 341.43306pt x 166.23695pt.
 
 <sdf/ilp/translucent_survivability/figures/logical_topology_ODU3_low.pdf, id=30
@@ -4744,7 +4734,7 @@ raphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/logical_topology_ODU3_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/logical_topo
-logy_ODU3_low.pdf used on input line 220.
+logy_ODU3_low.pdf used on input line 225.
 (pdftex.def)             Requested size: 341.43306pt x 166.23695pt.
 
 <sdf/ilp/translucent_survivability/figures/logical_topology_ODU4_low.pdf, id=30
@@ -4754,12 +4744,12 @@ raphic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/logical_topology_ODU4_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/logical_topo
-logy_ODU4_low.pdf used on input line 227.
+logy_ODU4_low.pdf used on input line 232.
 (pdftex.def)             Requested size: 341.43306pt x 166.23695pt.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
+(babel)             in language  on input line 236.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 231.
+(babel)             in language  on input line 236.
 
 [160 <./sdf/ilp/translucent_survivability/figures/logical_topology_ODU2_low.pdf
 
@@ -4785,7 +4775,7 @@ ic file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/physical_topology_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/physical_top
-ology_low.pdf used on input line 234.
+ology_low.pdf used on input line 239.
 (pdftex.def)             Requested size: 341.43306pt x 169.69098pt.
 
 <sdf/ilp/translucent_survivability/figures/optical_topology_low.pdf, id=3137, 3
@@ -4795,22 +4785,22 @@ c file (type pdf)
 
 <use sdf/ilp/translucent_survivability/figures/optical_topology_low.pdf>
 Package pdftex.def Info: sdf/ilp/translucent_survivability/figures/optical_topo
-logy_low.pdf used on input line 241.
+logy_low.pdf used on input line 246.
 (pdftex.def)             Requested size: 341.43306pt x 165.55215pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 246--247
+Underfull \hbox (badness 10000) in paragraph at lines 251--252
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+Underfull \hbox (badness 10000) in paragraph at lines 253--254
 
  []
 
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 249.
+(babel)             in language  on input line 254.
 Package babel Info: Redefining portuges shorthand "|
-(babel)             in language  on input line 249.
+(babel)             in language  on input line 254.
 [161 <./sdf/ilp/translucent_survivability/figures/physical_topology_low.pdf
 
 pdfTeX warning: pdflatex.exe (file ./sdf/ilp/translucent_survivability/figures/
@@ -4822,12 +4812,24 @@ pdfTeX warning: pdflatex.exe (file ./sdf/ilp/translucent_survivability/figures/
 optical_topology_low.pdf): PDF inclusion: invalid other resource which is no di
 ct (key 'ProcSets', type <array>); ignored.
 >]
-Overfull \hbox (35.97029pt too wide) in paragraph at lines 277--294
+Underfull \hbox (badness 1577) in paragraph at lines 274--274
+[]\T1/ppl/m/n/10.95 Tabela 5.132: |Ta-ble with in-for-ma-tion re-gar-ding links
+ for trans-lu-cent mode without
+ []
+
+
+Overfull \hbox (35.97029pt too wide) in paragraph at lines 281--298
  [][] 
  []
 
+
+Underfull \hbox (badness 1077) in paragraph at lines 298--298
+[]\T1/ppl/m/n/10.95 Tabela 5.133: |Ta-ble with in-for-ma-tion re-gar-ding no-de
+s for trans-lu-cent mode without
+ []
+
 ) (sdf/ilp/translucent_protection/ilp_translucent_protection.tex
-Underfull \hbox (badness 10000) in paragraph at lines 298--1
+Underfull \hbox (badness 10000) in paragraph at lines 303--1
 
  []
 
@@ -12969,7 +12971,7 @@ msbm10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/courier/ucrr8a.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/urw/palatino/uplb8a.pfb><C:/Program Files/
 MiKTeX 2.9/fonts/type1/urw/palatino/uplr8a.pfb><C:/Program Files/MiKTeX 2.9/fon
 ts/type1/urw/palatino/uplr8a.pfb>
-Output written on main_netplanner.pdf (419 pages, 14094496 bytes).
+Output written on main_netplanner.pdf (419 pages, 14095359 bytes).
 PDF statistics:
  7183 PDF objects out of 7423 (max. 8388607)
  1092 named destinations out of 1200 (max. 500000)
