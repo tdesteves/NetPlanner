@@ -38,73 +38,77 @@
 \contentsline {section}{\numberline {6.1}CAPEX}{155}{section.6.1}
 \contentsline {subsection}{\numberline {6.1.1}Opaque without Survivability}{159}{subsection.6.1.1}
 \contentsline {subsubsection}{Model description}{159}{section*.263}
-\contentsline {subsubsection}{Result description}{162}{section*.265}
-\contentsline {subsubsection}{Conclusions}{174}{section*.294}
-\contentsline {subsubsection}{Opens Issues}{175}{section*.296}
-\contentsline {subsection}{\numberline {6.1.2}Opaque with 1+1 Protection}{177}{subsection.6.1.2}
-\contentsline {subsubsection}{Model description}{177}{section*.297}
-\contentsline {subsubsection}{Result description}{178}{section*.298}
-\contentsline {subsubsection}{Conclusions}{190}{section*.329}
-\contentsline {subsubsection}{Opens Issues}{192}{section*.331}
-\contentsline {subsection}{\numberline {6.1.3}Transparent without Survivability}{193}{subsection.6.1.3}
-\contentsline {subsubsection}{Model description}{193}{section*.332}
-\contentsline {subsubsection}{Result description}{196}{section*.334}
-\contentsline {subsubsection}{Conclusions}{209}{section*.363}
-\contentsline {subsubsection}{Opens Issues}{210}{section*.365}
-\contentsline {subsection}{\numberline {6.1.4}Transparent with 1+1 Protection}{212}{subsection.6.1.4}
-\contentsline {subsubsection}{Model description}{212}{section*.366}
-\contentsline {subsubsection}{Result description}{213}{section*.367}
-\contentsline {subsubsection}{Conclusions}{225}{section*.395}
-\contentsline {subsubsection}{Opens Issues}{227}{section*.397}
-\contentsline {subsection}{\numberline {6.1.5}Translucent without Survivability}{228}{subsection.6.1.5}
-\contentsline {subsubsection}{Model description}{228}{section*.398}
-\contentsline {subsubsection}{Result description}{228}{section*.399}
-\contentsline {subsection}{\numberline {6.1.6}Translucent with 1+1 Protection}{229}{subsection.6.1.6}
-\contentsline {subsubsection}{Model description}{229}{section*.400}
-\contentsline {subsubsection}{Result description}{229}{section*.401}
-\contentsline {chapter}{\numberline {7}Analytical Models}{230}{chapter.7}
-\contentsline {section}{\numberline {7.1}CAPEX}{231}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Opaque without Survivability}{234}{subsection.7.1.1}
-\contentsline {subsubsection}{Model description}{234}{section*.403}
-\contentsline {subsubsection}{Result description}{234}{section*.404}
-\contentsline {subsection}{\numberline {7.1.2}Opaque with 1+1 Protection}{238}{subsection.7.1.2}
-\contentsline {subsubsection}{Model description}{238}{section*.405}
-\contentsline {subsubsection}{Result description}{238}{section*.406}
-\contentsline {subsection}{\numberline {7.1.3}Transparent without Survivability}{242}{subsection.7.1.3}
-\contentsline {subsubsection}{Model description}{242}{section*.407}
-\contentsline {subsubsection}{Result description}{242}{section*.408}
-\contentsline {subsection}{\numberline {7.1.4}Transparent with 1+1 Protection}{246}{subsection.7.1.4}
-\contentsline {subsubsection}{Model description}{246}{section*.409}
-\contentsline {subsubsection}{Result description}{246}{section*.410}
-\contentsline {subsection}{\numberline {7.1.5}Translucent without Survivability}{250}{subsection.7.1.5}
-\contentsline {subsection}{\numberline {7.1.6}Translucent with 1+1 Protection}{251}{subsection.7.1.6}
-\contentsline {chapter}{\numberline {8}Comparative Analysis}{252}{chapter.8}
-\contentsline {section}{\numberline {8.1}Opaque without Survivability}{253}{section.8.1}
-\contentsline {section}{\numberline {8.2}Opaque with 1+1 Protection}{254}{section.8.2}
-\contentsline {section}{\numberline {8.3}Transparent without Survivability}{255}{section.8.3}
-\contentsline {section}{\numberline {8.4}Transparent with 1+1 Protection}{256}{section.8.4}
-\contentsline {section}{\numberline {8.5}Translucent without Survivability}{257}{section.8.5}
-\contentsline {section}{\numberline {8.6}Translucent with 1+1 Protection}{258}{section.8.6}
-\contentsline {chapter}{\numberline {9}Case Studies}{259}{chapter.9}
-\contentsline {section}{\numberline {9.1}Opaque without Survivability - European Optical Network}{260}{section.9.1}
-\contentsline {subsection}{\numberline {9.1.1}Physical Network Topology}{260}{subsection.9.1.1}
-\contentsline {subsection}{\numberline {9.1.2}Dimensioning using Analytical Model}{266}{subsection.9.1.2}
-\contentsline {subsection}{\numberline {9.1.3}Dimensioning using ILP}{268}{subsection.9.1.3}
-\contentsline {subsection}{\numberline {9.1.4}Dimensioning using Heuristics}{270}{subsection.9.1.4}
-\contentsline {subsubsection}{Heuristics Results}{270}{section*.429}
-\contentsline {subsection}{\numberline {9.1.5}Comparative Analysis}{270}{subsection.9.1.5}
-\contentsline {section}{\numberline {9.2}Opaque with 1+1 Protection - European Optical Network}{272}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Physical Network Topology}{272}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Dimensioning using ILP}{272}{subsection.9.2.2}
-\contentsline {subsection}{\numberline {9.2.3}Dimensioning using Heuristics}{276}{subsection.9.2.3}
-\contentsline {subsubsection}{Heuristics Results}{276}{section*.433}
-\contentsline {subsection}{\numberline {9.2.4}Comparative Analysis}{276}{subsection.9.2.4}
-\contentsline {chapter}{\numberline {10}Appendices}{277}{chapter.10}
-\contentsline {section}{\numberline {10.1}Net2Plan Guide}{278}{section.10.1}
-\contentsline {subsubsection}{Join Traffic Matrices Algorithm}{297}{section*.466}
-\contentsline {subsubsection}{Logical Topology Algorithm}{297}{section*.468}
-\contentsline {subsubsection}{Grooming Algorithm}{298}{section*.470}
-\contentsline {section}{\numberline {10.2}Installing LPSOLVE for using in MatLab}{301}{section.10.2}
-\contentsline {section}{\numberline {10.3}Codify ILP in MatLab}{302}{section.10.3}
-\contentsline {chapter}{\numberline {11}Master Dissertations}{306}{chapter.11}
-\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{307}{section*.477}
+\contentsline {subsubsection}{Topologies}{160}{section*.264}
+\contentsline {subsubsection}{Grooming}{161}{section*.265}
+\contentsline {subsubsection}{Result description}{163}{section*.267}
+\contentsline {subsubsection}{Conclusions}{175}{section*.296}
+\contentsline {subsubsection}{Opens Issues}{176}{section*.298}
+\contentsline {subsection}{\numberline {6.1.2}Opaque with 1+1 Protection}{178}{subsection.6.1.2}
+\contentsline {subsubsection}{Model description}{178}{section*.299}
+\contentsline {subsubsection}{Result description}{179}{section*.300}
+\contentsline {subsubsection}{Conclusions}{191}{section*.331}
+\contentsline {subsubsection}{Opens Issues}{193}{section*.333}
+\contentsline {subsection}{\numberline {6.1.3}Transparent without Survivability}{194}{subsection.6.1.3}
+\contentsline {subsubsection}{Model description}{194}{section*.334}
+\contentsline {subsubsection}{Logical topology}{195}{section*.335}
+\contentsline {subsubsection}{Grooming}{196}{section*.336}
+\contentsline {subsubsection}{Result description}{198}{section*.338}
+\contentsline {subsubsection}{Conclusions}{211}{section*.367}
+\contentsline {subsubsection}{Opens Issues}{212}{section*.369}
+\contentsline {subsection}{\numberline {6.1.4}Transparent with 1+1 Protection}{213}{subsection.6.1.4}
+\contentsline {subsubsection}{Model description}{213}{section*.370}
+\contentsline {subsubsection}{Result description}{214}{section*.371}
+\contentsline {subsubsection}{Conclusions}{226}{section*.399}
+\contentsline {subsubsection}{Opens Issues}{228}{section*.401}
+\contentsline {subsection}{\numberline {6.1.5}Translucent without Survivability}{229}{subsection.6.1.5}
+\contentsline {subsubsection}{Model description}{229}{section*.402}
+\contentsline {subsubsection}{Result description}{229}{section*.403}
+\contentsline {subsection}{\numberline {6.1.6}Translucent with 1+1 Protection}{230}{subsection.6.1.6}
+\contentsline {subsubsection}{Model description}{230}{section*.404}
+\contentsline {subsubsection}{Result description}{230}{section*.405}
+\contentsline {chapter}{\numberline {7}Analytical Models}{231}{chapter.7}
+\contentsline {section}{\numberline {7.1}CAPEX}{232}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Opaque without Survivability}{235}{subsection.7.1.1}
+\contentsline {subsubsection}{Model description}{235}{section*.407}
+\contentsline {subsubsection}{Result description}{235}{section*.408}
+\contentsline {subsection}{\numberline {7.1.2}Opaque with 1+1 Protection}{239}{subsection.7.1.2}
+\contentsline {subsubsection}{Model description}{239}{section*.409}
+\contentsline {subsubsection}{Result description}{239}{section*.410}
+\contentsline {subsection}{\numberline {7.1.3}Transparent without Survivability}{243}{subsection.7.1.3}
+\contentsline {subsubsection}{Model description}{243}{section*.411}
+\contentsline {subsubsection}{Result description}{243}{section*.412}
+\contentsline {subsection}{\numberline {7.1.4}Transparent with 1+1 Protection}{247}{subsection.7.1.4}
+\contentsline {subsubsection}{Model description}{247}{section*.413}
+\contentsline {subsubsection}{Result description}{247}{section*.414}
+\contentsline {subsection}{\numberline {7.1.5}Translucent without Survivability}{251}{subsection.7.1.5}
+\contentsline {subsection}{\numberline {7.1.6}Translucent with 1+1 Protection}{252}{subsection.7.1.6}
+\contentsline {chapter}{\numberline {8}Comparative Analysis}{253}{chapter.8}
+\contentsline {section}{\numberline {8.1}Opaque without Survivability}{254}{section.8.1}
+\contentsline {section}{\numberline {8.2}Opaque with 1+1 Protection}{255}{section.8.2}
+\contentsline {section}{\numberline {8.3}Transparent without Survivability}{256}{section.8.3}
+\contentsline {section}{\numberline {8.4}Transparent with 1+1 Protection}{257}{section.8.4}
+\contentsline {section}{\numberline {8.5}Translucent without Survivability}{258}{section.8.5}
+\contentsline {section}{\numberline {8.6}Translucent with 1+1 Protection}{259}{section.8.6}
+\contentsline {chapter}{\numberline {9}Case Studies}{260}{chapter.9}
+\contentsline {section}{\numberline {9.1}Opaque without Survivability - European Optical Network}{261}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}Physical Network Topology}{261}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Dimensioning using Analytical Model}{267}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}Dimensioning using ILP}{269}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}Dimensioning using Heuristics}{271}{subsection.9.1.4}
+\contentsline {subsubsection}{Heuristics Results}{271}{section*.433}
+\contentsline {subsection}{\numberline {9.1.5}Comparative Analysis}{271}{subsection.9.1.5}
+\contentsline {section}{\numberline {9.2}Opaque with 1+1 Protection - European Optical Network}{273}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Physical Network Topology}{273}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Dimensioning using ILP}{273}{subsection.9.2.2}
+\contentsline {subsection}{\numberline {9.2.3}Dimensioning using Heuristics}{277}{subsection.9.2.3}
+\contentsline {subsubsection}{Heuristics Results}{277}{section*.437}
+\contentsline {subsection}{\numberline {9.2.4}Comparative Analysis}{277}{subsection.9.2.4}
+\contentsline {chapter}{\numberline {10}Appendices}{278}{chapter.10}
+\contentsline {section}{\numberline {10.1}Net2Plan Guide}{279}{section.10.1}
+\contentsline {subsubsection}{Join Traffic Matrices Algorithm}{298}{section*.470}
+\contentsline {subsubsection}{Logical Topology Algorithm}{298}{section*.472}
+\contentsline {subsubsection}{Grooming Algorithm}{299}{section*.474}
+\contentsline {section}{\numberline {10.2}Installing LPSOLVE for using in MatLab}{302}{section.10.2}
+\contentsline {section}{\numberline {10.3}Codify ILP in MatLab}{303}{section.10.3}
+\contentsline {chapter}{\numberline {11}Master Dissertations}{307}{chapter.11}
+\contentsline {section}{Vasco Braz, Dimensioning and Optimization of Node Architecture in Optical Transport Networks, University of Aveiro, 2016}{308}{section*.481}
