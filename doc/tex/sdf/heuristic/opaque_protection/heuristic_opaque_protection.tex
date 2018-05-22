@@ -3,7 +3,7 @@
 \subsection{Opaque with 1+1 Protection}\label{heuristic_Opaque_Protection}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
-\textbf{Student Name}  &:& Pedro Coelho    (March 01, 2018 - )\\
+\textbf{Student Name}  &:& Pedro Coelho    (01/03/2018 - )\\
 \textbf{Goal}          &:& Implement the heuristic model for the opaque transport mode with 1 plus 1 protection.
 \end{tabular}
 \end{tcolorbox}
@@ -60,7 +60,7 @@ In this chapter will be demonstrated the results by Vasco's heuristics from 2016
 
 \textbf{Low Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
 
 \begin{figure}[H]
 \centering
@@ -136,17 +136,17 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{23 520 000 \euro} \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{23 520 000 \euro} \\ \cline{2-6}
  & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 46 & 5 000 \euro/Gbit/s & 23 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{4 662 590 \euro} \\ \cline{3-6}
+ \multirow{9}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{4 662 590 \euro} \\ \cline{3-6}
   & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 6 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
- & & LR Transponders & 46 & 100 000 \euro/port & 4 600 000 \euro & \\ \cline{2-6}
+ & & Line Ports & 46 & 100 000 \euro/port & 4 600 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/port & 0 \euro & \\
  \hline
@@ -160,7 +160,7 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 \newpage
 \textbf{Medium Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
 
 \begin{figure}[H]
 \centering
@@ -236,17 +236,17 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{199 520 000 \euro} \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{199 520 000 \euro} \\ \cline{2-6}
  & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 398 & 5 000 \euro/Gbit/s & 199 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{39 885 900 \euro} \\ \cline{3-6}
+ \multirow{9}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{39 885 900 \euro} \\ \cline{3-6}
  & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 60 & 60 \euro/port & 3 600 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
- & & LR Transponders & 398 & 100 000 \euro/port & 50 000 000 \euro & \\ \cline{2-6}
+ & & Line Ports & 398 & 100 000 \euro/port & 50 000 000 \euro & \\ \cline{2-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/port & 0 \euro & \\
  \hline
@@ -259,7 +259,7 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 
 \textbf{High Traffic Scenario:}\\
 
-In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topology, the second are the logical topology for all ODUs and finally the resulting physical and optical topology.\\
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
 
 \begin{figure}[H]
 \centering
@@ -335,17 +335,17 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{Link Cost} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{397 520 000 \euro} \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{397 520 000 \euro} \\ \cline{2-6}
  & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 794 & 5 000 \euro/Gbit/s & 397 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{9}{*}{Node Cost} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{79 514 200 \euro} \\ \cline{3-6}
+ \multirow{9}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{9}{*}{79 514 200 \euro} \\ \cline{3-6}
   & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
  & & ODU3 Ports & 120 & 60 \euro/port & 7 200 \euro & \\ \cline{3-6}
  & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
- & & LR Transponders & 794 & 100 000 \euro/port & 99 400 000 \euro & \\ \cline{2-6}
+ & & Line Ports & 794 & 100 000 \euro/port & 99 400 000 \euro & \\ \cline{3-6}
  & \multirow{2}{*}{Optical} & OXCs & 0 & 20 000 \euro & 0 \euro & \\ \cline{3-6}
  & & Ports & 0 & 2 500 \euro/port & 0 \euro & \\
  \hline
@@ -368,8 +368,8 @@ Once we have obtained the results for all the scenarios for opaque without survi
  \hline
  & Low Traffic & Medium Traffic & High Traffic \\
  \hline\hline
- CAPEX survivability & 14 382 590 \euro & 92 405 900 \euro & 178 834 200 \euro \\ \hline
- CAPEX/Gbit/s survivability & 28 765.18 \euro/Gbit/s & 18 481.18 \euro/Gbit/s & 17 883.42 \euro/Gbit/s \\ \hline
+ \makecell{CAPEX \\ without survivability} & 14 382 590 \euro & 92 405 900 \euro & 178 834 200 \euro \\ \hline
+ \makecell{CAPEX/Gbit/s \\ without survivability} & 28 765 \euro/Gbit/s & 18 481 \euro/Gbit/s & 17 883 \euro/Gbit/s \\ \hline
  Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
  Bidirectional Links used & 8 & 8 & 8 \\ \hline
  Number of Line ports & 46 & 398 & 794 \\ \hline
@@ -378,7 +378,7 @@ Once we have obtained the results for all the scenarios for opaque without survi
  Link Cost & 23 520 000 \euro & 199 520 000 \euro & 397 520 000 \euro \\ \hline
  Node Cost & 4 662 590 \euro & 39 885 900 \euro & 79 514 200 \euro \\ \hline
  CAPEX & \textbf{28 182 590 \euro} & \textbf{239 405 900 \euro} & \textbf{477 034 200 \euro} \\ \hline
- CAPEX/Gbit/s & \textbf{56 365.18 \euro/Gbit/s} & \textbf{47 881.18 \euro/Gbit/s} & \textbf{47 703.42 \euro/Gbit/s} \\ \hline
+ CAPEX/Gbit/s & \textbf{56 365 \euro/Gbit/s} & \textbf{47 881 \euro/Gbit/s} & \textbf{47 703 \euro/Gbit/s} \\ \hline
 \end{tabular}
 \caption{Table with different value of CAPEX for this case.}
 \label{table_comparative_opaque_protec_heuristic}
@@ -418,5 +418,5 @@ The creation of this model for any scenario, started with some considerations an
   \item Allow multiple transmission system.
   \subitem The presented model for each link only supports one transmission system;
   \item Allowing multi-path routing.
-  \subitem The presented model for all demands sharing the same node pairs have to follow the same path.
+  \subitem In the presented model all demands sharing the same end nodes have to follow the same path.
 \end{itemize} 
