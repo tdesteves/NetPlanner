@@ -2,6 +2,19 @@
 TO BE DONE
 
 	- mais detalhe fluxograma para as heuristicas (opaco e transparente)
+		- relacionar com o código
+
+	- verificar o transparente
+
+	- fazer se possível o translúcido
+
+Next meeting: terça, 29/5, 16h30m
+
+
+2018-05-22
+TO BE DONE
+
+	- mais detalhe fluxograma para as heuristicas (opaco e transparente)
 
 	- melhor a edição do textto tabelas
 
