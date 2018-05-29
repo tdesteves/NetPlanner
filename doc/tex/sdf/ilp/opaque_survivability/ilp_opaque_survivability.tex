@@ -91,7 +91,7 @@ $subject$ $to$
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPOpaque1_Surv}
 \end{equation}
-
+\noindent
 This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that Z variable has the value of 1.
 
 \begin{equation}
@@ -99,7 +99,7 @@ This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPOpaque2_Surv}
 \end{equation}
-
+\noindent
 This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 
 \begin{equation}
@@ -107,7 +107,7 @@ This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPOpaque3_Surv}
 \end{equation}
-
+\noindent
 This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of 1.
 \newpage
 \begin{equation}
@@ -115,14 +115,14 @@ This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that
 \forall(i,j) : i < j
 \label{ILPOpaque4_Surv}
 \end{equation}
-
+\noindent
 This restriction is considered grooming constraint, so it means the total client traffic flows can not be greater than the capacity of optical transmission system on all links where $\tau$ is always 100 Gbits/s.
 
 \begin{equation}
 W_{ij} \leq K_{ij} L_{ij} \qquad  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \forall(i,j) : i < j
 \label{ILPOpaque5_Surv}
 \end{equation}
-
+\noindent
 This restriction concerns the capacity of the optical channels which must be less or equal to the maximum number of optical channels. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
@@ -130,7 +130,7 @@ f_{ij}^{od} , f_{ji}^{od} \in \{0,1\}   \qquad \qquad \qquad \qquad \qquad \qqua
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPOpaque6_Surv}
 \end{equation}
-
+\noindent
 The number of flows per demand in this case can be zero if there are no traffic demands or one if considering traffic.
 
 \begin{equation}
@@ -138,7 +138,7 @@ W_{ij} \in \mathbb{N}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \
 \forall(i,j) : i < j
 \label{ILPOpaque7_Surv}
 \end{equation}
-
+\noindent
 The last constraint is just needed to ensure the number optical of channels is a positive integer values greater than zero.
 
 
