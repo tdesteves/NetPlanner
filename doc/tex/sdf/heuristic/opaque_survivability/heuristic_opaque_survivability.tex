@@ -8,11 +8,13 @@
 \end{tabular}
 \end{tcolorbox}
 
-\subsubsection{Model description}
+\vspace{11pt}
+In the opaque transport mode (link-by-link approach), the lightpath entering any intermediate node is necessarily terminated, i.e., there are performed OEO (optical-electrical-optical) conversions at every intermediate node since the origin to the destination node. These conversions are used for every wavelength at every node.
 
-In the opaque transport mode (link-by-link approach), the lightpath entering any intermediate node is necessarily terminated, i.e., there are performed OEO (optical-electrical-optical) conversions at every intermediate node since the origin to the destination node. These conversions are used for every wavelength at every node.\\
-Contrary to the opaque with dedicated 1+1 protection technique, the opaque without survivability technique does not have a backup path, so if there is a network failure it is more likely to suffer large data losses, which consequently leads to higher network costs. However, the CAPEX will be significantly lower, because that not includes a secondary path that will increase several network elements.\\
-After the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. In the end, a report algorithm will be applied to obtain the best CAPEX result for the network in question.\\
+Contrary to the opaque with dedicated 1+1 protection technique, the opaque without survivability technique does not have a backup path, so if there is a network failure it is more likely to suffer large data losses, which consequently leads to higher network costs. However, the CAPEX will be significantly lower, because that not includes a secondary path that will increase several network elements.
+
+After the creation of the matrices and the network topology, it is necessary to apply the routing and grooming algorithms created. In the end, a cost report algorithm will be applied to visualize the network CAPEX results for the network in question.
+
 Firstly, in the opaque transport mode, the optical node cost is 0 because all the ports in the network are electrical. Consequently, to calculate the nodes' cost in this transport mode it only has to be considered the electrical nodes' cost:
 
 \begin{itemize}
@@ -50,32 +52,138 @@ In this case there is the following particularity:
   \item When $n$=$j$, the value of client demands is always zero, i.e, $D_{nn,c}=0$.
 \end{itemize}
 
+\vspace{11pt}
+To implement this heuristic approach it is used four algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
+
+In the next pages it will be described all the steps performed to obtain the final results in the opaque transport mode without survivability. In the figure below \ref{fluxogram_opaque_surv} it is shown a fluxogram with the description of this transport mode approach.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm]{sdf/heuristic/opaque_survivability/figures/fluxogram_opaque_surv}
+\caption{Fluxogram with the steps performed in the opaque without survivability transport mode approach.}
+\label{fluxogram_opaque_surv}
+\end{figure}
+
+\newpage
+\subsubsection{Creation and join the traffic matrices}
+
 \noindent
-The function, to be minimized, is the expression \ref{Minimize_Heuristic_CAPEX}.\\
+The first step is to create the traffic matrices based on the reference network \ref{Reference_Network_Topology}. In order to create the 5 traffic matrices in Net2Plan it is necessary the length of all the links and the total traffic used in this network, so later it is needed to define in Net2Plan the length in all end nodes and the total traffic depends on the value of traffic used (low traffic - 0.5 Tbit/s, medium traffic - 5 Tbit/s and high traffic - 10 Tbit/s). As you can see in the figure below, it is defined the path of the 5 ODUs and they will be aggregated in just one single ODU, making it possible to join all the demands in just one file and load it later into the network. This final resulting ODU joins the multiple traffic demands from all the traffic matrices previously created and, of course, the traffic demands will depend on the values used on the creation of the matrices (low, medium and high traffic).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{sdf/heuristic/opaque_survivability/figures/join_matrices_odus}
+\caption{Join the 5 ODU traffic matrices into 1 single file "ODUs". The 5 traffic demands from the traffic matrices previously created are joined into 1 file to load it later on Net2Plan.}
+\label{join_matrices_odus}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm]{sdf/heuristic/opaque_survivability/figures/traffic_matrices}
+\caption{Load of the join traffic matrices algorithm for the opaque transport mode on Net2Plan. It is defined the 5 paths to load the 5 ODU traffic matrices and the last path is the one where will be saved the file that joins all 5 the traffic demands.}
+\label{traffic_matrices_surv_ref}
+\end{figure}
+
+\newpage
+\subsubsection{Creation of the physical topology}
 
 \vspace{11pt}
-This heuristic approach consists in four algorithms made in Java in a programming software called Eclipse and testing them in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is a brief explanation of the algorithms and a demonstration on how to use and test them in this network planner. The logical topology and the grooming algorithms are going to be explained below with more details because they have more substantial differences between the three transport modes used in this report.
+The next step is to create the allowed physical topology of the network in Net2Plan. This network consists in 6 nodes and 8 bidirectional links. It is now also possible to define the length in all links. In the figure below it is shown the allowed physical topology in this transport mode.
 
-\subsubsection{Topologies}
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/figures/allowed_physical}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed_physical_surv}
+\end{figure}
+
+\subsubsection{Creation of the logical topology}
+
 \vspace{11pt}
-A network topology represents how the links and the nodes of the network interconnect with each other. These connections are made in the physical (real) and the logical (virtual) topologies and the algorithm creates the logical topology on another layer. The final and resulting physical and optical topologies depend on the method used in each of the transport modes.
+It is now time to create the allowed logical topology. A network topology represents how the links and the nodes of the network interconnect with each other and the logical topology algorithm creates the logical topology on another layer. In the opaque transport mode the physical and logical topologies are the same, so it is needed to add a new layer from the lower layer (default layer). The lower layer is the physical layer of the network and it is now created a new upper layer which is the logical layer of the network and represents the logical topology of the opaque transport mode. The allowed physical and optical topologies, the logical topologies for all ODUs and the resulting physical topology is shown in the next section below \ref{result_description_opaque_heuristic_surv} for the three traffic scenarios. It is shown below three figures with the code in Java of the creation of the network logical topology, the load of the logical topology algorithm in Net2Plan and the resulting allowed optical topology for the opaque transport mode without survivability.
 
-In the opaque transport mode the physical and logical topologies are the same, so it is needed to add a new layer from the lower layer (default layer). The respective demands are saved in the new upper layer and those demands from the lower layer are then removed. The lower layer is the physical layer of the network and it is now created a new upper layer which is the logical layer of the network and represents the logical topology of the opaque transport mode.
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm]{sdf/heuristic/opaque_survivability/figures/logical_topology_creation_opaque}
+\caption{Java code of the logical topology approach for the opaque transport mode. The logical layer is created from the physical layer, as in this transport mode they are the same. The new layer is now the opaque logical topology of the network.}
+\label{logical_topology_creation_opaque}
+\end{figure}
 
-The allowed topologies, physical and optical topologies, the logical topologies for all ODUs and the resulting physical topology is shown in the next section below \ref{result_description_opaque_heuristic_surv} for the three traffic scenarios.
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm]{sdf/heuristic/opaque_survivability/figures/logical_topology_load_opaque}
+\caption{Load of the logical topology algorithm for the opaque transport mode on Net2Plan.}
+\label{logical_topology_load_opaque}
+\end{figure}
 
-\subsubsection{Grooming}
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/opaque_survivability/figures/allowed_optical}
+\caption{Allowed optical topology. It is assumed that each transmission system supports up to 100 optical channels.}
+\label{allowed_optical_surv}
+\end{figure}
+
+\subsubsection{Creation of routes and aggregation of traffic}
+
 \vspace{11pt}
-After a network topology is created, it is now time to set the grooming algorithm. This algorithm aggregates the traffic into the network, i.e., in the optical channels that are interconnected between end nodes. This aggregation is made by creating bidirectional routes based on the shortest path type (hops or km). In this report it is used the shortest path type in hops.
+After a network topology is created, it is now time to set the routing algorithm. In the opaque without survivability transport mode the routing algorithm starts with going through all the demands, create bidirectional routes (in this case the primary paths) based on the shortest path Dijkstra algorithm and then search the candidate routes for the respective demand. In this report it is used the shortest path type in hops. These routes are ordered sequentially and the shortest one per each demand is the primary path. The demands from the lower layer are removed and then saved in the upper layer. After this step, it is needed to set the traffic demands into the candidate routes that will integrate the network.
 
-In the opaque transport mode the grooming algorithm starts with going through all the demands, create routes (primary paths) and then set the traffic into those routes. One important aspect is that these routes are created based on the shortest path method, comparing all the routes with each other and the final resulting route is the shortest one. As we also have a dedicated 1+1 protection scheme, if the network has this feature, the algorithm will compare the routes again and it will create new routes (backup paths) if they are the next shortest path routes comparing to the previous ones and then set the traffic into those routes. The final resulting backup path routes are used to prevent network failures. Despite of the fact the network will be much more secure, the network CAPEX will increase more than the double, due to the creation of primary and backup paths. The traffic that is carried into the network will be the sum of all the created paths. Knowing the value of the total traffic and the wavelength capacity of all links, it is possible to calculate the number of wavelengths in each link.
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm]{sdf/heuristic/opaque_survivability/figures/grooming_opaque_surv1}
+\caption{Creation of routes and aggregation of traffic for the opaque without survivability transport mode. The candidate routes are searched by the shortest path type and the offered traffic demands are set into these routes.}
+\label{grooming_opaque_surv1}
+\end{figure}
 
-It is shown in the next page below a fluxogram with the description of the algorithms and the steps performed to obtain the final results in the opaque transport mode.
+\begin{table}[H]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ Function & Definition \\
+ \hline\hline
+ netPlan.getDemands(lowerLayer) & Returns the array of demands for the lower layer. \\
+ \hline
+ d.getRoutes() & Returns all the routes associated to the demand "d". \\
+ \hline
+ c.setCarriedTraffic() & \makecell{Sets the route carried traffic and the occupied capacity\\in the links, setting it up to be the same in all links.} \\
+ \hline
+ d.getOfferedTraffic() & Returns the offered traffic of the demand "d". \\
+ \hline
+\end{tabular}
+\caption{Table with the description of the main functions in the creation of routes and aggregation of traffic in the grooming algorithm.}
+\label{grooming_table_variables_opaque}
+\end{table}
 
-\begin{figure}[H] \centering
-\includegraphics[width=15cm]{sdf/heuristic/opaque_survivability/figures/opaque_fluxogram}
-\caption{Fluxogram with opaque transport mode approach.}
-\label{opaque_fluxogram}
+\subsubsection{Calculation of the number of wavelengths per link}
+
+\vspace{11pt}
+The final step of the routing and grooming algorithms is to calculate the number of wavelengths per link for the whole network. This is the last and an important step because with the number of wavelengths per link in the network, it is possible to calculate other network components. In the opaque transport mode, as in the figure below shows, the algorithm starts with going through all the links and getting the capacity based on the traffic per demand. The total carried traffic in the link including protection and non-protection segments will be divided by the wavelength capacity and it is now possible to obtain the number of wavelengths per link.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm]{sdf/heuristic/opaque_survivability/figures/grooming_opaque_surv2}
+\caption{Calculation of the number of wavelengths per link for the opaque transport mode. The link capacity is based on the traffic per demand.}
+\label{grooming_opaque_surv2}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm]{sdf/heuristic/opaque_survivability/figures/grooming_opaque_surv3}
+\caption{Load of the grooming algorithm for the opaque without survivability transport mode. The total number of routes per demand is set to 100, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
+\label{grooming_opaque_surv3}
+\end{figure}
+
+\subsubsection{Network cost report}
+
+\vspace{11pt}
+In order to obtain the network CAPEX results, the formulas needed to calculate the network elements and that are demonstrated previously in the beginning of this section \ref{heuristic_Opaque_Survivability} were "translated" \ into Java code in a cost report algorithm. This algorithm can be loaded in Net2Plan and calculates and shows in tables the network CAPEX and also the per-link and per-node information with more details.
+In the opaque transport mode the optical node cost is 0 because all the network ports are electrical, so it only has to be considered the electrical nodes' costs and the electrical links' costs.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm]{sdf/heuristic/opaque_survivability/figures/cost_report_opaque}
+\caption{Load of the cost report algorithm on Net2Plan. The result view is an HTML page with the network optical and electrical components and their costs.}
+\label{cost_report_opaque}
 \end{figure}
 
 \subsubsection{Result description}\label{result_description_opaque_heuristic_surv}
@@ -83,6 +191,7 @@ It is shown in the next page below a fluxogram with the description of the algor
 It is already known all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of the network traffic \ref{Reference_Network_Traffic}, it is necessary to obtain three different values of CAPEX for the low (0.5 Tbit/s), medium (5 Tbit/s) and high (10 Tbit/s) traffic. It is used a network software program called Net2Plan which can design the traffic matrices, create all the network topologies, simulate the algorithms into the network implemented in the programming software called Eclipse and analyze the results obtained.\\
 In this chapter will be demonstrated the results by Vasco's heuristics from 2016. In each of the three traffic scenarios, it will be shown the network topologies followed by the table with the CAPEX value of the network.\\
 
+\noindent
 \textbf{Low Traffic Scenario:}\\
 
 In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
@@ -202,6 +311,7 @@ All the values calculated in the previous table were obtained through the equati
 \end{table}
 
 \newpage
+\noindent
 \textbf{Medium Traffic Scenario:}\\
 
 In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
@@ -294,6 +404,7 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 \label{scriptopaque_surv_ref_medium_heuristic}
 \end{table}
 
+\noindent
 \textbf{High Traffic Scenario:}\\
 
 In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
