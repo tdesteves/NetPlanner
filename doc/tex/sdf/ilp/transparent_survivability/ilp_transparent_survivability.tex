@@ -98,7 +98,7 @@ $subject$ $to$
 \forall(o,d) : o < d
 \label{ILPTransp0_surv}
 \end{equation}
-
+\noindent
 This restriction is considered grooming constraint and for this model the grooming can be done before routing since the traffic is aggregated just for demands between the same nodes, thus not depending on the routes. The variable $\tau$ is always 100 Gbits/s.
 
 \begin{equation}
@@ -106,7 +106,7 @@ This restriction is considered grooming constraint and for this model the groomi
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPTransp1_surv}
 \end{equation}
-
+\noindent
 This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
 
 \begin{equation}
@@ -114,7 +114,7 @@ This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPTransp2_surv}
 \end{equation}
-
+\noindent
 This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 
 \begin{equation}
@@ -122,7 +122,7 @@ This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPTransp3_surv}
 \end{equation}
-
+\noindent
 This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
 
 \begin{equation}
@@ -130,7 +130,7 @@ This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that
 \forall(i,j) : i < j
 \label{ILPTransp4_surv}
 \end{equation}
-
+\noindent
 This restriction answers capacity constraint problem. Then, total flows must be less or equal to the capacity of network links. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
@@ -138,7 +138,7 @@ f_{ij}^{od} , f_{ji}^{od} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPTransp5_surv}
 \end{equation}
-
+\noindent
 Last constraint define the total number of flows and the number of optical channels must be a counting number.\\
 
 
@@ -452,7 +452,7 @@ Through the information obtained previously on the nodes we can now create table
  & 1 & ODU4 \\
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\ \hline
- \multirow{5}{*}{6 LR Trasponders} & 5  <---- 1 ---->  1 & \multirow{5}{*}{100 Gbits/s} \\
+ \multirow{5}{*}{6 LR Transponders} & 5  <---- 1 ---->  1 & \multirow{5}{*}{100 Gbits/s} \\
   & 5  <---- 1 ---->  2 & \\
   & 5  <---- 1 ---->  3 & \\
   & 5  <---- 1 ---->  4 & \\
@@ -493,7 +493,7 @@ Through the information obtained previously on the nodes we can now create table
  & 2 & ODU4 \\
  \hline
   & Node<--Optical Channels-->Node & Bit rate \\ \hline
- \multirow{5}{*}{7 LR Transponders} & 6  <---- 1 ---->  1 & \\
+ \multirow{5}{*}{7 LR Transponders} & 6  <---- 1 ---->  1 & \multirow{5}{*}{100 Gbits/s} \\
   & 6  <---- 2 ---->  2 & \\
   & 6  <---- 1 ---->  3 & \\
   & 6  <---- 1 ---->  4 & \\

@@ -14,39 +14,37 @@ CAPEX is the amount of money needed to set up and install a particular network.
 OPEX is the amount of money needed to run this network as well as its maintenance and operation over time.
 In this section we will only focus on CAPEX, that is, the costs of installing a particular network.
 As we know the telecommunications networks are made up of links and nodes, so it is possible to define the CAPEX as being the sum of the cost of links and cost of nodes.
-This can be said that the value of CAPEX is given by the equation \ref{analytical_Capex}.
+This can be said that the CAPEX cost in monetary units, $C_C$ is given by the equation \ref{analytical_Capex}
 
 \begin{equation}
 C_C = C_L + C_N
 \label{analytical_Capex}
 \end{equation}
 
-\begin{itemize}
-\item{$C_C$				$\rightarrow$	CAPEX cost}
-\item{$C_L$				$\rightarrow$	Link cost}
-\item{$C_N$				$\rightarrow$	Node cost}
-\end{itemize}
+\noindent
+where $C_L$ is the Link cost and $C_N$ is the Node cost.\\
 
-\vspace{11pt}
-For this calculation first let's focus on the cost of the links. Where to calculate the cost of the Links we will use the equation \ref{analytical_linkCosts}.
+For this calculation first let's focus on the cost of the links. Where to calculate the cost of the Links, $C_L$, we will use the equation \ref{analytical_linkCosts}
 
 \begin{equation}
-C_L = \left(2 \times L \times \gamma_0^{OLT}\right) + \left(2 \times L \times \gamma_1^{OLT} \times \tau \times <w>\right) + \left(N^R \times c^R\right)
+C_L = \left(2 L \gamma_0^{OLT}\right) + \left(2 L \gamma_1^{OLT} \tau <w>\right) + \left(2 N^R c^R\right)
 \label{analytical_linkCosts}
 \end{equation}
 
-
+\vspace{11pt}
+\noindent
+where
 \begin{itemize}
-\item{$C_L$				$\rightarrow$	Links cost}
 \item{$\gamma_0^{OLT}$	$\rightarrow$	OLT cost in euros}
-\item{$L$				$\rightarrow$	Number of unidirectional links}
+\item{$L$				$\rightarrow$	Number of bidirectional links}
 \item{$\gamma_1^{OLT}$	$\rightarrow$	Transponder cost in euros}
 \item{$<w>$             $\rightarrow$   Average number of optical channels}
 \item{$\tau$		    $\rightarrow$	Traffic per port}
 \item{$N^R$				$\rightarrow$	Total number of optical amplifiers}
-\item{$c^R$				$\rightarrow$	Optical amplifiers cost in euros}
+\item{$c^R$				$\rightarrow$	Unidirectional Optical amplifiers cost in euros}
 \end{itemize}
 
+\vspace{11pt}
 Looking at the equation \ref{analytical_linkCosts} we can see that we already have practically all the values of the variables used. Assuming that $\tau$ is 100 Gbits/s is thus only missing the number of optical amplifiers and the number of optical channels where they can be calculated by equation \ref{amplifiers} and \ref{optical_channels} respectively.
 
 \begin{equation}
@@ -58,7 +56,7 @@ N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right
 \begin{itemize}
 \item{$N^R$			$\rightarrow$ Total number of regenerators/amplifiers}
 \item{$len_l$		$\rightarrow$ Length of link l}
-\item{$span$		$\rightarrow$ Distance between amplifiers}	
+\item{$span$		$\rightarrow$ Distance between amplifiers (assuming 100 km)}	
 \end{itemize}	
 
 
@@ -70,14 +68,12 @@ N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right
 
 \begin{itemize}
 \item{$<w>$		$\rightarrow$ Average number of optical channels}
-\item{$D$  		$\rightarrow$ Number of bidirectional demands}
-\item{$L$		$\rightarrow$ Number of Links}	
+\item{$D$  		$\rightarrow$ Number of unidirectional demands}
+\item{$L$		$\rightarrow$ Number of unidirectional Links}	
 \item{$<k>$		$\rightarrow$ Survivability coefficient}
 \end{itemize}	
 
-
 where:
-
 \begin{equation}
 D = \left(\frac{1}{2}\right) \times \left( 1 + \xi \right) \times \left(\frac{T_1}{\tau}\right)
 \label{demands}
@@ -85,8 +81,8 @@ D = \left(\frac{1}{2}\right) \times \left( 1 + \xi \right) \times \left(\frac{T_
 
 
 \begin{itemize}
-\item{$D$  		$\rightarrow$ Number of bidirectional demands}
-\item{$\xi$		$\rightarrow$ Coefficient}
+\item{$D$  		$\rightarrow$ Number of unidirectional demands}
+\item{$\xi$		$\rightarrow$ Grooming coefficient}
 \item{$T_1$		$\rightarrow$ Total unidirectional traffic}	
 \item{$\tau$	$\rightarrow$ Traffic per port}
 \end{itemize}
@@ -146,7 +142,7 @@ Finally, for this we will also have to take into account the cost of the equipme
  \hline\hline
  OLT without transponders & 15000 \euro \\
  Transponder & 5000 \euro/Gb \\
- Optical Amplifier & 4000 \euro \\
+ Unidirectional Optical Amplifier & 4000 \euro \\
  EXC & 10000 \euro \\
  OXC & 20000 \euro \\
  EXC Port & 1000 \euro /Gb/s\\
