@@ -12,30 +12,32 @@
 
 Before carrying out the detailed description we must take into account the following peculiarities of this mode of transport:
 \begin{itemize}
-  \item $\xi$ = 2
+  \item $\xi$ = 1.25
   \item $<k>$ = 0
 \end{itemize}
 
 \vspace{11pt}
-The first particularity exists because we are assuming that the coefficient has value 2 and finally in the last particularity we are assuming that the survivability coefficient is zero because it is without survivability.\\
+The first particularity exists because we are assuming that the grooming coefficient has value 1.25 and finally in the last particularity we are assuming that the survivability coefficient is zero because it is without survivability.\\
 
-Finally looking at the equation \ref{analytical_electricalCost} we can see that we already have practically all the values with the exception of the average number of ports the electrical switch and the average number of ports the optical switch.\\
-
-The average number of ports the electrical switch,$<P_{exc}>$, can be calculated as
+Finally looking at the equation \ref{analytical_electricalCost} we can see that we already have practically all the values with the exception of three variables. The tributary ports, $P_{TRIB}$, can be calculated through the ODU's matrices referred to in section \ref{Reference_Network_Traffic}, the average number of ports the electrical switch,$<P_{exc}>$, that can be calculated as
 
 \begin{equation}
-<P_{exc}> = 2 <d>
+<P_{exc}> = <d>
 \label{Pexc_transp}
 \end{equation}
-\vspace{11pt}
 
-The average number of ports the optical switch,$<P_{oxc}>$, can be calculated as
+\vspace{11pt}
+\noindent
+and the average number of ports the optical switch,$<P_{oxc}>$, can be calculated as
 
 \begin{equation}
-<P_{oxc}> = <d> \times [1 + \left(1 + <k>\right) \times <h>]
+<P_{oxc}> = <d> [1 + \left(1 + <k>\right) <h>]
 \label{Poxc_transp}
 \end{equation}
+
 \vspace{11pt}
+\noindent
+where $<d>$ is the average number of demands, $<k>$	is the survivability coefficient and $<h>$ is the average number of hops. The number of ports of the electrical switch, in this case, is equal to the number of add ports since we already know the number of tributary ports. The number of ports of the optical switch, in this case, is equal to the sum of the line ports with the add ports.\\
 
 
 \subsubsection{Result description}
@@ -47,11 +49,11 @@ In this scenario we have to take into account the traffic calculated in \ref{low
 
 Using equation \ref{demands}:\\
 
-$D$ = $\frac{1}{2}$ * $($ 1 + 2 $)$ * $($ $\frac{1000}{100}$ $)$ \qquad \qquad $D$ = 15\\
+$D$ = $\frac{1}{2}$ * $($ 1 + 1.25 $)$ * $($ $\frac{1000}{100}$ $)$ \qquad \qquad $D$ = 11.25\\
 
 Replacing in equation \ref{optical_channels}:\\
 
-$<w>$ = $($ $\frac{15 * 1.533}{16}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 1.4375\\
+$<w>$ = $($ $\frac{11.25 * 1.533}{16}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 1.125\\
 
 Using equation \ref{amplifiers}:\\
 
@@ -59,30 +61,30 @@ $N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 1.4375$)$ + $($2 * 35 * 4 000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 1.125$)$ + $($2 * 35 * 4 000$)$\\
 
-$C_L$ = \textbf{12 020 000 \euro}\\
+$C_L$ = \textbf{9 520 000 \euro}\\
 
 In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
-$<d>$ = $\frac{15}{6}$ \qquad \qquad $<d>$ = 2.5\\
+$<d>$ = $\frac{11.25}{6}$ \qquad \qquad $<d>$ = 1.875\\
 
 Replacing in equation \ref{Pexc_transp} and \ref{Poxc_transp}:\\
 
-$<P_{exc}>$ = 2 * 2.5 = 5\\
+$<P_{exc}>$ = 1.875\\
 
-$<P_{oxc}>$ = 2.5 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{oxc}>$ = 6.3325 \\
+$<P_{oxc}>$ = 1.875 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{oxc}>$ = 4.7494 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} and \ref{analytical_opticalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ + $C_{oxc}$ = $\left( 6*(10 000 + (1 000 * 100 * 5 ) ) \right)$ + $\left(6*(20 000 + (2 500 * 6.3325 ) ) \right)$\\
+$C_N$ = $\left(6 * (10 000 + (1 000 * 100 * 1.875)) + (20 * 136)\right)$ + $\left(6 * (20 000 + (2 500 * 4.7494 )) \right)$\\
 
-$C_N$ = 3 859 500 + 195 000 = \textbf{4 054 500 \euro}\\
+$C_N$ = 1 187 720 + 120 072 = \textbf{1 307 792 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 12 020 000 + 4 054 500\\
+$CAPEX$ = 9 520 000 + 1 307 792\\
 
-$CAPEX$ = \textbf{16 074 500 \euro}\\
+$CAPEX$ = \textbf{10 827 792 \euro}\\
 
 
 \textbf{Medium Traffic Scenario:}\\
@@ -90,11 +92,11 @@ In this scenario we have to take into account the traffic calculated in \ref{med
 
 Using equation \ref{demands}:\\
 
-$D$ = $\frac{1}{2}$ * $($ 1 + 2 $)$ * $($ $\frac{10000}{100}$ $)$ \qquad \qquad $D$ = 150\\
+$D$ = $\frac{1}{2}$ * $($ 1 + 1.25 $)$ * $($ $\frac{10000}{100}$ $)$ \qquad \qquad $D$ = 112.5\\
 
 Replacing in equation \ref{optical_channels}:\\
 
-$<w>$ = $($ $\frac{150 * 1.533}{16}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 14.375\\
+$<w>$ = $($ $\frac{112.5 * 1.533}{16}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 10.8125\\
 
 Using equation \ref{amplifiers}:\\
 
@@ -102,30 +104,30 @@ $N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 14.375$)$ + $($2 * 35 * 4 000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 10.8125$)$ + $($2 * 35 * 4 000$)$\\
 
-$C_L$ = \textbf{115 520 000 \euro}\\
+$C_L$ = \textbf{87 020 000 \euro}\\
 
 In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
-$<d>$ = $\frac{150}{6}$ \qquad \qquad $<d>$ = 25\\
+$<d>$ = $\frac{112.5}{6}$ \qquad \qquad $<d>$ = 18.75\\
 
 Replacing in equation \ref{Pexc_transp} and \ref{Poxc_transp}:\\
 
-$<P_{exc}>$ = 2 * 25 = 50\\
+$<P_{exc}>$ = 18.75\\
 
-$<P_{oxc}>$ = 25 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{oxc}>$ = 63.325 \\
+$<P_{oxc}>$ = 18.75 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{oxc}>$ = 47.4938 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} and \ref{analytical_opticalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ + $C_{oxc}$ = $\left( 6*(10 000 + (1 000 * 100 * 50 ) ) \right)$ + $\left(6*(20 000 + (2 500 * 63.325 ) ) \right)$\\
+$C_N$ = $\left(6 * (10 000 + (1 000 * 100 * 18.75)) + (20 * 1 360)\right)$ + $\left(6 * (20 000 + (2 500 * 47.4938)) \right)$\\
 
-$C_N$ = 30 060 000 + 1 069 875 = \textbf{31 129 875 \euro}\\
+$C_N$ = 11 337 200 + 832 407 = \textbf{12 169 607 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 115 520 000 + 31 129 875\\
+$CAPEX$ = 87 020 000 + 12 169 607 \\
 
-$CAPEX$ = \textbf{146 649 875 \euro}\\
+$CAPEX$ = \textbf{99 189 607 \euro} \\
 
 
 \textbf{High Traffic Scenario:}\\
@@ -133,11 +135,11 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 
 Using equation \ref{demands}:\\
 
-$D$ = $\frac{1}{2}$ * $($ 1 + 2 $)$ * $($ $\frac{20000}{100}$ $)$ \qquad \qquad $D$ = 300\\
+$D$ = $\frac{1}{2}$ * $($ 1 + 1.25 $)$ * $($ $\frac{20000}{100}$ $)$ \qquad \qquad $D$ = 225\\
 
 Replacing in equation \ref{optical_channels}:\\
 
-$<w>$ = $($ $\frac{300 * 1.533}{16}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 28.75\\
+$<w>$ = $($ $\frac{225 * 1.533}{16}$ $)$ * $($ 1 + 0$)$ \qquad \qquad $<w>$ = 21.5625\\
 
 Using equation \ref{amplifiers}:\\
 
@@ -145,28 +147,28 @@ $N^R$ = 35\\
 
 Finally, replacing all in equation \ref{analytical_linkCosts} the Link Cost is:\\
 
-$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 28.75$)$ + $($2 * 35 * 4 000$)$\\
+$C_L$ = $($2 * 8 * 15 000$)$ + $($2 * 8 * 5 000 * 100 * 21.5625$)$ + $($2 * 35 * 4 000$)$\\
 
-$C_L$ = \textbf{230 520 000 \euro}\\
+$C_L$ = \textbf{173 020 000 \euro}\\
 
 In relation to the cost of the nodes we first use the equation \ref{average_demand}:\\
 
-$<d>$ = $\frac{300}{6}$ \qquad \qquad $<d>$ = 50\\
+$<d>$ = $\frac{225}{6}$ \qquad \qquad $<d>$ = 37.5\\
 
 Replacing in equation \ref{Pexc_transp} and \ref{Poxc_transp}:\\
 
-$<P_{exc}>$ = 2 * 50 = 100\\
+$<P_{exc}>$ = 37.5\\
 
-$<P_{oxc}>$ = 50 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{oxc}>$ = 126.65 \\
+$<P_{oxc}>$ = 37.5 * $[$1 + $($1 + $0$ $)$ * 1.533$]$ \qquad \quad $<P_{oxc}>$ = 94.9875 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} and \ref{analytical_opticalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ + $C_{oxc}$ = $\left( 6*(10 000 + (1 000 * 100 * 100 ) ) \right)$ + $\left(6*(20 000 + (2 500 * 126.65 ) ) \right)$\\
+$C_N$ = $\left(6 * (10 000 + (1 000 * 100 * 37.5)) + (20 * 2 720)\right)$ + $\left(6 * (20 000 + (2 500 * 94.9875)) \right)$\\
 
-$C_N$ = 60 060 000 + 2 019 750 = \textbf{62 079 750 \euro}\\
+$C_N$ = 22 614 400 + 1 544 813 = \textbf{24 159 213 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 230 520 000 + 62 079 750\\
+$CAPEX$ = 173 020 000 + 24 159 213\\
 
-$CAPEX$ = \textbf{292 599 750 \euro}\\
+$CAPEX$ = \textbf{197 179 213 \euro}\\
 

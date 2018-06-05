@@ -18,31 +18,29 @@ Before carrying out the detailed description we must take into account the follo
 \end{itemize}
 
 \vspace{11pt}
-The first particularity exists because in this mode of transport there is no optical cost, in the case of the second we are assuming that the coefficient has value 1 and finally in the last particularity we are assuming that the survivability coefficient is $<kp>$ because it is with protection 1+1 where
+The first particularity exists because in this mode of transport there is no optical cost, in the case of the second we are assuming that the grooming coefficient has value 1 and finally in the last particularity we are assuming that the survivability coefficient is $<kp>$ because it is with 1+1 protection where
 
 \begin{equation}
-<kp> = \frac{<h'>}{<h>}
+<kp> = \frac{<h'>}{<h>} = \frac{2.467}{1.533} = 1.609
 \label{coefficient_protec}
 \end{equation}
 
 \vspace{11pt}
-Finally looking at the equation \ref{analytical_electricalCost}  we can see that we already have practically all the values with the exception of the average number of ports the electrical switch,$<P_{exc}>$, that can be calculated as
+Finally looking at the equation \ref{analytical_electricalCost}  we can see that we already have practically all the values with the exception of two variables. The tributary ports, $P_{TRIB}$, can be calculated through the ODU's matrices referred to in section \ref{Reference_Network_Traffic} and the average number of ports the electrical switch,$<P_{exc}>$, that can be calculated as
 
 \begin{equation}
-<P_{exc}> = <d> \times [1 + \left(1 + <k>\right) \times <h>]
+<P_{exc}> = <d> <h> \left(1 + <k>\right)
 \label{Pexc_opaque_protec}
 \end{equation}
+
 \vspace{11pt}
 \noindent
-where $<d>$ is the average number of demands, $<k>$	is the survivability coefficient and $<h>$ is the average number of hops.\\
-
+where $<d>$ is the average number of demands, $<h>$ is the average number of hops and $<k>$	is the survivability coefficient. The number of ports of the electrical switch, in this case, is equal to the number of line ports since we already know the number of tributary ports.\\
 
 \subsubsection{Result description}
 
 We already have all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of network traffic \ref{Reference_Network_Traffic}, we have three values of network traffic (low, medium and high traffic) so we have to obtain three different CAPEX.\\
-First for all scenarios we have to take into account the survivability coefficient \ref{coefficient_protec}.\\
 
-$<kp>$ = $\frac{2.467}{1.533}$ = 1.609
 
 \textbf{Low Traffic Scenario:}\\
 In this scenario we have to take into account the traffic calculated in \ref{low_scenario}.\\
@@ -73,18 +71,18 @@ $<d>$ = $\frac{10}{6}$ \qquad \qquad $<d>$ = 1.6667\\
 
 Replacing in equation \ref{Pexc_opaque_protec}:\\
 
-$<P_{exc}>$ = 1.6667 * $[$1 + $($1 + $1.609$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 8.3328 \\
+$<P_{exc}>$ = 1.6667 * 1.533 * $($1 + $1.609$ $)$ \qquad \qquad $<P_{exc}>$ = 6.6661 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 8.3328 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 6.6661 $)$ $)$ + $($20 * 136$)$\\
 
-$C_N$ = \textbf{5 059 680 \euro}\\
+$C_N$ = \textbf{4 062 380 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 21 392 000 + 5 059 680\\
+$CAPEX$ = 21 392 000 + 4 062 380\\
 
-$CAPEX$ = \textbf{26 451 680 \euro}\\
+$CAPEX$ = \textbf{25 454 380 \euro}\\
 
 \textbf{Medium Traffic Scenario}\\
 In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}.\\
@@ -115,18 +113,18 @@ $<d>$ = $\frac{100}{6}$ \qquad \qquad $<d>$ = 16.6667\\
 
 Replacing in equation \ref{Pexc_opaque_protec}:\\
 
-$<P_{exc}>$ = 16.6667 * $[$1 + $($1 + $1.609$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 83.3268 \\
+$<P_{exc}>$ = 16.6667 * 1.533 * $($1 + $1.609$ $)$ \qquad \qquad $<P_{exc}>$ = 66.6601 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 83.3268 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 66.6601 $)$ $)$ + $($20 * 1 360$)$\\
 
-$C_N$ = \textbf{49 996 140 \euro}\\
+$C_N$ = \textbf{40 083 260 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 201 400 000 + 49 996 140\\
+$CAPEX$ = 201 400 000 + 40 083 260\\
 
-$CAPEX$ = \textbf{251 396 140 \euro}\\
+$CAPEX$ = \textbf{241 483 260 \euro}\\
 
 \textbf{High Traffic Scenario}\\
 In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}.\\
@@ -157,16 +155,16 @@ $<d>$ = $\frac{200}{6}$ \qquad \qquad $<d>$ = 33.3333\\
 
 Replacing in equation \ref{Pexc_opaque_protec}:\\
 
-$<P_{exc}>$ = 33.3333 * $[$1 + $($1 + $1.609$ $)$ * 1.533$]$ \qquad \quad $<P_{exc}>$ = 166.6530 \\
+$<P_{exc}>$ = 33.3333 * 1.533 * $($1 + $1.609$ $)$ \qquad \qquad $<P_{exc}>$ = 133.3198 \\
 
 Finally, replacing all in equation \ref{analytical_electricalCost} the Node Cost is:\\
 
-$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 166.6530 $)$ $)$\\
+$C_N$ = $C_{exc}$ = 6 * $($10 000 + $($1 000 * 100 * 133.3198 $)$ $)$ + $($20 * 2 720$)$\\
 
-$C_N$ = \textbf{100 051 800 \euro}\\
+$C_N$ = \textbf{80 106 280 \euro}\\
 
 The CAPEX is:\\
-$CAPEX$ = 401 001 500 + 100 051 800\\
+$CAPEX$ = 401 001 500 + 80 106 280\\
 
-$CAPEX$ = \textbf{501 053 300 \euro}\\
+$CAPEX$ = \textbf{481 107 780 \euro}\\
 
