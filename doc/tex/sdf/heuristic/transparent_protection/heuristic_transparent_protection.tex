@@ -60,10 +60,10 @@ P_{oxc,n} = \sum_{j=1}^{N} 2 f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
 \end{equation}
 
 \noindent
-where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of adding ports.\\
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of add ports.\\
 
 \vspace{11pt}
-To implement this heuristic approach it is used four algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
+To implement this heuristic approach there are used algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
 
 In the next pages it will be described all the steps performed to obtain the final results in the transparent transport mode with 1+1 protection. In the figure below \ref{fluxogram_transp_protec} it is shown a fluxogram with the description of this transport mode approach.
 
@@ -89,9 +89,9 @@ The first step is to create the traffic matrices based on the reference network 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/transparent_survivability/figures/traffic_matrices}
+\includegraphics[width=11cm]{sdf/heuristic/transparent_protection/figures/traffic_matrices}
 \caption{Load of the join traffic matrices algorithm for the transparent transport mode on Net2Plan. It is defined the 5 paths to load the 5 ODU traffic matrices and the last path is the one where will be saved the file that joins all 5 the traffic demands.}
-\label{traffic_matrices_transp_surv_ref}
+\label{traffic_matrices_transp_protec_ref}
 \end{figure}
 
 \newpage
@@ -159,7 +159,7 @@ As we also have a dedicated 1+1 protection scheme, if the network has this featu
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{sdf/heuristic/transparent_protection/figures/grooming_transparent_protec3}
-\caption{Creation of routes and aggregation of traffic for the transparent with 1+1 protection transport mode. The traffic demands are set in the candidate primary path routes found earlier and also compared with the backup path routes. The traffic demands are also set in these protection path routes.}
+\caption{Creation of routes and aggregation of traffic for the transparent with 1+1 protection transport mode. The traffic demands are set in the candidate primary path routes found earlier and also compared with the backup path routes. The traffic demands are also set into these protection path routes.}
 \label{grooming_transparent_protec3}
 \end{figure}
 
@@ -218,7 +218,7 @@ The final step of the routing and grooming algorithms is to calculate the number
 \begin{figure}[H]
 \centering
 \includegraphics[width=11cm]{sdf/heuristic/transparent_protection/figures/grooming_transparent_protec6}
-\caption{Load of the grooming algorithm for the transparent with 1+1 protection transport mode. The total number of routes per demand is set to 100, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
+\caption{Load of the grooming algorithm for the transparent with 1+1 protection transport mode. The total number of routes per demand is set to 10, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
 \label{grooming_transparent_protec6}
 \end{figure}
 
@@ -522,10 +522,9 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 \end{table}
 
 \vspace{13pt}
-
 \subsubsection{Conclusions}
 
-Once we have obtained the results for all the scenarios for transparent without survivability and transparent with 1+1 protection we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transparent_protec_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
+Once we have obtained the results for all scenarios for the transparent without survivability and transparent with 1+1 protection we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transparent_protec_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
 
 \begin{table}[H]
 \centering
@@ -566,8 +565,8 @@ Looking at the previous table we can make some comparisons between the transpare
 We can also make some comparisons between the transparent without survivability and transparent with 1+1 protection scenarios:
 
 \begin{itemize}
-  \item We can see that in the transparent with 1+1 protection the CAPEX cost for all the three traffic is more than the double;
-    \subitem This happens because in the transparent with 1+1 protection there is a need of having a primary and a backup path, in case of a network failure, and the backup path is typically longer;
+  \item We can see that in the transparent with 1+1 protection transport mode the CAPEX cost for all the three traffic is more than the double;
+    \subitem This happens because in the transparent with 1+1 protection transport mode there is a need of having a primary and a backup path, in case of a network failure, and the backup path is typically longer;
   \item Comparing the CAPEX cost per bit we can see that has a similar case in both of the two scenarios. In the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is similar;
   \subitem This happens because the lower the traffic, the higher CAPEX/bit will be. We can see that in medium and high traffic the results tend to be one closer and lower value.
 \end{itemize}
