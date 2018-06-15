@@ -61,10 +61,10 @@ P_{oxc,n} = \sum_{j=1}^{N} 2 f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
 \end{equation}
 
 \noindent
-where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of adding ports.\\
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of add ports.\\
 
 \vspace{11pt}
-To implement this heuristic approach it is used four algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
+To implement this heuristic approach there are used algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
 
 In the next pages it will be described all the steps performed to obtain the final results in the transparent transport mode without survivability. In the figure below \ref{fluxogram_transp_surv} it is shown a fluxogram with the description of this transport mode approach.
 
@@ -144,14 +144,14 @@ After a network topology is created, it is now time to set the routing algorithm
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv1}
-\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The candidate routes are searched by the shortest path type and the offered traffic demands are set into these routes.}
+\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The candidate routes are searched by the shortest path type method and the offered traffic demands are set into these routes.}
 \label{grooming_transparent_surv1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv2}
-\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The traffic demands are set in the candidate primary path routes found earlier.}
+\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The traffic demands are set into the candidate primary path routes found earlier.}
 \label{grooming_transparent_surv2}
 \end{figure}
 
@@ -195,7 +195,7 @@ The final step of the routing and grooming algorithms is to calculate the number
 \begin{figure}[H]
 \centering
 \includegraphics[width=11cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv4}
-\caption{Load of the grooming algorithm for the transparent without survivability transport mode. The total number of routes per demand is set to 100, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
+\caption{Load of the grooming algorithm for the transparent without survivability transport mode. The total number of routes per demand is set to 10, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
 \label{grooming_transparent_surv4}
 \end{figure}
 
@@ -527,7 +527,6 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 \end{table}
 
 \vspace{13pt}
-
 \subsubsection{Conclusions}
 
 Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transp_surv_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
