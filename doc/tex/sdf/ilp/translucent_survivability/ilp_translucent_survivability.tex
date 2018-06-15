@@ -26,11 +26,12 @@ First, for a better understanding of the functions and variables used in the ILP
  $c$ & index for bit rate of the client signal \\
  $($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
  $($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+ $($ p,k $)$ & lightpath between the nodes $p$ and $k$ \\
  $C$ & set of the client signal \\
  $L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
- $Ls_{ij}^{od}$ & Number of ODU-o low speed signals from node $o$ to node $d$ employing lightpath ($i$,$j$) \\
- $f_{ij}^{od}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $o$ and $d$ \\
- $\lambda_{od}$ & Number of lightpath channels between the nodes $o$ and $d$ \\
+ $Ls_{pk}^{odc}$ & Number of ODU-o low speed signals from node $o$ to node $d$ with bit rate $c$ employing lightpath $(p,k)$ \\
+ $f_{ij}^{pk}$ & Number of 100 Gbit/s optical channels (number of flows) between the link $i$ and $j$ for all demand pairs between $p$ and $k$ \\
+ $\lambda_{pk}$ & Number of lightpath channels between the nodes $p$ and $k$ \\
  $B$ & Client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\
  $D_{odc}$ & Client traffic demands between the nodes $o$ and $d$ with bit rate $c$ \\
  $G$ & Network topology in form of adjacency matrix \\
@@ -95,63 +96,63 @@ The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}
 
 $subject$ $to$
 \begin{equation}
-\sum_{j\textbackslash \{o\}} Ls_{ij}^{odc} = D_{odc}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i = o
+\sum_{k\textbackslash \{o\}} Ls_{pk}^{odc} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d,c) : o < d, \forall p: p = o
 \label{ILPTransluc1}
 \end{equation}
 \noindent
-This constraint are the virtual flow conservation constraints and ensure that, for all (o,d) pairs with bit rate $c$ we routes client demand traffic of flow from node $o$ to node $d$ with bit rate $c$ for all bidirectional links (i,j) when $j$ is not equal to the origin of the demand.
+This are the virtual flow conservation constraints and ensure that, for each $(o,d)$ pair, we route client demand units of flow from node $o$ to node $d$, the source node sends client demand units of flow.
 
 \begin{equation}
-\sum_{j\textbackslash \{i,o\}} Ls_{ij}^{odc} = \sum_{j\textbackslash \{i,d\}} Ls_{ji}^{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i \neq o,d
+\sum_{k\textbackslash \{p,o\}} Ls_{pk}^{odc} = \sum_{k\textbackslash \{p,d\}} Ls_{kp}^{odc} \qquad \qquad \qquad \qquad
+\forall(o,d,c) : o < d, \forall p: p \neq o,d
 \label{ILPTransluc2}
 \end{equation}
 \noindent
-In this constraint, assuming bidirectional traffic, so the demand traffic of flow in both directions of the link is the same.
+This constraint ensure that the remaining nodes, being neither origin or destination, the receive flow have to be send.
 
 \begin{equation}
-\sum_{j\textbackslash \{d\}} Ls_{ji}^{odc} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i = d
+\sum_{k\textbackslash \{d\}} Ls_{kp}^{odc} = D_{odc} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(o,d,c) : o < d, \forall p: p = d
 \label{ILPTransluc3}
 \end{equation}
 \noindent
-This constraint are the virtual flow conservation constraints and ensure that, for all (o,d) pairs with bit rate $c$ we routes demand traffic of flow from node $o$ to node $d$ with bit rate $c$ for all bidirectional links (j,i) when $i$ is not equal to the destination of the demand.
+This are the virtual flow conservation constraints and ensure that, for each $(o,d)$ pair, we route client demand units of flow from node $o$ to node $d$, the destination node has to receive those client demand units of flow.
 
 \begin{equation}
-\sum_{o=1} \sum_{d=o+1} B(c) Ls_{ij}^{odc} \leq  \tau \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall (i,j)
+\sum_{o=1} \sum_{d=o+1} \sum_{c=1} B(c)(Ls_{pk}^{odc} + Ls_{kp}^{odc}) \leq  \tau \lambda_{pk} \qquad \qquad \qquad \qquad \qquad \qquad
+\forall (p,k) : p < k
 \label{ILPTransluc4}
 \end{equation}
 \noindent
 This restriction is considered grooming constraint and the variable $\tau$ is always 100 Gbits/s.
 
 \begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i = o
+\sum_{j\textbackslash \{p\}} f_{ij}^{pk} = \lambda_{pk}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(p,k) : p < k, \forall i: i = p
 \label{ILPTransluc6}
 \end{equation}
 \noindent
 This constraint are equal to the constraint \ref{ILPOpaque1_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
 
 \begin{equation}
-\sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i \neq o,d
+\sum_{j\textbackslash \{p\}} f_{ij}^{pk} = \sum_{j\textbackslash \{k\}} f_{ji}^{pk} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(p,k) : p < k, \forall i: i \neq p,k
 \label{ILPTransluc7}
 \end{equation}
 \noindent
 This constraint are equal to the constraint \ref{ILPOpaque2_CAPEX}.
 
 \begin{equation}
-\sum_{j\textbackslash \{d\}} f_{ji}^{od} = \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
-\forall(o,d) : o < d, \forall i: i = d
+\sum_{j\textbackslash \{k\}} f_{ji}^{pk} = \lambda_{pk}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\forall(p,k) : p < k, \forall i: i = k
 \label{ILPTransluc8}
 \end{equation}
 \noindent
 This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that Z variable has the value of number of optical channels between this demand for all bidirectional links.
 
 \begin{equation}
-\sum_{o=1} \sum_{d=o+1} \left( f_{ij}^{od} + f_{ji}^{od}\right) \leq K_{ij} G_{ij} L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
+\sum_{p=1} \sum_{k=p+1} \left( f_{ij}^{pk} + f_{ji}^{pk}\right) \leq K_{ij} G_{ij} L_{ij} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall (i,j) : i < j
 \label{ILPTransluc9}
 \end{equation}
@@ -159,7 +160,7 @@ This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that
 This restriction answers capacity constraint problem. Then, total flows must be less or equal to the capacity of network links. For any situation the maximum number of optical channels supported by each transmission system is 100, i.e., $K_{ij}$ = 100.
 
 \begin{equation}
-f_{ij}^{od} , f_{ji}^{od} , Ls_{ij}^{odc} , Ls_{ji}^{odc} , \lambda_{od} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad
+f_{ij}^{pk} , f_{ji}^{pk} , Ls_{pk}^{odc} , Ls_{kp}^{odc} , \lambda_{pk} \in \mathbb{N}   \qquad \qquad \qquad \qquad \qquad
 \forall(i,j) : i < j, \forall(o,d) : o < d
 \label{ILPTransluc10}
 \end{equation}

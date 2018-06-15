@@ -9,61 +9,33 @@
 \end{tcolorbox}
 \vspace{11pt}
 
-
-In this section we will compare the CAPEX values obtained for the three scenarios in the three types of dimensioning. For a better analysis of the results will be created the table \ref{table_comparative_transp_sur_ref_1} (scenario 1), the table \ref{table_comparative_transp_sur_ref_2} (scenario 2) and the table \ref{table_comparative_transp_sur_ref_3} (scenario 3) with the different values obtained.\\
-
-\textbf{Low traffic scenario:}\\
+In this section we will compare the CAPEX values obtained for the three scenarios in the three types of dimensioning. For a better analysis of the results, the table \ref{table_comparative_transp_sur} was created with all the scenarios used and their values obtained.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{| c | c | c | c |}
+\begin{tabular}{| c | c | c | c | c |}
  \hline
-   & Analytical & ILP & Heuristic \\
+ \multicolumn{2}{| c |}{ } & Analytical & ILP & Heuristic \\
  \hline\hline
- Link Cost & 9 520 000 \euro & 26 520 000 \euro & 26 520 000 \euro \\
- Node Cost & 1 307 792 \euro & 3 797 590 \euro & 3 797 590 \euro \\
- CAPEX & \textbf{10 827 792 \euro} & \textbf{30 317 590 \euro} & \textbf{30 317 590 \euro} \\
+ \multirow{3}{*}{\textbf{Low Traffic}} & Link Cost & 9 520 000 \euro & 26 520 000 \euro & 26 520 000 \euro \\
+  & Node Cost & 1 307 792 \euro & 3 797 590 \euro & 3 797 590 \euro \\
+  & CAPEX & \textbf{10 827 792 \euro} & \textbf{30 317 590 \euro} & \textbf{30 317 590 \euro} \\
+  \hline
+ \hline
+ \multirow{3}{*}{\textbf{Medium Traffic}} & Link Cost & 87 020 000 \euro & 84 520 000 \euro & 84 520 000 \euro \\
+  & Node Cost & 12 169 607 \euro & 12 310 900 \euro & 15 180 900 \euro \\
+  & CAPEX & \textbf{99 189 607 \euro} & \textbf{96 830 900 \euro} & \textbf{99 700 900 \euro} \\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{High Traffic}} & Link Cost & 173 020 000 \euro & 157 520 000 \euro & 157 520 000 \euro \\
+  & Node Cost & 24 159 213 \euro & 22 951 800 \euro & 28 486 800 \euro \\
+  & CAPEX & \textbf{197 179 213 \euro} & \textbf{180 471 800 \euro} & \textbf{186 006 800 \euro} \\
  \hline
 \end{tabular}
-\caption{Table with different value of CAPEX }
-\label{table_comparative_transp_sur_ref_1}
+\caption{Transparent without survivability: Table with different value of CAPEX for all scenarios.}
+\label{table_comparative_transp_sur}
 \end{table}
 
-
-\vspace{11pt}
-\textbf{Medium traffic scenario:}\\
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{| c | c | c | c |}
- \hline
-   & Analytical & ILP & Heuristic \\
- \hline\hline
- Link Cost & 87 020 000 \euro & 84 520 000 \euro & 84 520 000 \euro \\
- Node Cost & 12 169 607 \euro & 12 310 900 \euro & 15 180 900 \euro \\
- CAPEX & \textbf{99 189 607 \euro} & \textbf{96 830 900 \euro} & \textbf{99 700 900 \euro} \\
- \hline
-\end{tabular}
-\caption{Table with different value of CAPEX }
-\label{table_comparative_transp_sur_ref_2}
-\end{table}
-
-
-\vspace{11pt}
-\textbf{High traffic scenario:}\\
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{| c | c | c | c |}
- \hline
-   & Analytical & ILP & Heuristic \\
- \hline\hline
- Link Cost & 173 020 000 \euro & 157 520 000 \euro & 157 520 000 \euro \\
- Node Cost & 24 159 213 \euro & 22 951 800 \euro & 28 486 800 \euro \\
- CAPEX & \textbf{197 179 213 \euro} & \textbf{180 471 800 \euro} & \textbf{186 006 800 \euro} \\
- \hline
-\end{tabular}
-\caption{Table with different value of CAPEX }
-\label{table_comparative_transp_sur_ref_3}
-\end{table}
-
+Comparing the ILP model with the analytical model for this transport mode without survivability we noticed that for the low scenario there is a very high margin of error, approximately 64\%, this error is high due to the grooming coefficient. For the analytic model this value is initially defined and is fixed for any scenario but in the case of the ILP model this does not happen. In the ILP model, the coefficient varies and in the low scenario case due to the existence of little traffic the coefficient is much higher than the analytical one.
+For the remaining scenarios it is possible to conclude that there is a much lower margin of error (below 10\%).
+In comparison with the heuristic model, once again as expected, the result obtained by the ILP model is always better than the value obtained through the heuristic. In the case of low scenario the heuristic can achieve the optimum cost. In this mode of transport, the smaller the amount of traffic, the heuristic is closer to the ILP model.

@@ -105,7 +105,7 @@ This constraint are equal to the constraint \ref{ILPOpaque3_CAPEX} assuming that
 \label{ILPTransp1p}
 \end{equation}
 \noindent
-This flow conservation ensures that, for all demand pairs ($o$,$d$), is equal to number of optical channels between this demand for all bidirectional links ($i$,$j$) when $j$ is not equal to the origin of the demand.
+This are the protection flow conservation constraints and ensure that, for each $(o,d)$ pair, we route the number of optical channels units of flow from node $o$ to node $d$, the source node sends the number of optical channels units of flow.
 
 \begin{equation}
 \sum_{j\textbackslash \{o\}} fp_{ij}^{od} = \sum_{j\textbackslash \{d\}} fp_{ji}^{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -113,7 +113,7 @@ This flow conservation ensures that, for all demand pairs ($o$,$d$), is equal to
 \label{ILPTransp2p}
 \end{equation}
 \noindent
-This flow conservation ensures that, assuming bidirectional traffic, so the number of flows in both directions of the link is the same.
+This constraint ensure that the remaining nodes, being neither origin or destination, the receive flow have to be send.
 
 \begin{equation}
 \sum_{j\textbackslash \{d\}} fp_{ji}^{od} = \lambda_{od} \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
@@ -121,7 +121,7 @@ This flow conservation ensures that, assuming bidirectional traffic, so the numb
 \label{ILPTransp3p}
 \end{equation}
 \noindent
-This flow conservation is based on the same idea of \ref{ILPTransp1p}, however applied in reverse direction.
+This are the usual flow conservation constraints and ensure that, for each $(o,d)$ pair, we route the number of optical channels units of flow from node $o$ to node $d$, the destination node has to receive those numbers of optical channels units of flow.
 
 \begin{equation}
 \sum_{o=1} \sum_{d=o+1} \left(f_{ij}^{od}  + fp_{ij}^{od}\right) \leq \lambda_{od}  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad

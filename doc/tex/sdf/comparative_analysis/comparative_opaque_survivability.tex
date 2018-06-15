@@ -9,61 +9,35 @@
 \end{tcolorbox}
 \vspace{11pt}
 
-
-In this section we will compare the CAPEX values obtained for the three scenarios in the three types of dimensioning. For a better analysis of the results will be created the table \ref{table_comparative_opaque_sur_ref_1} (scenario 1), the table \ref{table_comparative_opaque_sur_ref_2} (scenario 2) and the table \ref{table_comparative_opaque_sur_ref_3} (scenario 3) with the different values obtained.\\
-
-\textbf{Low traffic scenario:}\\
+In this section we will compare the CAPEX values obtained for the three scenarios in the three types of dimensioning. For a better analysis of the results, the table \ref{table_comparative_opaque_sur} was created with all the scenarios used and their values obtained.
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{| c | c | c | c |}
+\begin{tabular}{| c | c | c | c | c |}
  \hline
-   & Analytical & ILP & Heuristic \\
+ \multicolumn{2}{| c |}{ } & Analytical & ILP & Heuristic \\
  \hline\hline
- Link Cost & 8 520 000 \euro & 9 404 000 \euro & 12 020 000 \euro \\
- Node Cost & 1 595 720 \euro & 1 862 590 \euro & 2 362 590 \euro \\
- CAPEX & \textbf{10 115 720 \euro} & \textbf{11 266 590 \euro} & \textbf{14 382 590 \euro} \\
+ \multirow{3}{*}{\textbf{Low Traffic}} & Link Cost & 8 520 000 \euro & 9 404 000 \euro & 12 020 000 \euro \\
+  & Node Cost & 1 595 720 \euro & 1 862 590 \euro & 2 362 590 \euro \\
+  & CAPEX & \textbf{10 115 720 \euro} & \textbf{11 266 590 \euro} & \textbf{14 382 590 \euro} \\
  \hline
+ \hline
+ \multirow{3}{*}{\textbf{Medium Traffic}} & Link Cost & 77 520 000 \euro & 75 520 000 \euro & 77 020 000 \euro \\
+  & Node Cost & 15 417 260 \euro & 15 085 900 \euro & 15 385 900 \euro \\
+  & CAPEX & \textbf{92 937 260 \euro} & \textbf{90 605 900 \euro} & \textbf{92 405 900 \euro} \\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{High Traffic}} & Link Cost & 154 020 000 \euro & 148 520 000 \euro & 149 020 000 \euro \\
+  & Node Cost & 30 774 340 \euro & 29 711 800 \euro & 29 814 200 \euro \\
+  & CAPEX & \textbf{184 794 340 \euro} & \textbf{178 231 800 \euro} & \textbf{178 834 200 \euro} \\
+  \hline
 \end{tabular}
-\caption{Table with different value of CAPEX }
-\label{table_comparative_opaque_sur_ref_1}
+\caption{Opaque without survivability: Table with different value of CAPEX for all scenarios. }
+\label{table_comparative_opaque_sur}
 \end{table}
 
-
-\vspace{11pt}
-\textbf{Medium traffic scenario:}\\
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{| c | c | c | c |}
- \hline
-   & Analytical & ILP & Heuristic \\
- \hline\hline
- Link Cost & 77 520 000 \euro & 75 520 000 \euro & 77 020 000 \euro \\
- Node Cost & 15 417 260 \euro & 15 085 900 \euro & 15 385 900 \euro \\
- CAPEX & \textbf{92 937 260 \euro} & \textbf{90 605 900 \euro} & \textbf{92 405 900 \euro} \\
- \hline
-\end{tabular}
-\caption{Table with different value of CAPEX }
-\label{table_comparative_opaque_sur_ref_2}
-\end{table}
-
-
-\vspace{11pt}
-\textbf{High traffic scenario:}\\
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{| c | c | c | c |}
- \hline
-   & Analytical & ILP & Heuristic \\
- \hline\hline
- Link Cost & 154 020 000 \euro & 148 520 000 \euro & 149 020 000 \euro \\
- Node Cost & 30 774 340 \euro & 29 711 800 \euro & 29 814 200 \euro \\
- CAPEX & \textbf{184 794 340 \euro} & \textbf{178 231 800 \euro} & \textbf{178 834 200 \euro} \\
- \hline
-\end{tabular}
-\caption{Table with different value of CAPEX }
-\label{table_comparative_opaque_sur_ref_3}
-\end{table}
-
+As expected, in all three scenarios, the result obtained through the ILP model is always better (lower) than the value obtained through heuristics. This happens because with the ILP model we always get the optimal solution while with the heuristics we get an approximation of this solution.
+We can conclude that the greater the traffic, the lower the difference between the ILP and the heuristics because the traffic increase also increases the variables for the heuristic algorithms.
+Compared with the analytical value, this comparison can not be done literally because the analytical model works with mean values, so this result may be lower or higher than that obtained in the ILP model.
+It is possible to conclude that this value always has a margin of error of less than 10\% for low scenario and less than 5\% for the other two scenarios.
+We can conclude that after obtaining the analytical value if applied the margin of error previously mentioned we know that in this interval is the optimal cost.
