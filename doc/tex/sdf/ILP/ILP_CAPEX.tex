@@ -179,24 +179,24 @@ Subject to the following restrictions where these restrictions are the flow cons
 \forall(o,d) : o < d, \forall i: i = o
 \label{ILPOpaque1_CAPEX}
 \end{equation}
-
-This constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(i,j)$ when $j$ is not equal to the origin of the demand. The variable Z depends of the transport mode and survivability mechanism.
+\noindent
+This are the usual flow conservation constraints and ensure that, for each $(o,d)$ pair, we route $Z$ units of flow from node $o$ to node $d$, the source node sends $Z$ units of flow. The variable Z depends of the transport mode and survivability mechanism.
 
 \begin{equation}
 \sum_{j\textbackslash \{o\}} f_{ij}^{od} = \sum_{j\textbackslash \{d\}} f_{ji}^{od}   \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i \neq o,d
 \label{ILPOpaque2_CAPEX}
 \end{equation}
-
-In this constraint, assuming bidirectional traffic, so the number of flows in both directions of the link is the same.
+\noindent
+This constraint ensure that the remaining nodes, being neither origin or destination, the receive flow have to be send.
 
 \begin{equation}
 \sum_{j\textbackslash \{d\}} f_{ji}^{od} = Z  \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad \qquad
 \forall(o,d) : o < d, \forall i: i = d
 \label{ILPOpaque3_CAPEX}
 \end{equation}
-
-This constraint ensures that, for all demand pairs $(o,d)$, it routes $Z$ flow of traffic for all bidirectional links $(j,i)$ when $i$ is not equal to the destination of the demand. The variable Z depends of the transport mode and survivability mechanism.\\
+\noindent
+This are the usual flow conservation constraints and ensure that, for each $(o,d)$ pair, we route $Z$ units of flow from node $o$ to node $d$, the destination node has to receive those $Z$ units of flow. The variable Z depends of the transport mode and survivability mechanism.\\
 
 \vspace{13pt}
 
