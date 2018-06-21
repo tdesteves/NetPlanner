@@ -1,19 +1,287 @@
 \clearpage
 
-\subsection{Translucent without Survivability}\label{heuristic_Transluc_Survivability}
+\subsection{Translucent without Survivability}\label{heuristic_Transl_Survivability}
 \begin{tcolorbox}	
 \begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
-\textbf{Student Name}  &:& Pedro Coelho    (March 01, 2018 - )\\
+\textbf{Student Name}  &:& Pedro Coelho    (01/03/2018 - )\\
 \textbf{Goal}          &:& Implement the heuristic model for the translucent transport mode without survivability.
 \end{tabular}
 \end{tcolorbox}
 
-\subsubsection{Model description}
+\vspace{11pt}
+The translucent networks (optical-bypass) consist of intermediate optical network architectures between opaque and transparent networks. In the translucent transport mode (multi-hop approach) an OEO conversion is performed when the optical signal falls below a pre-defined threshold. This threshold is called the maximum optical reach and it is the maximum distance that an optical signal can traverse in the optical domain. Then it is needed an wavelength regenerator in order to regenerate the optical signal and maintain the quality level in the transmission (QoT) of the signals. This allows the traversing of the optical signal in the optical domain as much as it can go through the path, from source to destination.
 
-\subsubsection{Result description}
+For cost savings, the translucent networks aims at using the minimum number of regenerators and wavelengths of the network, being the most advantageous transport mode in the optical backbone networks.
+
+We also must take into account the following particularity of this mode of transport:
+\begin{itemize}
+  \item $N_{OXC,n}$ = 1, \quad $\forall$ n that process traffic
+  \item $N_{EXC,n}$ = 1, \quad $\forall$ n that process traffic
+\end{itemize}
+
+The minimization of the network CAPEX is made through the equation \ref{Capex_heuristic} where in this case for the cost of nodes we have in consideration the electric cost \ref{Capex_Node_EXC_heuristic} and the optical cost \ref{Capex_Node_OXC_heuristic}.\\
+
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc_translucent_heuristic} for short-reach and by the equation \ref{EXC_pexc2_translucent_heuristic} for long-reach and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_translucent_heuristic}.\\
+
+The equation \ref{EXC_pexc_translucent_heuristic} refers to the number of short-reach ports of the electrical switch with bit-rate $c$ in node $n$, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate $c$ in node $n$ which can be calculated as
+
+\begin{equation}
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc_translucent_heuristic}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where $D_{nd,c}$ are the client demands between nodes $n$ and $d$ with bit rate $c$.\\
+
+In this case there is the following particularity:
+\begin{itemize}
+  \item When $n$=$d$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
+\end{itemize}
+
+\vspace{11pt}
+As previously mentioned, the equation \ref{EXC_pexc2_translucent_heuristic} refers to the number of long-reach ports of the electrical switch with bit-rate -1 in node $n$, $P_{exc,-1,n}$, i.e. the number of add ports of node $n$ which can be calculated as
+
+\begin{equation}
+P_{exc,-1,n} = \sum_{j=1}^{N} \lambda_{nj}
+\label{EXC_pexc2_translucent_heuristic}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where $\lambda_{nj}$ is the number of optical channels between node $n$ and node $j$.\\
+
+The equation \ref{OXC_poxc_translucent_heuristic} refers to the number of ports in optical switch in node $n$, $P_{oxc,n}$, i.e. the number of line ports and the number of adding ports of node $n$ which can be calculated as
+
+\begin{equation}
+P_{oxc,n} = \sum_{j=1}^{N} f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
+\label{OXC_poxc_translucent_heuristic}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of add ports.
+
+\vspace{11pt}
+To implement this heuristic approach there are used algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the next pages it will be described all the steps performed to obtain the final results in the translucent transport mode without survivability. In the figure below \ref{fluxogram_transl_surv} it is shown a fluxogram with the description of this transport mode approach.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=15cm]{sdf/heuristic/translucent_survivability/figures/fluxogram_translucent_surv}
+\caption{Fluxogram with the steps performed in the translucent without survivability transport mode approach.}
+\label{fluxogram_transl_surv}
+\end{figure}
+
+\subsubsection{Creation and join the traffic matrices}
+
+\noindent
+The first step is to create the traffic matrices based on the reference network \ref{Reference_Network_Topology}. In order to create the 5 traffic matrices in Net2Plan it is necessary the length of all the links and the total traffic used in this network, so later it is needed to define in Net2Plan the length in all end nodes and the total traffic depends on the value of traffic used (low traffic - 0.5 Tbit/s, medium traffic - 5 Tbit/s and high traffic - 10 Tbit/s). As you can see in the figure below, it is defined the path of the 5 ODUs and they will be aggregated in just one single ODU, making it possible to join all the demands in just one file and load it later into the network. This final resulting ODU joins the multiple traffic demands from all the traffic matrices previously created and, of course, the traffic demands will depend on the values used on the creation of the matrices (low, medium and high traffic).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=7cm]{sdf/heuristic/translucent_survivability/figures/join_matrices_odus}
+\caption{Join the 5 ODU traffic matrices into 1 single file "ODUs". The 5 traffic demands from the traffic matrices previously created are joined into 1 file to load it later on Net2Plan.}
+\label{join_matrices_odus_transl_surv}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=8cm]{sdf/heuristic/translucent_survivability/figures/traffic_matrices}
+\caption{Load of the join traffic matrices algorithm for the translucent transport mode on Net2Plan. It is defined the 5 paths to load the 5 ODU traffic matrices and the last path is the one where will be saved the file that joins all 5 the traffic demands.}
+\label{traffic_matrices_transl_surv_ref}
+\end{figure}
+
+\newpage
+\subsubsection{Creation of the physical topology}
+
+\vspace{11pt}
+The next step is to create the allowed physical topology of the network in Net2Plan. This network consists in 6 nodes and 8 bidirectional links. It is now also possible to define the length in all links. In the figure below it is shown the allowed physical topology in this transport mode.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{sdf/heuristic/translucent_survivability/figures/allowed_physical}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed_physical_surv_trans}
+\end{figure}
+
+\subsubsection{Creation of the logical topology}
+
+\vspace{11pt}
+It is now time to create the allowed logical topology. A network topology represents how the links and the nodes of the network interconnect with each other and the logical topology algorithm creates the logical topology on another layer. In the translucent transport mode each node connects to other node if the shortest path distance between them is lower than the maximum optical reach value (in km) that an optical signal can traverse in an optical channel. If the maximum optical reach is higher than the shortest path of a link, then it is not created a logical link of that specific physical link. On the contrary, there are created direct links between all node pairs in the network that follow this rule. These additions of links between end nodes are made in the new upper layer of the network. The respective demands are saved in the new upper layer and those demands from the lower layer are then removed. The lower layer is the physical layer of the network and it is now created a new upper layer which is the logical layer of the network and represents the logical topology of the translucent transport mode.
+The allowed physical and optical topologies, the logical topologies for all ODUs and the resulting physical topology is shown in the next section below \ref{result_description_translucent_heuristic_surv} for the three traffic scenarios. It is shown below three figures with the code in Java of the creation of the network logical topology, the load of the logical topology algorithm in Net2Plan and the resulting allowed optical topology for the translucent transport mode without survivability.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=17cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_creation_translucent}
+\caption{Java code of the logical topology approach for the translucent transport mode. The logical layer is created by adding direct links between all end nodes if their shortest path between them is lower than the maximum optical reach value. The new layer is now the translucent logical topology of the network.}
+\label{logical_topology_creation_translucent_surv}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_load_translucent}
+\caption{Load of the logical topology algorithm for the translucent transport mode on Net2Plan. It is assumed that the maximum optical reach value is 1000 km, so all direct links between node pairs with different index are created in all optical channels.}
+\label{logical_topology_load_translucent_surv}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm]{sdf/heuristic/translucent_survivability/figures/allowed_optical}
+\caption{Allowed optical topology. It is assumed that each connections between demands supports up to 100 lightpaths. In the translucent transport mode there are several possible logical topologies for a specific network. It depends, for example, on the maximum optical reach value that represents the maximum distance that an optical signal can traverse a link without the need of regenerate.}
+\label{allowed_optical_surv_translucent}
+\end{figure}
+
+\subsubsection{Creation of routes and aggregation of traffic}
+
+\vspace{11pt}
+After a network topology is created, it is now time to set the routing and then grooming algorithms. In the translucent without survivability transport mode the objective function is to minimize the lightpaths of the network and to find a route for every lightpath demand without considering the wavelength assignment. In this heuristic approach the goal is to minimize the lightpaths blocked and going through the carried lightpaths search for the ones that minimizes the average number of physical hops. Some of the links in the network will suffer from excessive traffic and some other links will occupy only a small part of the bandwidth. In order to do more efficiently, the link's utilizations are almost 1 so there is less non occupied capacity. Firstly, the candidate routes are found by the Dijkstra algorithm for each pair of nodes and calculates the minimum distance for each source and destination nodes and compares with each other. Then, the wavelength assignments are carried out for every lightpaths that have the minimum average of hops for each route and if the path distance is lower than the maximum optical reach value (in this report the maximum optical reach value used is 1000 km). The carried lightpaths resulted previously are sequentially processed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=17cm]{sdf/heuristic/translucent_survivability/figures/grooming_translucent_surv1}
+\caption{Creation of routes and aggregation of traffic for the translucent without survivability transport mode. The candidate routes are searched by the shortest path type method and the average minimum number of physical hops of the routes. The offered traffic demands are set into these routes.}
+\label{grooming_translucent_surv1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm]{sdf/heuristic/translucent_survivability/figures/grooming_translucent_surv2}
+\caption{Creation of routes and aggregation of traffic for the translucent without survivability transport mode. Minimizing the blocked traffic, the traffic demands are set into the candidate primary path routes found earlier.}
+\label{grooming_translucent_surv2}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+ Function & Definition \\
+ \hline\hline
+ netPlan.getDemands(lowerLayer) & Returns the array of demands for the lower layer. \\
+ \hline
+ d.getRoutes() & Returns all the routes associated to the demand "d". \\
+ \hline
+ c.getNumberOfHops() & Returns the route number of traversed links. \\
+ \hline
+ c.getLengthInKm() & \makecell{Returns the route length in km, summing the traversed link\\lengths, as many times as the link is traversed.} \\
+ \hline
+ c.setCarriedTraffic() & \makecell{Sets the route carried traffic and the occupied capacity\\in the links, setting it up to be the same in all links.} \\
+ \hline
+ d.getOfferedTraffic() & Returns the offered traffic of the demand "d". \\
+ \hline
+ netPlan.getNodeIds() & Returns the array of the nodes' indexes. \\
+ \hline
+ netPlan.getNodeFromId(tNodeId) & Returns the node with the index "tNodeId". \\
+ \hline
+ \makecell{netPlan.getNodePairRoutes\\(in,out,false,lowerLayer)} & Returns the routes at "lowerLayer" \ from nodes "in" \ and "out". \\
+ \hline
+ c.getCarriedTraffic() & Returns the route carried traffic at that moment. \\
+ \hline
+ c.getOccupiedCapacity() & Returns the route occupied capacity at that moment. \\
+ \hline
+\end{tabular}
+\caption{Table with the description of the main functions in the creation of routes and aggregation of traffic in the grooming algorithm.}
+\label{grooming_table_variables_translucent_surv}
+\end{table}
+
+\subsubsection{Calculation of the number of wavelengths per link}
+
+\vspace{11pt}
+The final step of the routing and grooming algorithms is to calculate the number of wavelengths per link for the whole network. This is the last and an important step because with the number of wavelengths per link in the network, it is possible to calculate other network components. In the translucent transport mode, as in the figure below shows, the algorithm starts with going through all the nodes which have different index between them (end nodes) and if the path distance between them is lower than the maximum optical reach value and in all the links that crosses between these pairs of nodes is reserved a link capacity based on the previous traffic aggregation on routes. The total carried traffic in the link including protection and non-protection segments will be divided by the wavelength capacity and it is now possible to obtain the number of wavelengths per link.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm]{sdf/heuristic/translucent_survivability/figures/grooming_translucent_surv3}
+\caption{Calculation of the number of wavelengths per link for the translucent transport mode. The link capacity is reserved based on the previous traffic aggregation.}
+\label{grooming_translucent_surv3}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm]{sdf/heuristic/translucent_survivability/figures/grooming_translucent_surv4}
+\caption{Load of the grooming algorithm. The total number of routes per demand is set to 10, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
+\label{grooming_translucent_surv4}
+\end{figure}
+
+\subsubsection{Network cost report}
+
+\vspace{11pt}
+In order to obtain the network CAPEX results, the formulas needed to calculate the network elements and that are demonstrated previously in the beginning of this section \ref{heuristic_Transl_Survivability} were "translated" \ into Java code in a cost report algorithm. This algorithm can be loaded in Net2Plan and calculates and shows in tables the network CAPEX and also the per-link and per-node information with more details.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm]{sdf/heuristic/translucent_survivability/figures/cost_report_translucent}
+\caption{Load of the cost report algorithm on Net2Plan. The result view is an HTML page with the network optical and electrical components and their costs.}
+\label{cost_report_translucent_surv}
+\end{figure}
+
+\newpage
+\subsubsection{Result description}\label{result_description_translucent_heuristic_surv}
+
+It is already known all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of the network traffic \ref{Reference_Network_Traffic}, it is necessary to obtain three different values of CAPEX for the low (0.5 Tbit/s), medium (5 Tbit/s) and high (10 Tbit/s) traffic. It is used a network software program called Net2Plan which can design the traffic matrices, create all the network topologies, simulate the algorithms into the network implemented in the programming software called Eclipse and analyze the results obtained.\\
+In this chapter will be demonstrated the results by Pedro's heuristics. In each of the three traffic scenarios, it will be shown the network topologies followed by the table with the CAPEX value of the network.\\
 
 \noindent
 \textbf{Low Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{low_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/allowed_physical}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed_physical_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/allowed_optical}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (translucent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\label{allowed_optical_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu0_low}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
+\label{logical_ODU0_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu1_low}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
+\label{logical_ODU1_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu2_low}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
+\label{logical_ODU2_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu3_low}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
+\label{logical_ODU3_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu4_low}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
+\label{logical_ODU4_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
+\label{physical_topology_surv_ref_low_heuristic_translucent}
+\end{figure}
+
+Following all the steps mentioned in the \ref{net2plan_guide}, applying the routing and grooming heuristic algorithms in the Net2Plan software and using all the data referring to this scenario, the obtained result for the Pedro's heuristics can be consulted in the following table \ref{scripttransl_surv_ref_low_heuristic}.\\
 
 \begin{table}[H]
 \centering
@@ -46,9 +314,96 @@
 \label{scripttransl_surv_ref_low_heuristic}
 \end{table}
 
-\newpage
+\vspace{17pt}
+All the values calculated in the previous table were obtained through the equations \ref{Capex_Link_heuristic} and \ref{Capex_Node_heuristic} referred to in section \ref{Heuristic_CAPEX}, but for a more detailed analysis we created table \ref{formulas_transl_heuristic} where we can see how all the parameters are calculated individually. \\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c ||}
+ \hline
+  & Equation used to calculate the cost \\ \hline
+ OLTs & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} \gamma_0^{OLT} \) \\ \hline
+ Transceivers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} f_{ij}^{od} \gamma_1^{OLT} \tau \) \\ \hline
+ Amplifiers & \(\displaystyle 2 \sum_{i=1}^{N}\sum_{j=i+1}^{N} L_{ij} N^R_{ij} c^R \) \\ \hline
+ EXCs & \(\displaystyle \sum_{n=1}^N N_{exc,n} \gamma_{e0} \) \\ \hline
+ ODU0 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,0} \gamma_{e1,0} \) \\ \hline
+ ODU1 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,1} \gamma_{e1,1} \) \\ \hline
+ ODU2 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,2} \gamma_{e1,2} \)\\ \hline
+ ODU3 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,3} \gamma_{e1,3} \) \\ \hline
+ ODU4 Port & \(\displaystyle \sum_{n=1}^{N} \sum_{d=1}^{N} N_{exc,n} D_{nd,4} \gamma_{e1,4} \) \\ \hline
+ LR Transponders & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{exc,n} \lambda_{od} \gamma_{e1,-1} \) \\ \hline
+ OXCs & \(\displaystyle \sum_{n=1}^N N_{oxc,n} \gamma_{o0} \) \\ \hline
+ Add Port & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{oxc,n} \lambda_{od} \gamma_{o1} \) \\ \hline
+ Line Port & \(\displaystyle \sum_{n=1}^{N} \sum_{j=1}^{N} N_{oxc,n} f_{ij}^{od} \gamma_{o1} \) \\ \hline
+ CAPEX & The final cost is calculated by summing all previous results. \\
+ \hline
+ \end{tabular}
+\caption{Table with description of calculation}
+\label{formulas_transl_heuristic}
+\end{table}
+
 \noindent
 \textbf{Medium Traffic Scenario:}\\
+
+In this scenario we have to take into account the traffic calculated in \ref{medium_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/allowed_physical}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed_physical_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/allowed_optical}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (translucent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\label{allowed_optical_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu0_medium}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
+\label{logical_ODU0_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu1_medium}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
+\label{logical_ODU1_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu2_medium}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
+\label{logical_ODU2_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu3_medium}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
+\label{logical_ODU3_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu4_medium}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
+\label{logical_ODU4_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
+\label{physical_topology_surv_ref_medium_heuristic_translucent}
+\end{figure}
+
+Following all the steps mentioned in the \ref{net2plan_guide}, applying the routing and grooming heuristic algorithms in the Net2Plan software and using all the data referring to this scenario, the obtained result for the Pedro's heuristics can be consulted in the following table \ref{scripttransl_surv_ref_medium_heuristic}. In table \ref{formulas_transl_heuristic} mentioned in previous scenario we can see how all the values were calculated. \\
 
 \begin{table}[H]
 \centering
@@ -59,11 +414,11 @@
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{32 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 64 & 5 000 \euro/Gbit/s & 32 000 000 \euro & \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{40 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 80 & 5 000 \euro/Gbit/s & 40 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{8 565 900 \euro} \\ \cline{3-6}
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{8 605 900 \euro} \\ \cline{3-6}
   & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
@@ -71,10 +426,10 @@
  & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
  & & Transponders & 80 & 100 000 \euro/port & 8 000 000 \euro & \\ \cline{2-6}
  & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & Line Ports & 64 & 2 500 \euro/port & 160 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 80 & 2 500 \euro/port & 200 000 \euro & \\ \cline{3-6}
  & & Add Ports & 80 & 2 500 \euro/port & 200 000 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 41 085 900 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 49 125 900 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX.}
@@ -84,6 +439,66 @@
 \noindent
 \textbf{High Traffic Scenario:}\\
 
+In this scenario we have to take into account the traffic calculated in \ref{high_traffic_scenario}. In a first phase we will show the various existing topologies of the network. The first are the allowed topologies, physical and optical topologies, the second are the logical topology for all ODUs and finally the resulting physical topology.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/allowed_physical}
+\caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
+\label{allowed_physical_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/allowed_optical}
+\caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (translucent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
+\label{allowed_optical_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu0_high}
+\caption{ODU0 logical topology defined by the ODU0 traffic matrix.}
+\label{logical_ODU0_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu1_high}
+\caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
+\label{logical_ODU1_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu2_high}
+\caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
+\label{logical_ODU2_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu3_high}
+\caption{ODU3 logical topology defined by the ODU3 traffic matrix.}
+\label{logical_ODU3_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/logical_topology_odu4_high}
+\caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
+\label{logical_ODU4_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm]{sdf/heuristic/translucent_survivability/figures/physical_topology}
+\caption{Physical topology after dimensioning.}
+\label{physical_topology_surv_ref_high_heuristic_translucent}
+\end{figure}
+
+Following all the steps mentioned in the \ref{net2plan_guide}, applying the routing and grooming heuristic algorithms in the Net2Plan software and using all the data referring to this scenario, the obtained result for the Pedro's heuristics can be consulted in the following table \ref{scripttransl_surv_ref_high_heuristic}. In table \ref{formulas_transl_heuristic} mentioned in previous scenario we can see how all the values were calculated. \\
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|| c | c | c | c | c | c | c ||}
@@ -93,11 +508,11 @@
  \hline
  \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
  \hline
- \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{61 520 000 \euro} \\ \cline{2-6}
- & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 122 & 5 000 \euro/Gbit/s & 61 000 000 \euro & \\ \cline{2-6}
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{77 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 154 & 5 000 \euro/Gbit/s & 61 000 000 \euro & \\ \cline{2-6}
  & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
  \hline
- \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{16 321 800 \euro} \\ \cline{3-6}
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{16 401 800 \euro} \\ \cline{3-6}
   & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
  & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
  & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
@@ -105,12 +520,62 @@
  & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
  & & Transponders & 154 & 100 000 \euro/port & 15 400 000 \euro & \\ \cline{2-6}
  & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
- & & Line Ports & 122 & 2 500 \euro/port & 305 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 154 & 2 500 \euro/port & 385 000 \euro & \\ \cline{3-6}
  & & Add Ports & 154 & 2 500 \euro/port & 385 000 \euro & \\
  \hline
- \multicolumn{6}{|| c |}{Total Network Cost} & 77 841 800 \euro \\
+ \multicolumn{6}{|| c |}{Total Network Cost} & 93 921 800 \euro \\
 \hline
 \end{tabular}
 \caption{Table with detailed description of CAPEX.}
 \label{scripttransl_surv_ref_high_heuristic}
-\end{table} 
+\end{table}
+
+\vspace{13pt}
+\subsubsection{Conclusions}
+
+Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transl_surv_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+   & Low Traffic & Medium Traffic  & High Traffic \\
+ \hline\hline
+ Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
+ Bidirectional Links used & 8 & 8 & 8 \\ \hline
+ Number of Add ports & 18 & 80 & 154 \\ \hline
+ Number of Line ports & 18 & 80 & 154 \\ \hline
+ Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
+ Number of Transceivers & 18 & 80 & 154 \\ \hline
+ Link Cost & 9 520 000 \euro & 40 520 000 \euro & 77 520 000 \euro \\ \hline
+ Node Cost & 2 072 590 \euro & 8 605 900 \euro & 16 401 800 \euro \\ \hline
+ CAPEX & \textbf{11 592 590 \euro} & \textbf{49 125 900 \euro} & \textbf{93 921 800 \euro} \\ \hline
+ CAPEX/Gbit/s & \textbf{23 185 \euro/Gbit/s} & \textbf{9 825 \euro/Gbit/s} & \textbf{9 392 \euro/Gbit/s} \\ \hline
+\end{tabular}
+\caption{Table with different value of CAPEX for this case.}
+\label{table_comparative_transl_surv_heuristic}
+\end{table}
+
+\noindent
+Looking at the previous table we can make some comparisons between the several scenario:
+
+\begin{itemize}
+  \item Comparing the low traffic with the others we can see that despite having an increase of factor ten (medium traffic) and factor twenty (high traffic), the same increase does not occur in the final cost (it is lower);
+  \subitem This happens because the number of the transceivers is lower than expected which leads by carrying the traffic with less network components and, consequently, the network CAPEX is lower;
+  \item Comparing the medium traffic with the high traffic we can see that the increase of the factor is double and in the final cost this factor is very close but still inferior;
+  \subitem This happens because the number of the transceivers is also lower but very close to the expected;
+  \item Comparing the CAPEX cost per bit we can see that in the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is similar, but still inferior in the higher traffic. The difference between the low traffic and medium/high traffics is significantly high;
+  \subitem This happens because the lower the traffic, the higher CAPEX/bit will be. We can see that in medium and high traffic the results tend to be one closer and lower value.
+\end{itemize}
+
+\vspace{13pt}
+\subsubsection{Opens Issues}
+
+The creation of this model for any scenario, started with some considerations and some open issues being:
+
+\begin{itemize}
+  \item Allow maximum optical reach value in optical channels.
+  \subitem It is assumed that the maximum optical reach value is 1000 km, so all direct links between node pairs with different index are created in all optical channels;
+  \item Allow multiple transmission system.
+  \subitem The presented model for each link only supports one transmission system.
+\end{itemize} 

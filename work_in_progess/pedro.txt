@@ -1,10 +1,9 @@
 2018-06-05
 TO BE DONE
 
-	- fazer o translúcido
-	- explicar as heuristicas na documentação
+	- melhorar a documentação
 
-Next meeting: terça, 12/6, 16h30m
+Next meeting: terça, 26/6, 17h
 
 
 

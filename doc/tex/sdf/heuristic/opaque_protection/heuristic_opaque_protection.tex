@@ -54,7 +54,7 @@ In this case there is the following particularity:
 \end{itemize}
 
 \vspace{11pt}
-To implement this heuristic approach it is used four algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
+To implement this heuristic approach there are used algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
 
 In the next pages it will be described all the steps performed to obtain the final results in the opaque transport mode with 1+1 protection. In the figure below \ref{fluxogram_opaque_protec} it is shown a fluxogram with the description of this transport mode approach.
 
@@ -73,14 +73,14 @@ The first step is to create the traffic matrices based on the reference network 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/opaque_protection/figures/join_matrices_odus}
+\includegraphics[width=7cm]{sdf/heuristic/opaque_protection/figures/join_matrices_odus}
 \caption{Join the 5 ODU traffic matrices into 1 single file "ODUs". The 5 traffic demands from the traffic matrices previously created are joined into 1 file to load it later on Net2Plan.}
 \label{join_matrices_odus}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/opaque_protection/figures/traffic_matrices}
+\includegraphics[width=8cm]{sdf/heuristic/opaque_protection/figures/traffic_matrices}
 \caption{Load of the join traffic matrices algorithm for the opaque transport mode on Net2Plan. It is defined the 5 paths to load the 5 ODU traffic matrices and the last path is the one where will be saved the file that joins all 5 the traffic demands.}
 \label{traffic_matrices_surv_ref}
 \end{figure}
@@ -93,7 +93,7 @@ The next step is to create the allowed physical topology of the network in Net2P
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{sdf/heuristic/opaque_protection/figures/allowed_physical}
+\includegraphics[width=12cm]{sdf/heuristic/opaque_protection/figures/allowed_physical}
 \caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed_physical_surv_ref_low_heuristic}
 \end{figure}
@@ -113,13 +113,13 @@ It is now time to create the allowed logical topology. A network topology repres
 \begin{figure}[H]
 \centering
 \includegraphics[width=11cm]{sdf/heuristic/opaque_protection/figures/logical_topology_load_opaque}
-\caption{Load of the logical topology algorithm for the opaque transport mode on Net2Plan.}
-\label{logical_topology_load_opaque}
+\caption{Load of the logical topology algorithm for the opaque transport mode.}
+\label{logical_topology_load_opaque_protec}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{sdf/heuristic/opaque_protection/figures/allowed_optical}
+\includegraphics[width=10cm]{sdf/heuristic/opaque_protection/figures/allowed_optical}
 \caption{Allowed optical topology. It is assumed that each transmission system supports up to 100 optical channels.}
 \label{allowed_optical_protec}
 \end{figure}
@@ -128,7 +128,6 @@ It is now time to create the allowed logical topology. A network topology repres
 
 \vspace{11pt}
 After a network topology is created, it is now time to set the routing algorithm. In the opaque with 1+1 protection transport mode the routing algorithm starts with going through all the demands, create bidirectional routes (in this case the primary paths) based on the shortest path Dijkstra algorithm and then search the candidate routes for the respective demand. In this report it is used the shortest path type in hops. These routes are ordered sequentially and the shortest one per each demand is the primary path. The demands from the lower layer are removed and then saved in the upper layer. After this step, it is needed to set the traffic demands into the candidate routes that will integrate the network.
-
 As we also have a dedicated 1+1 protection scheme, if the network has this feature active, the algorithm will compare the previous candidate routes that will be saved to a list with the new ones that will be created. If the new routes are different from the previously created ones and if they are the next shortest path routes, then the algorithm will add these routes to the network and they will be the protection segments (backup paths) of the network. The offered traffic demands will be also set into these protection path routes. The final resulting backup path routes are used to prevent network failures. Despite of the fact the network will be much more secure, the network CAPEX will increase more than the double, due to the creation of primary and backup paths.
 
 \begin{figure}[H]
@@ -175,7 +174,7 @@ The final step of the routing and grooming algorithms is to calculate the number
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm]{sdf/heuristic/opaque_protection/figures/grooming_opaque_protec3}
+\includegraphics[width=16cm]{sdf/heuristic/opaque_protection/figures/grooming_opaque_protec3}
 \caption{Calculation of the number of wavelengths per link for the opaque transport mode. The link capacity is based on the traffic per demand.}
 \label{grooming_opaque_surv2}
 \end{figure}
@@ -183,7 +182,7 @@ The final step of the routing and grooming algorithms is to calculate the number
 \begin{figure}[H]
 \centering
 \includegraphics[width=11cm]{sdf/heuristic/opaque_protection/figures/grooming_opaque_protec4}
-\caption{Load of the grooming algorithm for the opaque with 1+1 protection transport mode. The total number of routes per demand is set to 100, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
+\caption{Load of the grooming algorithm for the opaque with 1+1 protection transport mode. The total number of routes per demand is set to 10, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
 \label{grooming_opaque_surv3}
 \end{figure}
 
@@ -195,11 +194,12 @@ In the opaque transport mode the optical node cost is 0 because all the network 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/opaque_protection/figures/cost_report_opaque}
+\includegraphics[width=10cm]{sdf/heuristic/opaque_protection/figures/cost_report_opaque}
 \caption{Load of the cost report algorithm on Net2Plan. The result view is an HTML page with the network optical and electrical components and their costs.}
 \label{cost_report_opaque}
 \end{figure}
 
+\newpage
 \subsubsection{Result description}\label{result_description_opaque_heuristic_protec}
 
 It is already known all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of the network traffic \ref{Reference_Network_Traffic}, it is necessary to obtain three different values of CAPEX for the low (0.5 Tbit/s), medium (5 Tbit/s) and high (10 Tbit/s) traffic. It is used a network software program called Net2Plan which can design the traffic matrices, create all the network topologies, simulate the algorithms into the network implemented in the programming software called Eclipse and analyze the results obtained.\\

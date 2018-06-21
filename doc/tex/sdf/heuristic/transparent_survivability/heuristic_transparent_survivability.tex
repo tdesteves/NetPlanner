@@ -61,10 +61,10 @@ P_{oxc,n} = \sum_{j=1}^{N} 2 f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
 \end{equation}
 
 \noindent
-where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of adding ports.\\
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of add ports.\\
 
 \vspace{11pt}
-To implement this heuristic approach it is used four algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
+To implement this heuristic approach there are used algorithms made in Java in a programming software called Eclipse and they are tested in an open-source network program called Net2Plan. In the Net2Plan guide section \ref{net2plan_guide} there is an explanation on how to use and test them in this network planner.
 
 In the next pages it will be described all the steps performed to obtain the final results in the transparent transport mode without survivability. In the figure below \ref{fluxogram_transp_surv} it is shown a fluxogram with the description of this transport mode approach.
 
@@ -83,14 +83,14 @@ The first step is to create the traffic matrices based on the reference network 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/transparent_survivability/figures/join_matrices_odus}
+\includegraphics[width=7cm]{sdf/heuristic/transparent_survivability/figures/join_matrices_odus}
 \caption{Join the 5 ODU traffic matrices into 1 single file "ODUs". The 5 traffic demands from the traffic matrices previously created are joined into 1 file to load it later on Net2Plan.}
-\label{join_matrices_odus}
+\label{join_matrices_odus_transp_protec}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/transparent_survivability/figures/traffic_matrices}
+\includegraphics[width=8cm]{sdf/heuristic/transparent_survivability/figures/traffic_matrices}
 \caption{Load of the join traffic matrices algorithm for the transparent transport mode on Net2Plan. It is defined the 5 paths to load the 5 ODU traffic matrices and the last path is the one where will be saved the file that joins all 5 the traffic demands.}
 \label{traffic_matrices_transp_surv_ref}
 \end{figure}
@@ -103,35 +103,34 @@ The next step is to create the allowed physical topology of the network in Net2P
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{sdf/heuristic/transparent_survivability/figures/allowed_physical}
+\includegraphics[width=12cm]{sdf/heuristic/transparent_survivability/figures/allowed_physical}
 \caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
-\label{allowed_physical_surv}
+\label{allowed_physical_surv_transp}
 \end{figure}
 
 \subsubsection{Creation of the logical topology}
 
 \vspace{11pt}
 It is now time to create the allowed logical topology. A network topology represents how the links and the nodes of the network interconnect with each other and the logical topology algorithm creates the logical topology on another layer. In the transparent transport mode each node connects to each other creating direct links between all nodes in the network. Going through all nodes, if a node has a different index from other one, then creates a shortest and direct link between them. These additions of links between end nodes are made in the new upper layer of the network. The respective demands are saved in the new upper layer and those demands from the lower layer are then removed. The lower layer is the physical layer of the network and it is now created a new upper layer which is the logical layer of the network and represents the logical topology of the transparent transport mode.
-
 The allowed physical and optical topologies, the logical topologies for all ODUs and the resulting physical topology is shown in the next section below \ref{result_description_transparent_heuristic_surv} for the three traffic scenarios. It is shown below three figures with the code in Java of the creation of the network logical topology, the load of the logical topology algorithm in Net2Plan and the resulting allowed optical topology for the transparent transport mode without survivability.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=15cm]{sdf/heuristic/transparent_survivability/figures/logical_topology_creation_transparent}
 \caption{Java code of the logical topology approach for the transparent transport mode. The logical layer is created by adding direct links between all end nodes. The new layer is now the transparent logical topology of the network.}
-\label{logical_topology_creation_transparent}
+\label{logical_topology_creation_transparent_surv}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/transparent_survivability/figures/logical_topology_load_transparent}
-\caption{Load of the logical topology algorithm for the transparent transport mode on Net2Plan.}
-\label{logical_topology_load_transparent}
+\includegraphics[width=10cm]{sdf/heuristic/transparent_survivability/figures/logical_topology_load_transparent}
+\caption{Load of the logical topology algorithm for the transparent transport mode.}
+\label{logical_topology_load_transparent_surv}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{sdf/heuristic/transparent_survivability/figures/allowed_optical}
+\includegraphics[width=10cm]{sdf/heuristic/transparent_survivability/figures/allowed_optical}
 \caption{Allowed optical topology. It is assumed that each connections between demands supports up to 100 lightpaths.}
 \label{allowed_optical_surv_transparent}
 \end{figure}
@@ -144,14 +143,14 @@ After a network topology is created, it is now time to set the routing algorithm
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv1}
-\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The candidate routes are searched by the shortest path type and the offered traffic demands are set into these routes.}
+\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The candidate routes are searched by the shortest path type method and the offered traffic demands are set into these routes.}
 \label{grooming_transparent_surv1}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=14cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv2}
-\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The traffic demands are set in the candidate primary path routes found earlier.}
+\caption{Creation of routes and aggregation of traffic for the transparent without survivability transport mode. The traffic demands are set into the candidate primary path routes found earlier.}
 \label{grooming_transparent_surv2}
 \end{figure}
 
@@ -173,13 +172,14 @@ After a network topology is created, it is now time to set the routing algorithm
  \hline
  netPlan.getNodeFromId(tNodeId) & Returns the node with the index "tNodeId". \\
  \hline
- \makecell{netPlan.getNodePairRoutes\\(in,out,false,lowerLayer)} & Returns the routes at "lowerLayer" \ from nodes "in" \ and "out". \\
+ \makecell{netPlan.getNodePairRoutes\\(in,out,false,lowerLayer)} &  \makecell{Returns the routes at "lowerLayer" \ \\from nodes "in" \ and "out".} \\
  \hline
 \end{tabular}
 \caption{Table with the description of the main functions in the creation of routes and aggregation of traffic in the grooming algorithm.}
-\label{grooming_table_variables_transparent}
+\label{grooming_table_variables_transparent_surv}
 \end{table}
 
+\newpage
 \subsubsection{Calculation of the number of wavelengths per link}
 
 \vspace{11pt}
@@ -187,7 +187,7 @@ The final step of the routing and grooming algorithms is to calculate the number
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv3}
+\includegraphics[width=13cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv3}
 \caption{Calculation of the number of wavelengths per link for the transparent transport mode. The link capacity is reserved based on the previous traffic aggregation.}
 \label{grooming_transparent_surv3}
 \end{figure}
@@ -195,10 +195,11 @@ The final step of the routing and grooming algorithms is to calculate the number
 \begin{figure}[H]
 \centering
 \includegraphics[width=11cm]{sdf/heuristic/transparent_survivability/figures/grooming_transparent_surv4}
-\caption{Load of the grooming algorithm for the transparent without survivability transport mode. The total number of routes per demand is set to 100, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
+\caption{Load of the grooming algorithm for the transparent without survivability transport mode. The total number of routes per demand is set to 10, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
 \label{grooming_transparent_surv4}
 \end{figure}
 
+\newpage
 \subsubsection{Network cost report}
 
 \vspace{11pt}
@@ -206,11 +207,12 @@ In order to obtain the network CAPEX results, the formulas needed to calculate t
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/transparent_survivability/figures/cost_report_transparent}
+\includegraphics[width=10cm]{sdf/heuristic/transparent_survivability/figures/cost_report_transparent}
 \caption{Load of the cost report algorithm on Net2Plan. The result view is an HTML page with the network optical and electrical components and their costs.}
-\label{cost_report_transparent}
+\label{cost_report_transparent_surv}
 \end{figure}
 
+\newpage
 \subsubsection{Result description}\label{result_description_transparent_heuristic_surv}
 
 It is already known all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of the network traffic \ref{Reference_Network_Traffic}, it is necessary to obtain three different values of CAPEX for the low (0.5 Tbit/s), medium (5 Tbit/s) and high (10 Tbit/s) traffic. It is used a network software program called Net2Plan which can design the traffic matrices, create all the network topologies, simulate the algorithms into the network implemented in the programming software called Eclipse and analyze the results obtained.\\
@@ -527,7 +529,6 @@ Following all the steps mentioned in the \ref{net2plan_guide}, applying the rout
 \end{table}
 
 \vspace{13pt}
-
 \subsubsection{Conclusions}
 
 Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transp_surv_heuristic} with the number of line ports, tributary ports and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
