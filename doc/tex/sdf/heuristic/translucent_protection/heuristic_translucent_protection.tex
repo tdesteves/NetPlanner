@@ -80,16 +80,16 @@ In the next pages it will be described all the steps performed to obtain the fin
 \noindent
 The first step is to create the traffic matrices based on the reference network \ref{Reference_Network_Topology}. In order to create the 5 traffic matrices in Net2Plan it is necessary the length of all the links and the total traffic used in this network, so later it is needed to define in Net2Plan the length in all end nodes and the total traffic depends on the value of traffic used (low traffic - 0.5 Tbit/s, medium traffic - 5 Tbit/s and high traffic - 10 Tbit/s). As you can see in the figure below, it is defined the path of the 5 ODUs and they will be aggregated in just one single ODU, making it possible to join all the demands in just one file and load it later into the network. This final resulting ODU joins the multiple traffic demands from all the traffic matrices previously created and, of course, the traffic demands will depend on the values used on the creation of the matrices (low, medium and high traffic).
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/translucent_protection/figures/join_matrices_odus}
+\includegraphics[width=7cm]{sdf/heuristic/translucent_protection/figures/join_matrices_odus}
 \caption{Join the 5 ODU traffic matrices into 1 single file "ODUs". The 5 traffic demands from the traffic matrices previously created are joined into 1 file to load it later on Net2Plan.}
-\label{join_matrices_odus_protec}
+\label{join_matrices_odus_protec_transl}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[h!]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/translucent_protection/figures/traffic_matrices}
+\includegraphics[width=8cm]{sdf/heuristic/translucent_protection/figures/traffic_matrices}
 \caption{Load of the join traffic matrices algorithm for the translucent transport mode on Net2Plan. It is defined the 5 paths to load the 5 ODU traffic matrices and the last path is the one where will be saved the file that joins all 5 the traffic demands.}
 \label{traffic_matrices_transl_protec_ref}
 \end{figure}
@@ -102,9 +102,9 @@ The next step is to create the allowed physical topology of the network in Net2P
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{sdf/heuristic/translucent_protection/figures/allowed_physical}
+\includegraphics[width=12cm]{sdf/heuristic/translucent_protection/figures/allowed_physical}
 \caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
-\label{allowed_physical_protec}
+\label{allowed_physical_protec_transl}
 \end{figure}
 
 \subsubsection{Creation of the logical topology}
@@ -115,21 +115,21 @@ The allowed physical and optical topologies, the logical topologies for all ODUs
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm]{sdf/heuristic/translucent_protection/figures/logical_topology_creation_translucent}
+\includegraphics[width=17cm]{sdf/heuristic/translucent_protection/figures/logical_topology_creation_translucent}
 \caption{Java code of the logical topology approach for the translucent transport mode. The logical layer is created by adding direct links between all end nodes if their shortest path between them is lower than the maximum optical reach value. The new layer is now the translucent logical topology of the network.}
 \label{logical_topology_creation_translucent_protec}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/translucent_protection/figures/logical_topology_load_translucent}
+\includegraphics[width=9cm]{sdf/heuristic/translucent_protection/figures/logical_topology_load_translucent}
 \caption{Load of the logical topology algorithm for the translucent transport mode on Net2Plan. It is assumed that the maximum optical reach value is 1000 km, so all direct links between node pairs with different index are created in all optical channels.}
 \label{logical_topology_load_translucent_protec}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm]{sdf/heuristic/translucent_protection/figures/allowed_optical}
+\includegraphics[width=12cm]{sdf/heuristic/translucent_protection/figures/allowed_optical}
 \caption{Allowed optical topology. It is assumed that each connections between demands supports up to 100 lightpaths. In the translucent transport mode there are several possible logical topologies for a specific network. It depends, for example, on the maximum optical reach value that represents the maximum distance that an optical signal can traverse a link without the need of regenerate.}
 \label{allowed_optical_protec_translucent}
 \end{figure}
@@ -142,7 +142,7 @@ The algorithm will compare the previous candidate routes that will be saved to a
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=9cm]{sdf/heuristic/translucent_protection/figures/grooming_translucent_protec1}
+\includegraphics[width=10cm]{sdf/heuristic/translucent_protection/figures/grooming_translucent_protec1}
 \caption{Creation of routes and aggregation of traffic for the translucent with 1+1 protection transport mode. The candidate routes are searched by the shortest path type method and the average minimum number of physical hops of the routes.}
 \label{grooming_translucent_protec1}
 \end{figure}
@@ -214,14 +214,14 @@ The final step of the routing and grooming algorithms is to calculate the number
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=16cm]{sdf/heuristic/translucent_protection/figures/grooming_translucent_protec5}
+\includegraphics[width=12cm]{sdf/heuristic/translucent_protection/figures/grooming_translucent_protec5}
 \caption{Calculation of the number of wavelengths per link for the translucent transport mode. The link capacity is reserved based on the previous traffic aggregation.}
 \label{grooming_translucent_protec5}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/translucent_protection/figures/grooming_translucent_protec6}
+\includegraphics[width=9cm]{sdf/heuristic/translucent_protection/figures/grooming_translucent_protec6}
 \caption{Load of the grooming algorithm for the translucent with 1+1 protection transport mode. The total number of routes per demand is set to 10, the user can define if the model is with or without protection, the shortest path type is set to "hops" \ and the capacity per wavelength is used 100 optical channels.}
 \label{grooming_translucent_protec6}
 \end{figure}
@@ -233,11 +233,12 @@ In order to obtain the network CAPEX results, the formulas needed to calculate t
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm]{sdf/heuristic/translucent_protection/figures/cost_report_translucent}
+\includegraphics[width=10cm]{sdf/heuristic/translucent_protection/figures/cost_report_translucent}
 \caption{Load of the cost report algorithm on Net2Plan. The result view is an HTML page with the network optical and electrical components and their costs.}
 \label{cost_report_translucent_protec}
 \end{figure}
 
+\newpage
 \subsubsection{Result description}\label{result_description_translucent_heuristic_protec}
 
 It is already known all the necessary formulas to obtain the CAPEX value for the reference network \ref{Reference_Network_Topology}. As described in the subsection of the network traffic \ref{Reference_Network_Traffic}, it is necessary to obtain three different values of CAPEX for the low (0.5 Tbit/s), medium (5 Tbit/s) and high (10 Tbit/s) traffic. It is used a network software program called Net2Plan which can design the traffic matrices, create all the network topologies, simulate the algorithms into the network implemented in the programming software called Eclipse and analyze the results obtained.\\
@@ -536,8 +537,8 @@ Once we have obtained the results for all scenarios for the translucent without 
  \hline
  & Low Traffic & Medium Traffic & High Traffic \\
  \hline\hline
- \makecell{CAPEX \\ without survivability} & 11 592 590 \euro & 41 085 900 \euro & 77 841 800 \euro \\ \hline
- \makecell{CAPEX/Gbit/s \\ without survivability} & 23 185 \euro/Gbit/s & 8 217 \euro/Gbit/s & 7 784 \euro/Gbit/s \\ \hline
+ \makecell{CAPEX \\ without survivability} & 11 592 590 \euro & 49 125 900 \euro & 93 921 800 \euro \\ \hline
+ \makecell{CAPEX/Gbit/s \\ without survivability} & 23 185 \euro/Gbit/s & 9 825 \euro/Gbit/s & 9 392 \euro/Gbit/s \\ \hline
  Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
  Bidirectional Links used & 8 & 8 & 8 \\ \hline
  Number of Add ports & 18 & 80 & 154 \\ \hline
