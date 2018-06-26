@@ -70,24 +70,24 @@ In this case there is the following particularity:
 As previously mentioned, the equation \ref{EXC_pexc2_transluc} refers to the number of long-reach ports of the electrical switch with bit-rate -1 in node n, $P_{exc,-1,n}$, i.e. the number of add ports of node n which can be calculated as
 
 \begin{equation}
-P_{exc,-1,n} = \sum_{j=1}^{N} \lambda_{nj}
+P_{exc,-1,n} = \sum_{k=1}^{N} \lambda_{nk}
 \label{EXC_pexc2_transluc}
 \end{equation}
 
 \vspace{11pt}
 \noindent
-where $\lambda_{nj}$ is the number of optical channels between node $n$ and node $j$.\\
+where $\lambda_{nk}$ is the number of optical channels between lightpath $n$ and node $k$.\\
 
 The equation \ref{OXC_poxc_transluc} refers to the number of ports in optical switch in node n, $P_{oxc,n}$, i.e. the number of line ports and the number of adding ports of node n which can be calculated as
 
 \begin{equation}
-P_{oxc,n} = \sum_{j=1}^{N} f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
+P_{oxc,n} = \sum_{j=1}^{N} f_{nj}^{pk} + \sum_{k=1}^{N} \lambda_{nk}
 \label{OXC_poxc_transluc}
 \end{equation}
 
 \vspace{11pt}
 \noindent
-where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of add ports.\\
+where $f_{nj}^{pk}$ refers to the number of line ports for all lightpath pairs $(p,k)$ and $\lambda_{nk}$ refers to the number of add ports.\\
 
 The objective function, to be minimized, is the expression \ref{ILPOpaque_CAPEX}, i.e.,
 \begin{equation*}
@@ -326,7 +326,7 @@ Through the information obtained previously on the nodes we can now create table
  \hline
  Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- 1 add ports & 1  <---- 1 ---->  2 & 100 Gbits/s \\ \cline{1-2}
+ 1 add ports & 1  <---- 1 ---->  2 & \multirow{2}{*}{100 Gbits/s} \\ \cline{1-2}
  1 line ports & 1  <---- 1 ---->  2 & \\
 \hline
 \end{tabular}
@@ -389,8 +389,7 @@ Through the information obtained previously on the nodes we can now create table
  \hline
  Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- 1 add ports & 3  <---- 1 ---->  2 & \multirow{2}{*}{100 Gbits/s} \\
- \hline
+ 1 add ports & 3  <---- 1 ---->  2 & \multirow{2}{*}{100 Gbits/s} \\ \cline{1-2}
  1 line ports & 3  <---- 1 ---->  2 & \\
 \hline
 \end{tabular}
@@ -448,8 +447,7 @@ Through the information obtained previously on the nodes we can now create table
  \hline
  Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- 1 add ports & 5  <---- 1 ---->  4 & \multirow{2}{*}{100 Gbits/s} \\
- \hline
+ 1 add ports & 5  <---- 1 ---->  4 & \multirow{2}{*}{100 Gbits/s} \\ \cline{1-2}
  1 line ports & 5  <---- 1 ---->  4 & \\
 \hline
 \end{tabular}
@@ -486,40 +484,39 @@ Through the information obtained previously on the nodes we can now create table
 \caption{Table with detailed description of node 6. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{low_scenario}.}
 \end{table}
 
-\vspace{17pt}
-Now, in next page, let's focus on the routing information in table \ref{path_transluc_surv_ref_low}. These paths are bidirectional so the path from one node to another is the same path in the opposite direction.\\
-
+Now, in next page, let's focus on the routing information in table \ref{path_transluc_surv_ref_low}. These paths are bidirectional so the path from one node to another is the same path in the opposite direction.
+\newpage
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c | c ||}
+\begin{tabular}{|| c | c | c | c ||}
  \hline
- \multicolumn{3}{|| c ||}{Routing} \\
+ \multicolumn{4}{|| c ||}{Routing} \\
  \hline
  \hline
- o & d & Links \\
+ o & d & Links & Demands \\
  \hline
- 1 & 2 & \{(1,2)\} \\ \hline
- 1 & 3 & \{(1,2),(2,3)\} \\ \hline
- 1 & 4 & \{(1,2),(2,4)\}\\ \hline
- 1 & 5 & \{(1,2),(2,4),(4,5)\}\\ \hline
- 1 & 6 & \{(1,2),(2,4),(4,5),(5,6)\}\\ \hline
- 2 & 3 & \{(2,3)\}\\ \hline
- 2 & 4 & \{(2,4)\}\\ \hline
- 2 & 5 & \{(2,4),(4,5)\}\\ \hline
- 2 & 6 & \{(2,4),(4,5),(5,6)\}\\ \hline
- 3 & 4 & \{(3,2),(2,4)\}\\ \hline
- 3 & 5 & \{(3,2),(2,4),(4,5)\}\\ \hline
- 3 & 6 & \{(3,2),(2,4),(4,5),(5,6)\}\\ \hline
- 4 & 5 & \{(4,5)\}\\ \hline
- 4 & 6 & \{(4,5),(5,6)\}\\ \hline
- 5 & 6 & \{(5,6)\}\\
+ 1 & 2 & \{(1,2)\} & 5 ODU0, 2 ODU1, 1 ODU2 \\ \hline
+ 1 & 3 & \{(1,2),(2,3)\} & 1 ODU0, 4 ODU1, 1 ODU2 \\ \hline
+ 1 & 4 & \{(1,2),(2,4),(4,6),(6,4)\} & 3 ODU0, 2 ODU1, 1 ODU2 \\ \hline
+ 1 & 5 & \{(1,2),(2,4),(4,6),(6,4),(4,5)\} & 1 ODU0 \\ \hline
+ 1 & 6 & \{(1,2),(2,4),(4,6)\} & 3 ODU0, 5 ODU1 \\ \hline
+ 2 & 3 & \{(2,3)\} & 1 ODU3 \\ \hline
+ 2 & 4 & \{(2,4),(4,6),(6,4)\} & 1 ODU0, 3 ODU1 \\ \hline
+ 2 & 5 & \{(2,4),(4,6),(6,4),(4,5)\} & 5 ODU0, 1 ODU1, 1 ODU2 \\ \hline
+ 2 & 6 & \{(2,4),(4,6)\} & 1 ODU1, 1 ODU3, 1 ODU4 \\ \hline
+ 3 & 4 & \{(3,2),(2,4),(4,6),(6,4)\} & 1 ODU0, 1 ODU1, 1 ODU2 \\ \hline
+ 3 & 5 & \{(3,2),(2,4),(4,6),(6,4),(4,5)\} & 4 ODU0, 1 ODU1, 1 ODU2, 1 ODU3 \\ \hline
+ 3 & 6 & \{(3,2),(2,4),(4,6)\} & 1 ODU0 \\ \hline
+ 4 & 5 & \{(4,5)\} & 1 ODU0, 1 ODU1, 1 ODU2 \\ \hline
+ 4 & 6 & \{(4,6)\} & 1 ODU0, 3 ODU1\\ \hline
+ 5 & 6 & \{(5,4),(4,6)\} & 3 ODU0, 1 ODU1, 1 ODU2, 1 ODU4 \\
  \hline
 \end{tabular}
-\caption{Table with description of routing.}
+\caption{Table with description of demands routing. In this case all the demands follow the same path for a certain pair of nodes, but this may not happen for other cases.}
 \label{path_transluc_surv_ref_low}
 \end{table}
 
-Finally and most importantly through table \ref{scripttransluc_surv_ref_low} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above.\\
+Finally and most importantly through table \ref{scripttransluc_surv_ref_low} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above.
 
 \begin{table}[h!]
 \centering
@@ -863,7 +860,7 @@ Through the information obtained previously on the nodes we can now create table
  \hline
  Optical part & Node<--Optical Channels-->Node & Bit rate \\
  \hline
- \multirow{3}{*}{20 add ports} & 6  <---- 4 ---->  2 & \multirow{6}{*}{100 Gbits/s} \\ 
+ \multirow{3}{*}{20 add ports} & 6  <---- 4 ---->  2 & \multirow{6}{*}{100 Gbits/s} \\
   & 6  <---- 2 ---->  4 & \\
   & 6  <---- 14 ---->  5 & \\ \cline{1-2}
  \multirow{3}{*}{20 line ports} & 6  <---- 4 ---->  2 & \\
@@ -878,31 +875,36 @@ Now let's focus on the routing information in table \ref{path_transluc_surv_ref_
 \newpage
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c | c ||}
+\begin{tabular}{|| c | c | c | c ||}
  \hline
- \multicolumn{3}{|| c ||}{Routing} \\
+ \multicolumn{4}{|| c ||}{Routing} \\
  \hline
  \hline
- o & d & Links \\
+ o & d & Links & Demands \\
  \hline
- 1 & 2 & \{(1,2)\} \\ \hline
- 1 & 3 & \{(1,2),(2,3)\} \\ \hline
- 1 & 4 & \{(1,2),(2,4)\}\\ \hline
- 1 & 5 & \{(1,2),(2,4),(4,5)\}\\ \hline
- 1 & 6 & \{(1,2),(2,4),(4,5),(5,6)\}\\ \hline
- 2 & 3 & \{(2,3)\}\\ \hline
- 2 & 4 & \{(2,4)\}\\ \hline
- 2 & 5 & \{(2,4),(4,5)\}\\ \hline
- 2 & 6 & \{(2,4),(4,5),(5,6)\}\\ \hline
- 3 & 4 & \{(3,2),(2,4)\}\\ \hline
- 3 & 5 & \{(3,2),(2,4),(4,5)\}\\ \hline
- 3 & 6 & \{(3,2),(2,4),(4,5),(5,6)\}\\ \hline
- 4 & 5 & \{(4,5)\}\\ \hline
- 4 & 6 & \{(4,5),(5,6)\}\\ \hline
- 5 & 6 & \{(5,6)\}\\
+ 1 & 2 & \{(1,2)\} & 50 ODU0, 20 ODU1, 10 ODU2 \\ \hline
+ 1 & 3 & \{(1,3)\} & 10 ODU0, 40 ODU1, 10 ODU2 \\ \hline
+ 1 & 4 & \{(1,2),(2,4)\} & 30 ODU0, 20 ODU1, 10 ODU2 \\ \hline
+ 1 & 5 & \{(1,3),(3,5)\} & 10 ODU0 \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,2),(2,4),(4,6)\} & 30 ODU0, 40 ODU1 \\
+  & & \{(1,3),(3,5),(5,6)\} & 10 ODU1 \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,1),(1,3)\} & 5 ODU3 \\
+  & & \{(2,3)\} & 5 ODU3 \\ \hline
+ 2 & 4 & \{(2,4)\} & 10 ODU0, 30 ODU1 \\ \hline
+ 2 & 5 & \{(2,3),(3,5)\} & 50 ODU0, 10 ODU1, 10 ODU2 \\ \hline
+ \multirow{3}{*}{2} & \multirow{3}{*}{6} & \{(2,4),(4,6)\} & 10 ODU1, 10 ODU3, 6 ODU4 \\
+  & & \{(2,1),(1,3),(3,5),(5,6)\} & 2 ODU4 \\
+  & & \{(2,3),(3,5),(5,6)\} & 2 ODU4\\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,2),(2,4)\} & 10 ODU0, 10 ODU1 \\
+  & & \{(3,5),(5,6),(6,4)\} & 10 ODU2 \\ \hline
+ 3 & 5 & \{(3,2),(2,4),(4,6),(6,4),(4,5)\} & 40 ODU0, 10 ODU1, 10 ODU2, 10 ODU3 \\ \hline
+ 3 & 6 & \{(3,2),(2,4),(4,6)\} & 10 ODU0 \\ \hline
+ 4 & 5 & \{(4,5)\} & 10 ODU0, 10 ODU1, 10 ODU2 \\ \hline
+ 4 & 6 & \{(4,6)\} & 10 ODU0, 30 ODU1\\ \hline
+ 5 & 6 & \{(5,4),(4,6)\} & 30 ODU0, 10 ODU1, 10 ODU2, 10 ODU4 \\
  \hline
 \end{tabular}
-\caption{Table with description of routing.}
+\caption{Table with description of demands routing.}
 \label{path_transluc_surv_ref_medium}
 \end{table}
 
@@ -946,18 +948,18 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=11cm]{sdf/ilp/translucent_survivability/figures/allowed_physical_topology}
+\includegraphics[width=12cm]{sdf/ilp/translucent_survivability/figures/allowed_physical_topology}
 \caption{Allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.}
 \label{allowed3_physical_high}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=11cm]{sdf/ilp/translucent_survivability/figures/allowed_optical_topology}
 \caption{Allowed optical topology. The allowed optical topology is defined by the transport mode (translucent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.}
 \label{allowed3_optical_high}
 \end{figure}
-\newpage
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=11cm]{sdf/ilp/translucent_survivability/figures/logical_topology_ODU0_high}
@@ -971,14 +973,14 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \caption{ODU1 logical topology defined by the ODU1 traffic matrix.}
 \label{logical3_ODU1_high}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/translucent_survivability/figures/logical_topology_ODU2_high}
 \caption{ODU2 logical topology defined by the ODU2 traffic matrix.}
 \label{logical3_ODU2_high}
 \end{figure}
-\newpage
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/translucent_survivability/figures/logical_topology_ODU3_high}
@@ -992,7 +994,7 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \caption{ODU4 logical topology defined by the ODU4 traffic matrix.}
 \label{logical3_ODU4_high}
 \end{figure}
-
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=12cm]{sdf/ilp/translucent_survivability/figures/physical_topology_high}
@@ -1000,18 +1002,17 @@ In this scenario we have to take into account the traffic calculated in \ref{hig
 \label{physical3_high}
 \end{figure}
 
-\newpage
 \begin{figure}[h!]
 \centering
-\includegraphics[width=13cm]{sdf/ilp/translucent_survivability/figures/optical_topology_high}
+\includegraphics[width=12cm]{sdf/ilp/translucent_survivability/figures/optical_topology_high}
 \caption{Optical topology after dimensioning.}
 \label{optical3_high}
 \end{figure}
 
-\vspace{15pt}
+\vspace{13pt}
 In table \ref{link_transluc_surv_ref_high} we can see the number of optical channels calculated using \ref{Capex_Link} and \ref{ILPOpaque_CAPEX} and the number of amplifiers for each link calculated using \ref{Capex_amplifiers}. In the case where there are no optical channels we assume that the number of amplifiers is zero.\\
 
-In table \ref{node_transluc_surv_ref_high} we can see the resulting nodal degree at the physical layer, calculated based on the number of connections that the node in question performs, the number of line ports and add ports using \ref{OXC_poxc_transluc} the number of long-reach transponders using \ref{EXC_pexc2_transluc} and the number of tributary ports using \ref{EXC_pexc1_transluc}.\\
+In table \ref{node_transluc_surv_ref_high} we can see the resulting nodal degree at the physical layer, the number of line ports and add ports using \ref{OXC_poxc_transluc} the number of long-reach transponders using \ref{EXC_pexc2_transluc} and the number of tributary ports using \ref{EXC_pexc1_transluc}.\\
 \newpage
 \begin{table}[h!]
 \centering
@@ -1036,7 +1037,7 @@ In table \ref{node_transluc_surv_ref_high} we can see the resulting nodal degree
 \label{link_transluc_surv_ref_high}
 \end{table}
 
-\vspace{17pt}
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c | c | c ||}
@@ -1060,7 +1061,7 @@ In table \ref{node_transluc_surv_ref_high} we can see the resulting nodal degree
 \label{node_transluc_surv_ref_high}
 \end{table}
 
-\vspace{17pt}
+\vspace{11pt}
 Through the information obtained previously on the nodes we can now create tables with detailed information about each node. In each table mentioned below we can see how many ports are connected to a given node and its bit rate (in relation to the line ports) and how many ports are assigned to each different bit rate (in relation to the tributary ports).\\
 \newpage
 \begin{table}[h!]
@@ -1092,7 +1093,6 @@ Through the information obtained previously on the nodes we can now create table
 \end{tabular}
 \caption{Table with detailed description of node 1. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
-
 \newpage
 \begin{table}[h!]
 \centering
@@ -1130,7 +1130,7 @@ Through the information obtained previously on the nodes we can now create table
 \end{tabular}
 \caption{Table with detailed description of node 2. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
-
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1164,7 +1164,6 @@ Through the information obtained previously on the nodes we can now create table
 \caption{Table with detailed description of node 3. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
 
-\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1191,10 +1190,9 @@ Through the information obtained previously on the nodes we can now create table
   & 2  <---- 9 ---->  6 & \\
 \hline
 \end{tabular}
-\caption{Table with detailed description of node 4. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}. Regarding the number of line ports when this node is equal to the source, it means that add ports are used, otherwise it means that through ports are used.}
+\caption{Table with detailed description of node 4. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
-
-\vspace{13pt}
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c ||}
@@ -1224,7 +1222,6 @@ Through the information obtained previously on the nodes we can now create table
 \end{tabular}
 \caption{Table with detailed description of node 5. The number of demands is distributed to the various destination nodes, this distribution can be observed in section \ref{high_traffic_scenario}.}
 \end{table}
-
 \newpage
 \begin{table}[h!]
 \centering
@@ -1259,40 +1256,47 @@ Through the information obtained previously on the nodes we can now create table
 \end{table}
 
 \vspace{17pt}
-Now, in next page, let's focus on the routing information in table \ref{path_transluc_surv_ref_high}. These paths are bidirectional so the path from one node to another is the same path in the opposite direction.\\
-
+Now, let's focus on the routing information in table \ref{path_transluc_surv_ref_high}. These paths are bidirectional so the path from one node to another is the same path in the opposite direction.\\
+\newpage
 \begin{table}[h!]
 \centering
-\begin{tabular}{|| c | c | c ||}
+\begin{tabular}{|| c | c | c | c ||}
  \hline
- \multicolumn{3}{|| c ||}{Routing} \\
+ \multicolumn{4}{|| c ||}{Routing} \\
  \hline
  \hline
- o & d & Links \\
+ o & d & Links & Demands \\
  \hline
- 1 & 2 & \{(1,2)\} \\ \hline
- 1 & 3 & \{(1,2),(2,3)\} \\ \hline
- 1 & 4 & \{(1,2),(2,4)\}\\ \hline
- 1 & 5 & \{(1,2),(2,4),(4,5)\}\\ \hline
- 1 & 6 & \{(1,2),(2,4),(4,5),(5,6)\}\\ \hline
- 2 & 3 & \{(2,3)\}\\ \hline
- 2 & 4 & \{(2,4)\}\\ \hline
- 2 & 5 & \{(2,4),(4,5)\}\\ \hline
- 2 & 6 & \{(2,4),(4,5),(5,6)\}\\ \hline
- 3 & 4 & \{(3,2),(2,4)\}\\ \hline
- 3 & 5 & \{(3,2),(2,4),(4,5)\}\\ \hline
- 3 & 6 & \{(3,2),(2,4),(4,5),(5,6)\}\\ \hline
- 4 & 5 & \{(4,5)\}\\ \hline
- 4 & 6 & \{(4,5),(5,6)\}\\ \hline
- 5 & 6 & \{(5,6)\}\\
+ 1 & 2 & \{(1,2)\} & 100 ODU0, 40 ODU1, 20 ODU2 \\ \hline
+ 1 & 3 & \{(1,3)\} & 20 ODU0, 80 ODU1, 20 ODU2 \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{4} & \{(1,2),(2,4)\} & 60 ODU0, 20 ODU1, 10 ODU2 \\
+  & & \{(1,2),(2,4),(4,6),(6,4)\} & 20 ODU1, 10 ODU2 \\ \hline
+ 1 & 5 & \{(1,3),(3,5)\} & 20 ODU0 \\ \hline
+ \multirow{2}{*}{1} & \multirow{2}{*}{6} & \{(1,2),(2,4),(4,6)\} & 60 ODU0, 80 ODU1 \\
+  & & \{(1,3),(3,5),(5,6)\} & 20 ODU1 \\ \hline
+ \multirow{2}{*}{2} & \multirow{2}{*}{3} & \{(2,1),(1,3)\} & 10 ODU3 \\
+  & & \{(2,3)\} & 10 ODU3 \\ \hline
+ 2 & 4 & \{(2,4)\} & 20 ODU0, 60 ODU1 \\ \hline
+ 2 & 5 & \{(2,3),(3,5)\} & 100 ODU0, 20 ODU1, 20 ODU2 \\ \hline
+ \multirow{3}{*}{2} & \multirow{3}{*}{6} & \{(2,4),(4,6)\} & 20 ODU1, 20 ODU3, 12 ODU4 \\
+  & & \{(2,1),(1,3),(3,5),(5,6)\} & 4 ODU4 \\
+  & & \{(2,3),(3,5),(5,6)\} & 4 ODU4\\ \hline
+ \multirow{2}{*}{3} & \multirow{2}{*}{4} & \{(3,2),(2,4)\} & 20 ODU0, 20 ODU1 \\
+  & & \{(3,5),(5,6),(6,4)\} & 20 ODU2 \\ \hline
+ 3 & 5 & \{(3,2),(2,4),(4,6),(6,4),(4,5)\} & 80 ODU0, 20 ODU1, 20 ODU2, 20 ODU3 \\ \hline
+ 3 & 6 & \{(3,2),(2,4),(4,6)\} & 20 ODU0 \\ \hline
+ 4 & 5 & \{(4,5)\} & 20 ODU0, 20 ODU1, 20 ODU2 \\ \hline
+ 4 & 6 & \{(4,6)\} & 20 ODU0, 60 ODU1\\ \hline
+ 5 & 6 & \{(5,4),(4,6)\} & 60 ODU0, 20 ODU1, 20 ODU2, 20 ODU4 \\
  \hline
 \end{tabular}
-\caption{Table with description of routing.}
+\caption{Table with description of demands routing.}
 \label{path_transluc_surv_ref_high}
 \end{table}
 
+\vspace{17pt}
 Finally and most importantly through table \ref{scripttransluc_surv_ref_high} we can see the CAPEX result for this model. This value is obtained using equation \ref{ILPOpaque_CAPEX} and all of the constraints mentioned above.\\
-
+\newpage
 \begin{table}[h!]
 \centering
 \begin{tabular}{|| c | c | c | c | c | c | c ||}
@@ -1324,10 +1328,9 @@ Finally and most importantly through table \ref{scripttransluc_surv_ref_high} we
 \label{scripttransluc_surv_ref_high}
 \end{table}
 
-
 \subsubsection{Conclusions}
 
-Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transluc_surv} with the number of line ports and add ports of the optical part, the tributary ports, the transponders and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.\\
+Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transluc_surv} with the number of line ports and add ports of the optical part, the tributary ports, the transponders and transceivers because they are important values for the cost of CAPEX, the cost of links, the cost of nodes and finally the cost of CAPEX.
 
 \begin{table}[h!]
 \centering
@@ -1350,17 +1353,15 @@ Once we have obtained the results for all the scenarios we will now draw some co
 \caption{Table with the various CAPEX values obtained in the different traffic scenarios.}
 \label{table_comparative_transluc_surv}
 \end{table}
-
+\newpage
 Looking at the previous table we can make some comparisons between the several scenarios:
 
-%\begin{itemize}
-%    \item Comparing the low traffic scenario with the others, we can see that, despite having an increase of factor ten (average scenario) and factor twenty (high scenario), the same increase does not occur in the final cost (it is lower). This happens because the number of transceivers is smaller than expected (an medium scenario of 120 would be expected and a high scenario would be expected in 240);
- %   \item Comparing the medium traffic scenario with the high traffic scenario, we can see that the factor increase is double and in the final cost this factor is very close but still lower. Again, this happens because the number of transceivers is smaller, but very close to what was expected (the high scenario would be expected at 80);
-  %  \item Comparing the cost with the traffic, we see that, for the low traffic scenario, the cost per traffic is very high in relation to the other two. We can conclude that a low traffic scenario becomes more expensive than a high traffic scenario.
-%\end{itemize}
+\begin{itemize}
+    \item Comparing the low traffic scenario with the others, we can see that, despite having an increase of factor ten (average scenario) and factor twenty (high scenario), the same increase does not occur in the final cost (it is lower). This happens because the number of transceivers is smaller than expected (an medium scenario of 120 would be expected and a high scenario would be expected in 240);
+    \item Comparing the medium traffic scenario with the high traffic scenario, we can see that the factor increase is double and in the final cost this factor is very close but still lower;
+    \item Comparing the cost with the traffic, we see that, for the low traffic scenario, the cost per traffic is very high in relation to the other two. We can conclude that a low traffic scenario becomes more expensive than a high traffic scenario.
+\end{itemize}
 
-
-\vspace{13pt}
 \subsubsection{Opens Issues}
 
 The creation of this model for any scenario, started with some considerations and some open issues being:

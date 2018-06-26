@@ -1,0 +1,270 @@
+RESULTS: Reference Network
+
+Scenario: Translucent with 1+1 protection - Medium Traffic
+
+--------------------------------------------------------
+Information regarding LINKS: 
+--------------------------------------------------------
+| Link between Node: | Optical channels: | Amplifiers: |
+| Node 1 <-> Node 2  | 		 4 			 | 		 4     |
+| Node 1 <-> Node 3  | 		 4 			 | 		 6     |
+| Node 2 <-> Node 3  | 		 2 			 | 		 0     |
+| Node 2 <-> Node 4  | 		 14 		 | 		 6     |
+| Node 3 <-> Node 5  | 		 10 		 | 		 8     |
+| Node 4 <-> Node 5  | 		 8 			 | 		 1     |
+| Node 4 <-> Node 6  | 		 22 		 | 		 7     |
+| Node 5 <-> Node 6  | 		 18 		 | 		 3     |
+
+-------------------------------------------------------
+Number of lightpaths between node (1,2): 4
+Number of lightpaths between node (1,3): 4
+Number of lightpaths between node (1,4): 0
+Number of lightpaths between node (1,5): 0
+Number of lightpaths between node (1,6): 0
+Number of lightpaths between node (2,3): 2
+Number of lightpaths between node (2,4): 4
+Number of lightpaths between node (2,5): 0
+Number of lightpaths between node (2,6): 10
+Number of lightpaths between node (3,4): 0
+Number of lightpaths between node (3,5): 4
+Number of lightpaths between node (3,6): 6
+Number of lightpaths between node (4,5): 8
+Number of lightpaths between node (4,6): 12
+Number of lightpaths between node (5,6): 12
+------------------------------------------------------
+Information regarding NODES:
+------------------------------------------------------
+Node: | Connections: | Line Ports: | Add Ports: | Tributary Ports: |
+  1   | 	 2 		| 	  8 	  |	  8 	  | 	 290 		 |
+  2   | 	 3 		| 	  20 	  |	  20 	  | 	 230 		 |
+  3   | 	 3 		| 	  16 	  |	  16 	  | 	 180 		 |
+  4   | 	 3 		| 	  44 	  |	  24 	  | 	 200 		 |
+  5   | 	 3 		| 	  36 	  |	  24 	  | 	 240 		 |
+  6   | 	 2 		| 	  40 	  |	  40 	  | 	 220 		 |
+
+Detailed description of each node:
+
+Node 1:
+	- Needs 8 line ports.
+		- 4 connect to Node 2 with 100 Gbits/s 
+		- 4 connect to Node 3 with 100 Gbits/s 
+	- Needs 8 add ports.
+		- 4 connect to Node 2 
+		- 4 connect to Node 3 
+	- Needs 290 tributary ports:
+		 -Where 130 is the ODU0;
+		 -Where 130 is the ODU1;
+		 -Where 30 is the ODU2;
+
+Node 2:
+	- Needs 20 line ports.
+		- 4 connect to Node 1 with 100 Gbits/s 
+		- 2 connect to Node 3 with 100 Gbits/s 
+		- 14 connect to Node 4 with 100 Gbits/s 
+	- Needs 20 add ports.
+		- 4 connect to Node 1 
+		- 2 connect to Node 3 
+		- 4 connect to Node 4 
+		- 10 connect to Node 6 
+	- Needs 230 tributary ports:
+		 -Where 110 is the ODU0;
+		 -Where 70 is the ODU1;
+		 -Where 20 is the ODU2;
+		 -Where 20 is the ODU3;
+		 -Where 10 is the ODU4;
+
+Node 3:
+	- Needs 16 line ports.
+		- 4 connect to Node 1 with 100 Gbits/s 
+		- 2 connect to Node 2 with 100 Gbits/s 
+		- 10 connect to Node 5 with 100 Gbits/s 
+	- Needs 16 add ports.
+		- 4 connect to Node 1 
+		- 2 connect to Node 2 
+		- 4 connect to Node 5 
+		- 6 connect to Node 6 
+	- Needs 180 tributary ports:
+		 -Where 70 is the ODU0;
+		 -Where 60 is the ODU1;
+		 -Where 30 is the ODU2;
+		 -Where 20 is the ODU3;
+
+Node 4:
+	- Needs 44 line ports.
+		- 14 connect to Node 2 with 100 Gbits/s 
+		- 8 connect to Node 5 with 100 Gbits/s 
+		- 22 connect to Node 6 with 100 Gbits/s 
+	- Needs 24 add ports.
+		- 4 connect to Node 2 
+		- 8 connect to Node 5 
+		- 12 connect to Node 6 
+	- Needs 200 tributary ports:
+		 -Where 70 is the ODU0;
+		 -Where 100 is the ODU1;
+		 -Where 30 is the ODU2;
+
+Node 5:
+	- Needs 36 line ports.
+		- 10 connect to Node 3 with 100 Gbits/s 
+		- 8 connect to Node 4 with 100 Gbits/s 
+		- 18 connect to Node 6 with 100 Gbits/s 
+	- Needs 24 add ports.
+		- 4 connect to Node 3 
+		- 8 connect to Node 4 
+		- 12 connect to Node 6 
+	- Needs 240 tributary ports:
+		 -Where 140 is the ODU0;
+		 -Where 40 is the ODU1;
+		 -Where 40 is the ODU2;
+		 -Where 10 is the ODU3;
+		 -Where 10 is the ODU4;
+
+Node 6:
+	- Needs 40 line ports.
+		- 22 connect to Node 4 with 100 Gbits/s 
+		- 18 connect to Node 5 with 100 Gbits/s 
+	- Needs 40 add ports.
+		- 10 connect to Node 2 
+		- 6 connect to Node 3 
+		- 12 connect to Node 4 
+		- 12 connect to Node 5 
+	- Needs 220 tributary ports:
+		 -Where 80 is the ODU0;
+		 -Where 100 is the ODU1;
+		 -Where 10 is the ODU2;
+		 -Where 10 is the ODU3;
+		 -Where 20 is the ODU4;
+
+
+-------------------------------------------------------------
+Information regarding PATHS:
+-------------------------------------------------------------
+Demand (1,2) with ODU0: 
+-LinkPro (1,2)50 -Link (1,3)50 -Link (3,6)50 -Link (6,2)50 
+Demand (1,2) with ODU1: 
+-LinkPro (1,2)20 -Link (1,3)20 -Link (3,6)20 -Link (6,2)20 
+Demand (1,2) with ODU2: 
+-LinkPro (1,2)10 -Link (1,3)10 -Link (3,6)10 -Link (6,2)10 
+
+Demand (1,3) with ODU0: 
+-Link (1,2)10 -LinkPro (1,3)10 -Link (2,3)10 
+Demand (1,3) with ODU1: 
+-Link (1,2)40 -LinkPro (1,3)40 -Link (2,3)40 
+Demand (1,3) with ODU2: 
+-Link (1,2)10 -LinkPro (1,3)10 -Link (2,3)10 
+
+Demand (1,4) with ODU0: 
+-LinkPro (1,2)30 -Link (1,3)30 -LinkPro (2,4)30 -Link (3,6)30 -Link (6,4)30 
+Demand (1,4) with ODU1: 
+-LinkPro (1,2)20 -Link (1,3)20 -LinkPro (2,4)20 -Link (3,6)20 -Link (6,4)20 
+Demand (1,4) with ODU2: 
+-LinkPro (1,2)10 -Link (1,3)10 -LinkPro (2,4)10 -Link (3,6)10 -Link (6,4)10 
+
+Demand (1,5) with ODU0: 
+-Link (1,2)10 -LinkPro (1,3)10 -Link (2,4)10 -LinkPro (3,5)10 -Link (4,5)10 
+
+Demand (1,6) with ODU0: 
+-LinkPro (1,2)30 -Link (1,3)30 -LinkPro (2,6)30 -Link (3,6)30 
+Demand (1,6) with ODU1: 
+-LinkPro (1,2)50 -Link (1,3)50 -LinkPro (2,6)50 -Link (3,6)50 
+
+Demand (2,3) with ODU3: 
+-Link (1,3)5 -LinkPro (1,3)5 -Link (2,1)5 -LinkPro (2,1)5 -LinkPro (2,3)5 -Link (2,6)5 -Link (6,3)5 
+
+Demand (2,4) with ODU0: 
+-LinkPro (2,4)10 -Link (2,6)10 -Link (6,4)10 
+Demand (2,4) with ODU1: 
+-LinkPro (2,4)30 -Link (2,6)30 -Link (6,4)30 
+
+Demand (2,5) with ODU0: 
+-LinkPro (2,3)50 -Link (2,4)50 -LinkPro (3,5)50 -Link (4,5)50 
+Demand (2,5) with ODU1: 
+-LinkPro (2,3)10 -Link (2,4)10 -LinkPro (3,5)10 -Link (4,5)10 
+Demand (2,5) with ODU2: 
+-Link (1,3)10 -Link (2,1)10 -LinkPro (2,4)10 -Link (3,5)10 -LinkPro (4,5)10 
+
+Demand (2,6) with ODU1: 
+-Link (2,3)10 -LinkPro (2,6)10 -Link (3,6)10 
+Demand (2,6) with ODU3: 
+-Link (2,4)10 -LinkPro (2,6)10 -Link (4,6)10 
+Demand (2,6) with ODU4: 
+-Link (1,3)4 -Link (2,1)4 -Link (2,3)2 -Link (2,4)4 -LinkPro (2,6)10 -Link (3,5)2 -Link (3,6)4 -Link (4,6)4 -Link (5,6)2 
+
+Demand (3,4) with ODU0: 
+-LinkPro (2,4)10 -LinkPro (3,2)10 -Link (3,6)10 -Link (6,4)10 
+Demand (3,4) with ODU1: 
+-LinkPro (2,4)10 -LinkPro (3,2)10 -Link (3,6)10 -Link (6,4)10 
+Demand (3,4) with ODU2: 
+-LinkPro (2,4)10 -LinkPro (3,2)10 -Link (3,6)10 -Link (6,4)10 
+
+Demand (3,5) with ODU0: 
+-Link (2,4)40 -Link (3,2)40 -LinkPro (3,5)40 -Link (4,5)40 
+Demand (3,5) with ODU1: 
+-Link (2,4)10 -Link (3,2)10 -LinkPro (3,5)10 -Link (4,5)10 
+Demand (3,5) with ODU2: 
+-LinkPro (3,5)10 -Link (3,6)10 -Link (4,5)10 -Link (6,4)10 
+Demand (3,5) with ODU3: 
+-LinkPro (3,5)10 -Link (3,6)10 -Link (4,5)10 -Link (6,4)10 
+
+Demand (3,6) with ODU0: 
+-Link (2,6)10 -Link (3,2)10 -LinkPro (3,6)10 
+
+Demand (4,5) with ODU0: 
+-Link (2,3)10 -Link (3,5)10 -Link (4,2)10 -LinkPro (4,5)10 
+Demand (4,5) with ODU1: 
+-Link (3,5)10 -LinkPro (4,5)10 -Link (4,6)10 -Link (6,3)10 
+Demand (4,5) with ODU2: 
+-Link (3,5)10 -LinkPro (4,5)10 -Link (4,6)10 -Link (6,3)10 
+
+Demand (4,6) with ODU0: 
+-Link (2,6)10 -Link (4,2)10 -LinkPro (4,6)10 
+Demand (4,6) with ODU1: 
+-Link (2,6)30 -Link (4,2)30 -LinkPro (4,6)30 
+
+Demand (5,6) with ODU0: 
+-Link (3,6)30 -Link (5,3)30 -LinkPro (5,6)30 
+Demand (5,6) with ODU1: 
+-Link (3,6)10 -Link (5,3)10 -LinkPro (5,6)10 
+Demand (5,6) with ODU2: 
+-Link (3,6)10 -Link (5,3)10 -LinkPro (5,6)10 
+Demand (5,6) with ODU4: 
+-Link (3,6)2 -Link (4,6)8 -Link (5,3)2 -Link (5,4)8 -LinkPro (5,6)10 
+
+
+-------------------------------------------------------------
+Information regarding CAPEX:
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------- Link Cost: -----------------------------
+-------------------------------------------------------------
+	|			   | number  | unit price   | cust      |
+	| OLT:         |     16  |    15000 €   | 240000 €  |
+	| Transceivers:|    164  |     5000 €   | 82000000 € |
+	| Amplifiers:  |     70  |     4000 €   | 280000 €  |
+-------------------------------------------------------------
+	-- Total Link Cost:  82520000 €             
+-------------------------------------------------------------
+-------------------------------------------------------------
+---------------------- Node Cost: ---------------------------
+-------------------------------------------------------------
+	|				    | number  | unit price   | cust      |
+	| EXCs:|      6  |    10000 €   | 60000 € |
+	| ODU0 Ports:|    600  |        8 €   |  6000 €   |
+	| ODU1 Ports:|    500  |        6 €   |  7500 €   |
+	| ODU2 Ports:|    160  |        3 €   |  4800 €   |
+	| ODU3 Ports:|     60  |    1.5e+00 €   |  3600 €   |
+	| ODU4 Ports:|     40  |        1 €   |  4000 €   |
+	|Transponders:|    132  |     1000 €   | 13200000 €   |
+-------------------------------------------------------------
+	--  Total Electrical:         13285900 €             
+-------------------------------------------------------------
+	| OXCs:|      6  |    20000 €   | 120000 € |
+	| Line Ports:|    164  |     2500 €   | 410000 € |
+	| Add Ports:|    132  |     2500 €   | 330000 € |
+-------------------------------------------------------------
+	--  Total Optical:         860000 €             
+-------------------------------------------------------------
+	-- Total Node Cost:  14145900 €             
+-------------------------------------------------------------
+	------- Total Network Cost: 96665900 €          
+-------------------------------------------------------------

@@ -1,0 +1,236 @@
+RESULTS: Reference Network
+
+Scenario: Transparent with protection 1+1 - High Traffic
+
+--------------------------------------------------------
+Information regarding LINKS: 
+--------------------------------------------------------
+| Link between Node: | Optical channels: | Amplifiers: |
+| Node 1 <-> Node 2  | 		 27 		 | 		 4     |
+| Node 1 <-> Node 3  | 		 27 		 | 		 6     |
+| Node 2 <-> Node 3  | 		 69 		 | 		 0     |
+| Node 2 <-> Node 4  | 		 60 		 | 		 6     |
+| Node 3 <-> Node 5  | 		 60 		 | 		 8     |
+| Node 4 <-> Node 5  | 		 55 		 | 		 1     |
+| Node 4 <-> Node 6  | 		 63 		 | 		 7     |
+| Node 5 <-> Node 6  | 		 63 		 | 		 3     |
+--------------------------------------------------------
+
+Number of lightpaths between node (1,2): 5
+Number of lightpaths between node (1,3): 5
+Number of lightpaths between node (1,4): 4
+Number of lightpaths between node (1,5): 1
+Number of lightpaths between node (1,6): 4
+Number of lightpaths between node (2,3): 8
+Number of lightpaths between node (2,4): 2
+Number of lightpaths between node (2,5): 4
+Number of lightpaths between node (2,6): 29
+Number of lightpaths between node (3,4): 3
+Number of lightpaths between node (3,5): 12
+Number of lightpaths between node (3,6): 1
+Number of lightpaths between node (4,5): 3
+Number of lightpaths between node (4,6): 2
+Number of lightpaths between node (5,6): 24
+
+------------------------------------------------------------------
+Information regarding NODES:
+------------------------------------------------------------------
+Node: | Connections:| Line Ports: | Add Ports:| Tributary Ports: |
+  1   | 	 2 		| 	  54 	  |	  19 	  | 	 580 		 |
+  2   | 	 3 		| 	  156 	  |	  48 	  | 	 460 		 |
+  3   | 	 3 		| 	  156 	  |	  29 	  | 	 360 		 |
+  4   | 	 3 		| 	  178 	  |	  14 	  | 	 400 		 |
+  5   | 	 3 		| 	  178 	  |	  44 	  | 	 480 		 |
+  6   | 	 2 		| 	  126 	  |	  60 	  | 	 440 		 |
+------------------------------------------------------------------
+
+Detailed description of each node:
+
+Node 1:
+	- Needs 54 line ports.
+		- 27 connect to Node 2 with 100 Gbits/s 
+		- 27 connect to Node 3 with 100 Gbits/s 
+	- Needs 19 add ports.
+		- 5 connect to Node 2 
+		- 5 connect to Node 3 
+		- 4 connect to Node 4 
+		- 1 connect to Node 5 
+		- 4 connect to Node 6 
+	- Needs 580 tributary ports:
+		 -Where 260 is the ODU0;
+		 -Where 260 is the ODU1;
+		 -Where 60 is the ODU2;
+
+Node 2:
+	- Needs 156 line ports.
+		- 27 connect to Node 1 with 100 Gbits/s 
+		- 69 connect to Node 3 with 100 Gbits/s 
+		- 60 connect to Node 4 with 100 Gbits/s 
+	- Needs 48 add ports.
+		- 5 connect to Node 1 
+		- 8 connect to Node 3 
+		- 2 connect to Node 4 
+		- 4 connect to Node 5 
+		- 29 connect to Node 6 
+	- Needs 460 tributary ports:
+		 -Where 220 is the ODU0;
+		 -Where 140 is the ODU1;
+		 -Where 40 is the ODU2;
+		 -Where 40 is the ODU3;
+		 -Where 20 is the ODU4;
+
+Node 3:
+	- Needs 156 line ports.
+		- 27 connect to Node 1 with 100 Gbits/s 
+		- 69 connect to Node 2 with 100 Gbits/s 
+		- 60 connect to Node 5 with 100 Gbits/s 
+	- Needs 29 add ports.
+		- 5 connect to Node 1 
+		- 8 connect to Node 2 
+		- 3 connect to Node 4 
+		- 12 connect to Node 5 
+		- 1 connect to Node 6 
+	- Needs 360 tributary ports:
+		 -Where 140 is the ODU0;
+		 -Where 120 is the ODU1;
+		 -Where 60 is the ODU2;
+		 -Where 40 is the ODU3;
+
+Node 4:
+	- Needs 178 line ports.
+		- 60 connect to Node 2 with 100 Gbits/s 
+		- 55 connect to Node 5 with 100 Gbits/s 
+		- 63 connect to Node 6 with 100 Gbits/s 
+	- Needs 14 add ports.
+		- 4 connect to Node 1 
+		- 2 connect to Node 2 
+		- 3 connect to Node 3 
+		- 3 connect to Node 5 
+		- 2 connect to Node 6 
+	- Needs 400 tributary ports:
+		 -Where 140 is the ODU0;
+		 -Where 200 is the ODU1;
+		 -Where 60 is the ODU2;
+
+Node 5:
+	- Needs 178 line ports.
+		- 60 connect to Node 3 with 100 Gbits/s 
+		- 55 connect to Node 4 with 100 Gbits/s 
+		- 63 connect to Node 6 with 100 Gbits/s 
+	- Needs 44 add ports.
+		- 1 connect to Node 1 
+		- 4 connect to Node 2 
+		- 12 connect to Node 3 
+		- 3 connect to Node 4 
+		- 24 connect to Node 6 
+	- Needs 480 tributary ports:
+		 -Where 280 is the ODU0;
+		 -Where 80 is the ODU1;
+		 -Where 80 is the ODU2;
+		 -Where 20 is the ODU3;
+		 -Where 20 is the ODU4;
+
+Node 6:
+	- Needs 126 line ports.
+		- 63 connect to Node 4 with 100 Gbits/s 
+		- 63 connect to Node 5 with 100 Gbits/s 
+	- Needs 60 add ports.
+		- 4 connect to Node 1 
+		- 29 connect to Node 2 
+		- 1 connect to Node 3 
+		- 2 connect to Node 4 
+		- 24 connect to Node 5 
+	- Needs 440 tributary ports:
+		 -Where 160 is the ODU0;
+		 -Where 200 is the ODU1;
+		 -Where 20 is the ODU2;
+		 -Where 20 is the ODU3;
+		 -Where 40 is the ODU4;
+
+
+-------------------------------------------------------------
+Information regarding PATHS:
+-------------------------------------------------------------
+Path between Node1 <-> Node2:
+-Link_P(1,2) -Link(1,3) -Link(3,2) 
+
+Path between Node1 <-> Node3:
+-Link(1,2) -Link_P(1,3) -Link(2,3) 
+
+Path between Node1 <-> Node4:
+-Link_P(1,2) -Link(1,3) -Link_P(2,4) -Link(3,5) -Link(5,4) 
+
+Path between Node1 <-> Node5:
+-Link(1,2) -Link_P(1,3) -Link(2,4) -Link_P(3,5) -Link(4,5) 
+
+Path between Node1 <-> Node6:
+-Link_P(1,2) -Link(1,3) -Link_P(2,4) -Link(3,5) -Link_P(4,6) -Link(5,6) 
+
+Path between Node2 <-> Node3:
+-Link(2,1) -Link(1,3) -Link_P(2,3) 
+
+Path between Node2 <-> Node4:
+-Link(2,3) -Link_P(2,4) -Link(3,5) -Link(5,4) 
+
+Path between Node2 <-> Node5:
+-Link_P(2,3) -Link(2,4) -Link_P(3,5) -Link(4,5) 
+
+Path between Node2 <-> Node6:
+-Link(2,3) -Link_P(2,4) -Link(3,5) -Link_P(4,6) -Link(5,6) 
+
+Path between Node3 <-> Node4:
+-Link_P(3,2) -Link_P(2,4) -Link(3,5) -Link(5,4) 
+
+Path between Node3 <-> Node5:
+-Link(3,2) -Link(2,4) -Link_P(3,5) -Link(4,5) 
+
+Path between Node3 <-> Node6:
+-Link(3,2) -Link(2,4) -Link_P(3,5) -Link(4,6) -Link_P(5,6) 
+
+Path between Node4 <-> Node5:
+-Link_P(4,5) -Link(4,6) -Link(6,5) 
+
+Path between Node4 <-> Node6:
+-Link(4,5) -Link_P(4,6) -Link(5,6) 
+
+Path between Node5 <-> Node6:
+-Link(5,4) -Link(4,6) -Link_P(5,6) 
+
+
+-------------------------------------------------------------
+Information regarding CAPEX:
+-------------------------------------------------------------
+-------------------------------------------------------------
+-------------------- Link Cost: -----------------------------
+-------------------------------------------------------------
+	|			   | number  | unit price   |     cust      |
+	| OLT:         |     16  |    15 000 €  |	  240 000 € |
+	| Transponders:|    848  |     5 000 €  | 424 000 000 € |
+	| Amplifiers:  |     70  |     4 000 €  | 	  280 000 € |
+-------------------------------------------------------------
+	-- Total Link Cost: 		424 520 000 €             
+-------------------------------------------------------------
+-------------------------------------------------------------
+---------------------- Node Cost: ---------------------------
+-------------------------------------------------------------
+	|			   | number  | unit price   |     cust      |
+	| EXCs:		   |      6  |    10 000 €  |      60 000 € |
+	| ODU0 Ports:  |  1 200  |         8 €  |	   12 000 € |
+	| ODU1 Ports:  |  1 000  |         6 €  |	   15 000 € |
+	| ODU2 Ports:  |    320  |         3 €  | 		9 600 € |
+	| ODU3 Ports:  |    120  |       1.5 €  |  		7 200 € |
+	| ODU4 Ports:  |     80  |         1 €  |  		8 000 € |
+	| Line Ports:  |    848  |     1 000 €  |  84 800 000 € |
+-------------------------------------------------------------
+	--  Total Electrical:        84 911 800 €             
+-------------------------------------------------------------
+	| OXCs:		   |      6  |    20 000 €  | 	  120 000 € |
+	| Line Ports:  |  1 696  |     2 500 €  | 	4 240 000 € |
+	| Add Ports:   |    214  |     2 500 €  | 	  535 000 € |
+-------------------------------------------------------------
+	--  Total Optical:            4 895 000 €             
+-------------------------------------------------------------
+	-- Total Node Cost:          89 806 800 €             
+-------------------------------------------------------------
+	------- Total Network Cost: 				514 326 800 €          
+-------------------------------------------------------------
