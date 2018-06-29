@@ -1,0 +1,129 @@
+\chapter*{List of symbols}
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+	\flushright	
+	\begin{tabular}{l p{0.8\textwidth}}
+$($ i,j $)$ & physical link between the nodes $i$ and $j$ \\
+$($ o,d $)$ & demand between the nodes $o$ and $d$ \\
+$($ o,d,c $)$ & demand between the nodes $o$ and $d$ with bit rate $c$ \\
+$($ p,k $)$ & lightpath between the nodes $p$ and $k$ \\[3mm]	
+
+$\gamma_0^{OLT}$ & OLT without transponders cost \\
+$\gamma_1^{OLT}$ & transponder cost\\
+$\gamma_{e0}$ & EXC cost\\
+$\gamma_{e1,-1}$ & EXC Port for line ports cost\\
+$\gamma_{e1,0}$ & EXC Port for ODU0 cost\\
+$\gamma_{e1,1}$ & EXC Port for ODU1 cost\\
+$\gamma_{e1,2}$ & EXC Port for ODU2 cost\\
+$\gamma_{e1,3}$ & EXC Port for ODU3 cost\\
+$\gamma_{e1,4}$ & EXC Port for ODU4 cost\\
+$\gamma_{e2}$ & Tributary Port cost\\
+$\gamma_{o0}$ & OXC cost in monetary units (e.g. euros, or dollars)\\
+$\gamma_{o1}$ & OXC Port cost\\ [3mm]	
+
+$\delta$ & nodal degree \\ [3mm]
+
+$\lambda_{od}$ & the number of 100 Gbit/s optical channels between the nodes $o$ and $d$ \\ [3mm]
+
+$\xi$ & grooming coefficient \\ [3mm]
+
+$\tau$ & line bit-rate\\ [3mm]
+	\end{tabular}	
+\end{table}
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+	\flushright	
+	\begin{tabular}{l p{0.8\textwidth}}
+$B$ & natural number corresponding to the maximum index of short-reach ports \\
+$B_c $ & client signals granularities $($1.25, 2.5, 10, 40, 100$)$ \\[3mm]
+
+$c$ & index for bit rate of the client signal \\
+$c^R$ & cost of unidirectional optical amplifier \\
+$C$ & set of the client signal \\
+$C_C$ & total network CAPEX in monetary units (e.g. euros, or dollars)\\
+$C_{EXC}$ & electrical part cost \\
+$C_L$ & Link cost in monetary units (e.g. euros, or dollars)\\
+$C_N$ & Node cost in monetary units (e.g. euros, or dollars)\\
+$C_{OXC}$ & optical part cost \\ [3mm]
+
+$<d>$ & average number of demands \\
+$d$ & index for node that is destination of a demand \\
+$D$ & number of unidirectional demands\\
+$D_{odc}$ & client demands between nodes $o$ and $d$ with bit rate $c$\\
+$D_{nd,c}$ & client demands between nodes $n$ and $d$ with bit rate $c$\\[3mm]
+
+$f_{ij}^{od}$ & the number of 100 Gbit/s optical channels between the nodes $o$ and $d$ that uses link ($i$,$j$) \\
+$fb_{ij}^{od}$ & binary variable indicating if link between the nodes $i$ and $j$ is used in the path between nodes $o$ and $d$ \\
+$fp_{ij}^{od}$ & the number of 100 Gbit/s optical channels with protection between the nodes $o$ and $d$ that uses link ($i$,$j$) \\[3mm]
+
+$G$ & Network topology in form of adjacency matrix \\
+$G_{ij}$ & binary indicating if connection between $(i,j)$ in network topology exists \\ [3mm]
+
+$<h>$ & average number of hops for working paths \\
+$<h'>$ & average number of hops for backup paths \\ [3mm]
+
+$i$ & index for start node of a physical link \\ [3mm]
+
+$j$ & index for end node of a physical link \\ [3mm]
+
+$<k>$ & survivability coefficient \\
+$<kp>$ & survivability coefficient in protection case \\
+$K_{ij}$ & maximum number of optical channels supported by each transmission system \\
+
+	\end{tabular}	
+\end{table}
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+	\flushright	
+	\begin{tabular}{l p{0.8\textwidth}}
+$<len>$ & average link length \\
+$len_{ij}$ & length of link $ij$ in kilometers \\
+$len_l$ & length of link $l$ \\
+$L_{ij}$ & binary variable indicating if link between the nodes $i$ and $j$ is used \\
+$L_u$ & number of unidirectional Links \\
+$Ls_{ij}^{od}$ & Number of ODU-o low speed signals from node $o$ to node $d$ employing lightpath ($i$,$j$) \\[3mm]
+
+$N$	& total number of nodes\\
+$N_{exc,n}$	& binary variable indicating if node $n$ is used in electrical part \\
+$N_{oxc,n}$	& binary variable indicating if node $n$ is used in optical part \\
+$N^R$ & total number of optical amplifiers\\
+$N^R_{ij}$ & number of optical amplifiers in link $(i,j)$\\ [3mm]
+
+$o$ & index for node that is origin of a demand \\ [3mm]
+
+$<P_{exc}>$ & average number of ports of the electrical switch \\
+$<P_{oxc}>$ & average number of ports of the optical switch \\
+$P_{exc,c,n}$ & number of ports of the electrical switch \\
+$P_{oxc,n}$	& number of ports of the optical switch \\
+$P_{TRIB}$ & total number of tributary ports \\[3mm]
+
+$span$ & distance between amplifiers in kilometers\\ [3mm]
+
+$T$ & total bidirectional traffic \\
+$T_1$ & total unidirectional traffic \\
+$T_1^0$ & unidirectional traffic of the ODU0 \\
+$T_1^1$ & unidirectional traffic of the ODU1 \\
+$T_1^2$ & unidirectional traffic of the ODU2 \\
+$T_1^3$ & unidirectional traffic of the ODU3 \\
+$T_1^4$ & unidirectional traffic of the ODU4 \\ [3mm]
+
+$<w>$ & average number of optical channels\\
+$w_{nj}$ & number of optical channels that are routed through the link between the nodes $n$ and $j$ \\
+$W_{ij}$ & total number of optical channels that are routed through the link between the nodes $i$ and $j$\\
+			
+	\end{tabular}	
+\end{table}
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{1.3}
+	\flushright	
+	\begin{tabular}{l p{0.8\textwidth}}
+
+  	\end{tabular}	
+\end{table}
