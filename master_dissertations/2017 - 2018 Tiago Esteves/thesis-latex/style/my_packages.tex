@@ -1,0 +1,97 @@
+
+
+\usepackage{tabulary}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{enumerate} %package for enumeration
+%\usepackage{cite}     % package for reference cite
+\usepackage{multirow}   % package for multirow tables
+\usepackage[small]{caption} %package for small captions Tables and Figures
+\usepackage[T1]{fontenc}        % euro quality fonts [T1] (togeth. w/ textcomp)
+\usepackage{textcomp, amssymb}  % additional symbols (there are more packages)
+%\usepackage[latin1]{inputenc}   % umlaute in input file
+\usepackage{setspace}           % doublespacing
+\usepackage[tight]{subfigure}% subfigures: figures within figures
+\setlength{\parindent}{0.2in} %aqui escolhes o espacamento do paragrafo
+\usepackage{a4wide}
+\usepackage[left=3cm,top=3cm,right=2.5cm,bottom=3cm]{geometry} %aqui mudas as margens
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage[sectionbib,sort&compress,numbers,square,comma]{natbib}
+\usepackage{chapterbib}
+%\usepackage{color}
+\usepackage{enumerate}
+\usepackage{arydshln}
+\usepackage{etaremune}
+\usepackage{enumitem}
+
+\usepackage{appendix}
+
+\usepackage[flushleft]{threeparttable}
+\usepackage{tablefootnote}
+
+\usepackage{epspdfconversion}
+\epstopdfsetup{suffix={},update}
+
+\usepackage{ifpdf}              % if pdflatex then ... else ...
+\ifpdf
+  \pdfadjustspacing=1           % make pdflatex behave like latex
+  \usepackage{aeguill}          % PS converted CM fonts for better acro preview
+%  \usepackage[pdftex]{graphicx} % graphics packages
+  \usepackage[pdftex]{color}    % color packages
+  \usepackage[pdftex]{thumbpdf} % create thumbnails (run thumbpdf as well)
+  \usepackage[pdftex,colorlinks=false,%
+              pagebackref=false, % bibliography -> text
+              linktocpage=true, % toc etc: make page number active (not name)
+              plainpages=false, % distinguish roman and arabic pagenumbers
+              bookmarksopen=true,%
+              bookmarksnumbered=true,%
+             ]{hyperref}        % clickabe references
+\else
+  \usepackage[hypertex,
+              plainpages=false, % distinguish roman and arabic pagenumbers
+              linktocpage=true, % toc etc: make page number active (not name)
+             ]{hyperref}        % clickabe references in .dvi
+                                % purposely included before color package
+     % color packages; needed by xy
+\usepackage[dvips]{color}
+\usepackage[dvips]{graphicx}  % graphics packages
+\DeclareGraphicsExtensions{.eps}
+\fi
+
+
+\usepackage[usecolor,DETI,newLogo,final]{style/uaThesis}
+\usepackage[Sonny]{fncychap}
+
+\usepackage{xspace}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+\usepackage{kbordermatrix,blkarray}
+\usepackage[ansinew]{inputenc}
+\usepackage[printonlyused, withpage]{acronym}
+\usepackage{palatino}
+\usepackage{fancybox}
+%\usepackage{chapterbib} %com este package as referencias bibliográficas aparecem no final de cada capítulo
+\usepackage{epsfig}
+\usepackage{subfigure}
+\usepackage{graphics}
+\usepackage{float}
+\usepackage{here}
+\usepackage[T1]{fontenc}
+\usepackage{epigraph}
+\usepackage{url}                    % needed to cite a site
+\usepackage{eurosym}
+\usepackage{makeidx}
+\usepackage{datatool}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\usepackage{braket}
+
+% subfile handling packages
+\usepackage{subfiles}
+
+\usepackage{multicol}
+\usepackage{makecell}
+\usepackage{pdfpages}               % to append pdf files \includepdf[pages={-}]{myfile.pdf}
+\usepackage{pdflscape}
+\usepackage{pgfplots}

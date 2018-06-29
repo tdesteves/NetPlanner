@@ -1,0 +1,116 @@
+\clearpage
+
+\subsection{Translucent with 1+1 Protection}\label{heuristic_Transluc_Protection}
+\begin{tcolorbox}	
+\begin{tabular}{p{2.75cm} p{0.2cm} p{10.5cm}} 	
+\textbf{Student Name}  &:& Pedro Coelho    (March 01, 2018 - )\\
+\textbf{Goal}          &:& Implement the heuristic model for the translucent transport mode with 1 plus 1 protection.
+\end{tabular}
+\end{tcolorbox}
+
+\subsubsection{Model description}
+
+\subsubsection{Result description}
+
+\noindent
+\textbf{Low Traffic Scenario:}\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
+ \hline
+ \hline
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{27 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 54 & 5 000 \euro/Gbit/s & 27 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{2 162 590 \euro} \\ \cline{3-6}
+  & & ODU0 Ports & 60 & 10 \euro/port & 600 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 50 & 15 \euro/port & 750 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 16 & 30 \euro/port & 480 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 6 & 60 \euro/port & 360 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 4 & 100 \euro/port & 400 \euro & \\ \cline{3-6}
+ & & Transponders & 18 & 100 000 \euro/port & 1 800 000 \euro & \\ \cline{2-6}
+ & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 54 & 2 500 \euro/port & 135 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 18 & 2 500 \euro/port & 45 000 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 29 682 590 \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of CAPEX.}
+\label{scripttransl_protec_ref_low_heuristic}
+\end{table}
+
+\newpage
+\noindent
+\textbf{Medium Traffic Scenario:}\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
+ \hline
+ \hline
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{90 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 180 & 5 000 \euro/Gbit/s & 90 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{8 855 900 \euro} \\ \cline{3-6}
+  & & ODU0 Ports & 600 & 10 \euro/port & 6 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 500 & 15 \euro/port & 7 500 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 160 & 30 \euro/port & 4 800 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 60 & 60 \euro/port & 3 600 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 40 & 100 \euro/port & 4 000 \euro & \\ \cline{3-6}
+ & & Transponders & 80 & 100 000 \euro/port & 8 000 000 \euro & \\ \cline{2-6}
+ & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 180 & 2 500 \euro/port & 450 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 80 & 2 500 \euro/port & 200 000 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 99 375 900 \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of CAPEX.}
+\label{scripttransl_protec_ref_medium_heuristic}
+\end{table}
+
+\noindent
+\textbf{High Traffic Scenario:}\\
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|| c | c | c | c | c | c | c ||}
+ \hline
+ \multicolumn{7}{|| c ||}{CAPEX of the Network} \\
+ \hline
+ \hline
+ \multicolumn{3}{|| c |}{ } & Quantity & Unit Price & Cost & Total \\
+ \hline
+ \multirow{3}{*}{\makecell{Link \\ Cost}} & \multicolumn{2}{ c |}{OLTs} & 16 & 15 000 \euro & 240 000 \euro & \multirow{3}{*}{169 520 000 \euro} \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{100 Gbits/s Transceivers} & 338 & 5 000 \euro/Gbit/s & 169 000 000 \euro & \\ \cline{2-6}
+ & \multicolumn{2}{ c |}{Amplifiers} & 70 & 4 000 \euro & 280 000 \euro & \\
+ \hline
+ \multirow{10}{*}{\makecell{Node \\ Cost}} & \multirow{7}{*}{Electrical} & EXCs & 6 & 10 000 \euro & 60 000 \euro & \multirow{10}{*}{16 861 800 \euro} \\ \cline{3-6}
+  & & ODU0 Ports & 1 200 & 10 \euro/port & 12 000 \euro & \\ \cline{3-6}
+ & & ODU1 Ports & 1 000 & 15 \euro/port & 15 000 \euro & \\ \cline{3-6}
+ & & ODU2 Ports & 320 & 30 \euro/port & 9 600 \euro & \\ \cline{3-6}
+ & & ODU3 Ports & 120 & 60 \euro/port & 7 200 \euro & \\ \cline{3-6}
+ & & ODU4 Ports & 80 & 100 \euro/port & 8 000 \euro & \\ \cline{3-6}
+ & & Transponders & 154 & 100 000 \euro/port & 15 400 000 \euro & \\ \cline{2-6}
+ & \multirow{3}{*}{Optical} & OXCs & 6 & 20 000 \euro & 120 000 \euro & \\ \cline{3-6}
+ & & Line Ports & 338 & 2 500 \euro/port & 845 000 \euro & \\ \cline{3-6}
+ & & Add Ports & 154 & 2 500 \euro/port & 385 000 \euro & \\
+ \hline
+ \multicolumn{6}{|| c |}{Total Network Cost} & 186 381 800 \euro \\
+\hline
+\end{tabular}
+\caption{Table with detailed description of CAPEX.}
+\label{scripttransl_protec_ref_high_heuristic}
+\end{table} 
