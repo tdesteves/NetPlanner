@@ -1,0 +1,118 @@
+\def\AddVMargin#1{\setbox0=\hbox{#1}%
+                  \dimen0=\ht0\advance\dimen0 by 2pt\ht0=\dimen0%
+                  \dimen0=\dp0\advance\dimen0 by 2pt\dp0=\dimen0%
+                  \box0}   % add extra vertical space above and below the argument (#1)
+\def\Header#1#2{\setbox1=\hbox{#1}\setbox2=\hbox{#2}%
+           \ifdim\wd1>\wd2\dimen0=\wd1\else\dimen0=\wd2\fi%
+           \AddVMargin{\parbox{\dimen0}{\centering #1\\#2}}} % put #1 on top #2
+
+
+\def\ThesisYear{2018}
+%
+% Cover page (use only one of the first two \TitlePage)
+%
+
+% First alternative, with a figure
+\TitlePage
+  %\GRID  % for debugging ONLY
+  \HEADER{\BAR} % the \FIG{} is optional
+         {\ThesisYear}
+  \TITLE{Tiago Duarte Esteves}
+        {Dimensionamento e Optimização em Redes Ópticas de Transporte \newline \newline Dimensioning and Optimization in Optical Transport Networks}		
+\EndTitlePage
+%\titlepage\ \endtitlepage % empty page
+
+%
+% Initial thesis pages
+%
+\TitlePage
+  \AAA{\FIG{\hspace{4cm}\begin{minipage}{80mm} % no more than 120mm
+          \vspace{9cm}
+\includegraphics[height=15.25mm]{sdf/capa/it_aveiro}
+          \end{minipage}}}{\ThesisYear}
+  \TITLE{Tiago Duarte Esteves}
+        {Dimensionamento e Optimização em Redes Ópticas de Transporte \newline \newline Dimensioning and Optimization in Optical Transport Networks}
+  \vspace*{15mm}
+  \TEXT{}
+       {Dissertação apresentada à Universidade de Aveiro para cumprimento dos requisitos necessários à obtenção do grau de Mestre em Engenharia de Computadores e Telemática, realizada sob a orientação científica do Doutor Armando Humberto Moreira Nolasco Pinto, Professor Associado do Departamento de Eletrónica, Telecomunicações e Informática da Universidade de Aveiro e coorientação empresarial do Doutor Rui Manuel Dias Morais, Doutor em Engenharia Eletrotécnica pela Universidade de Aveiro, coordenador de atividades de investigação em optimização de redes na Coriant Portugal. Tendo como instituição de acolhimento o Instituto de Telecomunicações - Pólo de Aveiro.}
+\EndTitlePage
+
+\TitlePage
+\hspace{75mm}\begin{minipage}{110mm} % no more than 120mm
+ 								\vspace{100mm}
+								\begin{flushright}
+            \begin{Large}\emph{\textbf{Aos meus pais, Joaquim e Alice, e à minha esposa Cristina}}\end{Large}
+						\end{flushright}
+						 \end{minipage}
+						\vfill
+						%\vspace{-140mm}
+\hspace{75mm}	\begin{minipage}{110mm} 	
+             \begin{flushright}
+						 \vspace{-80mm}
+             \textbf{
+             "`Apply yourself both now and in the next life. \\
+             Without effort, you cannot be prosperous. \\
+                Though the land be good,\\
+                    You cannot have an abundant crop\\
+                        without cultivation."'\\
+             \mbox{}\\
+                                \emph{Plato}}
+             \end{flushright}
+            \end{minipage}
+\EndTitlePage
+
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{o j\'uri~/~the jury\newline}}
+       {}
+  \TEXT{presidente~/~president}
+       {\textbf{Doutor Amaro Fernandes de Sousa}\newline {\small
+        Professor Auxiliar da Universidade de Aveiro}}
+  \vspace*{5mm}
+  \TEXT{vogais~/~examiners committee}
+	      {\textbf{Doutor João José de Oliveira Pires}\newline {\small
+        Professor Auxiliar do Instituto Superior Técnico da Universidade de Lisboa}}
+	\vspace*{5mm}
+  \TEXT{}
+	      {\textbf{Doutor Armando Humberto Moreira Nolasco Pinto}\newline {\small
+        Professor Associado da Universidade de Aveiro (orientador)}}
+
+\EndTitlePage
+
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{agradecimentos~/\newline acknowledgements}}
+       {Em primeiro lugar quero agradecer ao Professor Armando Nolasco Pinto pela atribuição desta dissertação, bem como pela orientação e disponibilidade que demonstrou ao longo de todo o tempo de realização da mesma. Queria também salientar o meu agradecimento ao Dr. Rui Dias Morais pelo importante apoio cientifico prestado e pela sua total disponibilidade. \newline			
+			\newline
+Não posso deixar de gratular os meus colegas e amigos do departamento de Electrónica, Telecomunicações e Informática pelo apoio dado de diversas formas. \newline
+			\newline
+Um especial agradecimento aos meus pais, Joaquim e Alice, pois sem o seu apoio incondicional nada disto era possível. \newline
+			\newline
+Por fim, um especial reconhecimento à minha Cristina que sempre me incentivou, apoiou e de uma forma amorosa me deu forças para concluir esta etapa de uma forma proveitosa. \newline
+			\newline					
+A todos um sincero obrigado!}
+\EndTitlePage
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{palavras-chave}}{CAPEX, topologia fisica, topologia óptica, canais ópticos, modo opaco, modo transparente, modo translucido, modelo analítico, programação linear inteira}
+  \vspace{15mm}
+  \TEXT{\textbf{resumo}}
+       {Nesta dissertação é apresentado um estudo de dimensionamento e optimização de redes ópticas de transporte tendo em consideração vários aspectos específicos e determinadas restrições. Primeiramente é definido a topologia física da rede usada para este estudo definindo os seus nós e as suas ligações. Para uma análise mais detalhada e para uma vasta variedade de resultados são tidos em conta três diferentes quantidades de tráfego injetado na rede onde é necessário ter em conta como esse tráfego é agregado e encaminhado. O encaminhamento do tráfego é baseado nas diferentes topologias lógicas (opaco, transparente e translúcido). Nesta dissertação o principal factor em causa é o CAPEX da rede e para isso são criados modelos de programação linear baseados em restrições e funções objectivo com o propósito de minimizar esse valor garantindo o encaminhamento total do tráfego. Os resultados destes modelos são descritos detalhadamente ao longo da dissertação. Os cálculos analíticos deste processo também são considerados. Com estes resultados e tendo em conta algoritmos de agregação e encaminhamento baseados em heurísticas desenvolvidos numa dissertação anterior é feita a comparação de resultados. Por fim são apresentadas todas as conclusões.
+}
+\EndTitlePage
+%\titlepage\ \endtitlepage % empty page
+
+\TitlePage
+  \vspace*{55mm}
+  \TEXT{\textbf{keywords}}{CAPEX, physical topology, optical topology, optical channels, opaque mode, transparent mode, translucent mode, analytical model, integer linear programming}
+  \vspace{15mm}
+  \TEXT{\textbf{abstract}}
+       {In this dissertation a study is presented on the design and optimization of optical transport networks taking into account several specific aspects and certain restrictions. First, the physical topology of the network used for this study is defined by determine its nodes and their connections. For a more detailed analysis and for a wide variety of results, three different amounts of traffic injected into the network are taken into account where it is necessary to consider how this traffic is aggregated. Traffic routing is based on different logical topologies (opaque, transparent and translucent). In this thesis the main factor in question is the CAPEX of the network and for this are created linear programming models based on constraints and objective functions with the purpose of minimizing this value guaranteeing the total traffic routing. The results of these models are described in detail throughout the dissertation. The analytical calculations of this process are also considered. With these results and taking into account algorithms of aggregation and routing based on heuristics developed in a previous dissertation the comparison of results is made. Finally, all the conclusions are presented.}										
+\EndTitlePage
+\cleardoublepage % empty page
+
+
+

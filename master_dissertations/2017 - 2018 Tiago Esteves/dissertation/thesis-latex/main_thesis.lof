@@ -1,0 +1,98 @@
+\gdef \the@ipfilectr {@-2}
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-3}
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-4}
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-5}
+\addvspace {10\p@ }
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-6}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Schematic of a node where we can see the main components \cite {teserui,tesevasco}.\relax }}{6}{figure.caption.13}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Physical topology of the reference network.\relax }}{8}{figure.caption.14}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces ODU0 logical topology defined by the ODU0 traffic matrix in low scenario.\relax }}{10}{figure.caption.17}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces ODU1 logical topology defined by the ODU1 traffic matrix in low scenario.\relax }}{11}{figure.caption.18}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces ODU2 logical topology defined by the ODU2 traffic matrix in low scenario.\relax }}{11}{figure.caption.19}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces ODU3 logical topology defined by the ODU3 traffic matrix in low scenario.\relax }}{11}{figure.caption.20}
+\contentsline {figure}{\numberline {2.7}{\ignorespaces ODU4 logical topology defined by the ODU4 traffic matrix in low scenario.\relax }}{11}{figure.caption.21}
+\contentsline {figure}{\numberline {2.8}{\ignorespaces ODU0 logical topology defined by the ODU0 traffic matrix in medium scenario.\relax }}{13}{figure.caption.23}
+\contentsline {figure}{\numberline {2.9}{\ignorespaces ODU1 logical topology defined by the ODU1 traffic matrix in medium scenario.\relax }}{13}{figure.caption.24}
+\contentsline {figure}{\numberline {2.10}{\ignorespaces ODU2 logical topology defined by the ODU2 traffic matrix in medium scenario.\relax }}{13}{figure.caption.25}
+\contentsline {figure}{\numberline {2.11}{\ignorespaces ODU3 logical topology defined by the ODU3 traffic matrix in medium scenario.\relax }}{13}{figure.caption.26}
+\contentsline {figure}{\numberline {2.12}{\ignorespaces ODU4 logical topology defined by the ODU4 traffic matrix in medium scenario.\relax }}{14}{figure.caption.27}
+\contentsline {figure}{\numberline {2.13}{\ignorespaces ODU0 logical topology defined by the ODU0 traffic matrix in high scenario.\relax }}{15}{figure.caption.29}
+\contentsline {figure}{\numberline {2.14}{\ignorespaces ODU1 logical topology defined by the ODU1 traffic matrix in high scenario.\relax }}{15}{figure.caption.30}
+\contentsline {figure}{\numberline {2.15}{\ignorespaces ODU2 logical topology defined by the ODU2 traffic matrix in high scenario.\relax }}{15}{figure.caption.31}
+\contentsline {figure}{\numberline {2.16}{\ignorespaces ODU3 logical topology defined by the ODU3 traffic matrix in high scenario.\relax }}{16}{figure.caption.32}
+\contentsline {figure}{\numberline {2.17}{\ignorespaces ODU4 logical topology defined by the ODU4 traffic matrix in high scenario.\relax }}{16}{figure.caption.33}
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-7}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Design of a link.\relax }}{20}{figure.caption.36}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Design of a electrical switching.\relax }}{21}{figure.caption.37}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Design of a optical switching.\relax }}{22}{figure.caption.39}
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-8}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Opaque without survivability: allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.\relax }}{34}{figure.caption.44}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Opaque without survivability: allowed optical topology. The allowed optical topology is defined by the transport mode. It is assumed that each transmission system supports up to 100 optical channels.\relax }}{35}{figure.caption.45}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Opaque without survivability in low scenario: physical topology after dimensioning.\relax }}{36}{figure.caption.46}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Opaque without survivability in low scenario: optical topology after dimensioning.\relax }}{37}{figure.caption.47}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Opaque without survivability in medium scenario: physical topology after dimensioning.\relax }}{41}{figure.caption.58}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Opaque without survivability in medium scenario: optical topology after dimensioning.\relax }}{41}{figure.caption.59}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Opaque without survivability in high scenario: physical topology after dimensioning.\relax }}{45}{figure.caption.70}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Opaque without survivability in high scenario: optical topology after dimensioning.\relax }}{46}{figure.caption.71}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Opaque with 1+1 protection: allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.\relax }}{51}{figure.caption.83}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Opaque with 1+1 protection: allowed optical topology. The allowed optical topology is defined by the transport mode. It is assumed that each transmission system supports up to 100 optical channels.\relax }}{51}{figure.caption.84}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Opaque with 1+1 protection in low scenario: physical topology after dimensioning.\relax }}{53}{figure.caption.85}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Opaque with 1+1 protection in low scenario: optical topology after dimensioning.\relax }}{54}{figure.caption.86}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Opaque with 1+1 protection in medium scenario: physical topology after dimensioning.\relax }}{58}{figure.caption.97}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Opaque with 1+1 protection in medium scenario: optical topology after dimensioning.\relax }}{59}{figure.caption.98}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Opaque with 1+1 protection in high scenario: physical topology after dimensioning.\relax }}{63}{figure.caption.109}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Opaque with 1+1 protection in high scenario: optical topology after dimensioning.\relax }}{64}{figure.caption.110}
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Transparent without survivability: allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.\relax }}{69}{figure.caption.122}
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Transparent without survivability: allowed optical topology. The allowed optical topology is defined by the transport mode. It is assumed that each connections between demands supports up to 100 lightpaths.\relax }}{70}{figure.caption.123}
+\contentsline {figure}{\numberline {4.19}{\ignorespaces Transparent without survivability in low scenario: physical topology after dimensioning.\relax }}{71}{figure.caption.124}
+\contentsline {figure}{\numberline {4.20}{\ignorespaces Transparent without survivability in low scenario: optical topology after dimensioning.\relax }}{72}{figure.caption.125}
+\contentsline {figure}{\numberline {4.21}{\ignorespaces Transparent without survivability in medium scenario: physical topology after dimensioning.\relax }}{80}{figure.caption.136}
+\contentsline {figure}{\numberline {4.22}{\ignorespaces Transparent without survivability in medium scenario: optical topology after dimensioning.\relax }}{80}{figure.caption.137}
+\contentsline {figure}{\numberline {4.23}{\ignorespaces Transparent without survivability in high scenario: physical topology after dimensioning.\relax }}{89}{figure.caption.148}
+\contentsline {figure}{\numberline {4.24}{\ignorespaces Transparent without survivability in high scenario: optical topology after dimensioning.\relax }}{89}{figure.caption.149}
+\contentsline {figure}{\numberline {4.25}{\ignorespaces Transparent with 1+1 protection: allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.\relax }}{99}{figure.caption.161}
+\contentsline {figure}{\numberline {4.26}{\ignorespaces Transparent with 1+1 protection: allowed optical topology. The allowed optical topology is defined by the transport mode (transparent transport mode in this case). It is assumed that each connections between demands supports up to 100 lightpaths.\relax }}{99}{figure.caption.162}
+\contentsline {figure}{\numberline {4.27}{\ignorespaces Transparent with 1+1 protection in low scenario: physical topology after dimensioning.\relax }}{102}{figure.caption.163}
+\contentsline {figure}{\numberline {4.28}{\ignorespaces Transparent with 1+1 protection in low scenario: optical topology after dimensioning.\relax }}{102}{figure.caption.164}
+\contentsline {figure}{\numberline {4.29}{\ignorespaces Transparent with 1+1 protection in medium scenario: physical topology after dimensioning.\relax }}{110}{figure.caption.175}
+\contentsline {figure}{\numberline {4.30}{\ignorespaces Transparent with 1+1 protection in medium scenario: optical topology after dimensioning.\relax }}{111}{figure.caption.176}
+\contentsline {figure}{\numberline {4.31}{\ignorespaces Transparent with 1+1 protection in high scenario: physical topology after dimensioning.\relax }}{119}{figure.caption.187}
+\contentsline {figure}{\numberline {4.32}{\ignorespaces Transparent with 1+1 protection in high scenario: optical topology after dimensioning.\relax }}{120}{figure.caption.188}
+\contentsline {figure}{\numberline {4.33}{\ignorespaces Translucent without survivability: allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.\relax }}{129}{figure.caption.200}
+\contentsline {figure}{\numberline {4.34}{\ignorespaces Translucent without survivability: allowed optical topology. The allowed optical topology is defined by the transport mode. It is assumed that each connections between demands supports up to 100 lightpaths.\relax }}{130}{figure.caption.201}
+\contentsline {figure}{\numberline {4.35}{\ignorespaces Translucent without survivability in low scenario: physical topology after dimensioning.\relax }}{132}{figure.caption.202}
+\contentsline {figure}{\numberline {4.36}{\ignorespaces Translucent without survivability in low scenario: optical topology after dimensioning.\relax }}{132}{figure.caption.203}
+\contentsline {figure}{\numberline {4.37}{\ignorespaces Translucent without survivability in medium scenario: physical topology after dimensioning.\relax }}{137}{figure.caption.214}
+\contentsline {figure}{\numberline {4.38}{\ignorespaces Translucent without survivability in medium scenario: optical topology after dimensioning.\relax }}{138}{figure.caption.215}
+\contentsline {figure}{\numberline {4.39}{\ignorespaces Translucent without survivability in high scenario: physical topology after dimensioning.\relax }}{143}{figure.caption.226}
+\contentsline {figure}{\numberline {4.40}{\ignorespaces Translucent without survivability in high scenario: optical topology after dimensioning.\relax }}{143}{figure.caption.227}
+\contentsline {figure}{\numberline {4.41}{\ignorespaces Translucent with 1+1 protection: allowed physical topology. The allowed physical topology is defined by the duct and sites in the field. It is assumed that each duct supports up to 1 bidirectional transmission system and each site supports up to 1 node.\relax }}{149}{figure.caption.239}
+\contentsline {figure}{\numberline {4.42}{\ignorespaces Translucent with 1+1 protection: allowed optical topology. The allowed optical topology is defined by the transport mode. It is assumed that each connections between demands supports up to 100 lightpaths.\relax }}{150}{figure.caption.240}
+\contentsline {figure}{\numberline {4.43}{\ignorespaces Translucent with 1+1 protection in low scenario: physical topology after dimensioning.\relax }}{152}{figure.caption.241}
+\contentsline {figure}{\numberline {4.44}{\ignorespaces Translucent with 1+1 protection in low scenario: optical topology after dimensioning.\relax }}{153}{figure.caption.242}
+\contentsline {figure}{\numberline {4.45}{\ignorespaces Translucent with 1+1 protection in medium scenario: physical topology after dimensioning.\relax }}{158}{figure.caption.253}
+\contentsline {figure}{\numberline {4.46}{\ignorespaces Translucent with 1+1 protection in medium scenario: optical topology after dimensioning.\relax }}{159}{figure.caption.254}
+\contentsline {figure}{\numberline {4.47}{\ignorespaces Translucent with 1+1 protection in high scenario: physical topology after dimensioning.\relax }}{165}{figure.caption.265}
+\contentsline {figure}{\numberline {4.48}{\ignorespaces Translucent with 1+1 protection in high scenario: optical topology after dimensioning.\relax }}{165}{figure.caption.266}
+\contentsline {figure}{\numberline {4.49}{\ignorespaces Graphic with the cost in Euros per Gbit/s of the three modes of transport without survivability and with 1+1 protection for all scenarios referred initially.\relax }}{172}{figure.caption.278}
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-9}
+\addvspace {10\p@ }
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-10}
+\addvspace {10\p@ }
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-11}
+\addvspace {10\p@ }
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-12}
+\gdef \the@ipfilectr {}

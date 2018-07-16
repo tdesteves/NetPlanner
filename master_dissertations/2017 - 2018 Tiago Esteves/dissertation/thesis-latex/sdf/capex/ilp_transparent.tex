@@ -1,0 +1,41 @@
+
+\subsection{Transparent transport mode}\label{ILP_Transp_Mode}
+
+Once again in this case it is necessary to minimize CAPEX through equation \ref{Capex} where in this case for the cost of nodes we have in consideration electric \ref{Capex_Node_EXC} and optical cost \ref{Capex_Node_OXC}. In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_transparent} for short-reach and by the equation \ref{EXC_pexc2_transparent} for long-reach and the value of $P_{oxc,n}$ is obtained by equation \ref{OXC_poxc_transparent}.\\
+
+The equation \ref{EXC_pexc1_transparent} refers to the number of short-reach ports of the electrical switch with bit-rate $c$ in node $n$, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate $c$ in node $n$ which can be calculated as
+
+\begin{equation}
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc1_transparent}
+\end{equation}
+
+\noindent
+where $D_{nd,c}$ are the client demands between nodes $n$ and $d$ with bit rate $c$.\\
+
+In this case there is the following particularity:
+\begin{itemize}
+  \item When $n$=$d$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
+\end{itemize}
+
+As previously mentioned, the equation \ref{EXC_pexc2_transparent} refers to the number of long-reach ports of the electrical switch with bit-rate -1 in node n, $P_{exc,-1,n}$, i.e. the number of add ports of node n which can be calculated as
+
+\begin{equation}
+P_{exc,-1,n} = \sum_{j=1}^{N} \lambda_{nj}
+\label{EXC_pexc2_transparent}
+\end{equation}
+
+\noindent
+where $\lambda_{nj}$ is the number of optical channels between node $n$ and node $j$.\\
+
+The equation \ref{OXC_poxc_transparent} refers to the number of ports in optical switch in node n, $P_{oxc,n}$, i.e. the number of line ports and the number of adding ports of node n which can be calculated as
+
+\begin{equation}
+P_{oxc,n} = \sum_{j=1}^{N} f_{nj}^{od} + \sum_{j=1}^{N} \lambda_{nj}
+\label{OXC_poxc_transparent}
+\end{equation}
+
+\noindent
+where $f_{nj}^{od}$ refers to the number of line ports for all demand pairs (od) and $\lambda_{nj}$ refers to the number of add ports.\\
+
+In this case, again, the specific variables depend on the mode of survivability. With this in mind in the next chapter we can calculate CAPEX.\\

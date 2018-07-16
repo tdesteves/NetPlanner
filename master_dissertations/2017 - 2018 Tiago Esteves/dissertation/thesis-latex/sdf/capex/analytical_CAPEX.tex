@@ -1,0 +1,136 @@
+
+\section{Analytical models}\label{analytical_CAPEX}
+
+Again, in this section we will only focus on CAPEX, but this time the calculations are made in an analytical way in order to get a different point of view and expected similar results.
+This can be said that the CAPEX cost in monetary units, $C_C$ is given by the equation \ref{analytical_Capex}
+
+\begin{equation}
+C_C = C_L + C_N
+\label{analytical_Capex}
+\end{equation}
+
+\noindent
+where $C_L$ is the Link cost and $C_N$ is the Node cost \cite{aulas}.\\
+
+For this calculation first let's focus on the cost of the links. Where to calculate the cost of the Links, $C_L$, we will use the equation \ref{analytical_linkCosts}
+
+\begin{equation}
+C_L = \left(2 L \gamma_0^{OLT}\right) + \left(2 L \gamma_1^{OLT} \tau <w>\right) + \left(2 N^R c^R\right)
+\label{analytical_linkCosts}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where
+\begin{itemize}
+\item{$\gamma_0^{OLT}$	$\rightarrow$	OLT cost in euros}
+\item{$L$				$\rightarrow$	Number of bidirectional links}
+\item{$\gamma_1^{OLT}$	$\rightarrow$	Transponder cost in euros}
+\item{$<w>$             $\rightarrow$   Average number of optical channels}
+\item{$\tau$		    $\rightarrow$	Line bit rate}
+\item{$N^R$				$\rightarrow$	Total number of optical amplifiers}
+\item{$c^R$				$\rightarrow$	Unidirectional Optical amplifiers cost in euros}
+\end{itemize}
+
+\vspace{11pt}
+Looking at the equation \ref{analytical_linkCosts} we can see that we already have practically all the values of the variables used. Assuming that $\tau$ is 100 Gbits/s is thus only missing the number of optical amplifiers and the average number of optical channels \cite{aulas}.\\
+
+Through the equation \ref{amplifiers} we can calculated the number of optical amplifiers, $N^R$, as
+
+\begin{equation}
+N^R = \sum\limits_{l=1}^L\left(\left\lceil\frac{len_l}{span}\right\rceil-1\right)
+\label{amplifiers}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where $len_l$ is the length of link $l$ and $span$ is the distance between amplifiers (assuming 100 km) \cite{aulas}.\\
+
+Through the equation \ref{optical_channels} we can calculated the average number of optical channels, $<w>$, as
+
+\begin{equation}
+<w> = \left( \frac{\lceil D \times <h> \rceil}{L_u} \right) \left( 1 + <k>\right)
+\label{optical_channels}
+\end{equation}
+
+\noindent
+where $D$ is the number of unidirectional demands, $L_u$ is the number of unidirectional Links and $<k>$ is the survivability coefficient.
+The number os unidirectional demands can be calculated as
+
+\begin{equation}
+D = \left(\frac{1}{2}\right) \left( 1 + \xi \right) \left(\frac{T_1}{\tau}\right)
+\label{demands}
+\end{equation}
+
+\noindent
+where $\xi$ is the grooming coefficient, $T_1$ is the total unidirectional traffic and $\tau$ is the line bit rate \cite{aulas}.\\
+
+The next step is to take into account the cost of the nodes, but for this we must first know how a node is constituted. The nodes have an electrical part and an optical part so we can conclude that the cost of the nodes, $C_N$, is given by the sum of these two parts thus obtaining the equation \ref{analytical_Capex_Node}
+
+\begin{equation}
+C_N = C_{EXC} + C_{OXC}
+\label{analytical_Capex_Node}
+\end{equation}
+
+\vspace{11pt}
+To know the electrical cost, $C_{exc}$, of the nodes that is given by equation \ref{analytical_electricalCost}
+
+\begin{equation}
+C_{exc} = N \times \left( \gamma_{e0} + \left( \gamma_{e1} \tau <P_{exc}> \right) \right) + \gamma_{e1} P_{TRIB}
+\label{analytical_electricalCost}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where:
+\begin{itemize}
+\item{$N$			$\rightarrow$	Number of nodes}
+\item{$\gamma_{e0}$	$\rightarrow$	EXC cost in euros}
+\item{$\gamma_{e1}$	$\rightarrow$	EXC port cost in euros}
+\item{$\tau$		$\rightarrow$	Line bit rate}
+\item{$<P_{exc}>$   $\rightarrow$   Average number of ports of the electrical switch}
+\item{$P_{TRIB}$    $\rightarrow$   Total number of tributary ports}
+\end{itemize}
+
+\vspace{11pt}
+In relation to the optical part, $C_{oxc}$, to know the optical cost of the nodes that is given by equation \ref{analytical_opticalCost}
+
+\begin{equation}
+C_{oxc} = N \times \left( \gamma_{o0} + \left( \gamma_{o1} <P_{oxc}> \right) \right)
+\label{analytical_opticalCost}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where:
+\begin{itemize}
+\item{$N$			$\rightarrow$	Number of nodes}
+\item{$\gamma_{o0}$	$\rightarrow$	OXC cost in euros}
+\item{$\gamma_{o1}$	$\rightarrow$	OXC port cost in euros}
+\item{$<P_{oxc}>$   $\rightarrow$   Average number of ports of the optical switch}
+\end{itemize}
+
+\vspace{11pt}
+Once more, we have to take into account that the calculated value for the variables $<P_{exc}>$ and $<P_{oxc}>$ will depend on the mode of transport used and the variable $P_{TRIB}$ will depend on the scenario but in next subsections will be explained how these values are calculated for each specific transport mode.
+Finally, for this we will also have to take into account the cost of the equipment used that can be consulted in table \ref{table_cost_analytical}.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|| c | c | c ||}
+ \hline
+ Equipment & Symbol & Cost \\
+ \hline\hline
+ OLT without transponders & $\gamma_0^{OLT}$ & 15 000 \euro \\
+ Transponder & $\gamma_1^{OLT}$ & 5 000 \euro/Gb \\
+ Unidirectional Optical Amplifier & $c^R$ & 4 000 \euro \\
+ EXC & $\gamma_{e0}$ & 10 000 \euro \\
+ OXC & $\gamma_{o0}$ & 20 000 \euro \\
+ EXC Line Ports & $\gamma_{e1}$ & 100 000 \euro /port\\
+ EXC Tributary Ports & $\gamma_{e2}$ & 20 \euro /port\\
+ OXC Port & $\gamma_{o1}$ & 2 500 \euro /port \\
+ \hline
+\end{tabular}
+\caption{Table of costs used to calculate CAPEX using analytical models \cite{aulas}.}
+\label{table_cost_analytical}
+\end{table}
+

@@ -1,0 +1,42 @@
+
+\subsection{Opaque transport mode}\label{ILP_Opaque_Mode}
+
+Before we define the variables referred to above we must take into account the following particularities of this means of transport:
+\begin{itemize}
+  \item $N_{OXC,n}$ = 0, \quad $\forall$ n
+  \item $N_{EXC,n}$ = 1, \quad $\forall$ n that process traffic
+\end{itemize}
+
+\vspace{11pt}
+As already mentioned, it is necessary to minimize CAPEX through equation \ref{Capex}. Where in this case for the cost of we only consider the electric cost \ref{Capex_Node_EXC} because of the particularity previously mentioned.
+In this case the value of $P_{exc,c,n}$ is obtained by equation \ref{EXC_pexc1_opaque} for long-reach and by the equation \ref{EXC_pexc2_opaque} for short-reach.\\
+
+As previously mentioned, equation \ref{EXC_pexc1_opaque} refers to the number of long-reach ports of the electrical switch with bit-rate -1 in node n, $P_{exc,-1,n}$, i.e. the number of line ports of node n which can be calculated as
+
+\begin{equation}
+P_{exc,-1,n} = \sum_{j=1}^{N} w_{nj}
+\label{EXC_pexc1_opaque}
+\end{equation}
+\vspace{11pt}
+
+\noindent
+where $w_{nj}$ is the number of optical channels between node $n$ and node $j$.\\
+
+As previously mentioned, equation \ref{EXC_pexc2_opaque} refers to the number of short-reach ports of the electrical switch with bit-rate c in node n, $P_{exc,c,n}$, i.e. the number of tributary ports with bit-rate c in node n which can be calculated as
+
+\begin{equation}
+P_{exc,c,n} = \sum_{d=1}^{N} D_{nd,c}
+\label{EXC_pexc2_opaque}
+\end{equation}
+
+\vspace{11pt}
+\noindent
+where $D_{nd,c}$ are the client demands between nodes $n$ and $d$ with bit rate $c$.\\
+
+In this case there is the following particularity:
+
+\begin{itemize}
+  \item When $n$=$d$ the value of client demands is always zero, i.e, $D_{nn,c}=0$
+\end{itemize}
+
+Although it is defined how the specific variables of this mode of transport are calculated, this value depends on the mode of survivability. Taking this into account in the following chapter it is already possible to calculate the CAPEX.\\

@@ -1,0 +1,35 @@
+
+\section{Translucent with 1+1 protection}\label{comparative_Transluc_Protection}
+
+In last section, once more, for a better analysis of the results table \ref{table_comparative_translucent_protec} was created with all the scenarios used where it is possible to see values obtained and their margin of error for the ILP model. The first is the dimensioning using ILPs \ref{ILP_Transluc_Protection} and the second using heuristic algorithms following a guide document \cite{tesevasco}. It is possible to see these results in detail in the appendices. For this case it was not possible to obtain analytical values for comparison.\\
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+ \multicolumn{2}{| c |}{ } & ILP & Heuristic \\
+ \hline\hline
+ \multirow{3}{*}{\textbf{Low Traffic}} & Link Cost & 10 490 000 \euro & 27 520 000 \euro \\
+  & Node Cost & 2 077 590 \euro & 2 162 590 \euro \\
+  & CAPEX & \textbf{12 567 590 \euro} & \textbf{29 682 590 \euro} (136\%)\\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{Medium Traffic}} & Link Cost & 82 520 000 \euro & 90 520 000 \euro \\
+  & Node Cost & 14 145 900 \euro & 8 855 900 \euro \\
+  & CAPEX & \textbf{96 665 900 \euro} & \textbf{99 375 900 \euro} (2,8\%)\\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{High Traffic}} & Link Cost & 166 520 000 \euro & 169 520 000 \euro \\
+  & Node Cost & 28 531 800 \euro & 16 861 800 \euro \\
+  & CAPEX & \textbf{195 051 800 \euro*} & \textbf{186 381 800 \euro} (4,4\%)\\
+  \hline
+\end{tabular}
+\caption{Translucent with 1+1 protection: Table with different value of CAPEX for all scenarios. }
+\label{table_comparative_translucent_protec}
+\end{table}
+
+
+\vspace{13pt}
+Again, as already mentioned, it is not possible to make comparisons between the ILP and the analytical calculations. Comparing the ILP model with the heuristic model, it is possible to observe that the result obtained by the ILP model is always better than the value obtained by the heuristic for the cases in which the model was executed to the end. For the low scenario, there is a very high margin of error, approximately 136\%, so we can say that for this case the created heuristic is far from the optimal value. For the medium scenario, the margin of error is already quite reduced, being approximately 3\%, therefore, it is a value closer to the optimal cost. Finally, in comparison to the high scenario, the ILP has a value higher than the heuristic so we know that during the deadline established previously it was not possible to find the optimum value. We can say that if the heuristic algorithm is well created the optimal value will be a little lower than this or even equal.

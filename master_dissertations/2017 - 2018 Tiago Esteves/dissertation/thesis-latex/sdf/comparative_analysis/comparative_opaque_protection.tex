@@ -1,0 +1,35 @@
+\clearpage
+
+\section{Opaque with 1+1 protection}\label{comparative_Opaque_Protection}
+
+One more time we will compare the CAPEX values obtained for the three scenarios in the three types of design. The first is the dimensioning using ILPs \ref{ILP_Opaque_Protection}, the second through analytical models \ref{analytical_Opaque_Protection} and finally using heuristic algorithms following a guide document \cite{tesevasco}. It is possible to see these results in detail in the appendices.\\
+For a better analysis of the results, table \ref{table_comparative_opaque_protec} was created, with all the scenarios used where it is possible to see values obtained and their margin of error for the ILP model.\\
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+ \hline
+ \multicolumn{2}{| c |}{ } & ILP & Analytical & Heuristic \\
+ \hline\hline
+ \multirow{3}{*}{\textbf{Low Traffic}} & Link Cost & 22 520 000 \euro & 21 392 000 \euro & 23 520 000 \euro \\
+  & Node Cost & 4 462 590 \euro & 4 062 380 \euro & 4 662 590 \euro \\
+  & CAPEX & \textbf{26 982 590 \euro} & \textbf{25 454 380 \euro} (6\%)& \textbf{28 182 590 \euro} (4\%)\\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{Medium Traffic}} & Link Cost & 199 520 000 \euro & 201 400 000 \euro & 199 520 000 \euro \\
+  & Node Cost & 39 885 900 \euro & 40 083 260 \euro & 39 885 900 \euro \\
+  & CAPEX & \textbf{239 405 900 \euro} & \textbf{241 483 260 \euro} (0,7\%)& \textbf{239 405 900 \euro} (0\%)\\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{High Traffic}} & Link Cost & 397 520 000 \euro & 401 001 500 \euro & 397 520 000 \euro \\
+  & Node Cost & 79 511 800 \euro & 80 106 280 \euro & 79 514 200 \euro \\
+  & CAPEX & \textbf{477 031 800 \euro} & \textbf{481 107 780 \euro} (0,8\%)& \textbf{477 034 200 \euro} (0\%)\\
+ \hline
+\end{tabular}
+\caption{Opaque with 1+1 protection: Table with different value of CAPEX for all scenarios.}
+\label{table_comparative_opaque_protec}
+\end{table}
+
+\vspace{13pt}
+Again, as expected, in all three scenarios, the result obtained by the ILP model is always better (smaller) than the value obtained through the heuristic. As the ILP model always gets the optimal solution, another scenario could not happen. As it is possible to see for average traffic values, the heuristics can reach the optimum value, thus concluding that the higher the traffic, the smaller the difference between the ILP and the heuristics. Compared to the analytical value, as this model works with mean values the comparison is made taking into account its margin of error. It can be concluded that this value always has a margin of error of less than 5\% for the low scenario and less than 1\% for the other two scenarios. We can conclude that after obtaining the analytical value, if we apply the margin of error mentioned above, we know that in this interval is the optimal cost.

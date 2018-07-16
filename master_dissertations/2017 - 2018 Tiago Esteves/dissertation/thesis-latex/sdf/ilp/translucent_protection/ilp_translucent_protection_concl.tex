@@ -1,0 +1,37 @@
+\clearpage
+\subsection{Conclusions}
+
+Once we have obtained the results for all the scenarios we will now draw some conclusions about these results. For a better analysis of the results will be created the table \ref{table_comparative_transluc_protec}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c |}
+ \hline
+  & Low Traffic & Medium Traffic  & High Traffic \\
+ \hline\hline
+ CAPEX without survivability&7 531 590 \euro&43 427 900 \euro&85 988 800 \euro\\ \hline
+ CAPEX/Gbit/s without survivability&15 063 \euro/Gbit/s& 8 686 \euro/Gbit/s&8 599 \euro/Gbit/s\\ \hline
+ Traffic (Gbit/s) & 500 & 5 000 & 10 000 \\ \hline
+ Number of Add ports & 18 & 132 & 268 \\ \hline
+ Number of Line ports & 20 & 164 & 332 \\ \hline
+ Number of Tributary ports & 136 & 1 360 & 2 720 \\ \hline
+ Number of Transceivers & 20 & 164 & 332 \\ \hline
+ Number of Transponders & 18 & 132 & 268 \\ \hline
+ Link Cost & 10 490 000 \euro & 82 520 000 \euro & 166 520 000 \euro \\ \hline
+ Node Cost & 2 077 590 \euro & 14 145 900 \euro & 28 531 800 \euro \\ \hline
+ CAPEX & \textbf{12 567 590 \euro} & \textbf{96 665 900 \euro} & \textbf{195 051 800 \euro} \\ \hline
+ CAPEX/Gbit/s & \textbf{25 135 \euro/Gbit/s} & \textbf{19 333 \euro/Gbit/s} & \textbf{19 505 \euro/Gbit/s}\\
+ \hline
+\end{tabular}
+\caption{Translucent with 1+1 protection: table with the various CAPEX values obtained in the different traffic scenarios.}
+\label{table_comparative_transluc_protec}
+\end{table}
+
+Looking at the previous table we can make some comparisons between the several scenarios:
+
+\begin{itemize}
+    \item Comparing the low traffic with the others we can see that despite having an increase of factor ten (medium traffic) and factor twenty (high traffic), the same increase does not occur in the final cost (it is lower). This happens because the number of the transceivers is lower than expected which leads by carrying the traffic with less network components and, consequently, the network CAPEX is lower.
+  \item Comparing the average traffic with the high traffic, we can see that the factor increase is double and in the final cost this factor is very close, being in this case a little higher than expected. This happens because in case with high traffic is not guaranteed the optimal cost may soon be higher and closer than expected.
+  \item Comparing the CAPEX cost per bit we can see that in the low traffic the cost is higher than the medium and high traffic, which in these two cases the value is similar, but still inferior in the medium traffic. This happens because the higher the traffic, the lower CAPEX/Gbit/s will be. We can see that in medium and high traffic the results tend to be one closer and lower value.
+  \item Comparing this cost with the without survivability cost we can conclude that protection is significantly more expensive. As can be seen in the table this increase is approximately double as with 1+1 protection we have a cost more than twice than the cost without survivability.
+\end{itemize}

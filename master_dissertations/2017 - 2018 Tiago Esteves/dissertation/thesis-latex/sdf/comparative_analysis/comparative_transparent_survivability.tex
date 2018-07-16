@@ -1,0 +1,35 @@
+\clearpage
+
+\section{Transparent without survivability}\label{comparative_Transp_Survivability}
+
+For a better analysis of the results, table \ref{table_comparative_transp_sur} was created, with all the scenarios used where it is possible to see values obtained and their margin of error for the ILP model. The first is the dimensioning using ILPs \ref{ILP_Transp_Survivability}, the second through analytical models \ref{analytical_Transp_Survivability} and finally using heuristic algorithms following a guide document \cite{tesevasco}. It is possible to see these results in detail in the appendices.\\
+
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{| c | c | c | c | c |}
+ \hline
+ \multicolumn{2}{| c |}{ } & ILP & Analytical & Heuristic \\
+ \hline\hline
+ \multirow{3}{*}{\textbf{Low Traffic}} & Link Cost & 26 520 000 \euro & 9 520 000 \euro & 26 520 000 \euro \\
+  & Node Cost & 3 797 590 \euro & 1 307 792 \euro & 3 797 590 \euro \\
+  & CAPEX & \textbf{30 317 590 \euro} & \textbf{10 827 792 \euro} (64\%)& \textbf{30 317 590 \euro} (0\%)\\
+  \hline
+ \hline
+ \multirow{3}{*}{\textbf{Medium Traffic}} & Link Cost & 84 520 000 \euro & 87 020 000 \euro & 84 520 000 \euro \\
+  & Node Cost & 12 310 900 \euro & 12 169 607 \euro & 15 180 900 \euro \\
+  & CAPEX & \textbf{96 830 900 \euro} & \textbf{99 189 607 \euro} (2,4\%)& \textbf{99 700 900 \euro} (3\%)\\
+ \hline
+ \hline
+ \multirow{3}{*}{\textbf{High Traffic}} & Link Cost & 157 520 000 \euro & 173 020 000 \euro & 157 520 000 \euro \\
+  & Node Cost & 22 951 800 \euro & 24 159 213 \euro & 28 486 800 \euro \\
+  & CAPEX & \textbf{180 471 800 \euro} & \textbf{197 179 213 \euro} (9,2\%)& \textbf{186 006 800 \euro} (3\%)\\
+ \hline
+\end{tabular}
+\caption{Transparent without survivability: Table with different value of CAPEX for all scenarios.}
+\label{table_comparative_transp_sur}
+\end{table}
+
+\vspace{13pt}
+Comparing the ILP model with the analytical model for this transport mode without survivability we noticed that for the low scenario there is a very high margin of error, approximately 64\%, this error is high due to the grooming coefficient. For the analytic model this value is initially defined and is fixed for any scenario but in the case of the ILP model this does not happen. In the ILP model, the coefficient varies and in the low scenario case due to the existence of little traffic this coefficient is much higher than the analytical one. For the remaining scenarios it is possible to conclude that there is a much lower margin of error (below 10\%). In comparison with the heuristic model, once again as expected, the result obtained by the ILP model is always better than the value obtained through the heuristic. In the case of low scenario the heuristic can achieve the optimum cost. In this mode of transport, the smaller the amount of traffic, the heuristic is closer to the ILP model.

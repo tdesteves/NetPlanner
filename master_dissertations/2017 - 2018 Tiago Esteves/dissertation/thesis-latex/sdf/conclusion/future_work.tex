@@ -1,0 +1,40 @@
+\clearpage
+
+\section{Conclusions}
+
+This thesis begins by defining how the CAPEX of the network will be calculated, available in Chapter \ref{chap_reference_network}, using ILP models and analytical models. In chapter \ref{chap_ilp} we can see the ILP models developed for the three transport modes (opaque, transparent and translucent) without survivability and with 1+1 protection. These models contain a set of constraints used to minimize the objective function in order to find an optimal solution. In each subsection of this chapter we can see the results obtained. For a comparative analysis in chapter \ref{chap_analytical} the CAPEX is calculated analytically for all cases already mentioned. Finally, we compare these values with the heuristic algorithms created in an earlier dissertation.\\
+
+After completing this process it is possible to draw several conclusions. Starting from the analytical model, we can conclude that in a general way all the formulas and deductions mentioned in subchapter \ref{analytical_CAPEX} for opaque and transparent mode (translucent was not performed) are correct because in chapter \ref{chap_comparative} we see that for practically all cases we obtain a margin of error less than 10\%. The only exception is the transparent mode for low traffic, because the coefficient of grooming is static and in the ILP model this does not happen.\\
+
+Looking now for the heuristic algorithms we can conclude that for the transparent mode the relative error was quite low, so these algorithms may be a good solution to the real and more complex problem. Considering that the ILP models for these cases take a long time to obtain results. In relation to the opaque mode this error was also relatively low, there is an exception of the opaque mode without survivability for low scenario because the algorithm can not remove links from the network that are not strictly necessary, something that the ILP model can do. If the network has a high amount of traffic it is a good solution to use the heuristics otherwise it is advisable to use the ILP model in spite of the time it takes because it is possible to reduce many connections. In the case of the translucent, the relative error is already a little larger and is not a good solution for the real problem because we will never know if it would be close to the optimal solution.\\
+
+Finally, regarding the modes of transport considering the ILP models we can say that the best is the translucent mode because it provides a lower cost than the other modes allowing to carry more traffic. The main advantage of this mode is that it allows different pairs $(o,d)$ to use the same optical channel, therefore decreasing the value of the required optical channels. The transparent mode is not recommended for cases of low traffic because although the route is defined between the source node and the destination node, it always defines an optical channel for that pair $(o,d)$, therefore increasing the value of the optical channels and consequently CAPEX. A final conclusion about these models is that regardless of the model chosen it is always more advantageous to put a high traffic in the network because the cost per Gbit/s becomes cheaper.
+
+\section{Future directions}
+\label{future}
+
+Throughout this dissertation specific situations were analyzed and some open uses were discovered. Future work suggests the following important topics:\\
+
+\textbf{Opaque, transparent and translucent transport mode}
+\begin{itemize}
+  \item Allow blocking because the presented model assume that the solution is possible or impossible, does not support a partial solution where some demands are not routed.
+  \item Assume a multiple transmission system, that is, for each link there is more than one transmission system.
+\end{itemize}
+
+\textbf{Opaque and transparent transport mode}
+\begin{itemize}
+  \item Allowing multi-path routing, so that not all demands that sharing the same end nodes have to follow the same path.
+\end{itemize}
+
+\textbf{Translucent transport mode}
+\begin{itemize}
+  \item Consent to a Maximum Reach.
+  \item Define the variable $N_{oxc}$ as not being fixed allowing only certain nodes instead of all.
+\end{itemize}
+
+\textbf{Analytical model}
+\begin{itemize}
+  \item It's necessary to focus on the calculation of the CAPEX for translucent mode.
+  \item Include the LR transponders in the node instead of being calculated on the link.
+\end{itemize}
+
